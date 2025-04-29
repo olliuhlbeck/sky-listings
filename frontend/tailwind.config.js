@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        courier: ['Courier New'],
+        courier: ['"Courier New"', 'Courier', 'monospace'],
       },
     },
   },
