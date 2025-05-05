@@ -1,7 +1,7 @@
 import './App.css';
 import { Outlet } from 'react-router-dom';
 import HeaderContainer from '../components/HeaderComponents/HeaderContainer';
-import background from './assets/background.jpg';
+import background from './assets/background.png';
 import { useState } from 'react';
 import Footer from '../components/FooterComponents/Footer';
 
