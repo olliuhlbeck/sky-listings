@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import { HeaderContainerProps } from '../../types/HeaderContainerProps';
 import HeaderButton from '../HeaderComponents/HeaderButton';
-import { VscGithub } from 'react-icons/vsc';
 import IconComponent from '../GeneralComponents/IconComponent';
+import { VscGithub } from 'react-icons/vsc';
+import { CiLogin } from 'react-icons/ci';
 
 const HeaderContainer = ({ title, link }: HeaderContainerProps) => {
   const navigationLinks = [
@@ -16,10 +17,13 @@ const HeaderContainer = ({ title, link }: HeaderContainerProps) => {
           <IconComponent icon={VscGithub} size={32} />
           <h2 className='text-2xl text-center hidden md:block'>{title}</h2>
         </Link>
-        <div className='absolute left-1/2 transform -translate-x-1/2 space-x-2 hidden xl:block'>
+        <div className='absolute left-1/2 transform -translate-x-1/2 space-x-2 hidden xl:flex'>
           {navigationLinks.map(({ text, link }) => (
             <HeaderButton key={`${link}HeaderButton`} text={text} link={link} />
           ))}
+        </div>
+        <div>
+          <HeaderButton icon={CiLogin} text='Log in' link='login' />
         </div>
       </div>
     </header>
