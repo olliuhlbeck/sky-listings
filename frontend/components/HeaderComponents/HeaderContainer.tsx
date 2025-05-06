@@ -23,7 +23,7 @@ const HeaderContainer = ({ title, link }: HeaderContainerProps) => {
           ))}
         </div>
         <div>
-          <HeaderButton icon={CiLogin} text='Log in' link='login' />
+          <HeaderButton icon={CiLogin} text='Login' link='login' />
         </div>
       </div>
     </header>
