@@ -16,7 +16,7 @@ npm run dev
 # Backend
 cd backend
 npm install
-npx prisma migrate deploy
+npx prisma migrate dev
 npm run dev
 ```
 
