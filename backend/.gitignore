@@ -29,3 +29,6 @@ dist-ssr
 
 # Vite
 .vite/
+
+# Ignore generated Prisma client folder
+/generated/
