@@ -1,6 +1,7 @@
 import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
 import unknownEndpoint from './middlewares/unknownEndpoint/unknowEndpoint';
+import signupRouter from './routers/signupRouter/signupRouter';
 
 const server: Express = express();
 
@@ -11,6 +12,8 @@ const corsOptions = {
 
 server.use(cors(corsOptions));
 server.use(express.json());
+
+server.use('/signup', signupRouter);
 
 server.get('/api', (req: Request, res: Response): void => {
   res.json({ message: 'Welcome to backend!' });
