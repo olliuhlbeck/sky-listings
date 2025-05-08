@@ -15,10 +15,10 @@ datasource db {
 }
 
 model User {
-  id        Int     @id @unique @default(autoincrement())
+  id        Int     @id @default(autoincrement())
   email     String  @unique @db.VarChar(50)
   username  String  @unique @db.VarChar(50)
-  password  String  @unique @db.VarChar(50)
+  password  String  @db.VarChar(50)
 
   info UserInfo?
 
