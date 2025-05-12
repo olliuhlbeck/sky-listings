@@ -27,6 +27,8 @@ signupRouter.post(
     res: Response<UserSignUpSuccess | GeneralErrorResponse>,
   ) => {
     const { email, username, password } = req.body;
+    const normalizedUsername = username.trim().toLowerCase();
+    const normalizedPassword = password.trim();
     try {
       const JWT_SECRET = process.env.SECRET;
       if (!JWT_SECRET) {
@@ -37,7 +39,6 @@ signupRouter.post(
         return;
       }
 
-      const normalizedUsername = username.trim().toLowerCase();
       const checkIfUsernameExists = await prisma.user.findUnique({
         where: { username: normalizedUsername },
       });
@@ -57,7 +58,7 @@ signupRouter.post(
         });
         return;
       }
-      const hashedPassword = await argon2.hash(password);
+      const hashedPassword = await argon2.hash(normalizedPassword);
       const createNewUser = await prisma.user.create({
         data: {
           email: email,
