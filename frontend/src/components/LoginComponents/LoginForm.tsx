@@ -167,7 +167,7 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
           : 'Already have a account?'}
         <button
           type='button'
-          className='hover:cursor-pointer hover:bg-sky-200 p-2 rounded-full'
+          className='hover:cursor-pointer hover:bg-sky-200 p-2 ml-2 rounded-md'
           onClick={switchAction}
         >
           {action === ActionType.Login
