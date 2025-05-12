@@ -1,8 +1,8 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import App from '../src/App';
-import HomePage from '../pages/HomePage/HomePage';
-import Pagination from '../pages/Pagination/Pagination';
-import LoginPage from '../pages/LoginPage/LoginPage';
+import HomePage from '../src/pages/HomePage/HomePage';
+import Pagination from '../src/pages/Pagination/Pagination';
+import LoginPage from '../src/pages/LoginPage/LoginPage';
 
 export const router = createBrowserRouter([
   {
