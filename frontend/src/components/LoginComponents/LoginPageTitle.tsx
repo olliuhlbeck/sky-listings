@@ -1,4 +1,4 @@
-import loginBackground from '../../src/assets/loginBackground.jpg';
+import loginBackground from '../../assets/loginBackground.jpg';
 import { ActionType } from '../../types/ActionType';
 import { LoginComponentProps } from '../../types/LoginComponentProps';
 
