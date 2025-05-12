@@ -28,7 +28,10 @@ const SERVER_ERROR: GeneralErrorResponse = {
 loginRouter.post(
   '/',
   loginValidate,
-  async (req: Request<{}, {}, LoginUserDto>, res: Response) => {
+  async (
+    req: Request<{}, {}, LoginUserDto>,
+    res: Response<UserLoginSuccess | GeneralErrorResponse>,
+  ) => {
     const { username, password } = req.body;
     const normalizedUsername = username.trim().toLowerCase();
     const normalizedPassword = password.trim();
