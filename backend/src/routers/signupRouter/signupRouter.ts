@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import signupValidate from '../../middlewares/signupAndLogin/signupValidate';
 import { PrismaClient } from '../../../generated/prisma';
-import { CreateUserDto } from '../../dtos/CreateUser.dto';
+import { CreateUserDto } from '../../types/dtos/CreateUser.dto';
 import argon2 from 'argon2';
 import { UserSignUpSuccess } from '../../types/user-signup-response';
 import { GeneralErrorResponse } from '../../types/general-error';
