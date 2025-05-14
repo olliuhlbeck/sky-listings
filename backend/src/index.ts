@@ -3,7 +3,9 @@ import cors from 'cors';
 import unknownEndpoint from './middlewares/unknownEndpoint/unknowEndpoint';
 import signupRouter from './routers/signupRouter/signupRouter';
 import loginRouter from './routers/loginRouter/loginRouter';
+import dotenv from 'dotenv';
 
+dotenv.config();
 const server: Express = express();
 
 const PORT: number = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;

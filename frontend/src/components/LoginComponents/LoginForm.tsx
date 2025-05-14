@@ -18,7 +18,17 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
     username?: string;
     email?: string;
     password?: string;
+    generalError?: string;
   }>({});
+
+  const resetForm = () => {
+    setInputs({
+      email: '',
+      username: '',
+      password: '',
+    });
+    setErrors({});
+  };
 
   const handleUserNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputs({ ...inputs, username: event.target.value });
@@ -38,11 +48,9 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
     return emailRegex.test(email) ? '' : 'Please enter a valid email.';
   };
-
   const validateUsername = (username: string) => {
     return username.trim().length > 0 ? '' : 'Username is required.';
   };
-
   const validatePassword = (password: string) => {
     return password.length >= 6 ? '' : 'Min. length 6 characters.';
   };
@@ -55,7 +63,7 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
     }
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const emailError =
@@ -72,7 +80,58 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
       return;
     }
 
+    if (action === ActionType.Login) {
+      const response = await fetch('http://localhost:3000/login/', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: inputs.username,
+          password: inputs.password,
+        }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        console.log(data.message);
+      } else {
+        const data = await response.json();
+        const message =
+          data.error ||
+          data.message ||
+          'Something went wrong. Please try again.';
+        setErrors((prev) => ({ ...prev, generalError: message }));
+        console.error(`${action} error:`, message);
+        return;
+      }
+    } else if (action === ActionType.SignUp) {
+      const response = await fetch('http://localhost:3000/signup', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: inputs.email,
+          username: inputs.username,
+          password: inputs.password,
+        }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        console.log(data.message);
+      } else {
+        const data = await response.json();
+        const message =
+          data.error ||
+          data.message ||
+          'Something went wrong. Please try again.';
+        setErrors((prev) => ({ ...prev, generalError: message }));
+        console.error(`${action} error:`, message);
+        return;
+      }
+    }
     console.log('Form submitted successfully');
+    resetForm();
   };
 
   const isFormValid = !errors.username && !errors.email && !errors.password;
@@ -160,6 +219,10 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
       >
         {action === ActionType.Login ? 'Login' : 'Sign Up'}
       </button>
+
+      {errors.generalError && (
+        <span className='text-red-500 text-sm w-52'>{errors.generalError}</span>
+      )}
 
       <div>
         {action === ActionType.Login
