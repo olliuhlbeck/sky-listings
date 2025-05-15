@@ -7,6 +7,8 @@ import { useState } from 'react';
 import { LoginComponentProps } from '../../types/LoginComponentProps';
 import { ActionType } from '../../types/ActionType';
 import { LoginInputs } from '../../types/LoginInputs';
+import { useAuth } from '../../utils/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm = ({ action, setAction }: LoginComponentProps) => {
   const [inputs, setInputs] = useState<LoginInputs>({
@@ -20,6 +22,9 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
     password?: string;
     generalError?: string;
   }>({});
+
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
   const resetForm = () => {
     setInputs({
@@ -93,6 +98,7 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
       });
       const data = await response.json();
       if (response.ok) {
+        login(data.token);
         console.log(data.message);
       } else {
         const data = await response.json();
@@ -118,6 +124,7 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
       });
       const data = await response.json();
       if (response.ok) {
+        login(data.token);
         console.log(data.message);
       } else {
         const data = await response.json();
@@ -130,8 +137,8 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
         return;
       }
     }
-    console.log('Form submitted successfully');
     resetForm();
+    navigate('/');
   };
 
   const isFormValid = !errors.username && !errors.email && !errors.password;
