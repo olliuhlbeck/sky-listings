@@ -3,13 +3,17 @@ import { HeaderContainerProps } from '../../types/HeaderContainerProps';
 import HeaderButton from '../HeaderComponents/HeaderButton';
 import IconComponent from '../GeneralComponents/IconComponent';
 import { VscGithub } from 'react-icons/vsc';
-import { CiLogin } from 'react-icons/ci';
+import { CiLogin, CiLogout } from 'react-icons/ci';
+import { useAuth } from '../../utils/useAuth';
 
 const HeaderContainer = ({ title, link }: HeaderContainerProps) => {
   const navigationLinks = [
     { text: 'Home', link: 'home' },
     { text: 'Pagination', link: 'pagination' },
   ];
+
+  const { isAuthenticated, logout, user } = useAuth();
+
   return (
     <header className='fixed top-0 left-0 w-full z-'>
       <div className='container mx-auto flex items-center justify-between p-6'>
@@ -22,8 +26,22 @@ const HeaderContainer = ({ title, link }: HeaderContainerProps) => {
             <HeaderButton key={`${link}HeaderButton`} text={text} link={link} />
           ))}
         </div>
-        <div>
-          <HeaderButton icon={CiLogin} text='Login' link='login' />
+        <div className='flex items-center gap-2'>
+          {!isAuthenticated ? (
+            <HeaderButton icon={CiLogin} text='Login' link='login' />
+          ) : (
+            <>
+              <p>
+                logged in as: <strong>{user}</strong>
+              </p>
+              <HeaderButton
+                icon={CiLogout}
+                text='Logout'
+                link='home'
+                onClick={logout}
+              />
+            </>
+          )}
         </div>
       </div>
     </header>
