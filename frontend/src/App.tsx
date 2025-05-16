@@ -1,7 +1,6 @@
 import './App.css';
 import { Outlet } from 'react-router-dom';
 import HeaderContainer from '../src/components/HeaderComponents/HeaderContainer';
-import background from './assets/background.png';
 import { useState } from 'react';
 import Footer from '../src/components/FooterComponents/Footer';
 
@@ -9,8 +8,7 @@ function App() {
   const [footerVisible, setFooterVisible] = useState<boolean>(true);
   return (
     <div
-      className='flex flex-col w-full min-h-screen text-center font-mono bg-cover bg-center text-slate-900'
-      style={{ backgroundImage: `url(${background})` }}
+      className={`flex flex-col w-full min-h-screen text-center font-mono bg-cover bg-center bg-[url('./assets/background.png')] text-slate-900`}
     >
       <HeaderContainer title='Coding practice' link='home' />
       <main className='flex-grow pt-18'>
