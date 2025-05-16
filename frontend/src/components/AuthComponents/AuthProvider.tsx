@@ -1,37 +1,48 @@
 import { ReactNode, useEffect, useState } from 'react';
 import AuthContext from '../../context/AuthContext';
 import { jwtDecode } from 'jwt-decode';
+import { DecodedToken } from '../../types/auth/auth';
+import checkTokenExpTime from '../../utils/checkTokenExpTime';
 
 interface AuthProviderProps {
   children: ReactNode;
 }
 
-interface DecodedToken {
-  username: string;
-}
-
 const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [token, setToken] = useState<string | null>(null);
+  const [token, setToken] = useState<string | null>(() =>
+    localStorage.getItem('authToken'),
+  );
   const [user, setUser] = useState<string | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
-  useEffect(() => {
-    const storedToken = localStorage.getItem('authToken');
-    if (storedToken) {
-      setToken(storedToken);
-    }
-  }, []);
+  const resetTokenState = () => {
+    setIsAuthenticated(false);
+    setUser(null);
+    localStorage.removeItem('authToken');
+    setToken(null);
+  };
 
   useEffect(() => {
     if (token) {
       const decodedToken = jwtDecode<DecodedToken>(token);
-      if (typeof decodedToken === 'object' && decodedToken !== null) {
-        setUser(decodedToken.username);
-        setIsAuthenticated(true);
+      if (decodedToken && decodedToken.exp) {
+        const delay = checkTokenExpTime(token);
+
+        if (delay !== null) {
+          setUser(decodedToken.username);
+          setIsAuthenticated(true);
+
+          const timeoutId = setTimeout(() => {
+            resetTokenState();
+          }, delay);
+
+          return () => clearTimeout(timeoutId);
+        } else {
+          resetTokenState();
+        }
       }
     } else {
-      setUser(null);
-      setIsAuthenticated(false);
+      resetTokenState();
     }
   }, [token]);
 
@@ -41,10 +52,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const logout = (): void => {
-    localStorage.removeItem('authToken');
-    setToken(null);
-    setUser(null);
-    setIsAuthenticated(false);
+    resetTokenState();
   };
 
   return (
