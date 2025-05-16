@@ -16,6 +16,13 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
   useEffect(() => {
+    const storedToken = localStorage.getItem('authToken');
+    if (storedToken) {
+      setToken(storedToken);
+    }
+  }, []);
+
+  useEffect(() => {
     if (token) {
       const decodedToken = jwtDecode<DecodedToken>(token);
       if (typeof decodedToken === 'object' && decodedToken !== null) {
@@ -29,10 +36,12 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, [token]);
 
   const login = (newToken: string) => {
+    localStorage.setItem('authToken', newToken);
     setToken(newToken);
   };
 
   const logout = (): void => {
+    localStorage.removeItem('authToken');
     setToken(null);
     setUser(null);
     setIsAuthenticated(false);
