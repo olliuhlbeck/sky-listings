@@ -2,8 +2,9 @@ import { IconType } from 'react-icons';
 
 export interface AdTypes {
   title: string;
-  icon: IconType;
   message: string;
   buttonText: string;
+  addToClassName?: string;
+  icon: IconType;
   onClick?: () => void;
 }
