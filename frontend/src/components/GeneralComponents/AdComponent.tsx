@@ -1,0 +1,42 @@
+import IconComponent from './IconComponent';
+
+import { AdTypes } from '../../types/AdTypes';
+
+const AdComponent = ({
+  icon,
+  title,
+  message,
+  buttonText,
+  onClick,
+}: AdTypes) => {
+  const handleClick = onClick
+    ? onClick
+    : (e: React.MouseEvent<HTMLAnchorElement>) => {
+        e.preventDefault();
+        console.log('Dummy advertisement.');
+      };
+
+  return (
+    <div className='flex w-4/6 items-center p-4 rounded-md shadow-lg shadow-slate-500 bg-sky-800 gap-10'>
+      <div className='pl-6 hidden md:block'>
+        <IconComponent icon={icon} size={36} className='text-sky-200' />
+      </div>
+      <div className='w-full'>
+        <h2 className='text-gray-50 font-bold text-2xl'>{title}</h2>
+        <p className='text-gray-50 my-4'>{message}</p>
+        <a
+          href='#'
+          onClick={handleClick}
+          className='inline-block border-none p-2 rounded-full w-content md:w-3xs bg-sky-200 hover:bg-sky-300 hover:cursor-pointer text-center'
+        >
+          {buttonText}
+        </a>
+      </div>
+      <div className='pr-6 hidden md:block'>
+        <IconComponent icon={icon} size={36} className='text-sky-200' />
+      </div>
+    </div>
+  );
+};
+
+export default AdComponent;
