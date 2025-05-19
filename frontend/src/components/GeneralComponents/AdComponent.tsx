@@ -8,6 +8,7 @@ const AdComponent = ({
   message,
   buttonText,
   onClick,
+  addToClassName,
 }: AdTypes) => {
   const handleClick = onClick
     ? onClick
@@ -17,7 +18,9 @@ const AdComponent = ({
       };
 
   return (
-    <div className='flex w-4/6 items-center p-4 rounded-md shadow-lg shadow-slate-500 bg-sky-800 gap-10'>
+    <div
+      className={`flex w-4/6 items-center p-4 rounded-md shadow-lg shadow-slate-500 bg-sky-800 gap-10 ${addToClassName}`}
+    >
       <div className='pl-6 hidden md:block'>
         <IconComponent icon={icon} size={36} className='text-sky-200' />
       </div>
@@ -27,7 +30,7 @@ const AdComponent = ({
         <a
           href='#'
           onClick={handleClick}
-          className='inline-block border-none p-2 rounded-full w-content md:w-3xs bg-sky-200 hover:bg-sky-300 hover:cursor-pointer text-center'
+          className='inline-block border-none p-2 rounded-full w-content md:w-3xs bg-sky-100 hover:bg-sky-200 hover:cursor-pointer text-center'
         >
           {buttonText}
         </a>
