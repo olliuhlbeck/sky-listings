@@ -1,13 +1,11 @@
-import loginBackground from '../../assets/loginBackground.jpg';
 import { ActionType } from '../../types/ActionType';
 import { LoginComponentProps } from '../../types/LoginComponentProps';
 
 const LoginPageTitle = ({ action }: LoginComponentProps) => {
   return (
     <div
-      className='h-full w-1/3 bg-cover bg-center bg-no-repeat hidden md:flex items-center justify-center rounded-r-md'
+      className={`bg-[url('./assets/loginBackground.jpg')] h-full w-1/3 bg-cover bg-center bg-no-repeat hidden md:flex items-center justify-center rounded-r-md`}
       style={{
-        backgroundImage: `url(${loginBackground})`,
         clipPath: 'polygon(15% 0, 100% 0, 100% 100%, 0 100%)',
       }}
     >
