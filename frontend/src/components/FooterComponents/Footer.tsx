@@ -8,7 +8,7 @@ import { MdAlternateEmail } from 'react-icons/md';
 const Footer: React.FC<FooterProps> = ({ footerVisible, setFooterVisible }) => {
   return (
     <footer
-      className={`bg-sky-200 sticky bottom-0 ${footerVisible ? 'w-full px-4 md:px-16 lg:px-28 py-6' : 'ml-auto mr-2 w-18 h-14 rounded-t-md'} `}
+      className={`bg-sky-200 sticky bottom-0 ${footerVisible ? 'w-full px-4 md:px-16 lg:px-28 py-4' : 'ml-auto mr-2 w-18 h-14 rounded-t-md'} `}
     >
       <button
         className='absolute top-2 right-4 hover:text-slate-100 hover:cursor-pointer transition pr-3 py-3'
@@ -59,7 +59,7 @@ const Footer: React.FC<FooterProps> = ({ footerVisible, setFooterVisible }) => {
               </ul>
             </div>
           </div>
-          <div className='border-t text-center pt-6 mt-4'>
+          <div className='border-t text-center pt-4'>
             <p>© 2025 My Coding pracs. All rights reserved.</p>
           </div>
         </>
