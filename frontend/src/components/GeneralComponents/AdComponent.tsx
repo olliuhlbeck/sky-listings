@@ -2,14 +2,14 @@ import IconComponent from './IconComponent';
 
 import { AdTypes } from '../../types/AdTypes';
 
-const AdComponent = ({
+const AdComponent: React.FC<AdTypes> = ({
   icon,
   title,
   message,
   buttonText,
   onClick,
   addToClassName,
-}: AdTypes) => {
+}) => {
   const handleClick = onClick
     ? onClick
     : (e: React.MouseEvent<HTMLAnchorElement>) => {
