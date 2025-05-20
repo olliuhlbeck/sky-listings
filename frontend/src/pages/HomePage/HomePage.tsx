@@ -20,7 +20,7 @@ const HomePage = () => {
               backgroundImage='browseHouses.jpg'
             />
             <ContentButtonCard
-              buttonText='Register to list your property!'
+              buttonText='List your property for sale!'
               backgroundImage='sellHouse.jpg'
             />
           </div>
@@ -28,7 +28,7 @@ const HomePage = () => {
       ) : (
         <>
           <h1 className='text-3xl my-2'>Welcome to Sky Listings!</h1>
-          <div className='flex gap-4 w-4/6'>
+          <div className='flex flex-col lg:flex-row w-4/6 gap-6'>
             <ContentButtonCard
               buttonText='Browse properties'
               backgroundImage='browseHouses.jpg'
@@ -37,7 +37,7 @@ const HomePage = () => {
               className={`min-h-[12rem] lg:min-h-[24rem] shadow-lg shadow-slate-500 flex flex-1 justify-center items-center rounded-lg bg-[url('./assets/registerFront.png')] bg-cover bg-center`}
             >
               <button
-                className='text-2xl bg-sky-200 text-slate-900 rounded-md p-2 hover:bg-sky-400 hover:cursor-pointer'
+                className='w-[16rem] md:w-[20rem] text-2xl bg-sky-200 text-slate-900 rounded-md p-2 hover:bg-sky-400 hover:cursor-pointer'
                 onClick={() =>
                   navigate('login', { state: { action: ActionType.SignUp } })
                 }
