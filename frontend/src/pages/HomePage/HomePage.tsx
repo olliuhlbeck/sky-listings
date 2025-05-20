@@ -3,6 +3,7 @@ import AdComponent from '../../components/GeneralComponents/AdComponent';
 import { useAuth } from '../../utils/useAuth';
 import { useNavigate } from 'react-router-dom';
 import { ActionType } from '../../types/ActionType';
+import ContentButtonCard from '../../components/GeneralComponents/ContentButtonCard';
 
 const HomePage = () => {
   const { user } = useAuth();
@@ -14,33 +15,24 @@ const HomePage = () => {
         <>
           <h1 className='text-3xl my-3'>{`Hi ${user}!`}</h1>
           <div className='flex flex-col lg:flex-row w-4/6 gap-6'>
-            <div
-              className={`min-h-[12rem] lg:min-h-[24rem] shadow-lg shadow-slate-500 flex flex-1 justify-center items-center rounded-lg bg-[url('./assets/browseHouses.jpg')] bg-cover bg-center`}
-            >
-              <button className='text-2xl bg-sky-200 text-slate-900 rounded-md p-2 hover:bg-sky-400 hover:cursor-pointer'>
-                Search houses
-              </button>
-            </div>
-            <div
-              className={`min-h-[12rem] lg:min-h-[24rem] shadow-lg shadow-slate-500 flex flex-1 justify-center items-center rounded-lg bg-[url('./assets/sellHouse.jpg')] bg-cover bg-center`}
-            >
-              <button className='text-2xl bg-sky-200 text-slate-900 rounded-md p-2 hover:bg-sky-400 hover:cursor-pointer'>
-                List your house for sale
-              </button>
-            </div>
+            <ContentButtonCard
+              buttonText='Browse properties'
+              backgroundImage='browseHouses.jpg'
+            />
+            <ContentButtonCard
+              buttonText='Register to list your property!'
+              backgroundImage='sellHouse.jpg'
+            />
           </div>
         </>
       ) : (
         <>
           <h1 className='text-3xl my-2'>Welcome to Sky Listings!</h1>
-          <div className='flex gap-4 w-5/6'>
-            <div
-              className={`min-h-[12rem] lg:min-h-[24rem] shadow-lg shadow-slate-500 flex flex-1 justify-center items-center rounded-lg bg-[url('./assets/browseHouses.jpg')] bg-cover bg-center`}
-            >
-              <button className='text-2xl bg-sky-200 text-slate-900 rounded-md p-2 hover:bg-sky-400 hover:cursor-pointer'>
-                Search houses
-              </button>
-            </div>
+          <div className='flex gap-4 w-4/6'>
+            <ContentButtonCard
+              buttonText='Browse properties'
+              backgroundImage='browseHouses.jpg'
+            />
             <div
               className={`min-h-[12rem] lg:min-h-[24rem] shadow-lg shadow-slate-500 flex flex-1 justify-center items-center rounded-lg bg-[url('./assets/registerFront.png')] bg-cover bg-center`}
             >
