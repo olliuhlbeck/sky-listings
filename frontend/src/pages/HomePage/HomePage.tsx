@@ -4,6 +4,8 @@ import { useAuth } from '../../utils/useAuth';
 import { useNavigate } from 'react-router-dom';
 import { ActionType } from '../../types/ActionType';
 import ContentButtonCard from '../../components/GeneralComponents/ContentButtonCard';
+import browseHouses from '../../assets/browseHouses.jpg';
+import sellHouse from '../../assets/browseHouses.jpg';
 
 const HomePage = () => {
   const { user } = useAuth();
@@ -17,11 +19,11 @@ const HomePage = () => {
           <div className='flex flex-col lg:flex-row w-4/6 gap-6'>
             <ContentButtonCard
               buttonText='Browse properties'
-              backgroundImage='browseHouses.jpg'
+              backgroundImage={browseHouses}
             />
             <ContentButtonCard
               buttonText='List your property for sale!'
-              backgroundImage='sellHouse.jpg'
+              backgroundImage={sellHouse}
             />
           </div>
         </>
@@ -31,7 +33,7 @@ const HomePage = () => {
           <div className='flex flex-col lg:flex-row w-4/6 gap-6'>
             <ContentButtonCard
               buttonText='Browse properties'
-              backgroundImage='browseHouses.jpg'
+              backgroundImage={browseHouses}
             />
             <div
               className={`min-h-[12rem] lg:min-h-[24rem] shadow-lg shadow-slate-500 flex flex-1 justify-center items-center rounded-lg bg-[url('./assets/registerFront.png')] bg-cover bg-center`}
