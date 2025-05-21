@@ -5,6 +5,7 @@ import Pagination from '../pages/Pagination/Pagination';
 import LoginPage from '../pages/LoginPage/LoginPage';
 import BrowseProperties from '../pages/BrowseProperties/BrowseProperties';
 import MyProperties from '../pages/MyProperties/MyProperties';
+import ErrorPage from '../pages/ErrorPage/ErrorPage';
 
 export const router = createBrowserRouter([
   {
@@ -17,6 +18,7 @@ export const router = createBrowserRouter([
       { path: 'login', element: <LoginPage /> },
       { path: 'browseProperties', element: <BrowseProperties /> },
       { path: 'myProperties', element: <MyProperties /> },
+      { path: '*', element: <ErrorPage errorCode={404} /> },
     ],
   },
 ]);
