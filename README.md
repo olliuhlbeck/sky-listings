@@ -5,7 +5,19 @@ A simple fullstack setup with:
 - Frontend: React + TypeScript + TailwindCSS<br/>
 - Backend: Node.js (TypeScript) & PostgreSQL database
 
-# Getting Started
+## Getting Started
+
+### Prerequisites:
+
+- Node.js installed
+- PostgreSQL installed and running
+- PostgreSQL database created and accesible
+- `.env` file which has correct `DATABASE_URL` that connects to said database
+
+```env
+# Example of DATABASE_URL for PostgreSQL
+DATABASE_URL="postgresql://user:password@localhost:5432/yourdb"
+```
 
 ```bash
 # Frontend
@@ -30,10 +42,10 @@ root/
 
 # Tech Stack
 
--React<br/>
--TypeScript<br/>
--TailwindCSS<br/>
--Node.js<br />
--PostgreSQL database (managed with Prisma ORM)<br />
--Jest for the tests<br />
--Code formatting with Prettier
+- React
+- TypeScript
+- TailwindCSS
+- Node.js
+- PostgreSQL database (managed with Prisma ORM)
+- Jest for testing
+- Code formatting with Prettier
