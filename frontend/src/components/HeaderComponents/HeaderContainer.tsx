@@ -11,6 +11,8 @@ const HeaderContainer = ({ title, link }: HeaderContainerProps) => {
   const navigationLinks = [
     { text: 'Home', link: 'home' },
     { text: 'Pagination', link: 'pagination' },
+    { text: 'Browse Properties', link: 'browseProperties' },
+    { text: 'My Properties', link: 'myProperties' },
   ];
 
   const { isAuthenticated, logout, user } = useAuth();
@@ -32,6 +34,7 @@ const HeaderContainer = ({ title, link }: HeaderContainerProps) => {
         <div className='flex items-center gap-2'>
           {!isAuthenticated && !isUserInLoginPage ? (
             <HeaderButton
+              additionsToClassName='bg-sky-200'
               icon={CiLogin}
               text='Login'
               link='login'
@@ -43,6 +46,7 @@ const HeaderContainer = ({ title, link }: HeaderContainerProps) => {
                 logged in as: <strong>{user}</strong>
               </p>
               <HeaderButton
+                additionsToClassName='bg-sky-200'
                 icon={CiLogout}
                 text='Logout'
                 link='home'
