@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { ActionType } from '../../types/ActionType';
 import ContentButtonCard from '../../components/GeneralComponents/ContentButtonCard';
 import browseHouses from '../../assets/browseHouses.jpg';
-import sellHouse from '../../assets/browseHouses.jpg';
+import sellHouse from '../../assets/sellHouse.jpg';
 
 const HomePage = () => {
   const { user } = useAuth();
