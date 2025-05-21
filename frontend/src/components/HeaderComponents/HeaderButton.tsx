@@ -4,6 +4,7 @@ import { HeaderButtonProps } from '../../types/HeaderButtonProps';
 import IconComponent from '../GeneralComponents/IconComponent';
 
 const HeaderButton = ({
+  additionsToClassName,
   text,
   link,
   icon,
@@ -20,7 +21,7 @@ const HeaderButton = ({
     <Link
       to={link}
       state={state}
-      className='flex items-center gap-2 px-4 py-2 rounded-md text-lg bg-sky-200 hover:bg-blue-300'
+      className={`flex items-center gap-2 px-4 py-2 rounded-md text-lg hover:bg-blue-300 ${additionsToClassName}`}
       onClick={handleClick}
     >
       {icon && <IconComponent icon={icon} />}
