@@ -18,10 +18,12 @@ const HomePage = () => {
           <h1 className='text-3xl my-3'>{`Hi ${user}!`}</h1>
           <div className='flex flex-col lg:flex-row w-4/6 gap-6'>
             <ContentButtonCard
+              onClick={() => navigate('browseProperties')}
               buttonText='Browse properties'
               backgroundImage={browseHouses}
             />
             <ContentButtonCard
+              onClick={() => navigate('myProperties')}
               buttonText='List your property for sale!'
               backgroundImage={sellHouse}
             />
@@ -32,6 +34,7 @@ const HomePage = () => {
           <h1 className='text-3xl my-2'>Welcome to Sky Listings!</h1>
           <div className='flex flex-col lg:flex-row w-4/6 gap-6'>
             <ContentButtonCard
+              onClick={() => navigate('browseProperties')}
               buttonText='Browse properties'
               backgroundImage={browseHouses}
             />
