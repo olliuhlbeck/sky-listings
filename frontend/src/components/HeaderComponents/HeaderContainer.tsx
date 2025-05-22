@@ -9,10 +9,10 @@ import { ActionType } from '../../types/ActionType';
 
 const HeaderContainer = ({ title, link }: HeaderContainerProps) => {
   const navigationLinks = [
-    { text: 'Home', link: 'home' },
-    { text: 'Pagination', link: 'pagination' },
-    { text: 'Browse Properties', link: 'browseProperties' },
-    { text: 'My Properties', link: 'myProperties' },
+    { text: 'Home', link: 'home', authOnly: 'no' },
+    { text: 'Pagination', link: 'pagination', authOnly: 'no' },
+    { text: 'Browse Properties', link: 'browseProperties', authOnly: 'no' },
+    { text: 'My Properties', link: 'myProperties', authOnly: 'yes' },
   ];
 
   const { isAuthenticated, logout, user } = useAuth();
@@ -27,9 +27,15 @@ const HeaderContainer = ({ title, link }: HeaderContainerProps) => {
           <h2 className='text-2xl text-center hidden md:block'>{title}</h2>
         </Link>
         <div className='absolute left-1/2 transform -translate-x-1/2 space-x-2 hidden xl:flex'>
-          {navigationLinks.map(({ text, link }) => (
-            <HeaderButton key={`${link}HeaderButton`} text={text} link={link} />
-          ))}
+          {navigationLinks
+            .filter((link) => link.authOnly === 'no' || user !== null)
+            .map(({ text, link }) => (
+              <HeaderButton
+                key={`${link}HeaderButton`}
+                text={text}
+                link={link}
+              />
+            ))}
         </div>
         <div className='flex items-center gap-2'>
           {!isAuthenticated && !isUserInLoginPage ? (
