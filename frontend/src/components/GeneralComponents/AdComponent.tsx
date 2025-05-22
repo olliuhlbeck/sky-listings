@@ -1,6 +1,7 @@
 import IconComponent from './IconComponent';
 
 import { AdTypes } from '../../types/AdTypes';
+import ToolTip from './ToolTip';
 
 const AdComponent: React.FC<AdTypes> = ({
   icon,
@@ -27,13 +28,15 @@ const AdComponent: React.FC<AdTypes> = ({
       <div className='w-full'>
         <h2 className='text-gray-50 font-bold text-2xl'>{title}</h2>
         <p className='text-gray-50 my-4'>{message}</p>
-        <a
-          href='#'
-          onClick={handleClick}
-          className='inline-block border-none p-2 rounded-md w-content md:w-3xs bg-sky-200 hover:bg-sky-300 hover:cursor-pointer text-center'
-        >
-          {buttonText}
-        </a>
+        <ToolTip toolTipText='This ad button will not take you anywhere'>
+          <a
+            href='#'
+            onClick={handleClick}
+            className='inline-block border-none p-2 rounded-md w-content md:w-3xs bg-sky-200 hover:bg-sky-300 hover:cursor-pointer text-center'
+          >
+            {buttonText}
+          </a>
+        </ToolTip>
       </div>
       <div className='pr-6 hidden md:block'>
         <IconComponent icon={icon} size={36} className='text-sky-200' />
