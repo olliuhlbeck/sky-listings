@@ -13,6 +13,7 @@ const HeaderContainer = ({ title, link }: HeaderContainerProps) => {
     { text: 'Pagination', link: 'pagination', authOnly: 'no' },
     { text: 'Browse Properties', link: 'browseProperties', authOnly: 'no' },
     { text: 'My Properties', link: 'myProperties', authOnly: 'yes' },
+    { text: 'Add property', link: 'AddProperty', authOnly: 'yes' },
   ];
 
   const { isAuthenticated, logout, user } = useAuth();
