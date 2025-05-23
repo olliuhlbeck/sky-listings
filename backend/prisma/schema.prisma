@@ -53,6 +53,7 @@ model Property {
   pictures           PropertyPicture[]
   createdAt          DateTime           @default(now())
   additionalInfo     String             @db.Text
+  description        String
   propertyType       PropertyTypes
 
   @@index([userId])
