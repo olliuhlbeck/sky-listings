@@ -34,6 +34,14 @@ model UserInfo {
   preferredContactDetails   String? @db.VarChar(200)
 }
 
+enum PropertyTypes {
+  HOUSE
+  APARTMENT
+  COMMERCIAL
+  LAND
+  INDUSTRIAL
+}
+
 model Property {
   id                 Int                @id @default(autoincrement())
   userId             Int
@@ -45,6 +53,8 @@ model Property {
   pictures           PropertyPicture[]
   createdAt          DateTime           @default(now())
   additionalInfo     String             @db.Text
+  description        String
+  propertyType       PropertyTypes
 
   @@index([userId])
 }
