@@ -42,21 +42,34 @@ enum PropertyTypes {
   INDUSTRIAL
 }
 
+enum PropertyStatus {
+  AVAILABLE
+  PENGDING
+  SOLD
+}
+
 model Property {
   id                 Int                @id @default(autoincrement())
   userId             Int
   user               User               @relation(fields: [userId], references: [id])
-  address            String
+  street             String
+  city               String
+  state              String
+  postalCode         String?
+  country            String
+  price              Int
+  propertyStatus     PropertyStatus
   bedrooms           Int
   bathrooms          Int
-  squareM2s          Int
+  squareMeters       Int
   pictures           PropertyPicture[]
   createdAt          DateTime           @default(now())
   additionalInfo     String             @db.Text
-  description        String
+  description        String             @db.Text
   propertyType       PropertyTypes
 
   @@index([userId])
+  @@index([city, state])
 }
 
 model PropertyPicture {
