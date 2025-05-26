@@ -44,7 +44,7 @@ enum PropertyTypes {
 
 enum PropertyStatus {
   AVAILABLE
-  PENGDING
+  PENDING
   SOLD
 }
 
