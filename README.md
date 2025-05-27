@@ -2,8 +2,8 @@
 
 A simple fullstack setup with:
 
-- Frontend: React + TypeScript + TailwindCSS<br/>
-- Backend: Node.js (TypeScript) & PostgreSQL database
+- Frontend: React, TypeScript, Vite and TailwindCSS
+- Backend: Node.js (TypeScript) with a PostgreSQL database
 
 ## Getting Started
 
