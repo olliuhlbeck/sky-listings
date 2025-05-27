@@ -4,6 +4,8 @@ import {
   PropertyStatuses,
   PropertyTypes,
 } from '../../types/PropertyFormData';
+import IconComponent from '../../components/GeneralComponents/IconComponent';
+import { BiCamera } from 'react-icons/bi';
 
 const AddProperty: React.FC = () => {
   const [formData, setFormData] = useState<PropertyFormData>({
@@ -20,7 +22,8 @@ const AddProperty: React.FC = () => {
     price: 0,
     propertyType: PropertyTypes.MISCELLANOUS,
     propertyStatus: PropertyStatuses.AVAILABLE,
-    pictures: '',
+    pictures: [],
+    coverPictureIndex: 0,
   });
 
   const handleChange = (
@@ -256,12 +259,69 @@ const AddProperty: React.FC = () => {
           ></textarea>
         </div>
 
-        <div>
+        <div className='flex flex-col items-center'>
           <h2 className='py-2'>Pictures</h2>
+          <label
+            htmlFor='pictures'
+            className='flex w-[15rem] mx-auto items-center justify-center px-4 py-2 mb-2 bg-sky-200 text-slate-900 rounded-md shadow-md cursor-pointer hover:bg-sky-300 transition duration-200'
+          >
+            <IconComponent icon={BiCamera} className='mr-3' />
+            Upload images
+          </label>
+          <input
+            type='file'
+            id='pictures'
+            name='pictures'
+            multiple
+            accept='image/*'
+            onChange={(e) => {
+              const files = e.target.files;
+              if (!files) return;
+
+              const newFiles = Array.from(files);
+
+              setFormData((prev) => ({
+                ...prev,
+                pictures: [...(prev.pictures ?? []), ...newFiles],
+              }));
+            }}
+            hidden
+            className=' bg-gray-50 text-gray-900 p-2 rounded shadow-sm hover:cursor-pointer'
+          />
+
+          <h2 className='!text-sm !mt-2'>Choose cover picture:</h2>
+
+          <div className='flex flex-wrap gap-2 mt-2'>
+            {formData.pictures &&
+              formData.pictures.map((file, idx) => (
+                <div key={idx} className='flex flex-col items-center'>
+                  <label className='flex flex-col items-center space-y-1 mt-1 text-sm'>
+                    <img
+                      src={URL.createObjectURL(file)}
+                      alt={`Preview ${idx}`}
+                      className='w-16 h-16 object-cover rounded shadow'
+                    />
+                    <input
+                      type='radio'
+                      name='mainPicture'
+                      checked={formData.coverPictureIndex === idx}
+                      className=' hover:cursor-pointer'
+                      onChange={() =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          coverPictureIndex: idx,
+                        }))
+                      }
+                    ></input>
+                  </label>
+                </div>
+              ))}
+          </div>
         </div>
       </div>
+
       <div className='col-span-full flex justify-center !shadow-none !h-10'>
-        <button className='bg-sky-200 text-slate-900 px-6 py-2 rounded-md shadow-md hover:cursor-pointer hover:bg-sky-300'>
+        <button className='bg-sky-200 text-slate-900 px-6 py-2 rounded-md shadow-md hover:cursor-pointer hover:bg-sky-300 transition duration-200'>
           Add property
         </button>
       </div>

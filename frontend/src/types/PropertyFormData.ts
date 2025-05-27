@@ -27,5 +27,6 @@ export interface PropertyFormData {
   price: number;
   propertyType: PropertyTypes;
   propertyStatus: PropertyStatuses;
-  pictures?: string;
+  pictures?: File[];
+  coverPictureIndex: number;
 }
