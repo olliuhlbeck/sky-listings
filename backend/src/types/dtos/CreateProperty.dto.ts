@@ -13,7 +13,7 @@ export enum PropertyStatuses {
   SOLD = 'SOLD',
 }
 
-export interface PropertyFormData {
+export interface CreatePropertyDTO {
   street: string;
   city: string;
   state: string;
