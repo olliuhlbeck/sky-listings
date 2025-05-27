@@ -3,6 +3,7 @@ import cors from 'cors';
 import unknownEndpoint from './middlewares/unknownEndpoint/unknowEndpoint';
 import signupRouter from './routers/signupRouter/signupRouter';
 import loginRouter from './routers/loginRouter/loginRouter';
+import propertyRouter from './routers/propertyRouter/propertyRouter';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -18,6 +19,7 @@ server.use(express.json());
 
 server.use('/signup', signupRouter);
 server.use('/login', loginRouter);
+server.use('/property', propertyRouter);
 
 server.get('/api', (req: Request, res: Response): void => {
   res.json({ message: 'Welcome to backend!' });
