@@ -20,7 +20,7 @@ const AddProperty: React.FC = () => {
     price: 0,
     propertyType: PropertyTypes.MISCELLANOUS,
     propertyStatus: PropertyStatuses.AVAILABLE,
-    photos: '',
+    pictures: '',
   });
 
   const handleChange = (
