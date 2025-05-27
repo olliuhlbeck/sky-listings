@@ -49,12 +49,12 @@ const AddProperty: React.FC = () => {
     <form
       id='addPropertyForm'
       onSubmit={handleSubmit}
-      className='bg-gray-50  w-11/12 justify-center mt-6 p-4 mx-auto rounded-2xl shadow-md shadow-gray-500'
+      className={`bg-gray-50  w-11/12 justify-center mt-6 p-4 mx-auto rounded-2xl shadow-md shadow-gray-500 bg-bottom-left bg-cover bg-[url('./assets/propertyCreation.jpg')]`}
     >
       <h1 className='text-2xl font-semibold text-center mb-6'>
-        Fill property information
+        Property information
       </h1>
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 [&>*]:flex-1 [&>*]:shadow-md [&>*]:rounded-md [&>*]:bg-sky-100 [&_h2]:text-xl [&_h2]:my-2 [&>*]:h-[17rem] mb-4'>
+      <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 [&>*]:flex-1 [&>*]:shadow-md [&>*]:rounded-md [&>*]:bg-sky-100 [&_h2]:text-xl [&_h2]:my-2 [&>*]:h-[17rem] mb-4'>
         <div>
           <h2 className='py-2'>Address</h2>
           <div className='flex flex-col space-y-2'>
@@ -260,9 +260,9 @@ const AddProperty: React.FC = () => {
           <h2 className='py-2'>Pictures</h2>
         </div>
       </div>
-      <div className='col-span-full flex justify-center !bg-gray-50 !shadow-none !h-10'>
-        <button className='bg-sky-200 text-slate-900 px-6 py-2 rounded-md shadow-md hover:bg-sky-300'>
-          Submit property
+      <div className='col-span-full flex justify-center !shadow-none !h-10'>
+        <button className='bg-sky-200 text-slate-900 px-6 py-2 rounded-md shadow-md hover:cursor-pointer hover:bg-sky-300'>
+          Add property
         </button>
       </div>
     </form>
