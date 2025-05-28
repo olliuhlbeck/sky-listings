@@ -40,6 +40,7 @@ enum PropertyTypes {
   COMMERCIAL
   LAND
   INDUSTRIAL
+  MISCELLANOUS
 }
 
 enum PropertyStatus {
@@ -64,7 +65,7 @@ model Property {
   squareMeters       Int
   pictures           PropertyPicture[]
   createdAt          DateTime           @default(now())
-  additionalInfo     String             @db.Text
+  additionalInfo     String?             @db.Text
   description        String             @db.Text
   propertyType       PropertyTypes
 
@@ -76,7 +77,7 @@ model PropertyPicture {
   id                        Int       @id @default(autoincrement())
   propertyId                Int
   property                  Property  @relation(fields: [propertyId], references: [id])
-  picture                   Bytes?
+  picture                   Bytes
   useAsCoverPicture         Boolean   @default(false)
 
   @@index([propertyId])

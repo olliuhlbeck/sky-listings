@@ -16,13 +16,13 @@ const propertyCreationValidate = (
     propertyStatus,
     bedrooms,
     bathrooms,
-    squaremeters,
+    squareMeters,
     description,
     additionalInfo,
     pictures,
   } = req.body;
 
-  const stringFields = {
+  const requiredStringFields = {
     street,
     city,
     state,
@@ -30,21 +30,28 @@ const propertyCreationValidate = (
     propertyType,
     propertyStatus,
     description,
-    additionalInfo,
   };
-
-  if (description !== undefined) {
-    stringFields.description = description;
-  }
-  if (postalCode !== undefined) {
-    stringFields.description = postalCode;
-  }
-
-  for (const [key, value] of Object.entries(stringFields)) {
-    if (typeof value !== 'string') {
+  for (const [key, value] of Object.entries(requiredStringFields)) {
+    if (typeof value !== 'string' || value.trim() === '') {
       res
         .status(400)
         .json({ error: `${key} must be a string. Please check entry input.` });
+      return;
+    }
+  }
+
+  const optionalStringFields = {
+    additionalInfo,
+    postalCode,
+  };
+  for (const [key, value] of Object.entries(optionalStringFields)) {
+    if (
+      value !== undefined &&
+      (typeof value !== 'string' || value.trim() === '')
+    ) {
+      res
+        .status(400)
+        .json({ error: `${key} must be a string(not empty) if provided.` });
       return;
     }
   }
@@ -53,9 +60,8 @@ const propertyCreationValidate = (
     price,
     bedrooms,
     bathrooms,
-    squaremeters,
+    squareMeters,
   };
-
   for (const [key, value] of Object.entries(numberFields)) {
     if (typeof value !== 'number') {
       res
@@ -69,6 +75,16 @@ const propertyCreationValidate = (
         .json({ error: `${key} cannot be under 0. Please check entry input.` });
       return;
     }
+  }
+
+  if (pictures !== undefined) {
+    if (!Array.isArray(pictures) || pictures.length === 0) {
+      res.status(400).json({ error: 'please provide at least one picture.' });
+      return;
+    }
+  } else {
+    res.status(400).json({ error: 'please provide at least one picture.' });
+    return;
   }
 
   next();

@@ -7,7 +7,7 @@ export enum PropertyTypes {
   MISCELLANOUS = 'MISCELLANOUS',
 }
 
-export enum PropertyStatuses {
+export enum PropertyStatus {
   AVAILABLE = 'AVAILABLE',
   PENDING = 'PENDING',
   SOLD = 'SOLD',
@@ -21,11 +21,12 @@ export interface CreatePropertyDTO {
   country: string;
   bedrooms: number;
   bathrooms: number;
-  squaremeters: number;
-  description?: string;
+  squareMeters: number;
+  description: string;
   additionalInfo: string;
   price: number;
   propertyType: PropertyTypes;
-  propertyStatus: PropertyStatuses;
-  pictures?: string;
+  propertyStatus: PropertyStatus;
+  pictures: string[];
+  coverPictureIndex: number;
 }
