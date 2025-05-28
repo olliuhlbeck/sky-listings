@@ -32,7 +32,7 @@ const AdComponent: React.FC<AdTypes> = ({
           <a
             href='#'
             onClick={handleClick}
-            className='inline-block border-none p-2 rounded-md w-content md:w-3xs bg-sky-200 hover:bg-sky-300 hover:cursor-pointer text-center'
+            className='inline-block border-none p-2 rounded-md w-content md:w-3xs bg-sky-200 hover:bg-sky-300 hover:cursor-pointer text-center transition duration-200'
           >
             {buttonText}
           </a>
