@@ -6,6 +6,7 @@ import { ActionType } from '../../types/ActionType';
 import ContentButtonCard from '../../components/GeneralComponents/ContentButtonCard';
 import browseHouses from '../../assets/browseHouses.jpg';
 import sellHouse from '../../assets/sellHouse.jpg';
+import Button from '../../components/GeneralComponents/Button';
 
 const HomePage = () => {
   const { user } = useAuth();
@@ -39,14 +40,14 @@ const HomePage = () => {
             <div
               className={`min-h-[12rem] lg:min-h-[24rem] shadow-lg shadow-slate-500 flex flex-1 justify-center items-center rounded-lg bg-[url('./assets/registerFront.png')] bg-cover bg-center`}
             >
-              <button
-                className='w-[16rem] md:w-[20rem] text-2xl bg-sky-200 text-slate-900 rounded-md p-2 hover:bg-sky-400 hover:cursor-pointer'
+              <Button
+                ClassName='w-[16rem] md:w-[20rem] text-2xl'
                 onClick={() =>
                   navigate('login', { state: { action: ActionType.SignUp } })
                 }
               >
                 Register to list your property!
-              </button>
+              </Button>
             </div>
           </div>
         </>
