@@ -291,7 +291,9 @@ const AddProperty: React.FC = () => {
             className=' bg-gray-50 text-gray-900 p-2 rounded shadow-sm hover:cursor-pointer'
           />
 
-          <h2 className='!text-sm !mt-2'>Choose cover picture:</h2>
+          {formData.pictures && formData.pictures.length > 0 && (
+            <h2 className='!text-sm !mt-2'>Choose cover picture:</h2>
+          )}
 
           <div className='flex flex-wrap gap-2 mt-2'>
             {formData.pictures &&
