@@ -64,7 +64,7 @@ model Property {
   squareMeters       Int
   pictures           PropertyPicture[]
   createdAt          DateTime           @default(now())
-  additionalInfo     String             @db.Text
+  additionalInfo     String?             @db.Text
   description        String             @db.Text
   propertyType       PropertyTypes
 
