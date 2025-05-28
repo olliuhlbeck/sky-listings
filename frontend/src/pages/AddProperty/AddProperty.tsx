@@ -6,6 +6,8 @@ import {
 } from '../../types/PropertyFormData';
 import IconComponent from '../../components/GeneralComponents/IconComponent';
 import { BiCamera } from 'react-icons/bi';
+import Button from '../../components/GeneralComponents/Button';
+import { BsHouseUp } from 'react-icons/bs';
 
 const AddProperty: React.FC = () => {
   const [formData, setFormData] = useState<PropertyFormData>({
@@ -320,10 +322,8 @@ const AddProperty: React.FC = () => {
         </div>
       </div>
 
-      <div className='col-span-full flex justify-center !shadow-none !h-10'>
-        <button className='bg-sky-200 text-slate-900 px-6 py-2 rounded-md shadow-md hover:cursor-pointer hover:bg-sky-300 transition duration-200'>
-          Add property
-        </button>
+      <div className='col-span-full flex justify-center !shadow-none !h-10 text-lg'>
+        <Button icon={BsHouseUp}>Add property</Button>
       </div>
     </form>
   );
