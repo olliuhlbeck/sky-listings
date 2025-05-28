@@ -231,12 +231,20 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
           toolTipText='Please fill out all fields before submitting.'
           addToClassName='border'
         >
-          <Button ClassName='border' type='submit' disabled={!isFormValid}>
+          <Button
+            ClassName='border bg-transparent'
+            type='submit'
+            disabled={!isFormValid}
+          >
             {action === ActionType.Login ? 'Login' : 'Sign Up'}
           </Button>
         </ToolTip>
       ) : (
-        <Button ClassName='border' type='submit' disabled={!isFormValid}>
+        <Button
+          ClassName='border bg-transparent'
+          type='submit'
+          disabled={!isFormValid}
+        >
           {action === ActionType.Login ? 'Login' : 'Sign Up'}
         </Button>
       )}
@@ -249,7 +257,7 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
         {action === ActionType.Login
           ? 'Do not have an account?'
           : 'Already have a account?'}
-        <Button type='button' onClick={switchAction}>
+        <Button type='button' ClassName='bg-transparent' onClick={switchAction}>
           {action === ActionType.Login
             ? 'Create one by clicking here'
             : 'Switch to login by clicking here'}
