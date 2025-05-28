@@ -9,6 +9,8 @@ import { ActionType } from '../../types/ActionType';
 import { LoginInputs } from '../../types/LoginInputs';
 import { useAuth } from '../../utils/useAuth';
 import { useNavigate } from 'react-router-dom';
+import Button from '../GeneralComponents/Button';
+import ToolTip from '../GeneralComponents/ToolTip';
 
 const LoginForm = ({ action, setAction }: LoginComponentProps) => {
   const [inputs, setInputs] = useState<LoginInputs>({
@@ -141,7 +143,12 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
     navigate('/');
   };
 
-  const isFormValid = !errors.username && !errors.email && !errors.password;
+  const isFormValid =
+    inputs.username.trim().length > 0 &&
+    inputs.password.length >= 6 &&
+    !errors.username &&
+    !errors.email &&
+    !errors.password;
 
   return (
     <form
@@ -219,13 +226,20 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
         )}
       </div>
 
-      <button
-        className='hover:cursor-pointer border p-2 rounded-md hover:bg-sky-200'
-        type='submit'
-        disabled={!isFormValid}
-      >
-        {action === ActionType.Login ? 'Login' : 'Sign Up'}
-      </button>
+      {!isFormValid ? (
+        <ToolTip
+          toolTipText='Please fill out all fields before submitting.'
+          addToClassName='border'
+        >
+          <Button ClassName='border' type='submit' disabled={!isFormValid}>
+            {action === ActionType.Login ? 'Login' : 'Sign Up'}
+          </Button>
+        </ToolTip>
+      ) : (
+        <Button ClassName='border' type='submit' disabled={!isFormValid}>
+          {action === ActionType.Login ? 'Login' : 'Sign Up'}
+        </Button>
+      )}
 
       {errors.generalError && (
         <span className='text-red-500 text-sm w-52'>{errors.generalError}</span>
@@ -235,15 +249,11 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
         {action === ActionType.Login
           ? 'Do not have an account?'
           : 'Already have a account?'}
-        <button
-          type='button'
-          className='hover:cursor-pointer hover:bg-sky-200 p-2 ml-2 rounded-md'
-          onClick={switchAction}
-        >
+        <Button type='button' onClick={switchAction}>
           {action === ActionType.Login
             ? 'Create one by clicking here'
             : 'Switch to login by clicking here'}
-        </button>
+        </Button>
       </div>
     </form>
   );
