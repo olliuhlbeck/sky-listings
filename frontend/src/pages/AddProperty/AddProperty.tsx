@@ -18,7 +18,7 @@ const AddProperty: React.FC = () => {
     country: '',
     bedrooms: 0,
     bathrooms: 0,
-    squaremeters: 0,
+    squareMeters: 0,
     description: '',
     additionalInfo: '',
     price: 0,
@@ -40,7 +40,7 @@ const AddProperty: React.FC = () => {
       [name]:
         name === 'bedrooms' ||
         name === 'bathrooms' ||
-        name === 'squaremeters' ||
+        name === 'squareMeters' ||
         name === 'price'
           ? Number(value)
           : value,
@@ -49,6 +49,46 @@ const AddProperty: React.FC = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    console.log('Form submitted!');
+
+    const formDataToSend = new FormData();
+
+    // Pack all but pictures into payload
+    for (const [key, value] of Object.entries(formData)) {
+      if (key === 'pictures') continue;
+
+      if (value !== undefined) {
+        formDataToSend.append(key, String(value));
+      }
+    }
+    // Pack Pictures into payload
+    formData.pictures.forEach((file) => {
+      formDataToSend.append('pictures', file, file.name);
+    });
+
+    console.log('Form data to send:');
+    for (const [key, value] of formDataToSend.entries()) {
+      console.log(key, value);
+    }
+
+    try {
+      const response = await fetch(
+        'http://localhost:3000/property/addProperty',
+        {
+          method: 'POST',
+          body: formDataToSend,
+        },
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error('Failed to create property', errorData);
+      }
+      const data = await response.json();
+      console.log(`Property created with ID: ${data.propertyId}`);
+    } catch (error) {
+      console.error('Error creating property:', error);
+    }
   };
   return (
     <form
@@ -221,15 +261,15 @@ const AddProperty: React.FC = () => {
               />
             </div>
             <div className='flex items-center'>
-              <label htmlFor='squaremeters' className='w-1/2'>
+              <label htmlFor='squareMeters' className='w-1/2'>
                 Square meters:
               </label>
               <input
                 type='number'
-                id='squaremeters'
-                name='squaremeters'
+                id='squareMeters'
+                name='squareMeters'
                 min={0}
-                value={formData.squaremeters}
+                value={formData.squareMeters}
                 onChange={handleChange}
                 className='w-1/6 p-2 rounded-md shadow-sm bg-gray-50'
               />
@@ -325,7 +365,9 @@ const AddProperty: React.FC = () => {
       </div>
 
       <div className='col-span-full flex justify-center !shadow-none !h-10 text-lg'>
-        <Button icon={BsHouseUp}>Add property</Button>
+        <Button type='submit' icon={BsHouseUp}>
+          Add property
+        </Button>
       </div>
     </form>
   );

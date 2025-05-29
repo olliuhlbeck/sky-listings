@@ -19,9 +19,18 @@ const propertyCreationValidate = (
     squareMeters,
     description,
     additionalInfo,
-    pictures,
   } = req.body;
 
+  console.log('Full req.body:', req.body);
+
+  // Validate pictures are given in an non empty array
+  const pictures = req.files;
+  if (!pictures || !Array.isArray(pictures) || pictures.length === 0) {
+    res.status(400).json({ error: 'Please provide at least one picture.' });
+    return;
+  }
+
+  // Validate required string fields
   const requiredStringFields = {
     street,
     city,
@@ -40,6 +49,7 @@ const propertyCreationValidate = (
     }
   }
 
+  // Validate optional string fields
   const optionalStringFields = {
     additionalInfo,
     postalCode,
@@ -56,35 +66,28 @@ const propertyCreationValidate = (
     }
   }
 
+  // Try to convert numbers and validate them
+  const priceNum = Number(price);
+  const bedroomsNum = Number(bedrooms);
+  const bathroomsNum = Number(bathrooms);
+  const squareMetersNum = Number(squareMeters);
+
   const numberFields = {
-    price,
-    bedrooms,
-    bathrooms,
-    squareMeters,
+    price: priceNum,
+    bedrooms: bedroomsNum,
+    bathrooms: bathroomsNum,
+    squareMeters: squareMetersNum,
   };
+
   for (const [key, value] of Object.entries(numberFields)) {
-    if (typeof value !== 'number') {
-      res
-        .status(400)
-        .json({ error: `${key} must be a number. Please check entry input.` });
+    if (isNaN(value)) {
+      res.status(400).json({ error: `${key} must be a number.` });
       return;
     }
     if (value < 0) {
-      res
-        .status(400)
-        .json({ error: `${key} cannot be under 0. Please check entry input.` });
+      res.status(400).json({ error: `${key} cannot be under 0.` });
       return;
     }
-  }
-
-  if (pictures !== undefined) {
-    if (!Array.isArray(pictures) || pictures.length === 0) {
-      res.status(400).json({ error: 'please provide at least one picture.' });
-      return;
-    }
-  } else {
-    res.status(400).json({ error: 'please provide at least one picture.' });
-    return;
   }
 
   next();

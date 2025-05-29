@@ -6,12 +6,15 @@ import {
   madDtoToPrismaEnumAddPropertyType,
   madDtoToPrismaEnumAddPropertyStatus,
 } from '../../utils/mapDtoToPrismaEnumAddProperty';
+import multer from 'multer';
 
 const propertyRouter = express.Router();
 const prisma = new PrismaClient();
+const multerUpload = multer();
 
 propertyRouter.post(
   '/addProperty',
+  multerUpload.array('pictures'),
   propertyCreationValidate,
   async (req: Request<{}, {}, CreatePropertyDTO>, res: Response) => {
     const {
@@ -28,9 +31,10 @@ propertyRouter.post(
       squareMeters,
       description,
       additionalInfo,
-      pictures,
       coverPictureIndex,
     } = req.body;
+
+    const pictures = req.files as Express.Multer.File[];
 
     try {
       console.log('trying to create property with:', req.body);
@@ -38,17 +42,17 @@ propertyRouter.post(
       const createdProperty = await prisma.property.create({
         data: {
           userId: 2,
-          bedrooms: bedrooms,
-          bathrooms: bathrooms,
+          bedrooms: Number(bedrooms),
+          bathrooms: Number(bathrooms),
           additionalInfo: additionalInfo,
           propertyType: madDtoToPrismaEnumAddPropertyType(propertyType),
           description: description,
           city: city,
           country: country,
           postalCode: postalCode,
-          price: price,
+          price: Number(price),
           propertyStatus: madDtoToPrismaEnumAddPropertyStatus(propertyStatus),
-          squareMeters: squareMeters,
+          squareMeters: Number(squareMeters),
           state: state,
           street: street,
         },
@@ -56,13 +60,11 @@ propertyRouter.post(
       console.log('Property created:', createdProperty);
 
       if (pictures && pictures.length > 0) {
-        const pictureData = pictures.map(
-          (pictureBase64: string, index: number) => ({
-            propertyId: createdProperty.id,
-            picture: Buffer.from(pictureBase64, 'base64'),
-            useAsCoverPicture: index === coverPictureIndex,
-          }),
-        );
+        const pictureData = pictures.map((file, index) => ({
+          propertyId: createdProperty.id,
+          picture: file.buffer,
+          useAsCoverPicture: index === Number(coverPictureIndex),
+        }));
 
         await prisma.propertyPicture.createMany({
           data: pictureData,
