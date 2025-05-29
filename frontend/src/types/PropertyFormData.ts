@@ -21,12 +21,12 @@ export interface PropertyFormData {
   country: string;
   bedrooms: number;
   bathrooms: number;
-  squaremeters: number;
+  squareMeters: number;
   description?: string;
   additionalInfo: string;
   price: number;
   propertyType: PropertyTypes;
   propertyStatus: PropertyStatuses;
-  pictures?: File[];
+  pictures: File[];
   coverPictureIndex: number;
 }
