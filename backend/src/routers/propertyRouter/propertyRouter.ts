@@ -12,6 +12,11 @@ const propertyRouter = express.Router();
 const prisma = new PrismaClient();
 const multerUpload = multer();
 
+/*
+ * Add property route
+ * -Creates new property
+ * -Adds given pictures to database and relation to correct property
+ */
 propertyRouter.post(
   '/addProperty',
   multerUpload.array('pictures'),
@@ -82,6 +87,69 @@ propertyRouter.post(
       res.status(500).json({ error: 'Failed to create property' });
     } finally {
       console.log('property creation has ended.');
+    }
+  },
+);
+
+/*
+ * Property fetch route
+ * -Fetches all properties
+ * -Fetches and converts cover pictures
+ */
+propertyRouter.get(
+  '/getPropertiesByPage',
+  async (req: Request, res: Response) => {
+    try {
+      const page = parseInt(req.query.page as string) || 1;
+      const pageSize = parseInt(req.query.pageSize as string) || 5;
+      const skip = (page - 1) * pageSize;
+
+      const totalCount = await prisma.property.count();
+
+      const properties = await prisma.property.findMany({
+        skip,
+        take: pageSize,
+        include: {
+          pictures: {
+            where: { useAsCoverPicture: true },
+            take: 1,
+          },
+        },
+      });
+
+      // Convert pictures(bytes from database) to base64 for frontend rendering
+      const propertiesWithBase64 = properties.map((property) => {
+        const coverPicture = property.pictures[0];
+        const base64Image = coverPicture
+          ? Buffer.from(coverPicture.picture).toString('base64')
+          : null;
+
+        return {
+          id: property.id,
+          street: property.street,
+          city: property.city,
+          state: property.state,
+          country: property.country,
+          price: property.price,
+          bedrooms: property.bedrooms,
+          bathrooms: property.bathrooms,
+          squareMeters: property.squareMeters,
+          propertyType: property.propertyType,
+          propertyStatus: property.propertyStatus,
+          description: property.description,
+          additionalInfo: property.additionalInfo,
+          createdAt: property.createdAt,
+          coverPicture: base64Image,
+        };
+      });
+
+      res.status(200).json({
+        totalCount,
+        properties: propertiesWithBase64,
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Failed to load properties.' });
     }
   },
 );
