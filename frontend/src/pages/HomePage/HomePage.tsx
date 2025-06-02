@@ -13,7 +13,7 @@ const HomePage = () => {
   const navigate = useNavigate();
 
   return (
-    <div className='flex flex-col justify-center items-center mt-6'>
+    <div className='flex flex-col justify-center items-center mt-10'>
       {user ? (
         <>
           <div className='flex flex-col lg:flex-row w-4/6 gap-6'>
