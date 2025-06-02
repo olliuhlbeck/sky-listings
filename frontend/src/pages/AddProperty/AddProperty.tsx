@@ -85,6 +85,23 @@ const AddProperty: React.FC = () => {
         console.error('Failed to create property', errorData);
       }
       const data = await response.json();
+      setFormData({
+        street: '',
+        city: '',
+        state: '',
+        postalCode: '',
+        country: '',
+        bedrooms: 0,
+        bathrooms: 0,
+        squareMeters: 0,
+        description: '',
+        additionalInfo: '',
+        price: 0,
+        propertyType: PropertyTypes.MISCELLANOUS,
+        propertyStatus: PropertyStatuses.AVAILABLE,
+        pictures: [],
+        coverPictureIndex: 0,
+      });
       console.log(`Property created with ID: ${data.propertyId}`);
     } catch (error) {
       console.error('Error creating property:', error);
