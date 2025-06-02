@@ -42,8 +42,6 @@ propertyRouter.post(
     const pictures = req.files as Express.Multer.File[];
 
     try {
-      console.log('trying to create property with:', req.body);
-
       const createdProperty = await prisma.property.create({
         data: {
           userId: 2,
@@ -62,7 +60,6 @@ propertyRouter.post(
           street: street,
         },
       });
-      console.log('Property created:', createdProperty);
 
       if (pictures && pictures.length > 0) {
         const pictureData = pictures.map((file, index) => ({
@@ -74,8 +71,6 @@ propertyRouter.post(
         await prisma.propertyPicture.createMany({
           data: pictureData,
         });
-
-        console.log('Pictures created for property:', createdProperty.id);
       }
 
       res.status(201).json({
@@ -83,10 +78,7 @@ propertyRouter.post(
         propertyId: createdProperty.id,
       });
     } catch (error) {
-      console.error('error in property creating', error);
       res.status(500).json({ error: 'Failed to create property' });
-    } finally {
-      console.log('property creation has ended.');
     }
   },
 );
