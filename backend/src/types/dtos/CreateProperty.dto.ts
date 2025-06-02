@@ -30,3 +30,8 @@ export interface CreatePropertyDTO {
   pictures: string[];
   coverPictureIndex: number;
 }
+
+export interface CreatePropertyResponse {
+  message: string;
+  propertyId: number;
+}
