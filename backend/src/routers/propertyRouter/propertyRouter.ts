@@ -1,12 +1,18 @@
 import express, { Request, Response } from 'express';
 import { PrismaClient } from '../../../generated/prisma';
-import { CreatePropertyDTO } from '../../types/dtos/CreateProperty.dto';
+import {
+  CreatePropertyDTO,
+  CreatePropertyResponse,
+} from '../../types/dtos/CreateProperty.dto';
 import propertyCreationValidate from '../../middlewares/property/propertyCreationValidate';
 import {
   madDtoToPrismaEnumAddPropertyType,
   madDtoToPrismaEnumAddPropertyStatus,
 } from '../../utils/mapDtoToPrismaEnumAddProperty';
 import multer from 'multer';
+import { GetPropertiesQuery } from '../../types/dtos/GetPropertiesQuery.dto';
+import { GetPropertiesResponse } from '../../types/dtos/GetPropertiesResponse.dto';
+import { GeneralErrorResponse } from '../../types/general-error';
 
 const propertyRouter = express.Router();
 const prisma = new PrismaClient();
@@ -21,7 +27,10 @@ propertyRouter.post(
   '/addProperty',
   multerUpload.array('pictures'),
   propertyCreationValidate,
-  async (req: Request<{}, {}, CreatePropertyDTO>, res: Response) => {
+  async (
+    req: Request<{}, {}, CreatePropertyDTO>,
+    res: Response<CreatePropertyResponse | GeneralErrorResponse>,
+  ) => {
     const {
       street,
       city,
@@ -90,10 +99,13 @@ propertyRouter.post(
  */
 propertyRouter.get(
   '/getPropertiesByPage',
-  async (req: Request, res: Response) => {
+  async (
+    req: Request<{}, {}, GetPropertiesQuery>,
+    res: Response<GetPropertiesResponse | GeneralErrorResponse>,
+  ) => {
     try {
       const page = parseInt(req.query.page as string) || 1;
-      const pageSize = parseInt(req.query.pageSize as string) || 5;
+      const pageSize = parseInt(req.query.pageSize as string) || 6;
       const skip = (page - 1) * pageSize;
 
       const totalCount = await prisma.property.count();
@@ -122,6 +134,7 @@ propertyRouter.get(
           city: property.city,
           state: property.state,
           country: property.country,
+          postalCode: property.postalCode,
           price: property.price,
           bedrooms: property.bedrooms,
           bathrooms: property.bathrooms,
