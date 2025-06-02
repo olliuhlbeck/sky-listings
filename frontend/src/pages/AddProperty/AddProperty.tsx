@@ -111,7 +111,7 @@ const AddProperty: React.FC = () => {
     <form
       id='addPropertyForm'
       onSubmit={handleSubmit}
-      className={`bg-gray-50  w-11/12 justify-center mt-6 p-4 mx-auto rounded-2xl shadow-md shadow-gray-500 bg-bottom-left bg-cover bg-[url('./assets/propertyCreation.jpg')]`}
+      className={`bg-gray-50  w-11/12 justify-center mt-10 p-4 mx-auto rounded-2xl shadow-md shadow-gray-500 bg-bottom-left bg-cover bg-[url('./assets/propertyCreation.jpg')]`}
     >
       <h1 className='text-2xl font-semibold text-center mb-6'>
         Property information
