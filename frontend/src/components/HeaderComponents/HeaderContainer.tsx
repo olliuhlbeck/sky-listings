@@ -21,8 +21,10 @@ const HeaderContainer = ({ title, link }: HeaderContainerProps) => {
   const isUserInLoginPage = location.pathname === '/login';
 
   return (
-    <header className='fixed top-0 left-0 w-full z-'>
-      <div className='container mx-auto flex items-center justify-between p-6'>
+    <header
+      className={`fixed top-0 left-0 w-full bg-cover bg-top bg-[url('./assets/background.png')] shadow-sm`}
+    >
+      <div className='container mx-auto flex items-center justify-between p-3'>
         <Link className='flex space-x-2 text-slate-900' to={link}>
           <IconComponent icon={GiFamilyHouse} size={32} />
           <h2 className='text-2xl text-center hidden md:block'>{title}</h2>

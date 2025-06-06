@@ -4,7 +4,7 @@ import HeaderContainer from '../src/components/HeaderComponents/HeaderContainer'
 import { useState } from 'react';
 import Footer from '../src/components/FooterComponents/Footer';
 
-function App() {
+const App = () => {
   const [footerVisible, setFooterVisible] = useState<boolean>(true);
   return (
     <div
@@ -20,6 +20,6 @@ function App() {
       />
     </div>
   );
-}
+};
 
 export default App;
