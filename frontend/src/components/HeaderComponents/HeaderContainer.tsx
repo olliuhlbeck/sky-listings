@@ -28,7 +28,7 @@ const HeaderContainer = ({
   const location = useLocation();
   const isUserInLoginPage = location.pathname === '/login';
 
-  // Hamburger menu pop up closing
+  // Hamburger menu pop up control refs
   const hamburgerRef = useRef<HTMLDivElement>(null);
   const popupRef = useRef<HTMLDivElement>(null);
 
@@ -82,7 +82,7 @@ const HeaderContainer = ({
         {isHamburgerMenuOpen && (
           <div
             ref={popupRef}
-            className='absolute top-20 right-1/2 md:left-1/2 translate-x-1/3 transform md:-translate-x-1/3 w-64 bg-white shadow-lg rounded-md p-2 xl:hidden'
+            className='absolute top-20 right-1/2 md:left-1/2 transform translate-x-3 md:-translate-x-2/3 w-64 bg-white shadow-lg rounded-md p-2 xl:hidden'
           >
             {navigationLinks
               .filter((link) => link.authOnly === 'no' || user !== null)
