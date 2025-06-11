@@ -64,7 +64,7 @@ loginRouter.post(
       }
 
       const loginPayload: LoginPayload = {
-        id: doesUserNameExist.id,
+        userId: doesUserNameExist.id,
         username: doesUserNameExist.username,
       };
 

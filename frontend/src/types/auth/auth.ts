@@ -1,4 +1,5 @@
 export interface AuthContextType {
+  userId: number | null;
   user: string | null;
   login: (newToken: string) => void;
   logout: () => void;
@@ -11,6 +12,7 @@ export interface LoginCredentials {
 }
 
 export interface DecodedToken {
+  userId: number | null;
   username: string;
   exp: number;
 }
