@@ -3,6 +3,8 @@ import { PropertyResponse } from '../../types/dtos/PropertyResponse.dto';
 import IconComponent from '../../components/GeneralComponents/IconComponent';
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6';
 import PropertyCard from '../../components/PropertyComponents/PropertyCard';
+import AdComponent from '../../components/GeneralComponents/AdComponent';
+import { BiDollar } from 'react-icons/bi';
 
 const BrowseProperties = () => {
   const [page, setPage] = useState<number>(1);
@@ -28,7 +30,7 @@ const BrowseProperties = () => {
         setErrorMessage('Failed to fetch properties. Please try again.');
       }
     } catch {
-      setErrorMessage('Failed to fetch products. Please try again.');
+      setErrorMessage('Failed to fetch properties. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -47,55 +49,67 @@ const BrowseProperties = () => {
   };
 
   return (
-    <div className='m-10'>
-      {loading && <p>Loading...</p>}
-      {errorMessage !== '' && <p className='text-red-500'>{errorMessage}</p>}
+    <>
+      <div className='m-10'>
+        {loading && <p>Loading properties...</p>}
+        {errorMessage !== '' && <p className='text-red-500'>{errorMessage}</p>}
 
-      {/* Mapping property results into property cards */}
-      <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4'>
-        {properties.map((property: PropertyResponse) => {
-          return (
-            <PropertyCard
-              key={property.id}
-              imageUrl={`data:image/jpeg;base64,${property.coverPicture}`}
-              beds={property.bedrooms ?? 0}
-              baths={property.bathrooms ?? 0}
-              street={property.street ?? `${property.street}, ${property.city}`}
-              formattedPrice={`${property.price.toLocaleString('fr-FR')} €`}
-            />
-          );
-        })}
+        {/* Mapping property results into property cards */}
+        <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4'>
+          {properties.map((property: PropertyResponse) => {
+            return (
+              <PropertyCard
+                key={property.id}
+                imageUrl={`data:image/jpeg;base64,${property.coverPicture}`}
+                beds={property.bedrooms ?? 0}
+                baths={property.bathrooms ?? 0}
+                street={
+                  property.street ?? `${property.street}, ${property.city}`
+                }
+                formattedPrice={`${property.price.toLocaleString('fr-FR')} €`}
+              />
+            );
+          })}
+        </div>
+
+        {/* Pagination section */}
+        <div className='flex gap-6 items-center justify-center mt-4'>
+          {page !== 1 && (
+            <button
+              onClick={handlePreviousPage}
+              disabled={page === 1}
+              className='flex items-center gap-1 px-3 py-1 bg-sky-200 rounded-md hover:cursor-pointer hover:bg-sky-300 transition duration-200'
+            >
+              <IconComponent icon={FaAngleLeft} size={16} />
+              <p>Previous</p>
+            </button>
+          )}
+
+          {totalPages > 1 && page !== totalPages && (
+            <>
+              <span>
+                Showing page {page} of {totalPages}
+              </span>
+              <button
+                onClick={handleNextPage}
+                disabled={page === totalPages}
+                className='flex items-center gap-1 px-3 py-1 bg-sky-200 rounded-md hover:cursor-pointer hover:bg-sky-300 transition duration-200'
+              >
+                <p className='m-0 text-md'>Next</p>
+                <IconComponent icon={FaAngleRight} size={16} />
+              </button>
+            </>
+          )}
+        </div>
       </div>
-
-      {/* Pagination section */}
-      <div className='flex gap-6 items-center justify-center mt-4'>
-        {page !== 1 && (
-          <button
-            onClick={handlePreviousPage}
-            disabled={page === 1}
-            className='flex items-center gap-1 px-3 py-1 bg-sky-200 rounded-md hover:cursor-pointer hover:bg-sky-300 transition duration-200'
-          >
-            <IconComponent icon={FaAngleLeft} size={16} />
-            <p>Previous</p>
-          </button>
-        )}
-
-        <span>
-          Showing page {page} of {totalPages}
-        </span>
-
-        {totalPages > 1 && page !== totalPages && (
-          <button
-            onClick={handleNextPage}
-            disabled={page === totalPages}
-            className='flex items-center gap-1 px-3 py-1 bg-sky-200 rounded-md hover:cursor-pointer hover:bg-sky-300 transition duration-200'
-          >
-            <p className='m-0 text-md'>Next</p>
-            <IconComponent icon={FaAngleRight} size={16} />
-          </button>
-        )}
-      </div>
-    </div>
+      <AdComponent
+        title='Mortgage Masters'
+        message='Short on liquid assets? Mortgage Masters can solve your problems!'
+        buttonText='Apply for loan'
+        icon={BiDollar}
+        addToClassName='mt-20 mx-auto'
+      />
+    </>
   );
 };
 

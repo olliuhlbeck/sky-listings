@@ -77,7 +77,7 @@ signupRouter.post(
       };
 
       const tokenPayload: TokenPayload = {
-        id: createNewUser.id,
+        userId: createNewUser.id,
         username: createNewUser.username,
       };
 

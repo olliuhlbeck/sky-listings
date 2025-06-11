@@ -157,6 +157,7 @@ propertyRouter.get(
       res
         .status(500)
         .json({ error: 'Failed to load properties. Please try again.' });
+      return;
     }
   },
 );
@@ -169,28 +170,20 @@ propertyRouter.get(
 propertyRouter.get(
   '/getPropertiesByUserId',
   async (req: Request, res: Response) => {
-    const { id } = req.body;
+    const userId = parseInt(req.query.userId as string);
     try {
-      const page = parseInt(req.query.page as string) || 1;
-      const pageSize = parseInt(req.query.pageSize as string) || 6;
-      const skip = (page - 1) * pageSize;
-
       const fetchUsersProperties = await prisma.property.findMany({
-        skip,
-        take: pageSize,
-        include: {
-          pictures: {
-            where: { useAsCoverPicture: true },
-            take: 1,
-          },
+        where: {
+          userId: userId,
         },
       });
-      res.status(200).json({ fetchUsersProperties });
+      res.status(200).json({ usersProperties: fetchUsersProperties });
     } catch (error) {
       console.error(error);
       res
         .status(500)
         .json({ error: 'Failed to load your properties. Please try again.' });
+      return;
     }
   },
 );

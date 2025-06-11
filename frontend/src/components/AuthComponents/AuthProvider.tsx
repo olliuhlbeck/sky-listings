@@ -13,11 +13,13 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     localStorage.getItem('authToken'),
   );
   const [user, setUser] = useState<string | null>(null);
+  const [userId, setUserId] = useState<number | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
   const resetTokenState = () => {
     setIsAuthenticated(false);
     setUser(null);
+    setUserId(null);
     localStorage.removeItem('authToken');
     setToken(null);
   };
@@ -29,7 +31,9 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         const delay = checkTokenExpTime(token);
 
         if (delay !== null) {
+          console.log('token', decodedToken);
           setUser(decodedToken.username);
+          setUserId(decodedToken.userId);
           setIsAuthenticated(true);
 
           const timeoutId = setTimeout(() => {
@@ -56,7 +60,9 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, isAuthenticated }}>
+    <AuthContext.Provider
+      value={{ user, userId, login, logout, isAuthenticated }}
+    >
       {children}
     </AuthContext.Provider>
   );
