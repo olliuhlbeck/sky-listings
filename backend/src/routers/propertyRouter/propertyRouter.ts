@@ -188,4 +188,66 @@ propertyRouter.get(
   },
 );
 
+/**
+ * Edit property information route
+ * - Edits property details (not including pictures)
+ */
+propertyRouter.put(
+  '/editPropertyInformation/:propertyId',
+  async (
+    req: Request<{ propertyId: string }, {}, Partial<CreatePropertyDTO>>,
+    res: Response,
+  ) => {
+    const { propertyId } = req.params;
+    const {
+      street,
+      city,
+      state,
+      postalCode,
+      country,
+      price,
+      propertyType,
+      propertyStatus,
+      bedrooms,
+      bathrooms,
+      squareMeters,
+      description,
+      additionalInfo,
+    } = req.body;
+
+    try {
+      const updatedProperty = await prisma.property.update({
+        where: { id: Number(propertyId) },
+        data: {
+          ...(street && { street }),
+          ...(city && { city }),
+          ...(state && { state }),
+          ...(postalCode && { postalCode }),
+          ...(country && { country }),
+          ...(price && { price: Number(price) }),
+          ...(propertyType && {
+            propertyType: madDtoToPrismaEnumAddPropertyType(propertyType),
+          }),
+          ...(propertyStatus && {
+            propertyStatus: madDtoToPrismaEnumAddPropertyStatus(propertyStatus),
+          }),
+          ...(bedrooms && { bedrooms: Number(bedrooms) }),
+          ...(bathrooms && { bathrooms: Number(bathrooms) }),
+          ...(squareMeters && { squareMeters: Number(squareMeters) }),
+          ...(description && { description }),
+          ...(additionalInfo && { additionalInfo }),
+        },
+      });
+
+      res.status(200).json({
+        updatedProperty: updatedProperty,
+        message: 'Property information updated successfully',
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Failed to update property information' });
+    }
+  },
+);
+
 export default propertyRouter;

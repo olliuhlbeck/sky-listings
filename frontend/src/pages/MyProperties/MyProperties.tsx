@@ -9,13 +9,15 @@ const MyProperties = () => {
   const [usersProperties, setUsersProperties] = useState<PropertyResponse[]>(
     [],
   );
-  const [propertyToEdit, setPropertyIdToEdit] =
-    useState<PropertyResponse | null>(null);
+  const [propertyToEdit, setPropertyToEdit] = useState<PropertyResponse | null>(
+    null,
+  );
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string>('');
 
   const { userId } = useAuth();
 
+  // Fetch and display users properties on first render
   const fetchPropertiesByUserId = async (): Promise<void> => {
     try {
       const response = await fetch(
@@ -25,7 +27,6 @@ const MyProperties = () => {
       if (response.ok && data.usersProperties) {
         setUsersProperties(data.usersProperties);
         setErrorMessage('');
-        console.log(data.usersProperties);
       }
     } catch (error) {
       setErrorMessage('Failed to fetch your properties. Please try again.');
@@ -35,12 +36,25 @@ const MyProperties = () => {
       setLoading(false);
     }
   };
-
   useEffect(() => {
     if (userId !== null && userId !== undefined) {
       fetchPropertiesByUserId();
     }
   }, [userId]);
+
+  const handleSingleFieldEdit = (
+    field: keyof PropertyResponse,
+    value: string | number | null,
+  ) => {
+    if (!propertyToEdit) {
+      return;
+    } else {
+      setPropertyToEdit({
+        ...propertyToEdit,
+        [field]: value,
+      });
+    }
+  };
 
   return (
     <>
@@ -52,15 +66,15 @@ const MyProperties = () => {
         <div className='flex flex-col justify-center mx-auto w-5/6 lg:flex-row lg:gap-10'>
           {loading === false && errorMessage === '' && (
             <div className='mb-6 flex-1'>
-              <h2 className='mb-4'>Select property to edit:</h2>
+              <h2 className='mb-4'>Select property to edit informat:</h2>
               {usersProperties && (
                 <div className='grid grid-cols-3 gap-4'>
-                  {usersProperties.map((property, propertyIndex) => {
+                  {usersProperties.map((property) => {
                     return (
                       <div
                         className={`bg-sky-200 rounded-md p-1 hover:bg-sky-300 hover:cursor-pointer transition duration-200 ${propertyToEdit?.id === property.id ? '!bg-blue-400' : ''}`}
-                        key={`myProperties${propertyIndex}`}
-                        onClick={() => setPropertyIdToEdit(property)}
+                        key={property.id}
+                        onClick={() => setPropertyToEdit(property)}
                       >
                         {property.street}
                       </div>
@@ -71,7 +85,11 @@ const MyProperties = () => {
             </div>
           )}
           {propertyToEdit !== null && (
-            <PropertyInfoEditForm property={propertyToEdit} />
+            <PropertyInfoEditForm
+              property={propertyToEdit}
+              originalProperty={propertyToEdit}
+              onFieldEdit={handleSingleFieldEdit}
+            />
           )}
         </div>
       </div>
