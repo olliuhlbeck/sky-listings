@@ -39,15 +39,15 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
 
   const handleUserNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputs({ ...inputs, username: event.target.value });
-    setErrors((prev) => ({ ...prev, username: '' }));
+    setErrors((prev) => ({ ...prev, username: '', generalError: '' }));
   };
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputs({ ...inputs, email: event.target.value });
-    setErrors((prev) => ({ ...prev, email: '' }));
+    setErrors((prev) => ({ ...prev, email: '', generalError: '' }));
   };
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputs({ ...inputs, password: event.target.value });
-    setErrors((prev) => ({ ...prev, password: '' }));
+    setErrors((prev) => ({ ...prev, password: '', generalError: '' }));
   };
 
   const validateEmail = (email: string) => {
@@ -101,15 +101,12 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
       const data = await response.json();
       if (response.ok) {
         login(data.token);
-        console.log(data.message);
       } else {
-        const data = await response.json();
         const message =
           data.error ||
           data.message ||
           'Something went wrong. Please try again.';
         setErrors((prev) => ({ ...prev, generalError: message }));
-        console.error(`${action} error:`, message);
         return;
       }
     } else if (action === ActionType.SignUp) {
@@ -127,7 +124,6 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
       const data = await response.json();
       if (response.ok) {
         login(data.token);
-        console.log(data.message);
       } else {
         const data = await response.json();
         const message =
@@ -135,7 +131,6 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
           data.message ||
           'Something went wrong. Please try again.';
         setErrors((prev) => ({ ...prev, generalError: message }));
-        console.error(`${action} error:`, message);
         return;
       }
     }
