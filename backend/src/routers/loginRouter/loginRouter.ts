@@ -12,7 +12,7 @@ const loginRouter = express.Router();
 const prisma = new PrismaClient();
 
 const UNAUTHORIZED_ERROR: GeneralErrorResponse = {
-  error: 'Unauthorized login credentials.',
+  error: 'Unauthorized login credentials. Please check spelling.',
 };
 const SERVER_ERROR: GeneralErrorResponse = {
   error: 'Something went wrong. Please try again.',
