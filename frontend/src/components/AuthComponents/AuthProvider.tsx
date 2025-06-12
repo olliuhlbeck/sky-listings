@@ -31,7 +31,6 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         const delay = checkTokenExpTime(token);
 
         if (delay !== null) {
-          console.log('token', decodedToken);
           setUser(decodedToken.username);
           setUserId(decodedToken.userId);
           setIsAuthenticated(true);
