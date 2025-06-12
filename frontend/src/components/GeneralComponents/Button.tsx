@@ -11,9 +11,8 @@ const Button = ({
   icon,
   iconSize,
   onClick,
-  disabled,
 }: ButtonProps) => {
-  const basicClassName = `flex items-center gap-2 px-4 py-2 rounded-md text-md bg-sky-200 hover:cursor-pointer hover:bg-sky-300 transition duration-200 ${ClassName} ${disabled ? '' : ''}`;
+  const basicClassName = `flex items-center gap-2 px-4 py-2 rounded-md text-md bg-sky-200 hover:cursor-pointer hover:bg-sky-300 transition duration-200 ${ClassName} `;
 
   if (link) {
     return (
