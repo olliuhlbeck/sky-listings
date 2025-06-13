@@ -66,7 +66,7 @@ const MyProperties = () => {
         <div className='flex flex-col justify-center mx-auto w-5/6 lg:flex-row lg:gap-10'>
           {loading === false && errorMessage === '' && (
             <div className='mb-6 flex-1'>
-              <h2 className='mb-4'>Select property to edit informat:</h2>
+              <h2 className='mb-4'>Select property to edit information:</h2>
               {usersProperties && (
                 <div className='grid grid-cols-3 gap-4'>
                   {usersProperties.map((property) => {
