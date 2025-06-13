@@ -18,7 +18,6 @@ const HeaderContainer = ({
 }: HeaderContainerProps) => {
   const navigationLinks = [
     { text: 'Home', link: 'home', authOnly: 'no' },
-    { text: 'Pagination', link: 'pagination', authOnly: 'no' },
     { text: 'Browse Properties', link: 'browseProperties', authOnly: 'no' },
     { text: 'My Properties', link: 'myProperties', authOnly: 'yes' },
     { text: 'Add property', link: 'AddProperty', authOnly: 'yes' },
