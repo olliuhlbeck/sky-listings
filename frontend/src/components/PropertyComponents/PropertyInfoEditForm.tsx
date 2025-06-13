@@ -77,28 +77,37 @@ const PropertyInfoEditForm: React.FC<PropertyEditProps> = ({
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    try {
-      const response = await fetch(
-        `http://localhost:3000/property/editPropertyInformation/${property.id}`,
-        {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
+    if (Object.keys(editedFields).length > 0) {
+      try {
+        const response = await fetch(
+          `http://localhost:3000/property/editPropertyInformation/${property.id}`,
+          {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(editedFields),
           },
-          body: JSON.stringify(editedFields),
-        },
-      );
+        );
 
-      if (!response.ok) {
-        throw new Error('Failed to update property');
+        if (!response.ok) {
+          throw new Error('Failed to update property');
+        }
+        setMessageType('success');
+        setMessage('Property updated successfully!');
+        setTimeout(() => setMessage(null), 3000);
+      } catch {
+        setMessageType('error');
+        setMessage('Error updating property.');
+
+        setTimeout(() => {
+          setMessage(null);
+          setMessageType(null);
+        }, 3000);
       }
-      setMessageType('success');
-      setMessage('Property updated successfully!');
-      setTimeout(() => setMessage(null), 3000);
-    } catch {
+    } else {
       setMessageType('error');
-      setMessage('Error updating property.');
-
+      setMessage('No edited fields found.');
       setTimeout(() => {
         setMessage(null);
         setMessageType(null);
