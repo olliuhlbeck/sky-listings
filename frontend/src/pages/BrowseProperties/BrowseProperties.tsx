@@ -61,6 +61,7 @@ const BrowseProperties = () => {
               <PropertyCard
                 key={property.id}
                 imageUrl={`data:image/jpeg;base64,${property.coverPicture}`}
+                propertyType={property.propertyType}
                 beds={property.bedrooms ?? 0}
                 baths={property.bathrooms ?? 0}
                 street={
