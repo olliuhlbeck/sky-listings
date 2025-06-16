@@ -6,7 +6,8 @@ import Footer from '../src/components/FooterComponents/Footer';
 
 const App = () => {
   const [footerVisible, setFooterVisible] = useState<boolean>(true);
-  const [isHamburgerMenuOpen, setIsHamburgerMenuOpen] = useState<boolean>(true);
+  const [isHamburgerMenuOpen, setIsHamburgerMenuOpen] =
+    useState<boolean>(false);
   return (
     <div
       className={`flex flex-col w-full min-h-screen text-center font-mono bg-cover bg-center bg-[url('./assets/background.png')] text-slate-900`}
