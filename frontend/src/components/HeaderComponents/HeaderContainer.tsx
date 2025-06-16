@@ -52,7 +52,7 @@ const HeaderContainer = ({
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full bg-cover bg-top bg-[url('./assets/background.png')] shadow-sm`}
+      className={`fixed top-0 left-0 w-full bg-cover bg-top bg-[url('./assets/background.png')] shadow-sm z-30`}
     >
       <div className='container mx-auto flex items-center justify-between p-3'>
         <Link className='flex space-x-2 text-slate-900' to={link}>
@@ -81,7 +81,7 @@ const HeaderContainer = ({
         {isHamburgerMenuOpen && (
           <div
             ref={popupRef}
-            className='absolute top-20 right-1/2 md:left-1/2 transform translate-x-1/3 md:-translate-x-1/3 w-64 bg-white shadow-lg rounded-md p-2 xl:hidden'
+            className='absolute z-50 top-20 right-1/2 md:left-1/2 transform translate-x-1/3 md:-translate-x-1/3 w-64 bg-white shadow-lg rounded-md p-2 xl:hidden'
           >
             {navigationLinks
               .filter((link) => link.authOnly === 'no' || user !== null)
