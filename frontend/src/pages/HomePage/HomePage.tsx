@@ -1,7 +1,7 @@
 import { BiDollar } from 'react-icons/bi';
 import AdComponent from '../../components/GeneralComponents/AdComponent';
 import { useAuth } from '../../utils/useAuth';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ActionType } from '../../types/ActionType';
 import ContentButtonCard from '../../components/GeneralComponents/ContentButtonCard';
 import browseHouses from '../../assets/browseHouses.jpg';
@@ -10,22 +10,23 @@ import Button from '../../components/GeneralComponents/Button';
 
 const HomePage = () => {
   const { user } = useAuth();
-  const navigate = useNavigate();
 
   return (
-    <div className='flex flex-col justify-center items-center mt-10'>
+    <div className='flex flex-col justify-center items-center mt-20'>
       {user ? (
         <>
           <div className='flex flex-col lg:flex-row w-4/6 gap-6'>
             <ContentButtonCard
-              onClick={() => navigate('browseProperties')}
+              link='browseProperties'
               buttonText='Browse properties'
               backgroundImage={browseHouses}
+              addToClassName='left-10 !bg-gray-100'
             />
             <ContentButtonCard
-              onClick={() => navigate('myProperties')}
-              buttonText='List your property for sale!'
+              link={'/myProperties'}
+              buttonText='Sell properties'
               backgroundImage={sellHouse}
+              addToClassName='right-10 !bg-blue-950 text-gray-50'
             />
           </div>
         </>
@@ -33,22 +34,20 @@ const HomePage = () => {
         <>
           <div className='flex flex-col lg:flex-row w-4/6 gap-6'>
             <ContentButtonCard
-              onClick={() => navigate('browseProperties')}
+              link='browseProperties'
               buttonText='Browse properties'
               backgroundImage={browseHouses}
+              addToClassName='left-10 !bg-gray-100'
             />
-            <div
-              className={`min-h-[12rem] lg:min-h-[24rem] shadow-lg shadow-slate-500 flex flex-1 justify-center items-center rounded-lg bg-[url('./assets/registerFront.png')] bg-cover bg-center`}
+            <Link
+              to={'login'}
+              state={{ action: ActionType.SignUp }}
+              className={`relative hover:scale-[1.02] transition duration-300 min-h-[12rem] lg:min-h-[24rem] shadow-lg shadow-slate-500 flex flex-1 justify-center items-center rounded-lg bg-[url('./assets/registerFront.png')] bg-cover bg-center `}
             >
-              <Button
-                ClassName='w-[16rem] md:w-[20rem] text-2xl'
-                onClick={() =>
-                  navigate('login', { state: { action: ActionType.SignUp } })
-                }
-              >
-                Register to list your property!
+              <Button ClassName='text-xl absolute -top-11 right-10 !rounded-b-none !bg-blue-600'>
+                Register
               </Button>
-            </div>
+            </Link>
           </div>
         </>
       )}
