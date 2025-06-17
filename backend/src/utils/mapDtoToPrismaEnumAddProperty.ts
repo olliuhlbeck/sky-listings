@@ -3,7 +3,7 @@ import { PropertyStatus as PrismaPropertyStatus } from '../../generated/prisma';
 import { PropertyTypes as DTOPropertyTypes } from '../types/dtos/CreateProperty.dto';
 import { PropertyStatus as DTOPropertyStatus } from '../types/dtos/CreateProperty.dto';
 
-const madDtoToPrismaEnumAddPropertyType = (dtoType: DTOPropertyTypes) => {
+const mapDtoToPrismaEnumAddPropertyType = (dtoType: DTOPropertyTypes) => {
   switch (dtoType) {
     case DTOPropertyTypes.APARTMENT:
       return PrismaPropertyTypes.APARTMENT;
@@ -22,7 +22,7 @@ const madDtoToPrismaEnumAddPropertyType = (dtoType: DTOPropertyTypes) => {
   }
 };
 
-const madDtoToPrismaEnumAddPropertyStatus = (dtoStatus: DTOPropertyStatus) => {
+const mapDtoToPrismaEnumAddPropertyStatus = (dtoStatus: DTOPropertyStatus) => {
   switch (dtoStatus) {
     case DTOPropertyStatus.AVAILABLE:
       return PrismaPropertyStatus.AVAILABLE;
@@ -36,6 +36,6 @@ const madDtoToPrismaEnumAddPropertyStatus = (dtoStatus: DTOPropertyStatus) => {
 };
 
 export {
-  madDtoToPrismaEnumAddPropertyType,
-  madDtoToPrismaEnumAddPropertyStatus,
+  mapDtoToPrismaEnumAddPropertyType,
+  mapDtoToPrismaEnumAddPropertyStatus,
 };
