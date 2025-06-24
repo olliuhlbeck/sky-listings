@@ -2,26 +2,11 @@
 
 A simple property selling app that allows users to browse, search, and list real estate properties with a responsive design and secure login.
 
-<div style="display: flex; gap: 10px; justify-content: center;">
-  <div style="position: relative; width: 30%;">
-    <img src="./frontend/public/screenshots/xl-home-page.jpg" alt="Front Page XL" style="width: 100%; border-radius: 8px;" />
-    <div style="position: absolute; bottom: 8px; left: 8px; color: white; background: rgba(0,0,0,0.5); padding: 4px 8px; border-radius: 4px;">
-      Home page
-    </div>
-  </div>
-  <div style="position: relative; width: 30%;">
-    <img src="./frontend/public/screenshots/small-home-page.jpg" alt="Login Page SM" style="width: 100%; border-radius: 8px;" />
-    <div style="position: absolute; bottom: 8px; left: 8px; color: white; background: rgba(0,0,0,0.5); padding: 4px 8px; border-radius: 4px;">
-      Home page in smaller screen
-    </div>
-  </div>
-  <div style="position: relative; width: 30%;">
-    <img src="./frontend/public/screenshots/xl-browse-properties.jpg" alt="Browse properties" style="width: 100%; border-radius: 8px;" />
-    <div style="position: absolute; bottom: 8px; left: 8px; color: white; background: rgba(0,0,0,0.5); padding: 4px 8px; border-radius: 4px;">
-      Property browsing page
-    </div>
-  </div>
-</div>
+### Screenshots
+
+| Home Page (XL)                                             | Home Page (Mobile)                                            | Property Browsing Page                                            |
+| ---------------------------------------------------------- | ------------------------------------------------------------- | ----------------------------------------------------------------- |
+| ![Home XL](./frontend/public/screenshots/xl-home-page.jpg) | ![Home SM](./frontend/public/screenshots/small-home-page.jpg) | ![Browse](./frontend/public/screenshots/xl-browse-properties.jpg) |
 
 - Frontend: React, TypeScript, Vite and TailwindCSS
 - Backend: Node.js (TypeScript) with a PostgreSQL database
