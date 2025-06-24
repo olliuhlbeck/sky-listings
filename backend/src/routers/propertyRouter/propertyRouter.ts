@@ -6,8 +6,8 @@ import {
 } from '../../types/dtos/CreateProperty.dto';
 import propertyCreationValidate from '../../middlewares/property/propertyCreationValidate';
 import {
-  madDtoToPrismaEnumAddPropertyType,
-  madDtoToPrismaEnumAddPropertyStatus,
+  mapDtoToPrismaEnumAddPropertyType,
+  mapDtoToPrismaEnumAddPropertyStatus,
 } from '../../utils/mapDtoToPrismaEnumAddProperty';
 import multer from 'multer';
 import { GetPropertiesQuery } from '../../types/dtos/GetPropertiesQuery.dto';
@@ -57,13 +57,13 @@ propertyRouter.post(
           bedrooms: Number(bedrooms),
           bathrooms: Number(bathrooms),
           additionalInfo: additionalInfo,
-          propertyType: madDtoToPrismaEnumAddPropertyType(propertyType),
+          propertyType: mapDtoToPrismaEnumAddPropertyType(propertyType),
           description: description,
           city: city,
           country: country,
           postalCode: postalCode,
           price: Number(price),
-          propertyStatus: madDtoToPrismaEnumAddPropertyStatus(propertyStatus),
+          propertyStatus: mapDtoToPrismaEnumAddPropertyStatus(propertyStatus),
           squareMeters: Number(squareMeters),
           state: state,
           street: street,
@@ -226,10 +226,10 @@ propertyRouter.put(
           ...(country && { country }),
           ...(price && { price: Number(price) }),
           ...(propertyType && {
-            propertyType: madDtoToPrismaEnumAddPropertyType(propertyType),
+            propertyType: mapDtoToPrismaEnumAddPropertyType(propertyType),
           }),
           ...(propertyStatus && {
-            propertyStatus: madDtoToPrismaEnumAddPropertyStatus(propertyStatus),
+            propertyStatus: mapDtoToPrismaEnumAddPropertyStatus(propertyStatus),
           }),
           ...(bedrooms && { bedrooms: Number(bedrooms) }),
           ...(bathrooms && { bathrooms: Number(bathrooms) }),
