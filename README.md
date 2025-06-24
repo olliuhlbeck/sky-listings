@@ -4,6 +4,7 @@ A simple fullstack setup with:
 
 - Frontend: React, TypeScript, Vite and TailwindCSS
 - Backend: Node.js (TypeScript) with a PostgreSQL database
+
   > **Note on image handling:**
   > The current approach to handling images in this project is not ideal. Images are embedded as base64-strings, which isn't aligned with best practices for performance and scalability. This was a conscious trade-off made to simplify development and keep the project lightweight
 
