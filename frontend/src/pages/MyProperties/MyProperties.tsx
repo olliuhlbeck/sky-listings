@@ -63,6 +63,7 @@ const MyProperties = () => {
         {errorMessage !== '' && (
           <p className='text-red-500 mb-4'>{errorMessage}</p>
         )}
+        {/* List properties */}
         <div className='flex flex-col justify-center mx-auto w-5/6 lg:flex-row lg:gap-10'>
           {loading === false && errorMessage === '' && (
             <div className='mb-6 flex-1'>
@@ -84,6 +85,7 @@ const MyProperties = () => {
               )}
             </div>
           )}
+          {/* Render property edit form*/}
           {propertyToEdit !== null && (
             <PropertyInfoEditForm
               property={propertyToEdit}
