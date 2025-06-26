@@ -75,7 +75,7 @@ const MyProperties = () => {
                       <div
                         className={`bg-sky-200 rounded-md p-1 hover:bg-sky-300 hover:cursor-pointer transition duration-200 ${propertyToEdit?.id === property.id ? '!bg-blue-400' : ''}`}
                         key={property.id}
-                        onClick={() => setPropertyToEdit(property)}
+                        onClick={() => setPropertyToEdit({ ...property })}
                       >
                         {property.street}
                       </div>
@@ -88,6 +88,7 @@ const MyProperties = () => {
           {/* Render property edit form*/}
           {propertyToEdit !== null && (
             <PropertyInfoEditForm
+              key={propertyToEdit.id}
               property={propertyToEdit}
               originalProperty={propertyToEdit}
               onFieldEdit={handleSingleFieldEdit}
