@@ -3,7 +3,7 @@ import { PropertyEditProps } from '../../types/PropertyEditProps';
 import EditableField from './EditableField';
 import { PropertyTypes, PropertyStatuses } from '../../types/PropertyFormData';
 import Button from '../GeneralComponents/Button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const PropertyInfoEditForm: React.FC<PropertyEditProps> = ({
   property,
@@ -28,6 +28,12 @@ const PropertyInfoEditForm: React.FC<PropertyEditProps> = ({
 
     onFieldEdit(field, value);
   };
+
+  useEffect(() => {
+    setEditedFields({});
+    setMessage(null);
+    setMessageType(null);
+  }, [property]);
 
   // Fields to map for edit form
   const editableFields: {
