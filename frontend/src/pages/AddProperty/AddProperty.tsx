@@ -49,7 +49,6 @@ const AddProperty: React.FC = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log('Form submitted!');
 
     const formDataToSend = new FormData();
 
@@ -337,7 +336,9 @@ const AddProperty: React.FC = () => {
               const files = e.target.files;
               if (!files) return;
 
-              const newFiles = Array.from(files);
+              const newFiles = Array.from(files).filter((file) => {
+                return file.type === 'image/jpeg';
+              });
 
               setFormData((prev) => ({
                 ...prev,
