@@ -332,7 +332,7 @@ const AddProperty: React.FC = () => {
             id='pictures'
             name='pictures'
             multiple
-            accept='image/*'
+            accept='image/jpeg'
             onChange={(e) => {
               const files = e.target.files;
               if (!files) return;
