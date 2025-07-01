@@ -1,7 +1,14 @@
 import { PrismaClient } from '../generated/prisma';
 import argon2 from 'argon2';
+import fs from 'fs';
+import path from 'path';
 
 const prisma = new PrismaClient();
+
+const readImageForSeed = (filename: string) => {
+  const fullPath = path.join(__dirname, '../seedPhotos', filename);
+  return fs.readFileSync(fullPath);
+};
 
 const main = async () => {
   const hashedPassword = await argon2.hash('testes');
@@ -36,9 +43,12 @@ const main = async () => {
               description: 'Modern detached house near city center.',
               pictures: {
                 create: [
-                  { picture: Buffer.from('kuva1'), useAsCoverPicture: true },
-                  { picture: Buffer.from('kuva2') },
-                  { picture: Buffer.from('kuva3') },
+                  {
+                    picture: readImageForSeed('house1-pic1.jpg'),
+                    useAsCoverPicture: true,
+                  },
+                  { picture: readImageForSeed('house1-pic2.jpg') },
+                  { picture: readImageForSeed('house1-pic3.jpg') },
                 ],
               },
             },
@@ -56,7 +66,7 @@ const main = async () => {
               propertyType: 'APARTMENT',
               description: 'Bright 2-bedroom apartment in Turku.',
               pictures: {
-                create: [{ picture: Buffer.from('kuvaA') }],
+                create: [{ picture: readImageForSeed('house2-pic1.jpg') }],
               },
             },
           ],
@@ -84,7 +94,7 @@ const main = async () => {
               propertyType: 'HOUSE',
               description: 'Family home in quiet neighborhood.',
               pictures: {
-                create: [{ picture: Buffer.from('kuvaX') }],
+                create: [{ picture: readImageForSeed('house3-pic1.jpg') }],
               },
             },
             {
@@ -101,7 +111,7 @@ const main = async () => {
               propertyType: 'LAND',
               description: 'Land parcel by the lake.',
               pictures: {
-                create: [{ picture: Buffer.from('kuvaY') }],
+                create: [{ picture: readImageForSeed('house4-pic1.jpg') }],
               },
             },
           ],
@@ -129,7 +139,7 @@ const main = async () => {
               propertyType: 'COMMERCIAL',
               description: 'Office building in old town Porvoo.',
               pictures: {
-                create: [{ picture: Buffer.from('kuva5') }],
+                create: [{ picture: readImageForSeed('house5-pic1.jpg') }],
               },
             },
             {
@@ -146,7 +156,7 @@ const main = async () => {
               propertyType: 'INDUSTRIAL',
               description: 'Warehouse in business district.',
               pictures: {
-                create: [{ picture: Buffer.from('kuva6') }],
+                create: [{ picture: readImageForSeed('house6-pic1.jpg') }],
               },
             },
             {
@@ -163,7 +173,7 @@ const main = async () => {
               propertyType: 'MISCELLANOUS',
               description: 'Mixed-use property close to central square.',
               pictures: {
-                create: [{ picture: Buffer.from('kuva7') }],
+                create: [{ picture: readImageForSeed('house7-pic1.jpg') }],
               },
             },
           ],
