@@ -4,8 +4,12 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
+    "db:init": "npm run prisma:generate && npm run prisma:migrate && npm run prisma:seed",
     "dev": "ts-node src/index.ts",
     "format": "prettier --write",
+    "prisma:generate": "npx prisma generate",
+    "prisma:migrate": "npx prisma migrate dev --name init",
+    "prisma:seed": "ts-node prisma/seed.ts",
     "start": "node dist/index.js",
     "test": "jest"
   },

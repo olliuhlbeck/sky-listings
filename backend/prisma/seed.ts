@@ -63,7 +63,7 @@ const main = async () => {
               bedrooms: 2,
               bathrooms: 1,
               squareMeters: 70,
-              propertyType: 'APARTMENT',
+              propertyType: 'HOUSE',
               description: 'Bright 2-bedroom apartment in Turku.',
               pictures: {
                 create: [{ picture: readImageForSeed('house2-pic1.jpg') }],
@@ -108,7 +108,7 @@ const main = async () => {
               bedrooms: 1,
               bathrooms: 1,
               squareMeters: 45,
-              propertyType: 'LAND',
+              propertyType: 'APARTMENT',
               description: 'Land parcel by the lake.',
               pictures: {
                 create: [{ picture: readImageForSeed('house4-pic1.jpg') }],
@@ -136,7 +136,7 @@ const main = async () => {
               bedrooms: 5,
               bathrooms: 3,
               squareMeters: 150,
-              propertyType: 'COMMERCIAL',
+              propertyType: 'APARTMENT',
               description: 'Office building in old town Porvoo.',
               pictures: {
                 create: [{ picture: readImageForSeed('house5-pic1.jpg') }],
@@ -153,7 +153,7 @@ const main = async () => {
               bedrooms: 3,
               bathrooms: 2,
               squareMeters: 100,
-              propertyType: 'INDUSTRIAL',
+              propertyType: 'HOUSE',
               description: 'Warehouse in business district.',
               pictures: {
                 create: [{ picture: readImageForSeed('house6-pic1.jpg') }],
