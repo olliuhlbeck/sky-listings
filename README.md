@@ -37,7 +37,7 @@ npm run dev
 # Backend
 cd backend
 npm install
-npx prisma migrate dev
+npm run db:init
 npm run dev
 ```
 
