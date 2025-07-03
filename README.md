@@ -1,4 +1,4 @@
-# React + TypeScript + TailwindCSS Starter
+# Sky Listings - React + TypeScript + TailwindCSS full stack project
 
 A simple property selling app that allows users to browse, search, and list real estate properties with a responsive design and secure login.
 
@@ -29,15 +29,15 @@ DATABASE_URL="postgresql://user:password@localhost:5432/yourdb"
 ```
 
 ```bash
-# Frontend
-cd frontend
-npm install
-npm run dev
-
 # Backend
 cd backend
 npm install
 npm run db:init
+npm run dev
+
+# Frontend
+cd frontend
+npm install
 npm run dev
 ```
 
