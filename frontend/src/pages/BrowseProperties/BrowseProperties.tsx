@@ -5,8 +5,8 @@ import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6';
 import PropertyCard from '../../components/PropertyComponents/PropertyCard';
 import AdComponent from '../../components/GeneralComponents/AdComponent';
 import { BiDollar } from 'react-icons/bi';
-import { BrowseState } from '../../types/browseStates';
-import InspectSingleProperty from '../../components/PropertyComponents/inspectSingleProperty';
+import { BrowseState } from '../../types/BrowseStates';
+import InspectSingleProperty from '../../components/PropertyComponents/InspectSingleProperty';
 import Button from '../../components/GeneralComponents/Button';
 import { IoArrowBack } from 'react-icons/io5';
 
