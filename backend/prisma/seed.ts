@@ -66,7 +66,12 @@ const main = async () => {
               propertyType: 'HOUSE',
               description: 'Bright 2-bedroom apartment in Turku.',
               pictures: {
-                create: [{ picture: readImageForSeed('house2-pic1.jpg') }],
+                create: [
+                  {
+                    picture: readImageForSeed('house2-pic1.jpg'),
+                    useAsCoverPicture: true,
+                  },
+                ],
               },
             },
           ],
@@ -88,13 +93,18 @@ const main = async () => {
               country: 'Finland',
               price: 270000,
               propertyStatus: 'AVAILABLE',
-              bedrooms: 4,
-              bathrooms: 2,
+              bedrooms: 2,
+              bathrooms: 1,
               squareMeters: 110,
               propertyType: 'HOUSE',
               description: 'Family home in quiet neighborhood.',
               pictures: {
-                create: [{ picture: readImageForSeed('house3-pic1.jpg') }],
+                create: [
+                  {
+                    picture: readImageForSeed('house3-pic1.jpg'),
+                    useAsCoverPicture: true,
+                  },
+                ],
               },
             },
             {
@@ -111,7 +121,12 @@ const main = async () => {
               propertyType: 'APARTMENT',
               description: 'Land parcel by the lake.',
               pictures: {
-                create: [{ picture: readImageForSeed('house4-pic1.jpg') }],
+                create: [
+                  {
+                    picture: readImageForSeed('house4-pic1.jpg'),
+                    useAsCoverPicture: true,
+                  },
+                ],
               },
             },
           ],
@@ -139,7 +154,12 @@ const main = async () => {
               propertyType: 'APARTMENT',
               description: 'Office building in old town Porvoo.',
               pictures: {
-                create: [{ picture: readImageForSeed('house5-pic1.jpg') }],
+                create: [
+                  {
+                    picture: readImageForSeed('house5-pic1.jpg'),
+                    useAsCoverPicture: true,
+                  },
+                ],
               },
             },
             {
@@ -156,7 +176,12 @@ const main = async () => {
               propertyType: 'HOUSE',
               description: 'Warehouse in business district.',
               pictures: {
-                create: [{ picture: readImageForSeed('house6-pic1.jpg') }],
+                create: [
+                  {
+                    picture: readImageForSeed('house6-pic1.jpg'),
+                    useAsCoverPicture: true,
+                  },
+                ],
               },
             },
             {
@@ -167,13 +192,18 @@ const main = async () => {
               country: 'Finland',
               price: 265000,
               propertyStatus: 'AVAILABLE',
-              bedrooms: 2,
-              bathrooms: 1,
-              squareMeters: 65,
+              bedrooms: 4,
+              bathrooms: 2,
+              squareMeters: 100,
               propertyType: 'MISCELLANOUS',
               description: 'Mixed-use property close to central square.',
               pictures: {
-                create: [{ picture: readImageForSeed('house7-pic1.jpg') }],
+                create: [
+                  {
+                    picture: readImageForSeed('house7-pic1.jpg'),
+                    useAsCoverPicture: true,
+                  },
+                ],
               },
             },
           ],
