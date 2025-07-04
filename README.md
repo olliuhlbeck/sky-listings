@@ -22,10 +22,14 @@ A simple property selling app that allows users to browse, search, and list real
 - PostgreSQL installed and running
 - PostgreSQL database created and accesible
 - `.env` file which has correct `DATABASE_URL` that connects to said database
+- `.env` file must also have `SECRET` defined
 
 ```env
 # Example of DATABASE_URL for PostgreSQL
 DATABASE_URL="postgresql://user:password@localhost:5432/yourdb"
+
+# Example of SECRET for password hashing
+SECRET=your-very-secret-key-1234567890
 ```
 
 ```bash
