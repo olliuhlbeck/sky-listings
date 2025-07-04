@@ -45,6 +45,8 @@ npm install
 npm run dev
 ```
 
+Three users (user1, user2, user3) will be seeded to database. They all have properties to control and all have the same password(testes).
+
 # Project Structure
 
 ```bash
