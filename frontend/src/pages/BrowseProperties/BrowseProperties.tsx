@@ -55,6 +55,7 @@ const BrowseProperties = () => {
     setPage((prevPage) => Math.max(1, prevPage - 1));
   };
 
+  // Map fetched and add pagination with controls
   const propertyListWithPagination = (
     <div>
       {/* Mapping property results into property cards */}
@@ -123,6 +124,7 @@ const BrowseProperties = () => {
         {loading && <p>Loading properties...</p>}
         {errorMessage !== '' && <p className='text-red-500'>{errorMessage}</p>}
 
+        {/* Render single inspect component or paginated list according to browseState */}
         {browseState === 'browseMany' ? (
           propertyListWithPagination
         ) : selectedProperty ? (
