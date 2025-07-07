@@ -9,7 +9,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
   propertyType,
 }) => {
   return (
-    <div className='rounded-lg overflow-hidden h-72 md:h-92 lg:h-96 shadow-md'>
+    <div className='rounded-lg overflow-hidden h-72 md:h-92 lg:h-96 shadow-md hover:scale-101 transition duration-200'>
       <div
         className='h-7/10 md:h-8/10 bg-cover bg-center'
         style={{ backgroundImage: `url(${imageUrl})` }}
