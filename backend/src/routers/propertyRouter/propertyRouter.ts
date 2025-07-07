@@ -165,7 +165,6 @@ propertyRouter.get(
 /*
  * Users properties fetch route
  * -Fetches users own properties
- * -Fetches and converts cover pictures for those properties
  */
 propertyRouter.get(
   '/getPropertiesByUserId',
