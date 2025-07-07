@@ -56,6 +56,13 @@ const MyProperties = () => {
     }
   };
 
+  const gridCols =
+    usersProperties.length === 1
+      ? 'grid-cols-1'
+      : usersProperties.length === 2
+        ? 'grid-cols-2'
+        : 'grid-cols-3';
+
   return (
     <>
       <div className='mt-10'>
@@ -69,7 +76,7 @@ const MyProperties = () => {
             <div className='mb-6 flex-1'>
               <h2 className='mb-4'>Select property to edit information:</h2>
               {usersProperties && (
-                <div className='grid grid-cols-3 gap-4'>
+                <div className={`grid ${gridCols} gap-4`}>
                   {usersProperties.map((property) => {
                     return (
                       <div
