@@ -21,7 +21,7 @@ const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
             <img
               src={`data:image/jpeg;base64,${property.coverPicture}`}
               alt='Property'
-              className='rounded-xl shadow-lg max-w-full max-h-[400px] object-cover'
+              className='rounded-lg shadow-md max-w-full max-h-[400px] object-cover'
             />
           ) : (
             <div className='w-80 h-60 flex items-center justify-center bg-gray-200 rounded-xl'>
