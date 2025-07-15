@@ -11,7 +11,7 @@ const readImageForSeed = (filename: string) => {
 };
 
 const main = async () => {
-  const hashedPassword = await argon2.hash('testes');
+  const hashedPassword = await argon2.hash('password');
 
   const users = await Promise.all([
     prisma.user.create({
