@@ -4,7 +4,7 @@ export enum PropertyTypes {
   COMMERCIAL = 'COMMERCIAL',
   LAND = 'LAND',
   INDUSTRIAL = 'INDUSTRIAL',
-  MISCELLANOUS = 'MISCELLANOUS',
+  MISCELLANEOUS = 'MISCELLANEOUS',
 }
 
 export enum PropertyStatuses {
