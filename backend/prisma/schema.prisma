@@ -40,7 +40,7 @@ enum PropertyTypes {
   COMMERCIAL
   LAND
   INDUSTRIAL
-  MISCELLANOUS
+  MISCELLANEOUS
 }
 
 enum PropertyStatus {

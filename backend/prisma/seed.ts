@@ -195,7 +195,7 @@ const main = async () => {
               bedrooms: 4,
               bathrooms: 2,
               squareMeters: 100,
-              propertyType: 'MISCELLANOUS',
+              propertyType: 'MISCELLANEOUS',
               description: 'Mixed-use property close to central square.',
               pictures: {
                 create: [
