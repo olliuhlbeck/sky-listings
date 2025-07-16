@@ -14,9 +14,9 @@ const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
         icon={IoArrowBack}
         iconSize={18}
       />
-      <div className='flex flex-1 flex-col lg:flex-row justify-center items-center gap-8 md:h-92 lg:h-96'>
+      <div className='flex flex-1 flex-col lg:flex-row lg:gap-8 justify-center items-center mb-10 md:h-100 lg:h-full'>
         {/* Display images */}
-        <div className='my-10 w-80 lg:w-1/2 flex-shrink-0'>
+        <div className='my-10 w-11/12 flex-1 lg:w-1/2 md:h-92 lg:h-full'>
           {property.coverPicture ? (
             <img
               src={`data:image/jpeg;base64,${property.coverPicture}`}
@@ -30,13 +30,40 @@ const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
           )}
         </div>
         {/* Display information */}
-        <div className='rounded-lg bg-gray-50 flex-1 h-full shadow-md overflow-hidden p-4 flex flex-col justify-center'>
-          <h2>Information slot</h2>
-          <div>{property.bathrooms}</div>
-          <div>{property.state}</div>
-          <div>{property.street}</div>
-          <div>{property.bedrooms}</div>
-          <div>{property.country}</div>
+        <div className='w-11/12 flex-1 md:h-100  lg:h-full lg:my-10 xl:w-1/2 overflow-hidden justify-center'>
+          <div className='rounded-md bg-gray-50 shadow-sm lg:shadow-md [&>div]:my-1 p-1'>
+            <h2 className='font-bold my-2'>Property information</h2>
+            <div>Property type - {property.propertyType} </div>
+            <div>Price - {`${property.price.toLocaleString('fr-FR')} €`} </div>
+            <div>
+              {property.bedrooms}{' '}
+              {property.bedrooms > 1 ? 'bedrooms' : 'bedroom'} -{' '}
+              {property.bathrooms}
+              {property.bathrooms > 1 ? ' bathrooms' : ' bathroom'}
+            </div>
+            <div>Square meters - {property.squareMeters}</div>
+            <div>Country - {property.country}</div>
+            <div>State - {property.state}</div>
+            <div>Street - {property.street}</div>
+            {property.postalCode && (
+              <div>Postal code - {property.postalCode}</div>
+            )}
+            <div>Property status - {property.propertyStatus}</div>
+          </div>
+          <div className='flex justify-center gap-x-2 mt-4'>
+            <div className='rounded-md shadow-md bg-gray-50 w-full h-fit'>
+              <h3 className='font-semibold my-2'>Description</h3>
+              {property.description}
+            </div>
+            <div className='rounded-md shadow-md bg-gray-50 w-full h-fit'>
+              <h3 className='font-semibold my-2'>Additional info</h3>
+              {property.additionalInfo !== null ? (
+                <p>d</p>
+              ) : (
+                <p>No additional info given.</p>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </div>
