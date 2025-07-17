@@ -94,7 +94,7 @@ propertyRouter.post(
 
 /*
  * Property fetch route
- * -Fetches all properties
+ * -Fetches properties for browsing page at a time
  * -Fetches and converts cover pictures
  */
 propertyRouter.get(
@@ -130,6 +130,7 @@ propertyRouter.get(
 
         return {
           id: property.id,
+          userId: property.userId,
           street: property.street,
           city: property.city,
           state: property.state,
