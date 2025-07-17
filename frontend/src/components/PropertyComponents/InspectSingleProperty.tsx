@@ -58,11 +58,19 @@ const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
             <div className='rounded-md shadow-md bg-gray-50 w-full h-fit'>
               <h3 className='font-semibold my-2'>Additional info</h3>
               {property.additionalInfo !== null ? (
-                <p>d</p>
+                <p>{property.additionalInfo}</p>
               ) : (
                 <p>No additional info given.</p>
               )}
             </div>
+          </div>
+          <div className='rounded-md shadow-md bg-gray-50 w-full h-fit'>
+            <h3 className='font-semibold my-2'>Contant info</h3>
+            <p>Seller - </p>
+            <p>Phone - </p>
+            <p>Email - </p>
+            <p>Preferred contact style - </p>
+            <p>Preferred contact time - </p>
           </div>
         </div>
       </div>

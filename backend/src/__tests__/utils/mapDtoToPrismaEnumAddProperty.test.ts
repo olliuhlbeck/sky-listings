@@ -27,7 +27,7 @@ describe('mapDtoToPrismaEnumAddPropertyType', () => {
     );
     expect(
       mapDtoToPrismaEnumAddPropertyType(DTOPropertyTypes.MISCELLANOUS),
-    ).toBe(PrismaPropertyTypes.MISCELLANOUS);
+    ).toBe(PrismaPropertyTypes.MISCELLANEOUS);
   });
 
   it('should throw an error for an invalid property type', () => {
