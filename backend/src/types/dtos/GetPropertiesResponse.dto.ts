@@ -1,5 +1,6 @@
 interface PropertyResponse {
   id: number;
+  userId: number;
   street: string;
   city: string;
   state: string;
