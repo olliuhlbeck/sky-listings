@@ -23,7 +23,7 @@ const main = async () => {
           create: {
             phone: '+358401234567',
             address: 'Hämeenkatu 10, Tampere',
-            preferredContactDetails: 'Email',
+            preferredContactDetails: 'TEXTMESSAGE',
           },
         },
         properties: {
@@ -83,6 +83,13 @@ const main = async () => {
         email: 'user2@example.com',
         username: 'user2',
         password: hashedPassword,
+        info: {
+          create: {
+            phone: '+358401234568',
+            address: 'Keskuskatu 21, Helsinki',
+            preferredContactDetails: 'EMAIL',
+          },
+        },
         properties: {
           create: [
             {
@@ -138,6 +145,13 @@ const main = async () => {
         email: 'user3@example.com',
         username: 'user3',
         password: hashedPassword,
+        info: {
+          create: {
+            phone: '+358401234569',
+            address: 'Koulukatu 12, Pori',
+            preferredContactDetails: 'PHONECALL',
+          },
+        },
         properties: {
           create: [
             {
