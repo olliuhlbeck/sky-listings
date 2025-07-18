@@ -25,13 +25,19 @@ model User {
 
 }
 
+enum ContactMethod {
+  EMAIL
+  PHONECALL
+  TEXTMESSAGE
+  NOTCHOSEN
+}
 model UserInfo {
-  id                        Int     @id @default(autoincrement())
-  userId                    Int     @unique
-  user                      User    @relation(fields: [userId], references: [id])
-  phone                     String? @db.VarChar(20)
-  address                   String? @db.VarChar(100)
-  preferredContactDetails   String? @db.VarChar(200)
+  id                        Int             @id @default(autoincrement())
+  userId                    Int             @unique
+  user                      User            @relation(fields: [userId], references: [id])
+  phone                     String?         @db.VarChar(20)
+  address                   String?         @db.VarChar(100)
+  preferredContactDetails   ContactMethod   @default(NOTCHOSEN)
 }
 
 enum PropertyTypes {
