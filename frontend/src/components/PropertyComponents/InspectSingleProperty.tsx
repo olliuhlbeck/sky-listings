@@ -30,7 +30,7 @@ const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
           )}
         </div>
         {/* Display information */}
-        <div className='w-11/12 flex-1 md:h-100  lg:h-full lg:my-10 xl:w-1/2 overflow-hidden justify-center'>
+        <div className='w-11/12 flex-1 md:h-100  lg:h-full lg:my-10 xl:w-1/2 justify-center'>
           <div className='rounded-md bg-gray-50 shadow-sm lg:shadow-md [&>div]:my-1 p-1'>
             <h2 className='font-bold my-2'>Property information</h2>
             <div>Property type - {property.propertyType} </div>
@@ -64,7 +64,7 @@ const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
               )}
             </div>
           </div>
-          <div className='rounded-md shadow-md bg-gray-50 w-full h-fit'>
+          <div className='rounded-md shadow-md mt-4 bg-gray-50 w-full h-fit'>
             <h3 className='font-semibold my-2'>Contant info</h3>
             <p>Seller - </p>
             <p>Phone - </p>
