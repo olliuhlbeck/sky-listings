@@ -70,7 +70,6 @@ const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
             <p>Phone - </p>
             <p>Email - </p>
             <p>Preferred contact style - </p>
-            <p>Preferred contact time - </p>
           </div>
         </div>
       </div>
