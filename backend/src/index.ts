@@ -4,6 +4,7 @@ import unknownEndpoint from './middlewares/unknownEndpoint/unknowEndpoint';
 import signupRouter from './routers/signupRouter/signupRouter';
 import loginRouter from './routers/loginRouter/loginRouter';
 import propertyRouter from './routers/propertyRouter/propertyRouter';
+import contactInfoRouter from './routers/contactInfoRouter/contactInfoRouter';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -20,6 +21,7 @@ server.use(express.json());
 server.use('/signup', signupRouter);
 server.use('/login', loginRouter);
 server.use('/property', propertyRouter);
+server.use('/contactInfo', contactInfoRouter);
 
 server.get('/api', (req: Request, res: Response): void => {
   res.json({ message: 'Welcome to backend!' });
