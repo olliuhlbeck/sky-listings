@@ -66,7 +66,6 @@ const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
           </div>
           <div className='rounded-md shadow-md mt-4 bg-gray-50 w-full h-fit'>
             <h3 className='font-semibold my-2'>Contant info</h3>
-            <p>Seller - </p>
             <p>Phone - </p>
             <p>Email - </p>
             <p>Preferred contact style - </p>
