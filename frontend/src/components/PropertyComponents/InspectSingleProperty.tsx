@@ -1,11 +1,49 @@
+import { useEffect, useState } from 'react';
 import { InspectSinglePropertyProps } from '../../types/InspectSinglePropertyProps';
 import Button from '../GeneralComponents/Button';
 import { IoArrowBack } from 'react-icons/io5';
+import { ContactInfoReturnDto } from '../../../../backend/src/types/dtos/GetContactInfo.dto';
 
 const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
   property,
   onClick,
 }) => {
+  const [propertySellerInfo, setPropertySellerInfo] =
+    useState<ContactInfoReturnDto | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchUserInfo = async (): Promise<void> => {
+    if (!property.userId) {
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+
+    try {
+      const userId = property.userId;
+      const response = await fetch(
+        `http://localhost:3000/contactInfo/getContactInfoForProperty?userId=${userId}`,
+      );
+
+      if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+      }
+
+      const data: ContactInfoReturnDto = await response.json();
+      setPropertySellerInfo(data);
+    } catch {
+      setError('Failed to load contact info. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserInfo();
+  }, [property.userId]);
+
   return (
     <div className='flex items-center justify-center flex-col'>
       <Button
@@ -65,11 +103,21 @@ const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
             </div>
           </div>
           <div className='rounded-md shadow-md mt-4 bg-gray-50 w-full h-fit'>
-            <h3 className='font-semibold my-2'>Contant info</h3>
-            <p>Seller - </p>
-            <p>Phone - </p>
-            <p>Email - </p>
-            <p>Preferred contact style - </p>
+            <h3 className='font-semibold my-2'>Contact info</h3>
+            {loading ? (
+              <p>Loading contact info...</p>
+            ) : error ? (
+              <p className='text-red-600'>{error}</p>
+            ) : (
+              <>
+                <p>Phone - {propertySellerInfo?.phoneNumber}</p>
+                <p>Email - {propertySellerInfo?.email}</p>
+                <p>
+                  Preferred contact style -{' '}
+                  {propertySellerInfo?.preferredContactMethod}
+                </p>
+              </>
+            )}
           </div>
         </div>
       </div>
