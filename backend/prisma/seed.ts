@@ -40,7 +40,7 @@ const main = async () => {
               bathrooms: 2,
               squareMeters: 95,
               propertyType: 'HOUSE',
-              description: 'Modern detached house near city center.',
+              description: 'Rustic cottage style house with big outer yard.',
               pictures: {
                 create: [
                   {
@@ -64,7 +64,10 @@ const main = async () => {
               bathrooms: 1,
               squareMeters: 70,
               propertyType: 'HOUSE',
-              description: 'Bright 2-bedroom apartment in Turku.',
+              description:
+                'Compact one bedroom house with only forest as neighbour.',
+              additionalInfo:
+                'It takes 30 minutes by car to nearest food market.',
               pictures: {
                 create: [
                   {
@@ -105,6 +108,7 @@ const main = async () => {
               squareMeters: 110,
               propertyType: 'HOUSE',
               description: 'Family home in quiet neighborhood.',
+              additionalInfo: 'Freshly remodeled indoors.',
               pictures: {
                 create: [
                   {
@@ -126,7 +130,7 @@ const main = async () => {
               bathrooms: 1,
               squareMeters: 45,
               propertyType: 'APARTMENT',
-              description: 'Land parcel by the lake.',
+              description: 'Modern layout, decorated with classic touch.',
               pictures: {
                 create: [
                   {
@@ -167,6 +171,7 @@ const main = async () => {
               squareMeters: 150,
               propertyType: 'APARTMENT',
               description: 'Office building in old town Porvoo.',
+              additionalInfo: 'The housing company provides internet.',
               pictures: {
                 create: [
                   {
@@ -188,7 +193,9 @@ const main = async () => {
               bathrooms: 2,
               squareMeters: 100,
               propertyType: 'HOUSE',
-              description: 'Warehouse in business district.',
+              description:
+                'Three bedrooms arranged compactly but with a spacious floor plan.',
+              additionalInfo: 'Separate two car carage right next to house.',
               pictures: {
                 create: [
                   {
@@ -209,8 +216,9 @@ const main = async () => {
               bedrooms: 4,
               bathrooms: 2,
               squareMeters: 100,
-              propertyType: 'MISCELLANEOUS',
-              description: 'Mixed-use property close to central square.',
+              propertyType: 'HOUSE',
+              description:
+                'Almost villa like house for a large family to live in.',
               pictures: {
                 create: [
                   {
