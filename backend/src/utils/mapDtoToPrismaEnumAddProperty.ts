@@ -15,7 +15,7 @@ const mapDtoToPrismaEnumAddPropertyType = (dtoType: DTOPropertyTypes) => {
       return PrismaPropertyTypes.INDUSTRIAL;
     case DTOPropertyTypes.LAND:
       return PrismaPropertyTypes.LAND;
-    case DTOPropertyTypes.MISCELLANOUS:
+    case DTOPropertyTypes.MISCELLANEOUS:
       return PrismaPropertyTypes.MISCELLANEOUS;
     default:
       throw new Error(`Invalid property type: ${dtoType}`);
