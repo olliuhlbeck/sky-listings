@@ -4,6 +4,7 @@ export interface AuthContextType {
   login: (newToken: string) => void;
   logout: () => void;
   isAuthenticated: boolean;
+  token: string | null;
 }
 
 export interface LoginCredentials {
