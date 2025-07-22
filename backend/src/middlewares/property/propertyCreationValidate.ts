@@ -21,8 +21,6 @@ const propertyCreationValidate = (
     additionalInfo,
   } = req.body;
 
-  console.log('Full req.body:', req.body);
-
   // Validate pictures are given in an non empty array
   const pictures = req.files;
   if (!pictures || !Array.isArray(pictures) || pictures.length === 0) {
@@ -86,6 +84,27 @@ const propertyCreationValidate = (
     }
     if (value < 0) {
       res.status(400).json({ error: `${key} cannot be under 0.` });
+      return;
+    }
+  }
+
+  // Limit lengths for safety
+  const MAX_LENGTHS: Record<string, number> = {
+    additionalInfo: 3000,
+    description: 2000,
+    street: 200,
+    city: 100,
+    state: 100,
+    country: 100,
+    postalCode: 40,
+  };
+
+  for (const [field, maxLength] of Object.entries(MAX_LENGTHS)) {
+    const value = req.body[field];
+    if (value && typeof value === 'string' && value.trim().length > maxLength) {
+      res.status(400).json({
+        error: `${field} is too long (max ${maxLength} characters).`,
+      });
       return;
     }
   }
