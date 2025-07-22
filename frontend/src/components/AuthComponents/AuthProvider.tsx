@@ -60,7 +60,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, userId, login, logout, isAuthenticated }}
+      value={{ user, userId, login, logout, isAuthenticated, token }}
     >
       {children}
     </AuthContext.Provider>

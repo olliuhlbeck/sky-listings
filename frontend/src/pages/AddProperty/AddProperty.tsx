@@ -8,6 +8,7 @@ import IconComponent from '../../components/GeneralComponents/IconComponent';
 import { BiCamera } from 'react-icons/bi';
 import Button from '../../components/GeneralComponents/Button';
 import { BsHouseUp } from 'react-icons/bs';
+import { useAuth } from '../../utils/useAuth';
 
 const AddProperty: React.FC = () => {
   const [formData, setFormData] = useState<PropertyFormData>({
@@ -27,6 +28,8 @@ const AddProperty: React.FC = () => {
     pictures: [],
     coverPictureIndex: 0,
   });
+
+  const { token } = useAuth();
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -65,25 +68,23 @@ const AddProperty: React.FC = () => {
       formDataToSend.append('pictures', file, file.name);
     });
 
-    console.log('Form data to send:');
-    for (const [key, value] of formDataToSend.entries()) {
-      console.log(key, value);
-    }
-
     try {
       const response = await fetch(
         'http://localhost:3000/property/addProperty',
         {
           method: 'POST',
           body: formDataToSend,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         },
       );
+      const data = await response.json();
 
       if (!response.ok) {
-        const errorData = await response.json();
-        console.error('Failed to create property', errorData);
+        console.error('Failed to create property (front):', data.error || data);
+        return;
       }
-      const data = await response.json();
       setFormData({
         street: '',
         city: '',

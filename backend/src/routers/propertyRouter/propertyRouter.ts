@@ -13,6 +13,7 @@ import multer from 'multer';
 import { GetPropertiesQuery } from '../../types/dtos/GetPropertiesQuery.dto';
 import { GetPropertiesResponse } from '../../types/dtos/GetPropertiesResponse.dto';
 import { GeneralErrorResponse } from '../../types/general-error';
+import { UserIdRequest } from '../../types/user-id-request';
 
 const propertyRouter = express.Router();
 const prisma = new PrismaClient();
@@ -28,7 +29,7 @@ propertyRouter.post(
   multerUpload.array('pictures'),
   propertyCreationValidate,
   async (
-    req: Request<{}, {}, CreatePropertyDTO>,
+    req: UserIdRequest<{}, {}, CreatePropertyDTO>,
     res: Response<CreatePropertyResponse | GeneralErrorResponse>,
   ) => {
     const {
@@ -48,12 +49,13 @@ propertyRouter.post(
       coverPictureIndex,
     } = req.body;
 
+    const userId = req.userId;
     const pictures = req.files as Express.Multer.File[];
 
     try {
       const createdProperty = await prisma.property.create({
         data: {
-          userId: 2,
+          userId: Number(userId),
           bedrooms: Number(bedrooms),
           bathrooms: Number(bathrooms),
           additionalInfo: additionalInfo,
@@ -70,15 +72,13 @@ propertyRouter.post(
         },
       });
 
-      if (pictures && pictures.length > 0) {
-        const pictureData = pictures.map((file, index) => ({
-          propertyId: createdProperty.id,
-          picture: file.buffer,
-          useAsCoverPicture: index === Number(coverPictureIndex),
-        }));
-
-        await prisma.propertyPicture.createMany({
-          data: pictureData,
+      for (const [index, file] of pictures.entries()) {
+        await prisma.propertyPicture.create({
+          data: {
+            propertyId: createdProperty.id,
+            picture: file.buffer,
+            useAsCoverPicture: index === Number(coverPictureIndex),
+          },
         });
       }
 
@@ -87,6 +87,12 @@ propertyRouter.post(
         propertyId: createdProperty.id,
       });
     } catch (error) {
+      console.error(
+        'backend error:',
+        error instanceof Error ? error.message : error,
+      );
+
+      console.error('backend', error);
       res.status(500).json({ error: 'Failed to create property' });
     }
   },
