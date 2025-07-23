@@ -28,6 +28,10 @@ const AddProperty: React.FC = () => {
     pictures: [],
     coverPictureIndex: 0,
   });
+  const [messageType, setMessageType] = useState<'success' | 'error' | null>(
+    null,
+  );
+  const [message, setMessage] = useState<string | null>(null);
 
   const { token } = useAuth();
 
@@ -82,7 +86,12 @@ const AddProperty: React.FC = () => {
       const data = await response.json();
 
       if (!response.ok) {
-        console.error('Failed to create property (front):', data.error || data);
+        setMessageType('error');
+        setMessage(data.error);
+        setTimeout(() => {
+          setMessage(null);
+          setMessageType(null);
+        }, 3000);
         return;
       }
       setFormData({
@@ -102,9 +111,21 @@ const AddProperty: React.FC = () => {
         pictures: [],
         coverPictureIndex: 0,
       });
-      console.log(`Property created with ID: ${data.propertyId}`);
+      setMessageType('success');
+      setMessage('Property created successfully.');
+      setTimeout(() => {
+        setMessage(null);
+        setMessageType(null);
+      }, 3000);
+      return;
     } catch (error) {
-      console.error('Error creating property:', error);
+      setMessageType('error');
+      setMessage(`${error}`);
+      setTimeout(() => {
+        setMessage(null);
+        setMessageType(null);
+      }, 3000);
+      return;
     }
   };
   return (
@@ -383,10 +404,26 @@ const AddProperty: React.FC = () => {
         </div>
       </div>
 
-      <div className='col-span-full flex justify-center !shadow-none !h-10 text-lg'>
-        <Button type='submit' icon={BsHouseUp}>
-          Add property
-        </Button>
+      <div className='relative w-full flex flex-col items-center mt-4 min-h-[3rem]'>
+        {message && (
+          <div
+            className={`absolute px-4 py-2 rounded-lg shadow transition-opacity duration-300
+        ${
+          messageType === 'success'
+            ? 'bg-green-100 border border-green-300 text-green-600'
+            : 'bg-red-100 border border-red-300 text-red-600'
+        }`}
+          >
+            {message}
+          </div>
+        )}
+
+        <Button
+          text='Add property'
+          type='submit'
+          ClassName='mx-auto'
+          icon={BsHouseUp}
+        />
       </div>
     </form>
   );
