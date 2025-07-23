@@ -6,7 +6,7 @@ import BrowseProperties from '../pages/BrowseProperties/BrowseProperties';
 import MyProperties from '../pages/MyProperties/MyProperties';
 import ErrorPage from '../pages/ErrorPage/ErrorPage';
 import AddProperty from '../pages/AddProperty/AddProperty';
-import ProtectedRoute from '../components/AuthComponents/PropectedRoute';
+import ProtectedRoute from '../components/AuthComponents/ProtectedRoute';
 
 export const router = createBrowserRouter([
   {

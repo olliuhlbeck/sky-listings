@@ -2,11 +2,11 @@ import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../utils/useAuth';
 import { ReactNode } from 'react';
 
-interface Props {
+interface ProtectedRouteProps {
   children: ReactNode;
 }
 
-const ProtectedRoute = ({ children }: Props) => {
+const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   const location = useLocation();
   const { isAuthenticated } = useAuth();
   return isAuthenticated ? (
