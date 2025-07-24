@@ -256,4 +256,47 @@ propertyRouter.put(
   },
 );
 
+/*
+ * Fetch all images for property route
+ * -Fetches and converts all images for property using propertyId
+ */
+propertyRouter.get(
+  '/getAllImagesForProperty',
+  async (
+    req: Request<{}, {}, {}, { propertyId: string }>,
+    res: Response<{ pictures: string[] } | GeneralErrorResponse>,
+  ) => {
+    try {
+      const propertyId = parseInt(req.query.propertyId);
+
+      if (isNaN(propertyId)) {
+        res.status(400).json({ error: 'Invalid propertyId given.' });
+        return;
+      }
+
+      const property = await prisma.property.findUnique({
+        where: { id: propertyId },
+        select: { pictures: true },
+      });
+
+      if (!property || !property.pictures || property.pictures.length === 0) {
+        res.status(404).json({ error: 'No pictures found for this property' });
+        return;
+      }
+
+      const base64Pictures = property.pictures.map((pic) =>
+        Buffer.from(pic.picture).toString('base64'),
+      );
+
+      res.status(200).json({ pictures: base64Pictures });
+      return;
+    } catch {
+      res
+        .status(500)
+        .json({ error: 'Failed to fetch images. Please try again.' });
+      return;
+    }
+  },
+);
+
 export default propertyRouter;
