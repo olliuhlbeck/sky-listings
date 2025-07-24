@@ -60,7 +60,7 @@ const Footer: React.FC<FooterProps> = ({ footerVisible, setFooterVisible }) => {
             </div>
           </div>
           <div className='border-t text-center pt-4'>
-            <p>© 2025 My Coding pracs. All rights reserved.</p>
+            <p>© 2025 My coding pracs. All rights reserved.</p>
           </div>
         </>
       )}
