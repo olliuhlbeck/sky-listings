@@ -9,6 +9,7 @@ import { BrowseState } from '../../types/BrowseStates';
 import InspectSingleProperty from '../../components/PropertyComponents/InspectSingleProperty';
 import Button from '../../components/GeneralComponents/Button';
 import { IoArrowBack } from 'react-icons/io5';
+import formatPropertyType from '../../utils/formatPropertyTypes';
 
 const BrowseProperties = () => {
   const [page, setPage] = useState<number>(1);
@@ -73,7 +74,7 @@ const BrowseProperties = () => {
               <PropertyCard
                 key={property.id}
                 imageUrl={`data:image/jpeg;base64,${property.coverPicture}`}
-                propertyType={property.propertyType}
+                propertyType={formatPropertyType(property.propertyType)}
                 beds={property.bedrooms ?? 0}
                 baths={property.bathrooms ?? 0}
                 street={

@@ -3,6 +3,9 @@ import { InspectSinglePropertyProps } from '../../types/InspectSinglePropertyPro
 import Button from '../GeneralComponents/Button';
 import { IoArrowBack } from 'react-icons/io5';
 import { ContactInfoReturnDto } from '../../../../backend/src/types/dtos/GetContactInfo.dto';
+import formatPreferredContactMethod from '../../utils/formatPreferredContactMethod';
+import formatPropertyType from '../../utils/formatPropertyTypes';
+import formatPropertyStatus from '../../utils/formatPropertyStatus';
 
 const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
   property,
@@ -89,10 +92,10 @@ const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
         icon={IoArrowBack}
         iconSize={18}
       />
-      <div className='flex flex-1 flex-col lg:flex-row lg:gap-8 justify-center items-center mb-10 md:h-100 lg:h-full'>
+      <div className='flex flex-1 flex-col justify-center items-center mb-10 md:h-100 lg:h-200 xl:flex-row xl:gap-10'>
         {/* Display images */}
-        <div className='my-10 w-11/12 flex-1 lg:w-1/2 md:h-92 lg:h-[30rem]'>
-          <div className='mb-5 h-54 md:h-84 lg:h-full'>
+        <div className='my-10 w-11/12 flex-1 lg:w-full md:h-92 lg:h-[30rem]'>
+          <div className='mb-5 h-54 md:h-84 lg:h-100'>
             {displayImage ? (
               <img
                 src={`data:image/jpeg;base64,${displayImage}`}
@@ -119,7 +122,7 @@ const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
                     src={`data:image/jpeg;base64,${pic}`}
                     alt={`Thumbnail ${index + 1}`}
                     onClick={() => setDisplayImage(pic)}
-                    className={`w-20 h-20 object-cover rounded-lg cursor-pointer border-2 ${
+                    className={`w-20 h-20 object-cover rounded-lg cursor-pointer border-2 shado ${
                       displayImage === pic
                         ? 'border-blue-500'
                         : 'border-transparent'
@@ -136,22 +139,74 @@ const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
         <div className='w-11/12 flex-1 md:h-100  lg:h-full lg:my-10 xl:w-1/2 justify-center'>
           <div className='rounded-md bg-gray-50 shadow-sm lg:shadow-md [&>div]:my-1 p-1'>
             <h2 className='font-bold my-2'>Property information</h2>
-            <div>Property type - {property.propertyType} </div>
-            <div>Price - {`${property.price.toLocaleString('fr-FR')} €`} </div>
-            <div>
-              {property.bedrooms}{' '}
-              {property.bedrooms > 1 ? 'bedrooms' : 'bedroom'} -{' '}
-              {property.bathrooms}
-              {property.bathrooms > 1 ? ' bathrooms' : ' bathroom'}
+
+            <div className='flex w-full'>
+              <span className='w-1/2 text-right pr-1'>Property type -</span>
+              <span className='w-1/2 text-left pl-1'>
+                {formatPropertyType(property.propertyType)}
+              </span>
             </div>
-            <div>Square meters - {property.squareMeters}</div>
-            <div>Country - {property.country}</div>
-            <div>State - {property.state}</div>
-            <div>Street - {property.street}</div>
+
+            <div className='flex w-full'>
+              <span className='w-1/2 text-right pr-1'>Price -</span>
+              <span className='w-1/2 text-left pl-1'>
+                {property.price.toLocaleString('fr-FR')} €
+              </span>
+            </div>
+
+            <div className='flex w-full'>
+              <span className='w-1/2 text-right pr-1'>Bedrooms -</span>
+              <span className='w-1/2 text-left pl-1'>
+                {property.bedrooms}{' '}
+                {property.bedrooms > 1 ? 'bedrooms' : 'bedroom'}
+              </span>
+            </div>
+
+            <div className='flex w-full'>
+              <span className='w-1/2 text-right pr-1'>Bathrooms -</span>
+              <span className='w-1/2 text-left pl-1'>
+                {property.bathrooms}{' '}
+                {property.bathrooms > 1 ? 'bathrooms' : 'bathroom'}
+              </span>
+            </div>
+
+            <div className='flex w-full'>
+              <span className='w-1/2 text-right pr-1'>Square meters -</span>
+              <span className='w-1/2 text-left pl-1'>
+                {property.squareMeters} m²
+              </span>
+            </div>
+
+            <div className='flex w-full'>
+              <span className='w-1/2 text-right pr-1'>Country -</span>
+              <span className='w-1/2 text-left pl-1'>{property.country}</span>
+            </div>
+
+            <div className='flex w-full'>
+              <span className='w-1/2 text-right pr-1'>State -</span>
+              <span className='w-1/2 text-left pl-1'>{property.state}</span>
+            </div>
+
+            <div className='flex w-full'>
+              <span className='w-1/2 text-right pr-1'>Street -</span>
+              <span className='w-1/2 text-left pl-1'>{property.street}</span>
+            </div>
+
             {property.postalCode && (
-              <div>Postal code - {property.postalCode}</div>
+              <div className='flex w-full'>
+                <span className='w-1/2 text-right pr-1'>Postal code -</span>
+                <span className='w-1/2 text-left pl-1'>
+                  {property.postalCode}
+                </span>
+              </div>
             )}
-            <div>Property status - {property.propertyStatus}</div>
+
+            <div className='flex w-full'>
+              <span className='w-1/2 text-right pr-1'>Property status -</span>
+              <span className='w-1/2 text-left pl-1'>
+                {formatPropertyStatus(property.propertyStatus)}
+              </span>
+            </div>
           </div>
           <div className='flex justify-center gap-x-2 mt-4'>
             <div className='rounded-md shadow-md bg-gray-50 w-full h-fit'>
@@ -167,7 +222,7 @@ const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
               )}
             </div>
           </div>
-          <div className='rounded-md shadow-md mt-4 bg-gray-50 w-full h-fit'>
+          <div className='rounded-md shadow-md mt-4 bg-gray-50 w-full h-fit p-2'>
             <h3 className='font-semibold my-2'>Contact info</h3>
             {loadingContact ? (
               <p>Loading contact info...</p>
@@ -175,12 +230,32 @@ const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
               <p className='text-red-600'>{errorContact}</p>
             ) : (
               <>
-                <p>Phone - {propertySellerInfo?.phoneNumber}</p>
-                <p>Email - {propertySellerInfo?.email}</p>
-                <p>
-                  Preferred contact style -{' '}
-                  {propertySellerInfo?.preferredContactMethod}
-                </p>
+                <div className='flex w-full'>
+                  <span className='w-1/2 text-right pr-1'>Phone -</span>
+                  <span className='w-1/2 text-left pl-1'>
+                    {propertySellerInfo?.phoneNumber}
+                  </span>
+                </div>
+
+                <div className='flex w-full'>
+                  <span className='w-1/2 text-right pr-1'>Email -</span>
+                  <span className='w-1/2 text-left pl-1'>
+                    {propertySellerInfo?.email}
+                  </span>
+                </div>
+
+                <div className='flex w-full'>
+                  <span className='w-1/2 text-right pr-1'>
+                    Preferred contact style -
+                  </span>
+                  <span className='w-1/2 text-left pl-1'>
+                    {propertySellerInfo?.preferredContactMethod === null
+                      ? 'Preferred contact method not defined'
+                      : formatPreferredContactMethod(
+                          propertySellerInfo?.preferredContactMethod,
+                        )}
+                  </span>
+                </div>
               </>
             )}
           </div>
