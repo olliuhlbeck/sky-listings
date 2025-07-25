@@ -8,8 +8,8 @@ A simple property selling app that allows users to browse, search, and list real
 | ---------------------------------------------------------- | ------------------------------------------------------------- | ----------------------------------------------------------------- |
 | ![Home XL](./frontend/public/screenshots/xl-home-page.jpg) | ![Home SM](./frontend/public/screenshots/small-home-page.jpg) | ![Browse](./frontend/public/screenshots/xl-browse-properties.jpg) |
 
-- Frontend: React, TypeScript, Vite and TailwindCSS
-- Backend: Node.js (TypeScript) with a PostgreSQL database
+- Frontend: React with TypeScript using Vite as the build tool. Styling with TailwindCSS.
+- Backend: Node.js with TypeScript and Express, connected to a PostgreSQL database using Prisma as the ORM.
 
   > **Note on apps image handling:**
   > The current approach to handling images in this project is not ideal. Images are embedded as base64-strings, which isn't aligned with best practices for performance and scalability. This was a conscious trade-off made to simplify development and keep the project lightweight
