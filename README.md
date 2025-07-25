@@ -61,6 +61,6 @@ root/
 - TypeScript
 - TailwindCSS
 - Node.js
-- PostgreSQL database (managed with Prisma ORM)
+- PostgreSQL database using Prisma as the ORM
 - Jest for testing
 - Code formatting with Prettier
