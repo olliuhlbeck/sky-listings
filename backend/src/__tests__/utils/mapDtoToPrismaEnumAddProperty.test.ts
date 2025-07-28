@@ -26,7 +26,7 @@ describe('mapDtoToPrismaEnumAddPropertyType', () => {
       PrismaPropertyTypes.LAND,
     );
     expect(
-      mapDtoToPrismaEnumAddPropertyType(DTOPropertyTypes.MISCELLANOUS),
+      mapDtoToPrismaEnumAddPropertyType(DTOPropertyTypes.MISCELLANEOUS),
     ).toBe(PrismaPropertyTypes.MISCELLANEOUS);
   });
 
