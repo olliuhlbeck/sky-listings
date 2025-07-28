@@ -1,10 +1,15 @@
+process.env.SECRET = 'my_secret';
 import express from 'express';
 import request from 'supertest';
 import multer from 'multer';
 import propertyCreationValidate from '../../middlewares/property/propertyCreationValidate';
+import jwt from 'jsonwebtoken';
 
 const upload = multer();
 const app = express();
+
+const userId = 123;
+const token = jwt.sign({ userId }, process.env.SECRET);
 
 app.use(express.json());
 
@@ -38,6 +43,7 @@ describe('propertyCreationValidate middleware', () => {
   it('should reject when no pictures are provided', async () => {
     const response = await request(app)
       .post('/test-property')
+      .set('Authorization', `Bearer ${token}`)
       .field('street', validBody.street)
       .field('city', validBody.city)
       .field('state', validBody.state)
@@ -61,6 +67,7 @@ describe('propertyCreationValidate middleware', () => {
   it('should accept valid input with picture', async () => {
     const response = await request(app)
       .post('/test-property')
+      .set('Authorization', `Bearer ${token}`)
       .field('street', validBody.street)
       .field('city', validBody.city)
       .field('state', validBody.state)
