@@ -2,7 +2,7 @@ import request from 'supertest';
 import express from 'express';
 import argon2 from 'argon2';
 import { generateToken } from '../../utils/generateToken';
-import { prismaMock, mockFindUnique } from '../testUtils/prismaMock';
+import { prismaMock, mockFindUnique } from '../__mocks__/prismaMock';
 
 let loginRouter: express.Router;
 
