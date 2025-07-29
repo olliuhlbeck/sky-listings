@@ -208,12 +208,12 @@ const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
               </span>
             </div>
           </div>
-          <div className='flex justify-center gap-x-2 mt-4'>
-            <div className='rounded-md shadow-md bg-gray-50 w-full h-fit'>
+          <div className='flex justify-center items-stretch gap-x-2 mt-4'>
+            <div className='rounded-md shadow-md bg-gray-50 w-full'>
               <h3 className='font-semibold my-2'>Description</h3>
               {property.description}
             </div>
-            <div className='rounded-md shadow-md bg-gray-50 w-full h-fit'>
+            <div className='rounded-md shadow-md bg-gray-50 w-full'>
               <h3 className='font-semibold my-2'>Additional info</h3>
               {property.additionalInfo !== null ? (
                 <p>{property.additionalInfo}</p>
