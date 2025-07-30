@@ -20,7 +20,7 @@ contactInfoRouter.get(
     res: Response<ContactInfoReturnDto | GeneralErrorResponse>,
   ): Promise<void> => {
     const userId = parseInt(req.query.userId as string, 10);
-    if (isNaN(userId)) {
+    if (!userId || isNaN(userId)) {
       res.status(400).json({ error: 'Invalid userId' });
       return;
     }
@@ -65,8 +65,7 @@ contactInfoRouter.get(
         preferredContactMethod: user.info.preferredContactDetails,
       };
       res.status(200).json(contactInfo);
-    } catch (error) {
-      console.error('error fetching contact info:', error);
+    } catch {
       res.status(500).json({ error: 'Error fetching contact info in backend' });
       return;
     }
