@@ -87,12 +87,6 @@ propertyRouter.post(
         propertyId: createdProperty.id,
       });
     } catch (error) {
-      console.error(
-        'backend error:',
-        error instanceof Error ? error.message : error,
-      );
-
-      console.error('backend', error);
       res.status(500).json({ error: 'Failed to create property' });
     }
   },
@@ -159,8 +153,7 @@ propertyRouter.get(
         totalCount,
         properties: propertiesWithBase64,
       });
-    } catch (error) {
-      console.error(error);
+    } catch {
       res
         .status(500)
         .json({ error: 'Failed to load properties. Please try again.' });
@@ -184,8 +177,7 @@ propertyRouter.get(
         },
       });
       res.status(200).json({ usersProperties: fetchUsersProperties });
-    } catch (error) {
-      console.error(error);
+    } catch {
       res
         .status(500)
         .json({ error: 'Failed to load your properties. Please try again.' });
@@ -249,8 +241,7 @@ propertyRouter.put(
         updatedProperty: updatedProperty,
         message: 'Property information updated successfully',
       });
-    } catch (error) {
-      console.error(error);
+    } catch {
       res.status(500).json({ error: 'Failed to update property information' });
     }
   },
