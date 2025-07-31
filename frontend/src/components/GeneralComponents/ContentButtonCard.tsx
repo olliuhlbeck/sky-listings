@@ -10,7 +10,7 @@ const ContentButtonCard: React.FC<ContentButtonCardProps> = ({
 }) => {
   const cardContent = (
     <div
-      className={`relative min-h-[12rem] lg:min-h-[24rem] shadow-lg shadow-slate-500 flex flex-1 justify-center items-center rounded-lg bg-cover bg-center   hover:scale-[1.02] transition duration-300`}
+      className={`relative min-h-[12rem] lg:min-h-[24rem] shadow-lg shadow-slate-500 flex flex-1 justify-center items-center rounded-lg bg-cover bg-center hover:scale-[1.02] transition duration-300`}
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
       <Button
