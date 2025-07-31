@@ -11,7 +11,7 @@
     "prisma:migrate": "npx prisma migrate dev --name init",
     "prisma:seed": "ts-node prisma/seed.ts",
     "start": "node dist/index.js",
-    "test": "jest"
+    "test": "jest src"
   },
   "keywords": [],
   "author": "",
