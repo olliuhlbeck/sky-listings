@@ -8,6 +8,7 @@ import { PropertyStatus as PrismaPropertyStatus } from '../../../generated/prism
 import { PropertyTypes as DTOPropertyTypes } from '../../types/dtos/CreateProperty.dto';
 import { PropertyStatus as DTOPropertyStatus } from '../../types/dtos/CreateProperty.dto';
 
+// Mapping property type data transfer object types to prisma enums
 describe('mapDtoToPrismaEnumAddPropertyType', () => {
   it('should correctly map DTO property types to Prisma property types', () => {
     expect(mapDtoToPrismaEnumAddPropertyType(DTOPropertyTypes.APARTMENT)).toBe(
@@ -37,6 +38,7 @@ describe('mapDtoToPrismaEnumAddPropertyType', () => {
   });
 });
 
+// Mapping property status data transfer object types to Prisma enums
 describe('mapDtoToPrismaEnumAddPropertyStatus', () => {
   it('should correctly map DTO property statuses to Prisma property statuses', () => {
     expect(

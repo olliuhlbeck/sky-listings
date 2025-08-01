@@ -2,6 +2,7 @@ import request from 'supertest';
 import express from 'express';
 import unknownEndpoint from '../../middlewares/unknownEndpoint/unknowEndpoint'; // adjust path as needed
 
+// Unknown endpoint middleware
 describe('unknownEndpoint middleware', () => {
   const app = express();
 

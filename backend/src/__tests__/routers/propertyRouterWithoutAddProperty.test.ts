@@ -15,6 +15,7 @@ import express from 'express';
 
 let propertyRouter: express.Router;
 
+// Propertyrouter excluding /addProperty endpoint
 describe('propertyRouter (excluding /addProperty)', () => {
   const app = express();
   app.use(express.json());

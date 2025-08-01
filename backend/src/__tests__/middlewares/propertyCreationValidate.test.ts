@@ -21,6 +21,7 @@ app.post(
   },
 );
 
+// Property creation middleware
 describe('propertyCreationValidate middleware', () => {
   const validBody = {
     street: '123 Main St',

@@ -1,6 +1,7 @@
 import loginValidate from '../../middlewares/signupAndLogin/loginValidate';
 import { Request, Response, NextFunction } from 'express';
 
+// Login router validation middleware
 describe('loginValidate middleware', () => {
   let req: Partial<Request>;
   let res: Partial<Response>;
