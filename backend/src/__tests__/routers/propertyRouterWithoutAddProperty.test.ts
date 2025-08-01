@@ -1,6 +1,8 @@
-import * as prismaMockExports from '../__mocks__/prismaMock';
-const { prismaMock, mockCount, mockFindMany, mockFindUnique, mockUpdate } =
-  prismaMockExports;
+import { prismaMock } from '../__mocks__/prismaMock';
+const mockFindUnique = prismaMock.property.findUnique;
+const mockCount = prismaMock.property.count;
+const mockFindMany = prismaMock.property.findMany;
+const mockUpdate = prismaMock.property.update;
 
 jest.mock('../../../generated/prisma', () => {
   return {
@@ -27,7 +29,7 @@ describe('propertyRouter (excluding /addProperty)', () => {
     jest.clearAllMocks();
   });
 
-  // --- GET /getPropertiesByPage ---
+  // GET /getPropertiesByPage
   describe('GET /getPropertiesByPage', () => {
     const mockProperties = [
       {
@@ -92,7 +94,7 @@ describe('propertyRouter (excluding /addProperty)', () => {
     });
   });
 
-  // --- GET /getPropertiesByUserId ---
+  // GET /getPropertiesByUserId
   describe('GET /getPropertiesByUserId', () => {
     it('returns user properties for valid userId', async () => {
       mockFindMany.mockResolvedValue([{ id: 1, userId: 5 }]);
@@ -118,7 +120,7 @@ describe('propertyRouter (excluding /addProperty)', () => {
     });
   });
 
-  // --- GET /getAllImagesForProperty ---
+  // GET /getAllImagesForProperty
   describe('GET /getAllImagesForProperty', () => {
     it('returns base64 images if property exists', async () => {
       mockFindUnique.mockResolvedValue({
@@ -173,7 +175,7 @@ describe('propertyRouter (excluding /addProperty)', () => {
     });
   });
 
-  // --- PUT /editPropertyInformation/:propertyId ---
+  // PUT /editPropertyInformation
   describe('PUT /editPropertyInformation/:propertyId', () => {
     it('updates property and returns 200', async () => {
       mockUpdate.mockResolvedValue({

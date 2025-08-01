@@ -1,5 +1,6 @@
-import * as prismaMockExports from '../__mocks__/prismaMock';
-const { prismaMock, mockFindUnique, mockCreate } = prismaMockExports;
+import { prismaMock } from '../__mocks__/prismaMock';
+const mockFindUnique = prismaMock.user.findUnique;
+const mockCreate = prismaMock.user.create;
 
 jest.mock('../../../generated/prisma', () => {
   return {
@@ -25,6 +26,7 @@ jest
   .spyOn(argon2, 'hash')
   .mockImplementation(async (password) => `hashed-${password}`);
 
+// POST /signup
 describe('POST /signup', () => {
   beforeEach(() => {
     jest.clearAllMocks();
