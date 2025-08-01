@@ -2,6 +2,7 @@ import { describe } from 'node:test';
 import { generateToken } from '../../utils/generateToken';
 import jwt from 'jsonwebtoken';
 
+// Token creation middleware
 describe('generateToken', () => {
   const mockSecret = 'testSecret';
 

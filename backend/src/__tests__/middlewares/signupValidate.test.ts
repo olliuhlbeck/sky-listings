@@ -1,6 +1,7 @@
 import signupValidate from '../../middlewares/signupAndLogin/signupValidate';
 import { Request, Response, NextFunction } from 'express';
 
+// Signup validation middleware
 describe('signupValidate middleware', () => {
   let req: Partial<Request>;
   let res: Partial<Response>;

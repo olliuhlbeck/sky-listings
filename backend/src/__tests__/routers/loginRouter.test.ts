@@ -24,6 +24,7 @@ jest
 
 const mockedArgon2 = argon2 as jest.Mocked<typeof argon2>;
 
+// POST /login
 describe('POST /login', () => {
   const app = express();
   app.use(express.json());
