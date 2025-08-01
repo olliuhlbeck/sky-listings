@@ -1,5 +1,5 @@
-import * as prismaMockExports from '../__mocks__/prismaMock';
-const { prismaMock, mockFindUnique } = prismaMockExports;
+import { prismaMock } from '../__mocks__/prismaMock';
+const mockFindUnique = prismaMock.user.findUnique;
 
 jest.mock('../../../generated/prisma', () => {
   return {
