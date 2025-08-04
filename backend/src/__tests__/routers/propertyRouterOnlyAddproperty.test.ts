@@ -72,8 +72,6 @@ describe('propertyRouter (only /addProperty)', () => {
         .field('additionalInfo', 'Nice place')
         .attach('pictures', imagePath);
 
-      console.log(res.body);
-
       expect(res.status).toBe(201);
       expect(res.body.message).toBe(
         'Property and its pictures stored successfully',
