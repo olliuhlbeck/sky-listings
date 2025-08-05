@@ -8,8 +8,9 @@ import { BiDollar } from 'react-icons/bi';
 import { BrowseState } from '../../types/BrowseStates';
 import InspectSingleProperty from '../../components/PropertyComponents/InspectSingleProperty';
 import Button from '../../components/GeneralComponents/Button';
-import { IoArrowBack } from 'react-icons/io5';
+import { IoArrowBack, IoSearch } from 'react-icons/io5';
 import formatPropertyType from '../../utils/formatPropertyTypes';
+import { SearchConditions } from '../../types/searchConditions';
 
 const BrowseProperties = () => {
   const [page, setPage] = useState<number>(1);
@@ -20,6 +21,10 @@ const BrowseProperties = () => {
   const [browseState, setbrowseState] = useState<BrowseState>('browseMany');
   const [selectedProperty, setSelectedProperty] =
     useState<PropertyResponse | null>(null);
+  const [searchCondition, setSearchCondition] = useState<SearchConditions>(
+    SearchConditions.Street,
+  );
+  const [searchTerm, setSearchTerm] = useState<string>('');
 
   const pageSize = 6;
 
@@ -27,7 +32,7 @@ const BrowseProperties = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:3000/property/getPropertiesByPage?page=${page}&pageSize=6`,
+        `http://localhost:3000/property/getPropertiesByPage?page=${page}&pageSize=6&searchTerm=${searchTerm}&searchCondition=${searchCondition}`,
       );
       const data = await response.json();
       if (response.ok && data.properties) {
@@ -60,7 +65,9 @@ const BrowseProperties = () => {
   const propertyListWithPagination = (
     <div>
       {/* Mapping property results into property cards */}
-      <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4'>
+      <div
+        className={`grid grid-cols-1 ${properties.length === 1 ? '' : properties.length === 2 ? 'grid-cols-2' : 'md:grid-cols-2 xl:grid-cols-3'} gap-4`}
+      >
         {properties.map((property: PropertyResponse) => {
           return (
             <button
@@ -118,9 +125,52 @@ const BrowseProperties = () => {
     </div>
   );
 
+  const handleClickSearch = () => {
+    setPage(1);
+    fetchProperties();
+    console.log('Search complete');
+  };
+
   return (
     <>
-      <div className='m-10'>
+      <div className='mx-10 mb-10'>
+        {/* Search bar */}
+        <div className='flex bg-sky-200 items-center justify-center w-11/12 md:w-lg md:gap-7 py-2 rounded-full mx-auto mt-2 mb-3 shadow-sm'>
+          <select
+            className='rounded-lg hover:cursor-pointer focus:outline-none '
+            value={searchCondition}
+            onChange={(e) => {
+              const val = e.target.value as SearchConditions;
+              setSearchCondition(val);
+            }}
+          >
+            {Object.values(SearchConditions).map((value) => (
+              <option key={value} value={value}>
+                {value.charAt(0).toUpperCase() + value.slice(1)}
+              </option>
+            ))}
+          </select>
+          <input
+            type='text'
+            placeholder='Search terms here'
+            className='bg-gray-50 text-center text-gray-400 rounded-lg focus:outline-none'
+            value={searchTerm ?? ''}
+            onChange={(event) => setSearchTerm(event.target.value)}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter') {
+                handleClickSearch();
+              }
+            }}
+          ></input>
+          <Button
+            icon={IoSearch}
+            text='Search'
+            ClassName='!p-1'
+            onClick={handleClickSearch}
+          />
+        </div>
+
+        {/* Error display*/}
         {loading && <p>Loading properties...</p>}
         {errorMessage !== '' && <p className='text-red-500'>{errorMessage}</p>}
 

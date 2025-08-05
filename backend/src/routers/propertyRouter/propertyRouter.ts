@@ -14,6 +14,7 @@ import { GetPropertiesQuery } from '../../types/dtos/GetPropertiesQuery.dto';
 import { GetPropertiesResponse } from '../../types/dtos/GetPropertiesResponse.dto';
 import { GeneralErrorResponse } from '../../types/general-error';
 import { UserIdRequest } from '../../types/user-id-request';
+import { SearchConditions } from '../../types/search-conditions';
 
 const propertyRouter = express.Router();
 const prisma = new PrismaClient();
@@ -104,13 +105,35 @@ propertyRouter.get(
     res: Response<GetPropertiesResponse | GeneralErrorResponse>,
   ) => {
     try {
-      const page = parseInt(req.query.page as string) || 1;
-      const pageSize = parseInt(req.query.pageSize as string) || 6;
+      // Protection from query injection and dynamic where conditions
+      const validSearchConditions: SearchConditions['searchCondition'][] = [
+        'city',
+        'country',
+        'street',
+      ];
+      const { searchCondition, searchTerm } = req.query as Partial<
+        SearchConditions & { searchTerm?: string }
+      >;
+      if (searchCondition && !validSearchConditions.includes(searchCondition)) {
+        res.status(400).json({ error: 'Invalid search condition' });
+        return;
+      }
+      const whereConditions =
+        searchCondition && searchTerm
+          ? { [searchCondition]: { contains: searchTerm, mode: 'insensitive' } }
+          : {};
+
+      // Pagination options
+      const page = Number(req.query.page as string) || 1;
+      const pageSize = Number(req.query.pageSize as string) || 6;
       const skip = (page - 1) * pageSize;
 
-      const totalCount = await prisma.property.count();
+      const totalCount = await prisma.property.count({
+        where: whereConditions,
+      });
 
       const properties = await prisma.property.findMany({
+        where: whereConditions,
         skip,
         take: pageSize,
         include: {
