@@ -128,7 +128,6 @@ const BrowseProperties = () => {
   const handleClickSearch = () => {
     setPage(1);
     fetchProperties();
-    console.log('Search complete');
   };
 
   return (
