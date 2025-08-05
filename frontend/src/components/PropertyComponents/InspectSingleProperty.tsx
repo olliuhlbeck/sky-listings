@@ -91,8 +91,9 @@ const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
         text='Back to browsing'
         icon={IoArrowBack}
         iconSize={18}
+        ClassName='mt-2'
       />
-      <div className='flex flex-1 flex-col justify-center items-center mb-10 md:h-100 lg:h-200 xl:flex-row xl:gap-10'>
+      <div className='flex flex-1 flex-col justify-center items-center mb-5 md:h-100 lg:h-200 xl:flex-row xl:gap-10'>
         {/* Display images */}
         <div className='my-10 w-11/12 flex-1 lg:w-full md:h-92 lg:h-[30rem]'>
           <div className='mb-5 h-54 md:h-84 lg:h-100'>
