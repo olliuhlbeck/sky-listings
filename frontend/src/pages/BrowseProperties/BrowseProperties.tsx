@@ -18,7 +18,7 @@ const BrowseProperties = () => {
   const [properties, setProperties] = useState<PropertyResponse[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string>('');
-  const [browseState, setbrowseState] = useState<BrowseState>('browseMany');
+  const [browseState, setBrowseState] = useState<BrowseState>('browseMany');
   const [selectedProperty, setSelectedProperty] =
     useState<PropertyResponse | null>(null);
   const [searchCondition, setSearchCondition] = useState<SearchConditions>(
@@ -31,8 +31,9 @@ const BrowseProperties = () => {
   const fetchProperties = async (): Promise<void> => {
     setLoading(true);
     try {
+      const BASE_URL = import.meta.env.VITE_API_URL;
       const response = await fetch(
-        `http://localhost:3000/property/getPropertiesByPage?page=${page}&pageSize=6&searchTerm=${searchTerm}&searchCondition=${searchCondition}`,
+        `${BASE_URL}/property/getPropertiesByPage?page=${page}&pageSize=6&searchTerm=${searchTerm}&searchCondition=${searchCondition}`,
       );
       const data = await response.json();
       if (response.ok && data.properties) {
@@ -75,7 +76,7 @@ const BrowseProperties = () => {
               className='hover:cursor-pointer'
               onClick={() => {
                 setSelectedProperty(property);
-                setbrowseState('inspectSingle');
+                setBrowseState('inspectSingle');
               }}
             >
               <PropertyCard
@@ -83,9 +84,7 @@ const BrowseProperties = () => {
                 propertyType={formatPropertyType(property.propertyType)}
                 beds={property.bedrooms ?? 0}
                 baths={property.bathrooms ?? 0}
-                street={
-                  property.street ?? `${property.street}, ${property.city}`
-                }
+                street={property.street ?? `${property.city}`}
                 formattedPrice={`${property.price.toLocaleString('fr-FR')} €`}
               />
             </button>
@@ -134,40 +133,42 @@ const BrowseProperties = () => {
     <>
       <div className='mx-10 mb-10'>
         {/* Search bar */}
-        <div className='flex bg-sky-200 items-center justify-center w-11/12 md:w-lg md:gap-7 py-2 rounded-full mx-auto mt-2 mb-3 shadow-sm'>
-          <select
-            className='rounded-lg hover:cursor-pointer focus:outline-none '
-            value={searchCondition}
-            onChange={(e) => {
-              const val = e.target.value as SearchConditions;
-              setSearchCondition(val);
-            }}
-          >
-            {Object.values(SearchConditions).map((value) => (
-              <option key={value} value={value}>
-                {value.charAt(0).toUpperCase() + value.slice(1)}
-              </option>
-            ))}
-          </select>
-          <input
-            type='text'
-            placeholder='Search terms here'
-            className='bg-gray-50 text-center text-gray-400 rounded-lg focus:outline-none'
-            value={searchTerm ?? ''}
-            onChange={(event) => setSearchTerm(event.target.value)}
-            onKeyDown={(event) => {
-              if (event.key === 'Enter') {
-                handleClickSearch();
-              }
-            }}
-          ></input>
-          <Button
-            icon={IoSearch}
-            text='Search'
-            ClassName='!p-1'
-            onClick={handleClickSearch}
-          />
-        </div>
+        {browseState === 'browseMany' && (
+          <div className='flex bg-sky-200 items-center justify-center w-11/12 md:w-lg md:gap-7 py-2 rounded-full mx-auto mt-2 mb-3 shadow-sm'>
+            <select
+              className='rounded-lg hover:cursor-pointer focus:outline-none '
+              value={searchCondition}
+              onChange={(e) => {
+                const val = e.target.value as SearchConditions;
+                setSearchCondition(val);
+              }}
+            >
+              {Object.values(SearchConditions).map((value) => (
+                <option key={value} value={value}>
+                  {value.charAt(0).toUpperCase() + value.slice(1)}
+                </option>
+              ))}
+            </select>
+            <input
+              type='text'
+              placeholder='Search terms here'
+              className='bg-gray-50 text-center text-gray-400 rounded-lg focus:outline-none'
+              value={searchTerm ?? ''}
+              onChange={(event) => setSearchTerm(event.target.value)}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter') {
+                  handleClickSearch();
+                }
+              }}
+            ></input>
+            <Button
+              icon={IoSearch}
+              text='Search'
+              ClassName='!p-1'
+              onClick={handleClickSearch}
+            />
+          </div>
+        )}
 
         {/* Error display*/}
         {loading && <p>Loading properties...</p>}
@@ -178,13 +179,13 @@ const BrowseProperties = () => {
           propertyListWithPagination
         ) : selectedProperty ? (
           <InspectSingleProperty
-            onClick={() => setbrowseState('browseMany')}
+            onClick={() => setBrowseState('browseMany')}
             property={selectedProperty}
           />
         ) : (
           <div className='flex flex-col gap-4 items-center justify-center'>
             <Button
-              onClick={() => setbrowseState('browseMany')}
+              onClick={() => setBrowseState('browseMany')}
               text='Back to browsing'
               icon={IoArrowBack}
               iconSize={18}
