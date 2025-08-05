@@ -1,6 +1,6 @@
-# Sky Listings - React + TypeScript + TailwindCSS full stack project
+# Sky Listings - Full stack project
 
-A simple property selling app that allows users to browse, search, and list real estate properties with a responsive design and secure login.
+A real estate React app that allows users to browse, search, and list properties. Features secure user authentication and a fully responsive design. Aiming for a clean, intuitive UI built with React, TypeScript, and TailwindCSS.
 
 ### Screenshots
 
