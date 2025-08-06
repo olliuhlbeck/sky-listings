@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { PrismaClient } from '../../../generated/prisma';
+import { PrismaClient, Prisma } from '../../../generated/prisma';
 import {
   CreatePropertyDTO,
   CreatePropertyResponse,
@@ -309,6 +309,40 @@ propertyRouter.get(
         .status(500)
         .json({ error: 'Failed to fetch images. Please try again.' });
       return;
+    }
+  },
+);
+
+/*
+ * Property deletion route
+ * -Deletes property using property id
+ */
+propertyRouter.delete(
+  '/delete/:propertyId',
+  async (req: Request<{ propertyId: string }>, res: Response) => {
+    const { propertyId } = req.params;
+
+    try {
+      // Delete property pictures
+      await prisma.propertyPicture.deleteMany({
+        where: { propertyId: Number(propertyId) },
+      });
+
+      // Delete property itself
+      await prisma.property.delete({
+        where: { id: Number(propertyId) },
+      });
+
+      res.status(200).json({ message: 'Property deleted successfully' });
+    } catch (error) {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2025' // Prisma error code if property to delete does not exist
+      ) {
+        res.status(404).json({ error: 'Property not found' });
+      } else {
+        res.status(500).json({ error: 'Failed to delete property' });
+      }
     }
   },
 );
