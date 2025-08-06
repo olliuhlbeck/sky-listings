@@ -135,24 +135,26 @@ const BrowseProperties = () => {
         {/* Search bar */}
         {browseState === 'browseMany' && (
           <div className='flex bg-sky-200 items-center justify-center w-11/12 md:w-lg md:gap-7 py-2 rounded-full mx-auto mt-2 mb-3 shadow-sm'>
-            <select
-              className='rounded-lg hover:cursor-pointer focus:outline-none '
-              value={searchCondition}
-              onChange={(e) => {
-                const val = e.target.value as SearchConditions;
-                setSearchCondition(val);
-              }}
-            >
-              {Object.values(SearchConditions).map((value) => (
-                <option key={value} value={value}>
-                  {value.charAt(0).toUpperCase() + value.slice(1)}
-                </option>
-              ))}
-            </select>
+            <div className='rounded-lg hover:bg-sky-300 p-1'>
+              <select
+                className='rounded-lg hover:cursor-pointer focus:outline-none '
+                value={searchCondition}
+                onChange={(e) => {
+                  const val = e.target.value as SearchConditions;
+                  setSearchCondition(val);
+                }}
+              >
+                {Object.values(SearchConditions).map((value) => (
+                  <option key={value} value={value}>
+                    {value.charAt(0).toUpperCase() + value.slice(1)}
+                  </option>
+                ))}
+              </select>
+            </div>
             <input
               type='text'
               placeholder='Search terms here'
-              className='bg-gray-50 text-center text-gray-400 rounded-lg focus:outline-none'
+              className='bg-gray-50 text-center text-gray-700 rounded-lg focus:outline-none'
               value={searchTerm ?? ''}
               onChange={(event) => setSearchTerm(event.target.value)}
               onKeyDown={(event) => {
@@ -163,6 +165,7 @@ const BrowseProperties = () => {
             ></input>
             <Button
               icon={IoSearch}
+              iconSize={20}
               text='Search'
               ClassName='!p-1'
               onClick={handleClickSearch}
