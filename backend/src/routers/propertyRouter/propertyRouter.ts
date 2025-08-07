@@ -321,16 +321,22 @@ propertyRouter.delete(
   '/delete/:propertyId',
   async (req: Request<{ propertyId: string }>, res: Response) => {
     const { propertyId } = req.params;
+    const parsedPropertyId = Number(propertyId);
+
+    if (isNaN(parsedPropertyId)) {
+      res.status(400).json({ error: 'Invalid property ID provided' });
+      return;
+    }
 
     try {
-      // Delete property pictures
+      // Delete property pictures to maintain databases referential integrity
       await prisma.propertyPicture.deleteMany({
-        where: { propertyId: Number(propertyId) },
+        where: { propertyId: parsedPropertyId },
       });
 
       // Delete property itself
       await prisma.property.delete({
-        where: { id: Number(propertyId) },
+        where: { id: parsedPropertyId },
       });
 
       res.status(200).json({ message: 'Property deleted successfully' });
