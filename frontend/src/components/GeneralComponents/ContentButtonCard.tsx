@@ -21,12 +21,10 @@ const ContentButtonCard: React.FC<ContentButtonCardProps> = ({
     </div>
   );
 
-  return link ? (
+  return (
     <Link to={link} className='flex-1 min-w-0'>
       {cardContent}
     </Link>
-  ) : (
-    cardContent
   );
 };
 
