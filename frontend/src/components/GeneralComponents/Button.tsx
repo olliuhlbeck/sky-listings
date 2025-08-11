@@ -16,6 +16,7 @@ const Button = ({
 
   if (link) {
     return (
+      // If link given render just a navigating link
       <Link to={link} className={basicClassName} onClick={onClick}>
         {icon && <IconComponent icon={icon} />}
         <span>{children ?? text}</span>
@@ -23,6 +24,7 @@ const Button = ({
     );
   } else {
     return (
+      // If no link render native button with on click behavior
       <button type={type} className={basicClassName} onClick={onClick}>
         {icon && <IconComponent icon={icon} size={iconSize} />}
         <span>{children ?? text}</span>
