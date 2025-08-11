@@ -20,6 +20,7 @@ const AdComponent: React.FC<AdTypes> = ({
 
   return (
     <div
+      data-testid='ad-component'
       className={`flex w-4/6 items-center p-4 rounded-lg shadow-lg shadow-slate-500 bg-sky-800 gap-10 ${addToClassName}`}
     >
       <div className='pl-6 hidden md:block'>
