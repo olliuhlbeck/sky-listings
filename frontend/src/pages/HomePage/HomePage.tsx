@@ -13,6 +13,7 @@ const HomePage = () => {
 
   return (
     <div className='flex flex-col justify-center items-center mt-20'>
+      {/* Render different main content if there is logged in user or not */}
       {user ? (
         <>
           <div className='flex flex-col lg:flex-row w-4/6 gap-6'>
@@ -51,6 +52,7 @@ const HomePage = () => {
           </div>
         </>
       )}
+      {/* Render ad */}
       <AdComponent
         title='Mortgage Masters'
         message='Short on liquid assets? Mortgage Masters can solve your problems!'

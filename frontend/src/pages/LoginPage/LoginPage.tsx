@@ -6,9 +6,11 @@ import { useLocation } from 'react-router-dom';
 
 const LoginPage = () => {
   const location = useLocation();
+  // Check initial action or default to login
   const initialAction =
     (location.state?.action as ActionType) || ActionType.Login;
 
+  // Control page content with ActionType
   const [action, setAction] = useState<ActionType>(initialAction);
 
   return (
