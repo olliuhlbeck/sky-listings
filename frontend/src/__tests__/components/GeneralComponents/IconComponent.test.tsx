@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import { FaBeer } from 'react-icons/fa';
-import IconComponent from '../../components/GeneralComponents/IconComponent';
+import IconComponent from '../../../components/GeneralComponents/IconComponent';
 
 describe('IconComponent', () => {
   it('renders the passed icon as svg', () => {

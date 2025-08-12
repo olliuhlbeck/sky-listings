@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import AdComponent from '../../components/GeneralComponents/AdComponent';
+import AdComponent from '../../../components/GeneralComponents/AdComponent';
 import { FiStar } from 'react-icons/fi';
 
 describe('AdComponent', () => {

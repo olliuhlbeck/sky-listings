@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import InputField from '../../components/GeneralComponents/InputField';
+import InputField from '../../../components/GeneralComponents/InputField';
 
 describe('InputField', () => {
   const mockOnChange = jest.fn();

@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import ToolTip from '../../components/GeneralComponents/ToolTip';
+import ToolTip from '../../../components/GeneralComponents/ToolTip';
 
 describe('ToolTip component', () => {
   test('renders children correctly', () => {
