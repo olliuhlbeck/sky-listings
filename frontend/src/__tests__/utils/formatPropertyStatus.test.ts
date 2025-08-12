@@ -1,6 +1,7 @@
 import formatPropertyStatus from '../../utils/formatPropertyStatus';
 import { PropertyStatuses } from '../../types/PropertyFormData';
 
+// formatPropertyStatus enum transformer
 describe('formatPropertyStatus', () => {
   it('returns "Available" for PropertyStatuses.AVAILABLE', () => {
     expect(formatPropertyStatus(PropertyStatuses.AVAILABLE)).toBe('Available');

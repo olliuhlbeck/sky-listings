@@ -1,6 +1,7 @@
 import formatPropertyType from '../../utils/formatPropertyTypes';
 import { PropertyTypes } from '../../types/PropertyFormData';
 
+// formatPropertyType type transformer
 describe('formatPropertyType', () => {
   it('returns "House" for PropertyTypes.HOUSE', () => {
     expect(formatPropertyType(PropertyTypes.HOUSE)).toBe('House');

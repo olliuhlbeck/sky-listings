@@ -1,5 +1,6 @@
 import formatPreferredContactMethod from '../../utils/formatPreferredContactMethod';
 
+// formatPreferredContactMethod enum transformer
 describe('formatPreferredContactMethod', () => {
   it('returns "Email" for EMAIL', () => {
     expect(formatPreferredContactMethod('EMAIL')).toBe('Email');
