@@ -4,6 +4,7 @@ import { useAuth } from '../../utils/useAuth';
 import AuthContext from '../../context/AuthContext';
 import { AuthContextType } from '../../types/auth/auth';
 
+// useAuth
 describe('useAuth hook', () => {
   it('throws error if used outside AuthProvider', () => {
     expect(() => {

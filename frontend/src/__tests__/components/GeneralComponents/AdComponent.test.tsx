@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 import AdComponent from '../../../components/GeneralComponents/AdComponent';
 import { FiStar } from 'react-icons/fi';
 
+// Ad component
 describe('AdComponent', () => {
   test('renders title and message', () => {
     render(

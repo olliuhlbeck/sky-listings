@@ -5,6 +5,7 @@ jest.mock('jwt-decode');
 
 const mockedJwtDecode = jwtDecode as jest.Mock;
 
+// checkTokenExpTime util
 describe('checkTokenExpTime', () => {
   const originalDateNow = Date.now;
 

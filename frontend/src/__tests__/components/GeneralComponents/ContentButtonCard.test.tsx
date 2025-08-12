@@ -4,6 +4,7 @@ import ContentButtonCard from '../../../components/GeneralComponents/ContentButt
 
 const backgroundImage = 'test-image.jpg';
 
+// Content button card
 describe('ContentButtonCard', () => {
   test('renders button text', () => {
     render(

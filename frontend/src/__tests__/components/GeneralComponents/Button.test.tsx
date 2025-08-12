@@ -4,6 +4,7 @@ import { MemoryRouter } from 'react-router-dom';
 import Button from '../../../components/GeneralComponents/Button';
 import { FiFacebook } from 'react-icons/fi';
 
+// Button
 describe('Button component', () => {
   test('renders a <button> with text when no link is provided', () => {
     render(<Button text='Click Me' />);
