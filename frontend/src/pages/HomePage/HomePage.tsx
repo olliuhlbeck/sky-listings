@@ -24,7 +24,7 @@ const HomePage = () => {
               addToClassName='left-10 !bg-gray-100'
             />
             <ContentButtonCard
-              link={'/myProperties'}
+              link={'/addProperty'}
               buttonText='Sell properties'
               backgroundImage={sellHouse}
               addToClassName='right-10 !bg-blue-950 text-gray-50'
