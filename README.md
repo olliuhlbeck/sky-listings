@@ -4,11 +4,13 @@ A real estate React application that allows users to browse, search, and list pr
 
 ### Screenshots
 
-| Home Page (XL)                                                         | Home Page (Mobile)                                                                  |
-| ---------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| ![Home XL](./frontend/public/screenshots/xl-home-page.jpg)             | ![Home SM](./frontend/public/screenshots/small-home-page.jpg)                       |
-| Browse properties                                                      | Inspect single property information                                                 |
-| ![Browse Many](./frontend/public/screenshots/xl-browse-properties.jpg) | ![Browse Single](./frontend/public/screenshots/single-property-inspection-page.jpg) |
+| Home Page (XL)                                                          | Home Page (Mobile)                                                         |
+| ----------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| <img src="./frontend/public/screenshots/xl-home-page.jpg" width="600"/> | <img src="./frontend/public/screenshots/small-home-page.jpg" width="300"/> |
+
+| Browse properties                                                               | Inspect single property information                                                        |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| <img src="./frontend/public/screenshots/xl-browse-properties.jpg" width="600"/> | <img src="./frontend/public/screenshots/single-property-inspection-page.jpg" width="600"/> |
 
 - Frontend: React with TypeScript using Vite as the build tool. Styling with TailwindCSS.
 - Backend: Node.js with TypeScript and Express, connected to a PostgreSQL database using Prisma as the ORM.
