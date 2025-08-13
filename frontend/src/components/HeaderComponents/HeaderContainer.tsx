@@ -9,6 +9,7 @@ import { ActionType } from '../../types/ActionType';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { IoClose } from 'react-icons/io5';
 import { useEffect, useRef } from 'react';
+import { CgProfile } from 'react-icons/cg';
 
 const HeaderContainer = ({
   title,
@@ -118,9 +119,10 @@ const HeaderContainer = ({
             />
           ) : isAuthenticated ? (
             <>
-              <p>
-                logged in as: <strong>{user}</strong>
-              </p>
+              <div className='flex gap-2 mr-2'>
+                <strong>{user}</strong>
+                <IconComponent icon={CgProfile} />
+              </div>
               <HeaderButton
                 additionsToClassName='bg-sky-200'
                 icon={CiLogout}
