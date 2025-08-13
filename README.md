@@ -7,9 +7,7 @@ A real estate React application that allows users to browse, search, and list pr
 | Home Page (XL)                                                         | Home Page (Mobile)                                                                  |
 | ---------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
 | ![Home XL](./frontend/public/screenshots/xl-home-page.jpg)             | ![Home SM](./frontend/public/screenshots/small-home-page.jpg)                       |
-| -----------------------------------------------------------------      |
 | Browse properties                                                      | Inspect single property information                                                 |
-| ----------------------------------------------------------             | -------------------------------------------------------------                       |
 | ![Browse Many](./frontend/public/screenshots/xl-browse-properties.jpg) | ![Browse Single](./frontend/public/screenshots/single-property-inspection-page.jpg) |
 
 - Frontend: React with TypeScript using Vite as the build tool. Styling with TailwindCSS.
