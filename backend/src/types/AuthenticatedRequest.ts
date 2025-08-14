@@ -1,10 +1,13 @@
 import { Request } from 'express';
 
-export interface UserIdRequest<
+export interface AuthenticatedRequest<
   Params = {},
   ResBody = any,
   ReqBody = any,
   ReqQuery = {},
 > extends Request<Params, ResBody, ReqBody, ReqQuery> {
-  userId?: number;
+  user?: {
+    userId: number;
+    username: string;
+  };
 }

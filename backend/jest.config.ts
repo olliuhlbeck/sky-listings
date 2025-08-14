@@ -5,6 +5,7 @@ const config: Config = {
   testEnvironment: 'node',
   coveragePathIgnorePatterns: ['/node_modules/', '/__tests__/__mocks__/'],
   testPathIgnorePatterns: ['/node_modules/', '/__tests__/__mocks__/'],
+  modulePathIgnorePatterns: ['/dist/'],
 };
 
 export default config;

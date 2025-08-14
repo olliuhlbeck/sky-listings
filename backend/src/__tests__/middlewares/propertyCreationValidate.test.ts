@@ -4,16 +4,26 @@ import request from 'supertest';
 import multer from 'multer';
 import propertyCreationValidate from '../../middlewares/property/propertyCreationValidate';
 import jwt from 'jsonwebtoken';
+import { AuthenticatedRequest } from '../../types/AuthenticatedRequest';
 
 const upload = multer();
 const app = express();
 
 const userId = 123;
-const token = jwt.sign({ userId }, process.env.SECRET);
+const username = 'test-user';
+const token = jwt.sign({ userId, username }, process.env.SECRET);
 
 // Test route using the middleware
 app.post(
   '/test-property',
+  (req: AuthenticatedRequest, res, next) => {
+    const authHeader = req.headers.authorization;
+    if (!authHeader) return next();
+    const token = authHeader.split(' ')[1];
+    const payload: any = jwt.verify(token, process.env.SECRET as string);
+    req.user = { userId: payload.userId, username: payload.username };
+    next();
+  },
   upload.array('pictures'),
   propertyCreationValidate,
   (req, res) => {
