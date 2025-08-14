@@ -13,8 +13,9 @@ import multer from 'multer';
 import { GetPropertiesQuery } from '../../types/dtos/GetPropertiesQuery.dto';
 import { GetPropertiesResponse } from '../../types/dtos/GetPropertiesResponse.dto';
 import { GeneralErrorResponse } from '../../types/general-error';
-import { UserIdRequest } from '../../types/user-id-request';
 import { SearchConditions } from '../../types/search-conditions';
+import AuthenticateRequest from '../../middlewares/authentication/authenticateRequest';
+import { AuthenticatedRequest } from '../../types/AuthenticatedRequest';
 
 const propertyRouter = express.Router();
 const prisma = new PrismaClient();
@@ -27,10 +28,11 @@ const multerUpload = multer();
  */
 propertyRouter.post(
   '/addProperty',
+  AuthenticateRequest,
   multerUpload.array('pictures'),
   propertyCreationValidate,
   async (
-    req: UserIdRequest<{}, {}, CreatePropertyDTO>,
+    req: AuthenticatedRequest<{}, {}, CreatePropertyDTO>,
     res: Response<CreatePropertyResponse | GeneralErrorResponse>,
   ) => {
     const {
@@ -50,7 +52,7 @@ propertyRouter.post(
       coverPictureIndex,
     } = req.body;
 
-    const userId = req.userId;
+    const userId = req.user?.userId;
     const pictures = req.files as Express.Multer.File[];
 
     try {
@@ -215,6 +217,7 @@ propertyRouter.get(
  */
 propertyRouter.put(
   '/editPropertyInformation/:propertyId',
+  AuthenticateRequest,
   async (
     req: Request<{ propertyId: string }, {}, Partial<CreatePropertyDTO>>,
     res: Response,
@@ -236,9 +239,15 @@ propertyRouter.put(
       additionalInfo,
     } = req.body;
 
+    const parsedPropertyId = Number(propertyId);
+    if (isNaN(parsedPropertyId)) {
+      res.status(400).json({ error: 'Invalid property ID provided' });
+      return;
+    }
+
     try {
       const updatedProperty = await prisma.property.update({
-        where: { id: Number(propertyId) },
+        where: { id: Number(parsedPropertyId) },
         data: {
           ...(street && { street }),
           ...(city && { city }),
@@ -319,6 +328,7 @@ propertyRouter.get(
  */
 propertyRouter.delete(
   '/delete/:propertyId',
+  AuthenticateRequest,
   async (req: Request<{ propertyId: string }>, res: Response) => {
     const { propertyId } = req.params;
     const parsedPropertyId = Number(propertyId);
@@ -346,8 +356,10 @@ propertyRouter.delete(
         error.code === 'P2025' // Prisma error code if property to delete does not exist
       ) {
         res.status(404).json({ error: 'Property not found' });
+        return;
       } else {
         res.status(500).json({ error: 'Failed to delete property' });
+        return;
       }
     }
   },
