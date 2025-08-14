@@ -11,9 +11,11 @@ export const propertyMock = {
   findMany: jest.fn(),
   findUnique: jest.fn(),
   update: jest.fn(),
+  delete: jest.fn(),
 };
 export const propertyPictureMock = {
   create: jest.fn(),
+  deleteMany: jest.fn(),
 };
 
 // Export combined mockPack
