@@ -1,30 +1,19 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import { UserIdRequest } from '../../types/user-id-request';
+import { AuthenticatedRequest } from '../../types/AuthenticatedRequest';
+import { CreatePropertyDTO } from '../../types/dtos/CreateProperty.dto';
 
 const propertyCreationValidate = (
-  req: UserIdRequest,
+  req: AuthenticatedRequest<{}, {}, CreatePropertyDTO>,
   res: Response,
   next: NextFunction,
 ) => {
-  // Extract user id from token
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
-
-  if (!token) {
-    res.status(401).json({ error: 'No token provided' });
+  const userId = req.user?.userId;
+  if (!userId) {
+    res.status(401).json({ error: 'Unauthorized request' });
     return;
   }
 
-  try {
-    const decoded = jwt.verify(token, process.env.SECRET!) as {
-      userId: number;
-    };
-    req.userId = decoded.userId;
-  } catch (error) {
-    res.status(403).json({ error: 'Invalid token' });
-    return;
-  }
   // Access values from body
   const {
     street,
@@ -110,7 +99,7 @@ const propertyCreationValidate = (
   }
 
   // Limit lengths for safety
-  const MAX_LENGTHS: Record<string, number> = {
+  const MAX_LENGTHS: Partial<Record<keyof CreatePropertyDTO, number>> = {
     additionalInfo: 3000,
     description: 2000,
     street: 200,
@@ -120,7 +109,10 @@ const propertyCreationValidate = (
     postalCode: 40,
   };
 
-  for (const [field, maxLength] of Object.entries(MAX_LENGTHS)) {
+  for (const [field, maxLength] of Object.entries(MAX_LENGTHS) as [
+    keyof CreatePropertyDTO,
+    number,
+  ][]) {
     const value = req.body[field];
     if (value && typeof value === 'string' && value.trim().length > maxLength) {
       res.status(400).json({
