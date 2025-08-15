@@ -8,7 +8,7 @@ import { BiDollar } from 'react-icons/bi';
 import { BrowseState } from '../../types/BrowseStates';
 import InspectSingleProperty from '../../components/PropertyComponents/InspectSingleProperty';
 import Button from '../../components/GeneralComponents/Button';
-import { IoArrowBack, IoSearch } from 'react-icons/io5';
+import { IoArrowBack, IoClose, IoSearch } from 'react-icons/io5';
 import formatPropertyType from '../../utils/formatPropertyTypes';
 import { SearchConditions } from '../../types/searchConditions';
 
@@ -151,18 +151,28 @@ const BrowseProperties = () => {
                 ))}
               </select>
             </div>
-            <input
-              type='text'
-              placeholder='Search terms here'
-              className='bg-gray-50 text-center text-gray-700 rounded-lg focus:outline-none'
-              value={searchTerm ?? ''}
-              onChange={(event) => setSearchTerm(event.target.value)}
-              onKeyDown={(event) => {
-                if (event.key === 'Enter') {
-                  handleClickSearch();
-                }
-              }}
-            ></input>
+            <div className='relative'>
+              <input
+                type='text'
+                placeholder='Search terms here'
+                className='bg-gray-50 text-center text-gray-700 rounded-lg focus:outline-none'
+                value={searchTerm ?? ''}
+                onChange={(event) => setSearchTerm(event.target.value)}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter') {
+                    handleClickSearch();
+                  }
+                }}
+              />
+              {searchTerm !== '' && (
+                <IconComponent
+                  icon={IoClose}
+                  size={22}
+                  className='absolute -right-2 top-0 transform -translate-y-1/2 cursor-pointer rounded-full  transition duration-150 text-slate-900 hover:text-red-400'
+                  onClick={() => setSearchTerm('')}
+                />
+              )}
+            </div>
             <Button
               icon={IoSearch}
               iconSize={20}
