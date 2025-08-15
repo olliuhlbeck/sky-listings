@@ -62,4 +62,9 @@ describe('DELETE /delete/:propertyId', () => {
     expect(mockDeletePictures).not.toHaveBeenCalled();
     expect(mockDeleteProperty).not.toHaveBeenCalled();
   });
+
+  it('returns 401 if no token is provided', async () => {
+    const res = await request(app).delete('/delete/1');
+    expect(res.status).toBe(401);
+  });
 });
