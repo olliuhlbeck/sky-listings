@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import { FaBeer } from 'react-icons/fa';
 import IconComponent from '../../../components/GeneralComponents/IconComponent';
 
@@ -29,5 +29,17 @@ describe('IconComponent', () => {
     );
     const svg = container.querySelector('svg');
     expect(svg).toHaveClass('test-class');
+  });
+
+  it('calls onClick handler when icon is clicked', () => {
+    const handleClick = jest.fn();
+    const { container } = render(
+      <IconComponent icon={FaBeer} onClick={handleClick} />,
+    );
+    const svg = container.querySelector('svg');
+    if (!svg) throw new Error('SVG not found');
+
+    fireEvent.click(svg);
+    expect(handleClick).toHaveBeenCalledTimes(1);
   });
 });
