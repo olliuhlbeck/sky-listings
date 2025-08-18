@@ -204,6 +204,7 @@ const AddProperty: React.FC = () => {
                 value={formData.country}
                 onChange={handleChange}
                 className='w-3/6 p-1 rounded-md shadow-sm bg-gray-50'
+                autoComplete='country'
               />
             </div>
           </div>
