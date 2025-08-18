@@ -73,7 +73,8 @@ const BrowseProperties = () => {
           return (
             <button
               key={property.id}
-              className='hover:cursor-pointer'
+              aria-label={`View details for ${property.street}, ${property.city}`}
+              className={`hover:cursor-pointer ${properties.length === 1 ? 'lg:w-4/5 lg:mx-auto xl:w-3/5' : ''}`}
               onClick={() => {
                 setSelectedProperty(property);
                 setBrowseState('inspectSingle');
