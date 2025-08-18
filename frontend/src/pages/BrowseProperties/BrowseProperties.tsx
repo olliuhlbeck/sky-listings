@@ -169,8 +169,8 @@ const BrowseProperties = () => {
               <input
                 id='searchTerm'
                 type='text'
-                placeholder='Search terms here'
-                className='bg-gray-50 text-center text-gray-700 rounded-lg focus:outline-none'
+                placeholder='Search properties...'
+                className='bg-gray-50 text-center text-gray-700 rounded-lg focus:outline-none md:p-1'
                 value={searchTerm ?? ''}
                 onChange={(event) => setSearchTerm(event.target.value)}
                 onKeyDown={(event) => {
