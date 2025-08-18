@@ -11,6 +11,7 @@ import Button from '../../components/GeneralComponents/Button';
 import { IoArrowBack, IoClose, IoSearch } from 'react-icons/io5';
 import formatPropertyType from '../../utils/formatPropertyTypes';
 import { SearchConditions } from '../../types/searchConditions';
+import { MdErrorOutline } from 'react-icons/md';
 
 const BrowseProperties = () => {
   const [page, setPage] = useState<number>(1);
@@ -191,8 +192,13 @@ const BrowseProperties = () => {
 
         {/* Error display*/}
         {loading && <p>Loading properties...</p>}
-        {errorMessage !== '' && <p className='text-red-500'>{errorMessage}</p>}
-
+        {errorMessage !== '' && (
+          <div className='flex justify-center gap-2 mt-5'>
+            <IconComponent icon={MdErrorOutline} className='text-red-500' />
+            <p className='text-red-500'>{errorMessage}</p>
+            <IconComponent icon={MdErrorOutline} className='text-red-500' />
+          </div>
+        )}
         {/* Render single inspect component or paginated list according to browseState */}
         {browseState === 'browseMany' ? (
           propertyListWithPagination

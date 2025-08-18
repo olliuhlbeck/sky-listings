@@ -5,6 +5,8 @@ import PropertyInfoEditForm from '../../components/PropertyComponents/PropertyIn
 import AdComponent from '../../components/GeneralComponents/AdComponent';
 import { BiDollar } from 'react-icons/bi';
 import Button from '../../components/GeneralComponents/Button';
+import IconComponent from '../../components/GeneralComponents/IconComponent';
+import { MdErrorOutline } from 'react-icons/md';
 
 const MyProperties = () => {
   const [usersProperties, setUsersProperties] = useState<PropertyResponse[]>(
@@ -32,9 +34,8 @@ const MyProperties = () => {
         setUsersProperties(data.usersProperties);
         setErrorMessage('');
       }
-    } catch (error) {
+    } catch {
       setErrorMessage('Failed to fetch your properties. Please try again.');
-      console.error(error);
       return;
     } finally {
       setLoading(false);
@@ -88,8 +89,7 @@ const MyProperties = () => {
       }
       setShowDeleteModal(false);
       setPropertyToEdit(null);
-    } catch (error) {
-      console.error(error);
+    } catch {
       setShowDeleteModal(false);
     }
   };
@@ -109,11 +109,15 @@ const MyProperties = () => {
         {loading && <p className=''>Loading your properties...</p>}
         {/* Error display */}
         {errorMessage !== '' && (
-          <p className='text-red-500 mb-4'>{errorMessage}</p>
+          <div className='flex justify-center gap-2 mt-5'>
+            <IconComponent icon={MdErrorOutline} className='text-red-500' />
+            <p className='text-red-500 mb-4'>{errorMessage}</p>
+            <IconComponent icon={MdErrorOutline} className='text-red-500' />
+          </div>
         )}
         {/* List properties */}
         <div className='flex flex-col justify-center mx-auto w-5/6 lg:flex-row lg:gap-10'>
-          {loading === false && (
+          {loading === false && errorMessage === '' && (
             <>
               <div className='mb-6 flex-1'>
                 <h2 className='mb-4'>Select property to edit information:</h2>
