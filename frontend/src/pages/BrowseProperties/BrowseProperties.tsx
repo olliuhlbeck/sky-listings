@@ -143,7 +143,11 @@ const BrowseProperties = () => {
         {browseState === 'browseMany' && (
           <div className='flex bg-sky-200 items-center justify-center w-11/12 md:w-lg md:gap-7 py-2 rounded-full mx-auto mt-2 mb-3 shadow-sm'>
             <div className='rounded-lg hover:bg-sky-300 p-1'>
+              <label htmlFor='searchCondition' className='sr-only'>
+                Search condition
+              </label>
               <select
+                id='searchCondition'
                 className='rounded-lg hover:cursor-pointer focus:underline focus:outline-none'
                 value={searchCondition}
                 onChange={(e) => {
@@ -159,7 +163,11 @@ const BrowseProperties = () => {
               </select>
             </div>
             <div className='relative'>
+              <label htmlFor='searchTerm' className='sr-only'>
+                Search condition
+              </label>
               <input
+                id='searchTerm'
                 type='text'
                 placeholder='Search terms here'
                 className='bg-gray-50 text-center text-gray-700 rounded-lg focus:outline-none'
