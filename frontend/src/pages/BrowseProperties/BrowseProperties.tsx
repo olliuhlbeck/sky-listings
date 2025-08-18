@@ -94,11 +94,15 @@ const BrowseProperties = () => {
       </div>
 
       {/* Pagination section */}
-      <div className='flex gap-6 items-center justify-center mt-4'>
+      <nav
+        className='flex gap-6 items-center justify-center mt-4'
+        aria-label='Pagination'
+      >
         {page !== 1 && (
           <button
             onClick={handlePreviousPage}
             disabled={page === 1}
+            aria-label={`Go to page ${page - 1}`}
             className='flex items-center gap-1 px-3 py-1 bg-sky-200 rounded-md hover:cursor-pointer hover:bg-sky-300 transition duration-200'
           >
             <IconComponent icon={FaAngleLeft} size={16} />
@@ -108,12 +112,13 @@ const BrowseProperties = () => {
 
         {totalPages > 1 && page !== totalPages && (
           <>
-            <span>
+            <span aria-live='polite'>
               Showing page {page} of {totalPages}
             </span>
             <button
               onClick={handleNextPage}
               disabled={page === totalPages}
+              aria-label={`Go to page ${page + 1}`}
               className='flex items-center gap-1 px-3 py-1 bg-sky-200 rounded-md hover:cursor-pointer hover:bg-sky-300 transition duration-200'
             >
               <p className='m-0 text-md'>Next</p>
@@ -121,7 +126,7 @@ const BrowseProperties = () => {
             </button>
           </>
         )}
-      </div>
+      </nav>
     </div>
   );
 
@@ -138,7 +143,7 @@ const BrowseProperties = () => {
           <div className='flex bg-sky-200 items-center justify-center w-11/12 md:w-lg md:gap-7 py-2 rounded-full mx-auto mt-2 mb-3 shadow-sm'>
             <div className='rounded-lg hover:bg-sky-300 p-1'>
               <select
-                className='rounded-lg hover:cursor-pointer focus:outline-none '
+                className='rounded-lg hover:cursor-pointer focus:underline focus:outline-none'
                 value={searchCondition}
                 onChange={(e) => {
                   const val = e.target.value as SearchConditions;
@@ -178,7 +183,7 @@ const BrowseProperties = () => {
               icon={IoSearch}
               iconSize={20}
               text='Search'
-              ClassName='!p-1'
+              ClassName='!p-1 focus:underline focus:outline-none'
               onClick={handleClickSearch}
             />
           </div>
