@@ -96,7 +96,7 @@ const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
       <div className='flex flex-1 flex-col justify-center items-center mb-5 md:h-100 lg:h-200 xl:flex-row xl:gap-10'>
         {/* Display images */}
         <div className='my-10 w-11/12 flex-1 lg:w-full md:h-92 lg:h-[30rem]'>
-          <div className='mb-5 h-54 md:h-84 lg:h-100'>
+          <div className='mb-5 h-54 md:h-84 lg:h-100 aspect-video mx-auto'>
             {displayImage ? (
               <img
                 src={`data:image/jpeg;base64,${displayImage}`}
@@ -123,7 +123,7 @@ const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
                     src={`data:image/jpeg;base64,${pic}`}
                     alt={`Thumbnail ${index + 1}`}
                     onClick={() => setDisplayImage(pic)}
-                    className={`w-20 h-20 object-cover rounded-lg cursor-pointer border-2 shado ${
+                    className={`w-20 h-20 object-cover rounded-lg cursor-pointer border-2 shadow-lg ${
                       displayImage === pic
                         ? 'border-blue-500'
                         : 'border-transparent'
