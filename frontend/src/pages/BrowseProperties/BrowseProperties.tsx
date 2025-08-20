@@ -86,7 +86,7 @@ const BrowseProperties = () => {
                 propertyType={formatPropertyType(property.propertyType)}
                 beds={property.bedrooms ?? 0}
                 baths={property.bathrooms ?? 0}
-                street={property.street ?? `${property.city}`}
+                street={`${property.street}, ${property.city}`}
                 formattedPrice={`${property.price.toLocaleString('fr-FR')} €`}
               />
             </button>
