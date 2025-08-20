@@ -19,7 +19,6 @@ const MyProperties = () => {
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [propertyerrorMessage, setPropertyErrorMessage] = useState<string>('');
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
-  useState<boolean>(false);
 
   const { userId } = useAuth();
 
@@ -61,12 +60,16 @@ const MyProperties = () => {
     }
   };
 
-  const gridCols =
-    usersProperties.length === 1
-      ? 'grid-cols-1'
-      : usersProperties.length === 2
-        ? 'grid-cols-2'
-        : 'grid-cols-3';
+  const getGridCols = () => {
+    const count = usersProperties.length;
+    if (count === 1) {
+      return 'grid-cols-1';
+    } else if (count === 2) {
+      return 'grid-cols-1 sm:grid-cols-2';
+    } else {
+      return 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3';
+    }
+  };
 
   const handlePropertyDelete = async (propertyId: number) => {
     try {
@@ -106,7 +109,12 @@ const MyProperties = () => {
   return (
     <>
       <div className='mt-10'>
-        {loading && <p className=''>Loading your properties...</p>}
+        {loading && (
+          <div className='flex justify-center items-center py-8'>
+            <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500'></div>
+            <p className='ml-3 text-gray-600'>Loading your properties...</p>
+          </div>
+        )}
         {/* Error display */}
         {errorMessage !== '' && (
           <div className='flex justify-center gap-2 mt-5'>
@@ -122,7 +130,7 @@ const MyProperties = () => {
               <div className='mb-6 flex-1'>
                 <h2 className='mb-4'>Select property to edit information:</h2>
                 {usersProperties && (
-                  <div className={`grid ${gridCols} gap-4`}>
+                  <div className={`grid ${getGridCols()} gap-4`}>
                     {usersProperties.map((property) => {
                       return (
                         <div
