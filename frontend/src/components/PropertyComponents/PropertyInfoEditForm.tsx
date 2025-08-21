@@ -6,6 +6,8 @@ import Button from '../GeneralComponents/Button';
 import { useEffect, useState } from 'react';
 import { RiResetLeftLine } from 'react-icons/ri';
 import { useAuth } from '../../utils/useAuth';
+import IconComponent from '../GeneralComponents/IconComponent';
+import { BiSolidEdit } from 'react-icons/bi';
 
 const PropertyInfoEditForm: React.FC<PropertyEditProps> = ({ property }) => {
   const [editedFields, setEditedFields] = useState<Partial<PropertyResponse>>(
@@ -134,7 +136,8 @@ const PropertyInfoEditForm: React.FC<PropertyEditProps> = ({ property }) => {
       className='bg-white flex-1 rounded-lg overflow-hidden w-full shadow-sm border border-gray-200 relative'
     >
       <div className='flex justify-between items-center p-2 sm:p-4 border-b border-gray-200 bg-linear-to-r from-cyan-500 to-blue-600'>
-        <h3 className='text-lg font-medium text-gray-900 mx-auto'>
+        <h3 className='flex justify-center items-center gap-2 text-lg font-medium text-gray-50 mx-auto'>
+          <IconComponent icon={BiSolidEdit} />
           Edit Property
         </h3>
         {/* Reset button */}
