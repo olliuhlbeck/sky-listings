@@ -46,20 +46,6 @@ const MyProperties = () => {
     }
   }, [userId]);
 
-  const handleSingleFieldEdit = (
-    field: keyof PropertyResponse,
-    value: string | number | null,
-  ) => {
-    if (!propertyToEdit) {
-      return;
-    } else {
-      setPropertyToEdit({
-        ...propertyToEdit,
-        [field]: value,
-      });
-    }
-  };
-
   const getGridCols = () => {
     const count = usersProperties.length;
     if (count === 1) {
@@ -170,7 +156,6 @@ const MyProperties = () => {
               key={propertyToEdit.id}
               property={propertyToEdit}
               originalProperty={propertyToEdit}
-              onFieldEdit={handleSingleFieldEdit}
             />
           )}
         </div>
