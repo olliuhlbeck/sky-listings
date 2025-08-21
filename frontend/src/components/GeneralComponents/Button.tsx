@@ -12,7 +12,8 @@ const Button = ({
   iconSize,
   onClick,
 }: ButtonProps) => {
-  const basicClassName = `flex items-center gap-2 px-4 py-2 rounded-md text-md bg-sky-200 hover:cursor-pointer hover:bg-sky-300 transition duration-200 ${ClassName} `;
+  const hasText = Boolean(children ?? text);
+  const basicClassName = `flex items-center ${hasText ? ' gap-2 px-4 py-2 ' : 'p-2'} rounded-md text-md bg-sky-200 hover:cursor-pointer hover:bg-sky-300 transition duration-200 ${ClassName} `;
 
   if (link) {
     return (
