@@ -4,11 +4,10 @@ import EditableField from './EditableField';
 import { PropertyTypes, PropertyStatuses } from '../../types/PropertyFormData';
 import Button from '../GeneralComponents/Button';
 import { useEffect, useState } from 'react';
+import { RiResetLeftLine } from 'react-icons/ri';
+import { useAuth } from '../../utils/useAuth';
 
-const PropertyInfoEditForm: React.FC<PropertyEditProps> = ({
-  property,
-  onFieldEdit,
-}) => {
+const PropertyInfoEditForm: React.FC<PropertyEditProps> = ({ property }) => {
   const [editedFields, setEditedFields] = useState<Partial<PropertyResponse>>(
     {},
   );
@@ -16,6 +15,8 @@ const PropertyInfoEditForm: React.FC<PropertyEditProps> = ({
     null,
   );
   const [message, setMessage] = useState<string | null>(null);
+
+  const { token } = useAuth();
 
   const handleFieldEdit = (
     field: keyof PropertyResponse,
@@ -25,8 +26,6 @@ const PropertyInfoEditForm: React.FC<PropertyEditProps> = ({
       ...prev,
       [field]: value,
     }));
-
-    onFieldEdit(field, value);
   };
 
   useEffect(() => {
@@ -34,6 +33,12 @@ const PropertyInfoEditForm: React.FC<PropertyEditProps> = ({
     setMessage(null);
     setMessageType(null);
   }, [property]);
+
+  const resetForm = () => {
+    setEditedFields({});
+    setMessage(null);
+    setMessageType(null);
+  };
 
   // Fields to map for edit form
   const editableFields: {
@@ -89,8 +94,10 @@ const PropertyInfoEditForm: React.FC<PropertyEditProps> = ({
           `http://localhost:3000/property/editPropertyInformation/${property.id}`,
           {
             method: 'PUT',
+
             headers: {
               'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
             },
             body: JSON.stringify(editedFields),
           },
@@ -124,25 +131,43 @@ const PropertyInfoEditForm: React.FC<PropertyEditProps> = ({
   return (
     <form
       onSubmit={handleSubmit}
-      className='bg-gray-50 flex-1 rounded-lg overflow-hidden h-fit w-full shadow-md py-6 pl-6 text-left'
+      className='bg-white flex-1 rounded-lg overflow-hidden w-full shadow-sm border border-gray-200 relative'
     >
-      <div className='space-y-2'>
+      <div className='flex justify-between items-center p-2 sm:p-4 border-b border-gray-200 bg-linear-to-r from-cyan-500 to-blue-600'>
+        <h3 className='text-lg font-medium text-gray-900 mx-auto'>
+          Edit Property
+        </h3>
+        {/* Reset button */}
+        <Button
+          iconSize={18}
+          ClassName='!p-2 hover:!bg-red-100 !text-gray-600'
+          icon={RiResetLeftLine}
+          onClick={resetForm}
+        />
+      </div>
+      {/* Editable fields */}
+      <div className='p-4 sm:p-6'>
         {editableFields.map(({ label, field, options }) => (
-          <EditableField
-            key={field}
-            label={`${label}:`}
-            field={field}
-            value={
-              editedFields[field] !== undefined
-                ? editedFields[field]
-                : property[field]
-            }
-            onEdit={handleFieldEdit}
-            options={options}
-          />
+          <div key={field} className='w-full mb-2'>
+            <EditableField
+              label={`${label}:`}
+              field={field}
+              value={
+                editedFields[field] !== undefined
+                  ? editedFields[field]
+                  : property[field]
+              }
+              onEdit={handleFieldEdit}
+              options={options}
+            />
+          </div>
         ))}
       </div>
-      <Button text='Save changes' ClassName='mt-4 mx-auto' type='submit' />
+
+      {/* Submit button */}
+      <Button text='Save changes' ClassName='mx-auto mb-4' type='submit' />
+
+      {/* Message display */}
       {message && (
         <div className='relative w-full flex justify-center mt-2'>
           <div
