@@ -85,18 +85,18 @@ const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
   }, [property.userId, property.id]);
 
   return (
-    <div className='flex items-center justify-center flex-col'>
+    <div className='flex items-center flex-col'>
       <Button
         onClick={onClick}
         text='Back to browsing'
         icon={IoArrowBack}
         iconSize={18}
-        ClassName='mt-2'
+        ClassName='mt-2 mb-8'
       />
-      <div className='flex flex-1 flex-col justify-center items-center mb-5 md:h-100 lg:h-200 xl:flex-row xl:gap-10'>
+      <div className='flex flex-1 flex-col justify-center items-center mb-5 md:h-100 lg:h-200 xl:flex-row xl:gap-16 xl:max-w-7xl xl:mx-auto xl:px-4'>
         {/* Display images */}
-        <div className='my-10 w-11/12 flex-1 lg:w-full md:h-92 lg:h-[30rem]'>
-          <div className='mb-5 h-54 md:h-84 lg:h-100 aspect-video mx-auto'>
+        <div className='my-10 w-11/12 max-w-3xl flex-1 md:h-92 lg:w-full  lg:h-[30rem] xl:max-w-none xl:flex-shrink-0 xl:w-1/2'>
+          <div className='mb-5 h-54 md:h-84 lg:h-100 aspect-video mx-auto xl:max-w-full'>
             {displayImage ? (
               <img
                 src={`data:image/jpeg;base64,${displayImage}`}
@@ -109,10 +109,16 @@ const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
               </div>
             )}
           </div>
+
           {/* Additional Images Info */}
           <div className=''>
             {loadingPictures ? (
-              <p>Loading pictures...</p>
+              <div className='flex justify-center items-center py-8'>
+                <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500'></div>
+                <p className='ml-3 text-gray-600'>
+                  Loading additional pictures...
+                </p>
+              </div>
             ) : errorPictures ? (
               <p className='text-red-600'>{errorPictures}</p>
             ) : pictures && pictures.length > 0 ? (
@@ -137,127 +143,146 @@ const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
           </div>
         </div>
         {/* Display information */}
-        <div className='w-11/12 flex-1 md:h-100  lg:h-full lg:my-10 xl:w-1/2 justify-center'>
-          <div className='rounded-md bg-gray-50 shadow-sm lg:shadow-md [&>div]:my-1 p-1'>
-            <h2 className='font-bold my-2'>Property information</h2>
-
-            <div className='flex w-full'>
-              <span className='w-1/2 text-right pr-1'>Property type -</span>
-              <span className='w-1/2 text-left pl-1'>
-                {formatPropertyType(property.propertyType)}
-              </span>
-            </div>
-
-            <div className='flex w-full'>
-              <span className='w-1/2 text-right pr-1'>Price -</span>
-              <span className='w-1/2 text-left pl-1'>
-                {property.price.toLocaleString('fr-FR')} €
-              </span>
-            </div>
-
-            <div className='flex w-full'>
-              <span className='w-1/2 text-right pr-1'>Bedrooms -</span>
-              <span className='w-1/2 text-left pl-1'>
-                {property.bedrooms}{' '}
-                {property.bedrooms > 1 ? 'bedrooms' : 'bedroom'}
-              </span>
-            </div>
-
-            <div className='flex w-full'>
-              <span className='w-1/2 text-right pr-1'>Bathrooms -</span>
-              <span className='w-1/2 text-left pl-1'>
-                {property.bathrooms}{' '}
-                {property.bathrooms > 1 ? 'bathrooms' : 'bathroom'}
-              </span>
-            </div>
-
-            <div className='flex w-full'>
-              <span className='w-1/2 text-right pr-1'>Square meters -</span>
-              <span className='w-1/2 text-left pl-1'>
-                {property.squareMeters} m²
-              </span>
-            </div>
-
-            <div className='flex w-full'>
-              <span className='w-1/2 text-right pr-1'>Country -</span>
-              <span className='w-1/2 text-left pl-1'>{property.country}</span>
-            </div>
-
-            <div className='flex w-full'>
-              <span className='w-1/2 text-right pr-1'>State -</span>
-              <span className='w-1/2 text-left pl-1'>{property.state}</span>
-            </div>
-
-            <div className='flex w-full'>
-              <span className='w-1/2 text-right pr-1'>Street -</span>
-              <span className='w-1/2 text-left pl-1'>{property.street}</span>
-            </div>
-
-            {property.postalCode && (
-              <div className='flex w-full'>
-                <span className='w-1/2 text-right pr-1'>Postal code -</span>
-                <span className='w-1/2 text-left pl-1'>
-                  {property.postalCode}
+        <div className='flex flex-col gap-2 lg:w-2xl xl:max-w-2xl xl:w-1/2'>
+          {/* Basic Information */}
+          <div className='bg-white rounded-lg shadow-sm p-4'>
+            <h2 className='text-xl font-semibold mb-4 border-b border-gray-100 pb-2'>
+              Property Information
+            </h2>
+            <div className='space-y-3'>
+              <div className='flex'>
+                <span className='w-1/2 text-gray-600'>Property type:</span>
+                <span className='w-1/2 font-medium'>
+                  {formatPropertyType(property.propertyType)}
                 </span>
               </div>
-            )}
-
-            <div className='flex w-full'>
-              <span className='w-1/2 text-right pr-1'>Property status -</span>
-              <span className='w-1/2 text-left pl-1'>
-                {formatPropertyStatus(property.propertyStatus)}
-              </span>
-            </div>
-          </div>
-          <div className='flex justify-center items-stretch gap-x-2 mt-4'>
-            <div className='rounded-md shadow-md bg-gray-50 w-full'>
-              <h3 className='font-semibold my-2'>Description</h3>
-              {property.description}
-            </div>
-            <div className='rounded-md shadow-md bg-gray-50 w-full'>
-              <h3 className='font-semibold my-2'>Additional info</h3>
-              {property.additionalInfo !== null ? (
-                <p>{property.additionalInfo}</p>
-              ) : (
-                <p>No additional info given.</p>
+              <div className='flex'>
+                <span className='w-1/2 text-gray-600'>Price:</span>
+                <span className='w-1/2 font-medium text-green-600'>
+                  {property.price.toLocaleString('fr-FR')} €
+                </span>
+              </div>
+              <div className='flex'>
+                <span className='w-1/2 text-gray-600'>Bedrooms:</span>
+                <span className='w-1/2 font-medium'>
+                  {property.bedrooms}{' '}
+                  {property.bedrooms > 1 ? 'bedrooms' : 'bedroom'}
+                </span>
+              </div>
+              <div className='flex'>
+                <span className='w-1/2 text-gray-600'>Bathrooms:</span>
+                <span className='w-1/2 font-medium'>
+                  {property.bathrooms}{' '}
+                  {property.bathrooms > 1 ? 'bathrooms' : 'bathroom'}
+                </span>
+              </div>
+              <div className='flex'>
+                <span className='w-1/2 text-gray-600'>Square meters:</span>
+                <span className='w-1/2 font-medium'>
+                  {property.squareMeters} m²
+                </span>
+              </div>
+              <div className='flex'>
+                <span className='w-1/2 text-gray-600'>Country:</span>
+                <span className='w-1/2 font-medium'>{property.country}</span>
+              </div>
+              <div className='flex'>
+                <span className='w-1/2 text-gray-600'>State:</span>
+                <span className='w-1/2 font-medium'>{property.state}</span>
+              </div>
+              <div className='flex'>
+                <span className='w-1/2 text-gray-600'>Street:</span>
+                <span className='w-1/2 font-medium'>{property.street}</span>
+              </div>
+              {property.postalCode && (
+                <div className='flex'>
+                  <span className='w-1/2 text-gray-600'>Postal code:</span>
+                  <span className='w-1/2 font-medium'>
+                    {property.postalCode}
+                  </span>
+                </div>
               )}
+              <div className='flex'>
+                <span className='w-1/2 text-gray-600'>Property status:</span>
+                <span className='w-1/2 font-medium'>
+                  {formatPropertyStatus(property.propertyStatus)}
+                </span>
+              </div>
             </div>
           </div>
-          <div className='rounded-md shadow-md mt-4 bg-gray-50 w-full h-fit p-2'>
-            <h3 className='font-semibold my-2'>Contact info</h3>
-            {loadingContact ? (
-              <p>Loading contact info...</p>
-            ) : errorContact ? (
-              <p className='text-red-600'>{errorContact}</p>
+
+          {/* Description & Additional Info */}
+          <div className='bg-white rounded-lg shadow-sm p-4'>
+            {property.additionalInfo ? (
+              <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+                <div>
+                  <h3 className='text-lg font-semibold text-gray-900 mb-3 border-b border-gray-100 pb-2'>
+                    Description
+                  </h3>
+                  <p className='text-gray-700 leading-relaxed'>
+                    {property.description}
+                  </p>
+                </div>
+                <div>
+                  <h3 className='text-lg font-semibold text-gray-900 mb-3 border-b border-gray-100'>
+                    Additional Information
+                  </h3>
+                  <p className='text-gray-700 leading-relaxed'>
+                    {property.additionalInfo}
+                  </p>
+                </div>
+              </div>
             ) : (
-              <>
-                <div className='flex w-full'>
-                  <span className='w-1/2 text-right pr-1'>Phone -</span>
-                  <span className='w-1/2 text-left pl-1'>
+              <div>
+                <h3 className='text-lg font-semibold text-gray-900 mb-3 border-b border-gray-100 pb-2'>
+                  Description
+                </h3>
+                <p className='text-gray-700 leading-relaxed'>
+                  {property.description}
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* Contact information */}
+          <div className='bg-white rounded-lg shadow-sm p-4'>
+            <h3 className='text-lg font-semibold mb-4 border-b border-gray-100 pb-2'>
+              Contact Information
+            </h3>
+            {loadingContact ? (
+              <div className='flex justify-center items-center py-8'>
+                <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500'></div>
+                <p className='ml-3 text-gray-600'>Loading contact info...</p>
+              </div>
+            ) : errorContact ? (
+              <p className='text-red-500'>{errorContact}</p>
+            ) : (
+              <div className='space-y-3'>
+                <div className='flex'>
+                  <span className='w-1/3 text-slate-600'>Phone:</span>
+                  <span className='w-2/3 font-medium'>
                     {propertySellerInfo?.phoneNumber}
                   </span>
                 </div>
-
-                <div className='flex w-full'>
-                  <span className='w-1/2 text-right pr-1'>Email -</span>
-                  <span className='w-1/2 text-left pl-1'>
+                <div className='flex'>
+                  <span className='w-1/3 text-slate-600'>Email:</span>
+                  <span className='w-2/3 font-medium'>
                     {propertySellerInfo?.email}
                   </span>
                 </div>
-
-                <div className='flex w-full'>
-                  <span className='w-1/2 text-right pr-1'>
-                    Preferred contact style -
+                <div className='flex'>
+                  <span className='w-1/3 text-slate-600'>
+                    Preferred contact:
                   </span>
-                  <span className='w-1/2 text-left pl-1'>
+                  <span className='w-2/3 font-medium'>
                     {propertySellerInfo?.preferredContactMethod === null
-                      ? 'Preferred contact method not defined'
+                      ? 'Not specified'
                       : formatPreferredContactMethod(
                           propertySellerInfo?.preferredContactMethod,
                         )}
                   </span>
                 </div>
-              </>
+              </div>
             )}
           </div>
         </div>
