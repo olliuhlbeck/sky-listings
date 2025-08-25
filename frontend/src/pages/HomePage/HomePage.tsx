@@ -21,7 +21,7 @@ const HomePage = () => {
               link='browseProperties'
               buttonText='Browse properties'
               backgroundImage={browseHouses}
-              addToClassName='left-10 !bg-gray-100'
+              addToClassName='left-10 !bg-yellow-600'
             />
             <ContentButtonCard
               link={'/addProperty'}
@@ -38,7 +38,7 @@ const HomePage = () => {
               link='browseProperties'
               buttonText='Browse properties'
               backgroundImage={browseHouses}
-              addToClassName='left-10 !bg-gray-100'
+              addToClassName='left-10 !bg-yellow-600'
             />
             <Link
               to={'login'}

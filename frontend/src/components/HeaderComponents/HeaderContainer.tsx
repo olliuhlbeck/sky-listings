@@ -53,7 +53,7 @@ const HeaderContainer = ({
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full bg-cover bg-top bg-[url('./assets/background.png')] shadow-sm z-30`}
+      className={`fixed top-0 left-0 w-full shadow-sm z-30 bg-linear-to-r from-sky-200 via-sky-100 to-sky-100`}
     >
       <div className='container mx-auto flex items-center justify-between p-3'>
         <Link className='flex space-x-2 text-slate-900' to={link}>
