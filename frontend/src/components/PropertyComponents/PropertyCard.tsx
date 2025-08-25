@@ -12,18 +12,18 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
   propertyType,
 }) => {
   return (
-    <div className='rounded-lg overflow-hidden h-72 md:h-92 lg:h-96 shadow-md hover:scale-101 transition duration-200'>
+    <div className='rounded-lg overflow-hidden h-72 md:h-92 lg:h-96 shadow-md dark:shadow-sm dark:shadow-slate-500 hover:scale-101 transition duration-200'>
       <div
         className='h-7/10 md:h-8/10 bg-cover bg-center relative'
         style={{ backgroundImage: `url(${imageUrl})` }}
         role='img'
       >
-        <div className='absolute top-3 right-3 bg-gray-50 text-slate-900 bg-opacity-70 px-2 py-1 rounded-full text-sm font-medium'>
+        <div className='absolute top-3 right-3 bg-gray-50 dark:bg-slate-700 text-slate-900 dark:text-gray-300 bg-opacity-70 px-2 py-1 rounded-full text-sm font-medium'>
           {propertyType}
         </div>
       </div>
 
-      <div className='p-1 bg-white h-3/10 md:h-2/10 '>
+      <div className='p-1 bg-white dark:bg-slate-600 dark:text-slate-950 h-3/10 md:h-2/10 '>
         <div className='flex gap-2 justify-center items-center'>
           <IconComponent icon={IoLocation} size={16} />
           <strong>{street}</strong>

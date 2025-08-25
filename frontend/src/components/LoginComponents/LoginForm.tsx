@@ -170,7 +170,7 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
               value={inputs.email}
               onChange={handleEmailChange}
               placeholder='Email'
-              className='w-52'
+              className='w-52 dark:bg-gray'
             />
           </div>
           {errors.email && (
@@ -192,7 +192,7 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
             value={inputs.username}
             onChange={handleUserNameChange}
             placeholder='Username'
-            className='w-52'
+            className='w-52 dark:bg-gray'
           />
         </div>
         {errors.username && (
@@ -213,7 +213,7 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
             value={inputs.password}
             onChange={handlePasswordChange}
             placeholder='Password'
-            className='w-52'
+            className='w-52 dark:bg-gray'
           />
         </div>
         {errors.password && (
@@ -252,7 +252,11 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
         {action === ActionType.Login
           ? 'Do not have an account?'
           : 'Already have a account?'}
-        <Button type='button' ClassName='bg-transparent' onClick={switchAction}>
+        <Button
+          type='button'
+          ClassName='bg-transparent dark:bg-transparent'
+          onClick={switchAction}
+        >
           {action === ActionType.Login
             ? 'Create one by clicking here'
             : 'Switch to login by clicking here'}

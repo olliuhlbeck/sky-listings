@@ -53,12 +53,18 @@ const HeaderContainer = ({
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full shadow-sm z-30 bg-linear-to-r from-sky-200 via-sky-100 to-sky-100`}
+      className={`fixed top-0 left-0 w-full shadow-sm z-30 bg-linear-to-r from-sky-200 via-sky-100 to-sky-100 dark:from-slate-950 dark:via-blue-950 dark:to-blue-900`}
     >
       <div className='container mx-auto flex items-center justify-between p-3'>
         <Link className='flex space-x-2 text-slate-900' to={link}>
-          <IconComponent icon={GiFamilyHouse} size={32} />
-          <h2 className='text-2xl text-center hidden md:block'>{title}</h2>
+          <IconComponent
+            icon={GiFamilyHouse}
+            size={32}
+            className='dark:text-gray-50'
+          />
+          <h2 className='text-2xl text-center hidden md:block dark:text-gray-50'>
+            {title}
+          </h2>
         </Link>
         <div
           ref={hamburgerRef}
@@ -82,7 +88,7 @@ const HeaderContainer = ({
         {isHamburgerMenuOpen && (
           <div
             ref={popupRef}
-            className='absolute z-50 top-20 right-1/2 md:left-1/2 transform translate-x-1/3 md:-translate-x-1/3 w-64 bg-white shadow-lg rounded-md p-2 xl:hidden'
+            className='absolute z-50 top-20 right-1/2 md:left-1/2 transform translate-x-1/3 md:-translate-x-1/3 w-64 bg-white dark:bg-slate-700 shadow-lg rounded-md p-2 xl:hidden'
           >
             {navigationLinks
               .filter((link) => link.authOnly === 'no' || user !== null)
@@ -111,7 +117,7 @@ const HeaderContainer = ({
         <div className='flex items-center gap-2'>
           {!isAuthenticated && !isUserInLoginPage ? (
             <HeaderButton
-              additionsToClassName='bg-sky-200'
+              additionsToClassName='bg-sky-200 dark:bg-blue-950'
               icon={CiLogin}
               text='Login'
               link='login'
@@ -124,7 +130,7 @@ const HeaderContainer = ({
                 <IconComponent icon={CgProfile} />
               </div>
               <HeaderButton
-                additionsToClassName='bg-sky-200'
+                additionsToClassName='bg-sky-200 dark:bg-blue-950'
                 icon={CiLogout}
                 text='Logout'
                 link='home'

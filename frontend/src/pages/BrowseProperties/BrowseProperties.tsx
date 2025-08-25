@@ -120,7 +120,7 @@ const BrowseProperties = () => {
               onClick={handleNextPage}
               disabled={page === totalPages}
               aria-label={`Go to page ${page + 1}`}
-              className='flex items-center gap-1 px-3 py-1 bg-sky-200 rounded-md hover:cursor-pointer hover:bg-sky-300 transition duration-200'
+              className='flex items-center gap-1 px-3 py-1 bg-sky-200 dark:bg-blue-900 rounded-md hover:cursor-pointer hover:bg-sky-300 dark:hover:bg-blue-700 transition duration-200'
             >
               <p className='m-0 text-md'>Next</p>
               <IconComponent icon={FaAngleRight} size={16} />
@@ -141,8 +141,8 @@ const BrowseProperties = () => {
       <div className='mx-10 mb-10'>
         {/* Search bar */}
         {browseState === 'browseMany' && (
-          <div className='flex bg-sky-200 items-center justify-center w-11/12 md:w-lg md:gap-7 py-2 rounded-full mx-auto mt-2 mb-3 shadow-sm'>
-            <div className='rounded-lg hover:bg-sky-300 p-1'>
+          <div className='flex flex-col sm:flex-row bg-sky-200 dark:bg-slate-950 items-center justify-center w-11/12 max-w-lg gap-1 md:w-lg md:gap-7 sm:py-2 rounded-full mt-2 mb-3 shadow-sm mx-auto'>
+            <div className='rounded-lg hover:bg-sky-300 dark:hover:bg-slate-800 lg:text-lg p-1'>
               <label htmlFor='searchCondition' className='sr-only'>
                 Search condition
               </label>
@@ -156,7 +156,11 @@ const BrowseProperties = () => {
                 }}
               >
                 {Object.values(SearchConditions).map((value) => (
-                  <option key={value} value={value}>
+                  <option
+                    key={value}
+                    value={value}
+                    className='dark:text-slate-900'
+                  >
                     {value.charAt(0).toUpperCase() + value.slice(1)}
                   </option>
                 ))}
@@ -183,7 +187,7 @@ const BrowseProperties = () => {
                 <IconComponent
                   icon={IoClose}
                   size={22}
-                  className='absolute -right-2 top-0 transform -translate-y-1/2 cursor-pointer rounded-full  transition duration-150 text-slate-900 hover:text-red-400'
+                  className='absolute -right-2 top-0 transform -translate-y-1/2 cursor-pointer rounded-full  transition duration-150 text-slate-900 dark:text-slate-500 hover:text-red-400'
                   onClick={() => setSearchTerm('')}
                 />
               )}
@@ -192,7 +196,7 @@ const BrowseProperties = () => {
               icon={IoSearch}
               iconSize={20}
               text='Search'
-              ClassName='!p-1 focus:underline focus:outline-none'
+              ClassName='!p-1 focus:underline focus:outline-none dark:bg-transparent dark:hover:bg-slate-800'
               onClick={handleClickSearch}
             />
           </div>
