@@ -11,7 +11,7 @@ const App = () => {
     useState<boolean>(false);
   return (
     <div
-      className={`flex flex-col w-full min-h-screen text-center font-mono bg-cover bg-center bg-[url('./assets/background.png')] text-slate-900`}
+      className={`bg-linear-to-r from-sky-50 to-gray-50 text-slate-900 flex flex-col w-full min-h-screen text-center font-mono `}
     >
       {/* Header */}
       <HeaderContainer
