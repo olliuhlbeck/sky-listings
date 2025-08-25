@@ -96,12 +96,12 @@ const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
       <div className='flex flex-1 flex-col justify-center items-center mb-5 md:h-100 lg:h-200 xl:flex-row xl:gap-16 xl:max-w-7xl xl:mx-auto xl:px-4'>
         {/* Display images */}
         <div className='my-10 w-11/12 max-w-3xl flex-1 md:h-92 lg:w-full  lg:h-[30rem] xl:max-w-none xl:flex-shrink-0 xl:w-1/2'>
-          <div className='mb-5 h-54 md:h-84 lg:h-100 aspect-video mx-auto xl:max-w-full'>
+          <div className='mb-5 h-54 md:h-84 lg:h-100 aspect-video mx-auto xl:max-w-full rounded-md'>
             {displayImage ? (
               <img
                 src={`data:image/jpeg;base64,${displayImage}`}
                 alt='Selected Property'
-                className='mx-auto rounded-lg flex-1 shadow-md max-w-full max-h-full h-full object-cover'
+                className='mx-auto rounded-lg flex-1 max-w-full max-h-full h-full object-cover shadow-sm shadow-slate-950'
               />
             ) : (
               <div className='w-80 h-60 flex items-center justify-center bg-gray-200 rounded-xl'>
@@ -131,7 +131,7 @@ const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
                     onClick={() => setDisplayImage(pic)}
                     className={`w-20 h-20 object-cover rounded-lg cursor-pointer border-2 shadow-lg ${
                       displayImage === pic
-                        ? 'border-blue-500'
+                        ? 'border-blue-400'
                         : 'border-transparent'
                     }`}
                   />
@@ -146,7 +146,7 @@ const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
         <div className='flex flex-col gap-2 lg:w-2xl xl:max-w-2xl xl:w-1/2'>
           {/* Basic Information */}
           <div className='bg-white rounded-lg shadow-sm p-4'>
-            <h2 className='text-xl font-semibold mb-4 border-b border-gray-100 pb-2'>
+            <h2 className='border-b border-slate-400 text-xl font-semibold mb-4 pb-2'>
               Property Information
             </h2>
             <div className='space-y-3'>
@@ -158,7 +158,7 @@ const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
               </div>
               <div className='flex'>
                 <span className='w-1/2 text-gray-600'>Price:</span>
-                <span className='w-1/2 font-medium text-green-600'>
+                <span className='w-1/2 text-green-500 font-medium '>
                   {property.price.toLocaleString('fr-FR')} €
                 </span>
               </div>
@@ -216,7 +216,7 @@ const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
             {property.additionalInfo ? (
               <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
                 <div>
-                  <h3 className='text-lg font-semibold text-gray-900 mb-3 border-b border-gray-100 pb-2'>
+                  <h3 className='text-lg font-semibold text-gray-900 mb-3 border-b border-slate-400 pb-2'>
                     Description
                   </h3>
                   <p className='text-gray-700 leading-relaxed'>
@@ -224,7 +224,7 @@ const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
                   </p>
                 </div>
                 <div>
-                  <h3 className='text-lg font-semibold text-gray-900 mb-3 border-b border-gray-100'>
+                  <h3 className='text-lg font-semibold text-gray-900 mb-3 border-b border-slate-400 pb-2'>
                     Additional Information
                   </h3>
                   <p className='text-gray-700 leading-relaxed'>
@@ -234,7 +234,7 @@ const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
               </div>
             ) : (
               <div>
-                <h3 className='text-lg font-semibold text-gray-900 mb-3 border-b border-gray-100 pb-2'>
+                <h3 className='text-lg font-semibold text-gray-900 mb-3 border-b border-slate-400 pb-2'>
                   Description
                 </h3>
                 <p className='text-gray-700 leading-relaxed'>
@@ -246,7 +246,7 @@ const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
 
           {/* Contact information */}
           <div className='bg-white rounded-lg shadow-sm p-4'>
-            <h3 className='text-lg font-semibold mb-4 border-b border-gray-100 pb-2'>
+            <h3 className='text-lg font-semibold mb-4 border-b border-slate-400 pb-2'>
               Contact Information
             </h3>
             {loadingContact ? (
