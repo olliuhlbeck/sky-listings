@@ -21,7 +21,7 @@ const HeaderButton = ({
     <Link
       to={link}
       state={state}
-      className={`flex items-center gap-2 px-3 py-2 rounded-md text-lg hover:bg-sky-300 transition duration-200 ${additionsToClassName}`}
+      className={`flex items-center gap-2 px-3 py-2 rounded-md text-lg hover:bg-sky-300 dark:hover:bg-blue-800 transition duration-200 ${additionsToClassName}`}
       onClick={handleClick}
     >
       {icon && <IconComponent icon={icon} />}

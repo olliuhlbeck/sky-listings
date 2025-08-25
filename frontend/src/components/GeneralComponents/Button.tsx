@@ -13,7 +13,7 @@ const Button = ({
   onClick,
 }: ButtonProps) => {
   const hasText = Boolean(children ?? text);
-  const basicClassName = `flex items-center ${hasText ? ' gap-2 px-4 py-2 ' : 'p-2'} rounded-md text-md bg-sky-200 hover:cursor-pointer hover:bg-sky-300 transition duration-200 ${ClassName} `;
+  const basicClassName = `flex items-center ${hasText ? ' gap-2 px-4 py-2 ' : 'p-2'} rounded-md text-xs sm:text-md md:text-lg bg-sky-200 dark:bg-blue-800 hover:cursor-pointer hover:bg-sky-300 dark:hover:bg-blue-700 transition duration-200 ${ClassName} `;
 
   if (link) {
     return (

@@ -14,7 +14,7 @@ const ContentButtonCard: React.FC<ContentButtonCardProps> = ({
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
       <Button
-        ClassName={`absolute -top-11 !rounded-b-none text-xl hover:cursor-pointer ${addToClassName}`}
+        ClassName={`absolute -top-8 sm:-top-8 md:-top-11 !rounded-b-none text-xl hover:cursor-pointer ${addToClassName}`}
       >
         {buttonText}
       </Button>

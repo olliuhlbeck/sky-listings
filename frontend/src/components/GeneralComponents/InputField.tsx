@@ -15,7 +15,7 @@ const InputField = ({
       placeholder={placeholder}
       value={value}
       onChange={onChange}
-      className={`text-center text-black p-2 border border-gray-300 rounded-md ${className}`}
+      className={`dark:bg-gray-50 text-center text-black p-2 border border-gray-300 rounded-md ${className}`}
     ></input>
   );
 };

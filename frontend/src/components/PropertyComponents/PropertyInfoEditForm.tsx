@@ -133,17 +133,17 @@ const PropertyInfoEditForm: React.FC<PropertyEditProps> = ({ property }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className='bg-white flex-1 rounded-lg overflow-hidden w-full shadow-sm border border-gray-200 relative'
+      className='bg-white dark:bg-slate-900 flex-1 rounded-lg overflow-hidden w-full shadow-sm border border-gray-200 relative'
     >
-      <div className='flex justify-between items-center p-2 sm:p-4 border-b border-gray-200 bg-linear-to-r from-cyan-500 to-blue-600'>
-        <h3 className='flex justify-center items-center gap-2 text-lg font-medium text-gray-50 mx-auto'>
+      <div className='flex justify-between items-center p-2 sm:p-4 border-b border-gray-200 bg-linear-to-r from-cyan-500 dark:from-cyan-800 to-blue-600'>
+        <h3 className='flex justify-center items-center gap-2 text-lg font-medium text-gray-50 dark:text-slate-950 mx-auto'>
           <IconComponent icon={BiSolidEdit} />
           Edit Property
         </h3>
         {/* Reset button */}
         <Button
           iconSize={18}
-          ClassName='!p-2 hover:!bg-red-100 !text-gray-600'
+          ClassName='!p-2 hover:!bg-red-100 !text-gray-600 dark:!text-gray-50 dark:hover:!bg-red-600'
           icon={RiResetLeftLine}
           onClick={resetForm}
         />
@@ -174,7 +174,7 @@ const PropertyInfoEditForm: React.FC<PropertyEditProps> = ({ property }) => {
       {message && (
         <div className='relative w-full flex justify-center mt-2'>
           <div
-            className={`absolute -top-12 px-4 py-2 rounded-lg shadow transition-opacity duration-300
+            className={`absolute -top-12 xl:-top-15 px-4 py-3 rounded-lg shadow transition-opacity duration-300
         ${
           messageType === 'success'
             ? 'bg-green-100 border border-green-300 text-green-500'

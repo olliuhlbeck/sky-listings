@@ -21,19 +21,19 @@ const AdComponent: React.FC<AdTypes> = ({
   return (
     <div
       data-testid='ad-component'
-      className={`flex w-4/6 items-center p-4 rounded-lg shadow-md shadow-slate-500 bg-gradient-to-r from-blue-600 to-blue-950  gap-10 ${addToClassName}`}
+      className={`flex w-4/6 items-center p-4 rounded-lg shadow-md shadow-slate-500 bg-gradient-to-r from-blue-600 to-blue-950 gap-10 ${addToClassName}`}
     >
       <div className='pl-6 hidden md:block'>
         <IconComponent icon={icon} size={36} className='text-sky-200' />
       </div>
       <div className='w-full'>
-        <h2 className='text-gray-50 font-bold text-2xl'>{title}</h2>
-        <p className='text-gray-50 my-4'>{message}</p>
+        <h2 className='text-gray-50 font-bold text-lg md:text-2xl'>{title}</h2>
+        <p className='text-gray-50 my-4 text-xs md:text-lg'>{message}</p>
         <ToolTip toolTipText='This ad button will not take you anywhere'>
           <a
             href='#'
             onClick={handleClick}
-            className='inline-block border-none p-2 rounded-md w-content md:w-3xs bg-sky-200 hover:bg-sky-300 hover:cursor-pointer text-center transition duration-200'
+            className='inline-block border-none p-2 rounded-md w-content md:w-3xs bg-sky-200 dark:bg-blue-950 hover:bg-sky-300 dark:hover:bg-blue-600 hover:cursor-pointer text-center transition duration-200'
           >
             {buttonText}
           </a>

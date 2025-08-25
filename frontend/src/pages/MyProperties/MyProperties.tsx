@@ -120,7 +120,7 @@ const MyProperties = () => {
                     {usersProperties.map((property) => {
                       return (
                         <div
-                          className={`bg-sky-200 rounded-md p-1 hover:bg-sky-300 hover:cursor-pointer transition duration-200 ${propertyToEdit?.id === property.id ? '!bg-blue-400' : ''}`}
+                          className={`bg-sky-200 dark:bg-blue-900 rounded-md p-1 hover:bg-sky-300 dark:hover:bg-blue-700 hover:cursor-pointer transition duration-200 ${propertyToEdit?.id === property.id ? '!bg-blue-400' : ''}`}
                           key={property.id}
                           onClick={() => setPropertyToEdit({ ...property })}
                         >
