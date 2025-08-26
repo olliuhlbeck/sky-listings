@@ -16,7 +16,7 @@ const HomePage = () => {
       {/* Render different main content if there is logged in user or not */}
       {user ? (
         <>
-          <div className='flex flex-col lg:flex-row w-4/6 gap-6'>
+          <div className='flex flex-col lg:flex-row w-4/6 min-w-48 gap-6'>
             <ContentButtonCard
               link='browseProperties'
               buttonText='Browse properties'

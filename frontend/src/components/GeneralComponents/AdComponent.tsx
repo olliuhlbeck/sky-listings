@@ -21,7 +21,7 @@ const AdComponent: React.FC<AdTypes> = ({
   return (
     <div
       data-testid='ad-component'
-      className={`flex w-4/6 items-center p-4 rounded-lg shadow-md shadow-slate-500 dark:shadow-gray-700 bg-gradient-to-r from-blue-600 dark:from-blue-900 to-blue-950 dark:to-blue-950 gap-10 ${addToClassName}`}
+      className={`flex w-4/6 min-w-48 items-center p-4 rounded-lg shadow-md shadow-slate-500 dark:shadow-gray-700 bg-gradient-to-r from-blue-600 dark:from-blue-900 to-blue-950 dark:to-blue-950 gap-10 ${addToClassName}`}
     >
       <div className='pl-6 hidden md:block'>
         <IconComponent icon={icon} size={36} className='text-sky-200' />
