@@ -114,7 +114,7 @@ const HeaderContainer = ({
               />
             ))}
         </div>
-        <div className='flex items-center gap-2'>
+        <div className='flex items-center gap-2 h-10'>
           {!isAuthenticated && !isUserInLoginPage ? (
             <HeaderButton
               additionsToClassName='bg-sky-200 dark:bg-blue-950'
