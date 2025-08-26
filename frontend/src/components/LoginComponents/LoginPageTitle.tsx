@@ -4,7 +4,7 @@ import { LoginComponentProps } from '../../types/LoginComponentProps';
 const LoginPageTitle = ({ action }: LoginComponentProps) => {
   return (
     <div
-      className={`bg-[url('./assets/loginBackground.jpg')] h-full w-1/3 bg-cover bg-center bg-no-repeat hidden md:flex items-center justify-center rounded-r-md dark:text-slate-900`}
+      className={`bg-[url('./assets/loginBackground.jpg')] dark:bg-[url('./assets/loginBgDarkMode.png')] h-full w-1/3 bg-cover bg-center bg-no-repeat hidden md:flex items-center justify-center rounded-r-md dark:text-white`}
       style={{
         clipPath: 'polygon(15% 0, 100% 0, 100% 100%, 0 100%)',
       }}
