@@ -21,13 +21,13 @@ const HomePage = () => {
               link='browseProperties'
               buttonText='Browse properties'
               backgroundImage={browseHouses}
-              addToClassName='left-10 !bg-blue-300'
+              addToClassName='left-10 !bg-blue-300 dark:!bg-sky-700'
             />
             <ContentButtonCard
               link={'/addProperty'}
               buttonText='Sell properties'
               backgroundImage={sellHouse}
-              addToClassName='right-10 !bg-blue-950 text-gray-50'
+              addToClassName='right-10 !bg-blue-950 dark:!bg-blue-900 text-gray-50'
             />
           </div>
         </>
@@ -38,14 +38,14 @@ const HomePage = () => {
               link='browseProperties'
               buttonText='Browse properties'
               backgroundImage={browseHouses}
-              addToClassName='left-10 !bg-blue-300'
+              addToClassName='left-10 !bg-blue-300 dark:!bg-sky-700'
             />
             <Link
               to={'login'}
               state={{ action: ActionType.SignUp }}
               className={`relative transition duration-300 hover:scale-[1.02] min-h-[12rem] lg:min-h-[24rem] shadow-md shadow-slate-500 flex flex-1 justify-center items-center rounded-lg bg-[url('./assets/registerFront.png')] bg-cover bg-center `}
             >
-              <Button ClassName='absolute -top-11 right-10 !rounded-b-none !bg-blue-600 text-gray-50'>
+              <Button ClassName='absolute -top-11 right-10 !rounded-b-none !bg-blue-600 dark:!bg-blue-900 text-gray-50'>
                 Register
               </Button>
             </Link>
