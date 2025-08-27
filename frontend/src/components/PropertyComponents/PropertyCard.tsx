@@ -8,11 +8,12 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
   beds,
   baths,
   street,
+  city,
   formattedPrice,
   propertyType,
 }) => {
   return (
-    <div className='rounded-lg overflow-hidden h-72 md:h-92 lg:h-96 shadow-md dark:shadow-sm dark:shadow-slate-500 hover:scale-101 transition duration-200'>
+    <div className='rounded-lg overflow-hidden h-86 min-w-56 md:h-92 lg:h-96 shadow-md dark:shadow-none dark:ring-1 dark:ring-slate-600/50 dark:bg-slate-800/80 hover:scale-101 hover:dark:ring-slate-500 transition-all duration-200'>
       <div
         className='h-7/10 md:h-8/10 bg-cover bg-center relative'
         style={{ backgroundImage: `url(${imageUrl})` }}
@@ -23,19 +24,29 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
         </div>
       </div>
 
-      <div className='p-1 bg-white dark:bg-slate-600 dark:text-slate-950 h-3/10 md:h-2/10 '>
-        <div className='flex gap-2 justify-center items-center'>
-          <IconComponent icon={IoLocation} size={16} />
-          <strong>{street}</strong>
+      <div className='bg-white dark:bg-slate-700/90 dark:text-slate-400 dark:border-t dark:border-slate-600 p-1 h-3/10 md:h-2/10 '>
+        <div className='flex flex-col sm:flex-row gap-1 sm:gap-2 justify-center items-center mb-1'>
+          <div className='flex items-center gap-1'>
+            <IconComponent
+              icon={IoLocation}
+              size={16}
+              className='text-slate-600 dark:text-slate-400'
+            />
+            <strong className='dark:text-slate-100 text-sm'>{street}</strong>
+          </div>
+          <span className='dark:text-slate-100 text-sm'>{city}</span>
         </div>
-        <p className='flex justify-center items-center gap-4'>
+        <p className='flex items-center justify-center gap-2'>
           <IconComponent icon={FaBed} size={16} />
-          {beds} {beds > 1 ? 'beds' : 'bed'}
+          <span>
+            {beds} {beds > 1 ? 'beds' : 'bed'}
+          </span>
           <IconComponent icon={FaBath} size={16} />
-          {baths}
-          {baths > 1 ? ' baths' : ' bath'}
+          <span>
+            {baths} {baths > 1 ? 'baths' : 'bath'}
+          </span>
         </p>
-        <p className='font-bold'>{formattedPrice}</p>
+        <p className='font-bold dark:text-slate-100'>{formattedPrice}</p>
       </div>
     </div>
   );
