@@ -86,7 +86,8 @@ const BrowseProperties = () => {
                 propertyType={formatPropertyType(property.propertyType)}
                 beds={property.bedrooms ?? 0}
                 baths={property.bathrooms ?? 0}
-                street={`${property.street}, ${property.city}`}
+                street={property.street}
+                city={property.city}
                 formattedPrice={`${property.price.toLocaleString('fr-FR')} €`}
               />
             </button>
@@ -141,14 +142,14 @@ const BrowseProperties = () => {
       <div className='mx-10 mb-10'>
         {/* Search bar */}
         {browseState === 'browseMany' && (
-          <div className='flex flex-col sm:flex-row bg-sky-200 dark:bg-slate-950 items-center justify-center w-11/12 max-w-lg gap-1 md:w-lg md:gap-7 sm:py-2 rounded-full mt-2 mb-3 shadow-sm mx-auto'>
+          <div className='flex flex-col sm:flex-row bg-sky-200 dark:bg-slate-950 items-center justify-center w-11/12 min-w-56 max-w-lg gap-1 md:w-lg md:gap-7 sm:py-2 rounded-full mt-2 mb-3 shadow-sm mx-auto'>
             <div className='rounded-lg hover:bg-sky-300 dark:hover:bg-slate-800 lg:text-lg p-1'>
               <label htmlFor='searchCondition' className='sr-only'>
                 Search condition
               </label>
               <select
                 id='searchCondition'
-                className='rounded-lg hover:cursor-pointer focus:underline focus:outline-none'
+                className='rounded-lg hover:cursor-pointer focus:underline focus:outline-none text-xs sm:text-md md:text-lg'
                 value={searchCondition}
                 onChange={(e) => {
                   const val = e.target.value as SearchConditions;
