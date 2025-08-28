@@ -13,9 +13,9 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
   propertyType,
 }) => {
   return (
-    <div className='rounded-lg overflow-hidden h-86 min-w-56 md:h-92 lg:h-96 shadow-md dark:shadow-none dark:ring-1 dark:ring-slate-600/50 dark:bg-slate-800/80 hover:scale-101 hover:dark:ring-slate-500 transition-all duration-200'>
+    <div className='rounded-lg overflow-hidden h-84 sm:h-96 min-w-56 shadow-md dark:shadow-none dark:ring-1 dark:ring-slate-600/50 dark:bg-slate-800/80 hover:scale-101 hover:dark:ring-slate-500 transition-all duration-200'>
       <div
-        className='h-7/10 md:h-8/10 bg-cover bg-center relative'
+        className='h-7/10 sm:h-8/10 md:h-8/10 lg:h-8/10 bg-cover bg-center relative'
         style={{ backgroundImage: `url(${imageUrl})` }}
         role='img'
       >
@@ -24,7 +24,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
         </div>
       </div>
 
-      <div className='bg-white dark:bg-slate-700/90 dark:text-slate-400 dark:border-t dark:border-slate-600 p-1 h-3/10 md:h-2/10 '>
+      <div className='bg-white dark:bg-slate-700/90 dark:text-slate-400 dark:border-t dark:border-slate-600 p-1 h-3/10 sm:h-3/10 md:h-2/10 lg:h-2/10'>
         <div className='flex flex-col sm:flex-row gap-1 sm:gap-2 justify-center items-center mb-1'>
           <div className='flex items-center gap-1'>
             <IconComponent
