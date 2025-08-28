@@ -151,11 +151,7 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
       onSubmit={handleSubmit}
       className='flex flex-col grow items-center space-y-4'
     >
-      <div className='md:hidden w-full flex items-center justify-center'>
-        <h2 className='text-2xl lg:text-3xl font-bold'>
-          {action === ActionType.Login ? 'Login' : 'Sign up'}
-        </h2>
-      </div>
+      <div className='md:hidden w-full flex items-center justify-center mb-16'></div>
       {action === ActionType.SignUp && (
         <div className='flex flex-col space-y-1'>
           <div className='flex space-x-2 items-center'>
@@ -248,7 +244,7 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
         <span className='text-red-500 text-sm w-52'>{errors.generalError}</span>
       )}
 
-      <div>
+      <div className='text-xs md:text-lg'>
         {action === ActionType.Login
           ? 'Do not have an account?'
           : 'Already have a account?'}
