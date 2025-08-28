@@ -145,65 +145,85 @@ const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
         {/* Display information */}
         <div className='flex flex-col gap-2 lg:w-2xl xl:max-w-2xl xl:w-1/2'>
           {/* Basic Information */}
-          <div className='bg-white rounded-lg shadow-sm p-4'>
+          <div className='bg-white dark:bg-slate-700 rounded-lg shadow-sm p-4'>
             <h2 className='border-b border-slate-400 text-xl font-semibold mb-4 pb-2'>
               Property Information
             </h2>
             <div className='space-y-3'>
               <div className='flex'>
-                <span className='w-1/2 text-gray-600'>Property type:</span>
+                <span className='w-1/2 text-gray-600 dark:text-gray-400'>
+                  Property type:
+                </span>
                 <span className='w-1/2 font-medium'>
                   {formatPropertyType(property.propertyType)}
                 </span>
               </div>
               <div className='flex'>
-                <span className='w-1/2 text-gray-600'>Price:</span>
+                <span className='w-1/2 text-gray-600 dark:text-gray-400'>
+                  Price:
+                </span>
                 <span className='w-1/2 text-green-500 font-medium '>
                   {property.price.toLocaleString('fr-FR')} €
                 </span>
               </div>
               <div className='flex'>
-                <span className='w-1/2 text-gray-600'>Bedrooms:</span>
+                <span className='w-1/2 text-gray-600 dark:text-gray-400'>
+                  Bedrooms:
+                </span>
                 <span className='w-1/2 font-medium'>
                   {property.bedrooms}{' '}
                   {property.bedrooms > 1 ? 'bedrooms' : 'bedroom'}
                 </span>
               </div>
               <div className='flex'>
-                <span className='w-1/2 text-gray-600'>Bathrooms:</span>
+                <span className='w-1/2 text-gray-600 dark:text-gray-400'>
+                  Bathrooms:
+                </span>
                 <span className='w-1/2 font-medium'>
                   {property.bathrooms}{' '}
                   {property.bathrooms > 1 ? 'bathrooms' : 'bathroom'}
                 </span>
               </div>
               <div className='flex'>
-                <span className='w-1/2 text-gray-600'>Square meters:</span>
+                <span className='w-1/2 text-gray-600 dark:text-gray-400'>
+                  Square meters:
+                </span>
                 <span className='w-1/2 font-medium'>
                   {property.squareMeters} m²
                 </span>
               </div>
               <div className='flex'>
-                <span className='w-1/2 text-gray-600'>Country:</span>
+                <span className='w-1/2 text-gray-600 dark:text-gray-400'>
+                  Country:
+                </span>
                 <span className='w-1/2 font-medium'>{property.country}</span>
               </div>
               <div className='flex'>
-                <span className='w-1/2 text-gray-600'>State:</span>
+                <span className='w-1/2 text-gray-600 dark:text-gray-400'>
+                  State:
+                </span>
                 <span className='w-1/2 font-medium'>{property.state}</span>
               </div>
               <div className='flex'>
-                <span className='w-1/2 text-gray-600'>Street:</span>
+                <span className='w-1/2 text-gray-600 dark:text-gray-400'>
+                  Street:
+                </span>
                 <span className='w-1/2 font-medium'>{property.street}</span>
               </div>
               {property.postalCode && (
                 <div className='flex'>
-                  <span className='w-1/2 text-gray-600'>Postal code:</span>
+                  <span className='w-1/2 text-gray-600 dark:text-gray-400'>
+                    Postal code:
+                  </span>
                   <span className='w-1/2 font-medium'>
                     {property.postalCode}
                   </span>
                 </div>
               )}
               <div className='flex'>
-                <span className='w-1/2 text-gray-600'>Property status:</span>
+                <span className='w-1/2 text-gray-600 dark:text-gray-400'>
+                  Property status:
+                </span>
                 <span className='w-1/2 font-medium'>
                   {formatPropertyStatus(property.propertyStatus)}
                 </span>
@@ -212,7 +232,7 @@ const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
           </div>
 
           {/* Description & Additional Info */}
-          <div className='bg-white rounded-lg shadow-sm p-4'>
+          <div className='bg-white dark:bg-slate-700 rounded-lg shadow-sm p-4'>
             {property.additionalInfo ? (
               <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
                 <div>
@@ -234,10 +254,10 @@ const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
               </div>
             ) : (
               <div>
-                <h3 className='text-lg font-semibold text-gray-900 mb-3 border-b border-slate-400 pb-2'>
+                <h3 className='text-lg font-semibold text-gray-900 dark:text-gray-50 mb-3 border-b border-slate-400 pb-2'>
                   Description
                 </h3>
-                <p className='text-gray-700 leading-relaxed'>
+                <p className='text-gray-700 dark:text-gray-400 leading-relaxed'>
                   {property.description}
                 </p>
               </div>
@@ -245,7 +265,7 @@ const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
           </div>
 
           {/* Contact information */}
-          <div className='bg-white rounded-lg shadow-sm p-4'>
+          <div className='bg-white dark:bg-slate-700 rounded-lg shadow-sm p-4'>
             <h3 className='text-lg font-semibold mb-4 border-b border-slate-400 pb-2'>
               Contact Information
             </h3>
@@ -259,19 +279,19 @@ const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
             ) : (
               <div className='space-y-3'>
                 <div className='flex'>
-                  <span className='w-1/3 text-slate-600'>Phone:</span>
+                  <span className='w-1/3 text-gray-400'>Phone:</span>
                   <span className='w-2/3 font-medium'>
                     {propertySellerInfo?.phoneNumber}
                   </span>
                 </div>
                 <div className='flex'>
-                  <span className='w-1/3 text-slate-600'>Email:</span>
+                  <span className='w-1/3 text-gray-400'>Email:</span>
                   <span className='w-2/3 font-medium'>
                     {propertySellerInfo?.email}
                   </span>
                 </div>
                 <div className='flex'>
-                  <span className='w-1/3 text-slate-600'>
+                  <span className='w-1/3 text-gray-400'>
                     Preferred contact:
                   </span>
                   <span className='w-2/3 font-medium'>
