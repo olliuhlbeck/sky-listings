@@ -46,7 +46,9 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
             {baths} {baths > 1 ? 'baths' : 'bath'}
           </span>
         </p>
-        <p className='font-bold dark:text-slate-100'>{formattedPrice}</p>
+        <p className='font-bold dark:font-normal dark:text-slate-100'>
+          {formattedPrice}
+        </p>
       </div>
     </div>
   );
