@@ -32,9 +32,9 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
               size={16}
               className='text-slate-600 dark:text-slate-400'
             />
-            <strong className='dark:text-slate-100 text-sm'>{street}</strong>
+            <strong className='dark:text-slate-100 text-sm'>{street} · </strong>
           </div>
-          <span className='dark:text-slate-100 text-sm'>{city}</span>
+          <strong className='dark:text-slate-100 text-sm'>{city}</strong>
         </div>
         <p className='flex items-center justify-center gap-2'>
           <IconComponent icon={FaBed} size={16} />
