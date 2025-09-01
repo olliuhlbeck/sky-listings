@@ -88,7 +88,7 @@ const HeaderContainer = ({
         {isHamburgerMenuOpen && (
           <div
             ref={popupRef}
-            className='absolute z-50 top-20 right-1/2 md:left-1/2 transform translate-x-1/3 md:-translate-x-1/3 w-64 bg-white dark:bg-slate-700 shadow-lg rounded-md p-2 xl:hidden'
+            className='absolute z-50 top-14 sm:top-20 left-1/2 -translate-x-1/2 w-46 md:w-64 bg-white dark:bg-slate-700 shadow-lg rounded-md p-2 xl:hidden transition-all duration-300 ease-in-out'
           >
             {navigationLinks
               .filter((link) => link.authOnly === 'no' || user !== null)
