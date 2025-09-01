@@ -8,10 +8,10 @@ import { MdAlternateEmail } from 'react-icons/md';
 const Footer: React.FC<FooterProps> = ({ footerVisible, setFooterVisible }) => {
   return (
     <footer
-      className={`bg-sky-200 dark:bg-slate-800 sticky bottom-0 ${footerVisible ? 'w-full px-4 md:px-16 lg:px-28 py-4' : 'ml-auto mr-2 w-20 h-16 rounded-t-md'} `}
+      className={`bg-sky-200 dark:bg-slate-800 sticky bottom-0 ${footerVisible ? 'w-full min-w-55 px-2 sm:px-8 md:px-16 lg:px-28 py-4' : 'ml-auto mr-2 w-12 sm:w-20 h-10 sm:h-16 rounded-t-md'} `}
     >
       <button
-        className='absolute top-2 right-4 hover:text-slate-100 hover:cursor-pointer transition pr-3 py-3'
+        className='absolute top-0 sm:top-2 right-0 sm:right-4 hover:text-slate-100 hover:cursor-pointer transition pr-3 py-3'
         onClick={() => setFooterVisible(!footerVisible)}
       >
         {footerVisible ? (
@@ -22,13 +22,13 @@ const Footer: React.FC<FooterProps> = ({ footerVisible, setFooterVisible }) => {
       </button>
       {footerVisible && (
         <>
-          <div className='grid grid-cols-1 md:grid-cols-5'>
+          <div className='grid grid-cols-1 mb-2 md:mb-0 md:grid-cols-5'>
             <div className='md:col-start-2  text-center'>
-              <h3 className='text-lg font-bold mb-4'>TS & Tailwind</h3>
+              <h3 className='text-lg font-bold mb-2 sm:mb-4'>TS & Tailwind</h3>
               <p className=' mb-4'>Responsive React footer component</p>
             </div>
             <div className='text-center'>
-              <h3 className='text-lg font-bold mb-4'>Quick links</h3>
+              <h3 className='text-lg font-bold mb-2 sm:mb-4'>Quick links</h3>
               <ul>
                 <li className='hover:cursor-pointer hover:underline '>
                   References
@@ -42,7 +42,7 @@ const Footer: React.FC<FooterProps> = ({ footerVisible, setFooterVisible }) => {
               </ul>
             </div>
             <div className='text-center'>
-              <h3 className='text-lg font-bold mb-4'>Contacts</h3>
+              <h3 className='text-lg font-bold mb-2 sm:mb-4'>Contacts</h3>
               <ul className='flex flex-col space-y-3 justify-center items-center'>
                 <li className='flex gap-2 hover:underline '>
                   <IconComponent icon={FaPhone} />
@@ -52,14 +52,14 @@ const Footer: React.FC<FooterProps> = ({ footerVisible, setFooterVisible }) => {
                 </li>
                 <li className='flex gap-2 hover:underline '>
                   <IconComponent icon={MdAlternateEmail} />
-                  <a href='' className='hover:underline '>
+                  <a href='' className='hover:underline'>
                     feedback@gmail.com
                   </a>
                 </li>
               </ul>
             </div>
           </div>
-          <div className='border-t text-center pt-4'>
+          <div className='border-t text-center pt-2 md:pt-4'>
             <p>© 2025 My coding pracs. All rights reserved.</p>
           </div>
         </>
