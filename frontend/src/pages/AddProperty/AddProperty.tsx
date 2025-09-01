@@ -128,18 +128,19 @@ const AddProperty: React.FC = () => {
       return;
     }
   };
+
   return (
     <form
       id='addPropertyForm'
       onSubmit={handleSubmit}
-      className='bg-linear-to-r from-sky-500 to-blue-200 dark:from-sky-950 dark:to-blue-800 w-11/12 justify-center mt-10 p-4 mx-auto rounded-2xl shadow-md shadow-gray-500 dark:shadow-slate-700'
+      className='bg-linear-to-r from-sky-500 to-blue-200 dark:from-sky-950 dark:to-blue-800 w-11/12 min-w-3xs justify-center mt-10 p-4 mx-auto rounded-2xl shadow-md shadow-gray-500 dark:shadow-slate-700'
     >
-      <h1 className='text-2xl font-semibold text-center mb-6'>
+      <h1 className='text-2xl font-semibold text-center mb-3 md:mb-6'>
         Property information
       </h1>
       <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 [&>*]:flex-1 [&>*]:shadow-md [&>*]:rounded-md [&>*]:bg-sky-100 [&_h2]:text-xl  [&_h2]:my-2 [&>*]:h-[17rem] mb-4'>
-        <div className='dark:!bg-slate-800'>
-          <h2 className='py-2'>Address</h2>
+        <div className='dark:!bg-slate-800 pl-6 sm:pl-10'>
+          <h2 className='py-0 sm:py-2'>Address</h2>
           <div className='flex flex-col space-y-2'>
             <div className='flex items-center'>
               <label htmlFor='street' className='w-1/3'>
@@ -151,7 +152,7 @@ const AddProperty: React.FC = () => {
                 type='text'
                 value={formData.street}
                 onChange={handleChange}
-                className='w-3/6 p-1 rounded-md shadow-sm bg-gray-50 dark:text-slate-900'
+                className='w-28 sm:w-1/2 p-1 rounded-md shadow-sm bg-gray-50 dark:text-slate-900'
               />
             </div>
             <div className='flex items-center'>
@@ -164,7 +165,7 @@ const AddProperty: React.FC = () => {
                 type='text'
                 value={formData.city}
                 onChange={handleChange}
-                className='w-3/6 p-1 rounded-md shadow-sm bg-gray-50 dark:text-slate-900'
+                className='w-28 sm:w-1/2 p-1 rounded-md shadow-sm bg-gray-50 dark:text-slate-900'
               />
             </div>
             <div className='flex items-center'>
@@ -177,7 +178,7 @@ const AddProperty: React.FC = () => {
                 type='text'
                 value={formData.state}
                 onChange={handleChange}
-                className='w-3/6 p-1 rounded-md shadow-sm bg-gray-50 dark:text-slate-900'
+                className='w-28 sm:w-1/2 p-1 rounded-md shadow-sm bg-gray-50 dark:text-slate-900'
               />
             </div>
             <div className='flex items-center'>
@@ -190,7 +191,7 @@ const AddProperty: React.FC = () => {
                 type='text'
                 value={formData.postalCode}
                 onChange={handleChange}
-                className='w-3/6 p-1 rounded-md shadow-sm bg-gray-50 dark:text-slate-900'
+                className='w-28 sm:w-1/2 p-1 rounded-md shadow-sm bg-gray-50 dark:text-slate-900'
               />
             </div>
             <div className='flex items-center'>
@@ -203,7 +204,7 @@ const AddProperty: React.FC = () => {
                 type='text'
                 value={formData.country}
                 onChange={handleChange}
-                className='w-3/6 p-1 rounded-md shadow-sm bg-gray-50 dark:text-slate-900'
+                className='w-28 sm:w-1/2 p-1 rounded-md shadow-sm bg-gray-50 dark:text-slate-900'
                 autoComplete='country'
               />
             </div>
@@ -211,7 +212,7 @@ const AddProperty: React.FC = () => {
         </div>
 
         <div className='dark:!bg-slate-800'>
-          <h2 className='py-2'>Property details</h2>
+          <h2 className='py-0 sm:py-2'>Property details</h2>
           <div className='flex flex-col space-y-2'>
             <div className='flex items-center'>
               <label htmlFor='price' className='w-1/2'>
@@ -267,7 +268,7 @@ const AddProperty: React.FC = () => {
         </div>
 
         <div className='dark:!bg-slate-800'>
-          <h2 className='py-2'>Basic info</h2>
+          <h2 className='py-0 sm:py-2'>Basic info</h2>
           <div className='flex flex-col space-y-2'>
             <div className='flex items-center'>
               <label htmlFor='bedrooms' className='w-1/2'>
@@ -281,7 +282,7 @@ const AddProperty: React.FC = () => {
                 max={10}
                 value={formData.bedrooms}
                 onChange={handleChange}
-                className='w-1/6 p-2 rounded-md shadow-sm bg-gray-50 dark:text-slate-900'
+                className='w-2/6 p-2 rounded-md shadow-sm bg-gray-50 dark:text-slate-900'
               />
             </div>
             <div className='flex items-center'>
@@ -296,7 +297,7 @@ const AddProperty: React.FC = () => {
                 max={10}
                 value={formData.bathrooms}
                 onChange={handleChange}
-                className='w-1/6 p-2 rounded-md shadow-sm bg-gray-50 dark:text-slate-900'
+                className='w-2/6 p-2 rounded-md shadow-sm bg-gray-50 dark:text-slate-900'
               />
             </div>
             <div className='flex items-center'>
@@ -310,7 +311,7 @@ const AddProperty: React.FC = () => {
                 min={0}
                 value={formData.squareMeters}
                 onChange={handleChange}
-                className='w-1/6 p-2 rounded-md shadow-sm bg-gray-50 dark:text-slate-900'
+                className='w-2/6 p-2 rounded-md shadow-sm bg-gray-50 dark:text-slate-900'
               />
             </div>
           </div>
@@ -329,7 +330,7 @@ const AddProperty: React.FC = () => {
         </div>
 
         <div className='dark:!bg-slate-800'>
-          <h2 className='py-2'>Additional info</h2>
+          <h2 className='py-0 sm:py-2'>Additional info</h2>
           <textarea
             id='additionalInfo'
             name='additionalInfo'
@@ -341,10 +342,10 @@ const AddProperty: React.FC = () => {
         </div>
 
         <div className='flex flex-col items-center dark:!bg-slate-800'>
-          <h2 className='py-2'>Pictures</h2>
+          <h2 className='py-0 sm:py-2'>Pictures</h2>
           <label
             htmlFor='pictures'
-            className='flex w-[15rem] mx-auto items-center justify-center px-4 py-2 mb-2 bg-sky-200 dark:bg-blue-800 text-slate-900 dark:text-gray-50 rounded-md shadow-md cursor-pointer hover:bg-sky-300 dark:hover:bg-blue-700 transition duration-200'
+            className='flex min-w-40 mx-auto items-center justify-center px-4 py-2 mb-2 bg-sky-200 dark:bg-blue-800 text-slate-900 dark:text-gray-50 rounded-md shadow-md cursor-pointer hover:bg-sky-300 dark:hover:bg-blue-700 transition duration-200'
           >
             <IconComponent icon={BiCamera} className='mr-3' />
             Upload images
