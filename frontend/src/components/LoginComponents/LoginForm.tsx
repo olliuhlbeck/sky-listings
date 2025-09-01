@@ -244,13 +244,13 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
         <span className='text-red-500 text-sm w-52'>{errors.generalError}</span>
       )}
 
-      <div className='text-xs md:text-lg'>
+      <div className='text-xs md:text-base lg:text-lg'>
         {action === ActionType.Login
           ? 'Do not have an account?'
           : 'Already have a account?'}
         <Button
           type='button'
-          ClassName='bg-transparent dark:bg-transparent'
+          ClassName='bg-transparent dark:bg-transparent '
           onClick={switchAction}
         >
           {action === ActionType.Login
