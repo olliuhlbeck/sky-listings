@@ -30,7 +30,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
             <IconComponent
               icon={IoLocation}
               size={16}
-              className='text-slate-600 dark:text-slate-400'
+              className='dark:text-slate-400'
             />
             <strong className='dark:text-slate-100 text-sm'>{street} · </strong>
           </div>
