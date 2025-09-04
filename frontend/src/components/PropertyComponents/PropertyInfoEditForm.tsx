@@ -174,11 +174,11 @@ const PropertyInfoEditForm: React.FC<PropertyEditProps> = ({ property }) => {
       {message && (
         <div className='relative w-full flex justify-center mt-2'>
           <div
-            className={`absolute -top-12 xl:-top-15 px-4 py-3 rounded-lg shadow transition-opacity duration-300
+            className={`absolute -top-14 md:-top-16 px-4 py-3 rounded-lg shadow transition-opacity duration-300
         ${
           messageType === 'success'
-            ? 'bg-green-100 border border-green-300 text-green-500'
-            : 'bg-red-100 border border-red-300 text-red-500'
+            ? 'bg-green-100 border border-green-300 text-green-500 text-xs md:text-base lg:text-lg'
+            : 'bg-red-100 border border-red-300 text-red-500 text-xs md:text-base lg:text-lg'
         }
       `}
           >
