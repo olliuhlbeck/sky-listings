@@ -170,7 +170,9 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
             />
           </div>
           {errors.email && (
-            <span className='text-red-500 text-sm'>{errors.email}</span>
+            <span className='text-red-500 text-xs md:text-base lg:text-lg'>
+              {errors.email}
+            </span>
           )}
         </div>
       )}
@@ -192,7 +194,9 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
           />
         </div>
         {errors.username && (
-          <span className='text-red-500 text-sm'>{errors.username}</span>
+          <span className='text-red-500 text-xs md:text-base lg:text-lg'>
+            {errors.username}
+          </span>
         )}
       </div>
 
@@ -213,7 +217,9 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
           />
         </div>
         {errors.password && (
-          <span className='text-red-500 text-sm'>{errors.password}</span>
+          <span className='text-red-500 text-xs md:text-base lg:text-lg'>
+            {errors.password}
+          </span>
         )}
       </div>
 
@@ -241,7 +247,9 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
       )}
 
       {errors.generalError && (
-        <span className='text-red-500 text-sm w-52'>{errors.generalError}</span>
+        <span className='text-red-500 text-xs md:text-base lg:text-lg w-52'>
+          {errors.generalError}
+        </span>
       )}
 
       <div className='text-xs md:text-base lg:text-lg'>
