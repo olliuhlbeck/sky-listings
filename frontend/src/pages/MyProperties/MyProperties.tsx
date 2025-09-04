@@ -103,7 +103,7 @@ const MyProperties = () => {
         )}
         {/* Error display */}
         {errorMessage !== '' && (
-          <div className='flex justify-center gap-2 mt-5'>
+          <div className='flex min-w-48 w-8/10 mx-auto justify-center gap-2 mt-5'>
             <IconComponent icon={MdErrorOutline} className='text-red-500' />
             <p className='text-red-500 mb-4'>{errorMessage}</p>
             <IconComponent icon={MdErrorOutline} className='text-red-500' />
