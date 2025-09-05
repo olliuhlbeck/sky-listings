@@ -7,6 +7,7 @@ import MyProperties from '../pages/MyProperties/MyProperties';
 import ErrorPage from '../pages/ErrorPage/ErrorPage';
 import AddProperty from '../pages/AddProperty/AddProperty';
 import ProtectedRoute from '../components/AuthComponents/ProtectedRoute';
+import ProfilePage from '../pages/ProfilePage/ProfilePage';
 
 export const router = createBrowserRouter([
   {
@@ -30,6 +31,14 @@ export const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <AddProperty />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: 'profilePage',
+        element: (
+          <ProtectedRoute>
+            <ProfilePage />
           </ProtectedRoute>
         ),
       },
