@@ -125,10 +125,13 @@ const HeaderContainer = ({
             />
           ) : isAuthenticated ? (
             <>
-              <div className='flex gap-2 mr-2'>
+              <Link
+                to='profilePage'
+                className='flex gap-2 mr-2 rounded-md p-1 sm:p-2 hover:bg-sky-300 dark:hover:bg-blue-800'
+              >
                 <strong>{user}</strong>
                 <IconComponent icon={CgProfile} />
-              </div>
+              </Link>
               <HeaderButton
                 additionsToClassName='bg-sky-200 dark:bg-blue-950'
                 icon={CiLogout}
