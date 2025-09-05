@@ -162,7 +162,7 @@ const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
                 <span className='w-1/2 text-gray-600 dark:text-gray-400'>
                   Price:
                 </span>
-                <span className='w-1/2 text-green-500 font-medium '>
+                <span className='w-1/2 text-green-400 dark:text-green-600 font-medium '>
                   {property.price.toLocaleString('fr-FR')} €
                 </span>
               </div>
