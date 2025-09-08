@@ -21,6 +21,8 @@ const main = async () => {
         password: hashedPassword,
         info: {
           create: {
+            firstName: 'Axel',
+            lastName: 'Koskinen',
             phone: '+358401234567',
             address: 'Hämeenkatu 10, Tampere',
             preferredContactDetails: 'TEXTMESSAGE',
@@ -88,6 +90,8 @@ const main = async () => {
         password: hashedPassword,
         info: {
           create: {
+            firstName: 'Peter',
+            lastName: 'Jackson',
             phone: '+358401234568',
             address: 'Keskuskatu 21, Helsinki',
             preferredContactDetails: 'EMAIL',
@@ -151,6 +155,8 @@ const main = async () => {
         password: hashedPassword,
         info: {
           create: {
+            firstName: 'Janet',
+            lastName: 'Michaels',
             phone: '+358401234569',
             address: 'Koulukatu 12, Pori',
             preferredContactDetails: 'PHONECALL',
