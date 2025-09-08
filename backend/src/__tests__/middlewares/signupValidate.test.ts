@@ -17,12 +17,15 @@ describe('signupValidate middleware', () => {
     signupValidate(req as Request, res as Response, next as NextFunction);
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
-      error: 'Email, username and password are all required to sign up.',
+      error:
+        'Email, first name, last name, password and username are all required to sign up.',
     });
   });
 
   it('should call next if input is valid', () => {
     req.body = {
+      firstName: 'first',
+      lastName: 'last',
       email: 'test@test.com',
       username: 'testuser',
       password: 'pass',

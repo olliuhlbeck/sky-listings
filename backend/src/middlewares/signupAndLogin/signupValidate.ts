@@ -1,11 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
 
 const signupValidate = (req: Request, res: Response, next: NextFunction) => {
-  const { email, username, password } = req.body;
+  const { email, firstName, lastName, password, username } = req.body;
 
-  if (!email || !username || !password) {
+  if (!firstName || !lastName || !email || !password || !username) {
     res.status(400).json({
-      error: 'Email, username and password are all required to sign up.',
+      error:
+        'Email, first name, last name, password and username are all required to sign up.',
     });
     return;
   }
@@ -14,6 +15,13 @@ const signupValidate = (req: Request, res: Response, next: NextFunction) => {
     res.status(400).json({
       error:
         'Email must be of type string with maximum length of 50 characters.',
+    });
+    return;
+  }
+
+  if (typeof firstName !== 'string' || typeof lastName !== 'string') {
+    res.status(400).json({
+      error: 'First and last name must be of type string.',
     });
     return;
   }

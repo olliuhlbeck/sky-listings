@@ -36,6 +36,8 @@ describe('POST /signup', () => {
   it('returns 500 if JWT secret is missing', async () => {
     delete process.env.SECRET;
     const res = await request(app).post('/signup').send({
+      firstName: 'first',
+      lastName: 'last',
       email: 'test@example.com',
       username: 'testuser',
       password: 'password123',
@@ -53,6 +55,8 @@ describe('POST /signup', () => {
     });
 
     const res = await request(app).post('/signup').send({
+      firstName: 'first',
+      lastName: 'last',
       email: 'new@example.com',
       username: 'testuser',
       password: 'password123',
@@ -77,6 +81,8 @@ describe('POST /signup', () => {
     });
 
     const res = await request(app).post('/signup').send({
+      firstName: 'first',
+      lastName: 'last',
       email: 'taken@example.com',
       username: 'newuser',
       password: 'password123',
@@ -91,12 +97,16 @@ describe('POST /signup', () => {
   it('creates a user successfully and returns 201 with token', async () => {
     mockFindUnique.mockResolvedValue(null);
     mockCreate.mockResolvedValue({
+      firstName: 'first',
+      lastName: 'last',
       id: '123',
       email: 'newuser@example.com',
       username: 'newuser',
     });
 
     const res = await request(app).post('/signup').send({
+      firstName: 'first',
+      lastName: 'last',
       email: 'newuser@example.com',
       username: 'newuser',
       password: 'password123',
@@ -128,6 +138,8 @@ describe('POST /signup', () => {
     });
 
     const res = await request(app).post('/signup').send({
+      firstName: 'first',
+      lastName: 'last',
       email: 'fail@example.com',
       username: 'failuser',
       password: 'password123',

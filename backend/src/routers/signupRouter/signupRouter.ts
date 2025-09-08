@@ -26,7 +26,7 @@ signupRouter.post(
     req: Request<{}, {}, CreateUserDto>,
     res: Response<UserSignUpSuccess | GeneralErrorResponse>,
   ) => {
-    const { email, username, password } = req.body;
+    const { email, firstName, lastName, username, password } = req.body;
     const normalizedUsername = username.trim().toLowerCase();
     const normalizedPassword = password.trim();
     try {
@@ -64,6 +64,12 @@ signupRouter.post(
           email: email,
           username: normalizedUsername,
           password: hashedPassword,
+          info: {
+            create: {
+              firstName: firstName.trim(),
+              lastName: lastName.trim(),
+            },
+          },
         },
       });
 
