@@ -11,10 +11,13 @@ import { useAuth } from '../../utils/useAuth';
 import { useNavigate } from 'react-router-dom';
 import Button from '../GeneralComponents/Button';
 import ToolTip from '../GeneralComponents/ToolTip';
+import { TbCircleLetterF, TbCircleLetterL } from 'react-icons/tb';
 
 const LoginForm = ({ action, setAction }: LoginComponentProps) => {
   const [inputs, setInputs] = useState<LoginInputs>({
     email: '',
+    firstName: '',
+    lastName: '',
     username: '',
     password: '',
   });
@@ -22,6 +25,8 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
     username?: string;
     email?: string;
     password?: string;
+    firstName?: string;
+    lastName?: string;
     generalError?: string;
   }>({});
 
@@ -33,6 +38,8 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
       email: '',
       username: '',
       password: '',
+      firstName: '',
+      lastName: '',
     });
     setErrors({});
   };
@@ -49,6 +56,16 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
     setInputs({ ...inputs, password: event.target.value });
     setErrors((prev) => ({ ...prev, password: '', generalError: '' }));
   };
+  const handleFirstNameChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    setInputs({ ...inputs, firstName: event.target.value });
+    setErrors((prev) => ({ ...prev, firstName: '', generalError: '' }));
+  };
+  const handleLastNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputs({ ...inputs, lastName: event.target.value });
+    setErrors((prev) => ({ ...prev, lastName: '', generalError: '' }));
+  };
 
   const validateEmail = (email: string) => {
     // Basic email validation regex copied from internet
@@ -60,6 +77,12 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
   };
   const validatePassword = (password: string) => {
     return password.length >= 6 ? '' : 'Min. length 6 characters.';
+  };
+  const validateFirstName = (firstName: string) => {
+    return firstName.trim().length > 0 ? '' : 'First name is required.';
+  };
+  const validateLastName = (lastName: string) => {
+    return lastName.trim().length > 0 ? '' : 'Last name is required.';
   };
 
   const switchAction = () => {
@@ -75,75 +98,103 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
 
     const emailError =
       action === ActionType.SignUp ? validateEmail(inputs.email) : '';
+    const firstNameError =
+      action === ActionType.SignUp ? validateFirstName(inputs.firstName) : '';
+    const lastNameError =
+      action === ActionType.SignUp ? validateLastName(inputs.lastName) : '';
     const usernameError = validateUsername(inputs.username);
     const passwordError = validatePassword(inputs.password);
 
-    if (emailError || usernameError || passwordError) {
+    if (
+      emailError ||
+      firstNameError ||
+      lastNameError ||
+      usernameError ||
+      passwordError
+    ) {
       setErrors({
         email: emailError,
+        firstName: firstNameError,
+        lastName: lastNameError,
         username: usernameError,
         password: passwordError,
       });
       return;
     }
 
-    if (action === ActionType.Login) {
-      const response = await fetch('http://localhost:3000/login/', {
-        method: 'POST',
-        headers: {
-          'Content-type': 'application/json',
-        },
-        body: JSON.stringify({
-          username: inputs.username,
-          password: inputs.password,
-        }),
-      });
-      const data = await response.json();
-      if (response.ok) {
-        login(data.token);
-      } else {
-        const message =
-          data.error ||
-          data.message ||
-          'Something went wrong. Please try again.';
-        setErrors((prev) => ({ ...prev, generalError: message }));
-        return;
-      }
-    } else if (action === ActionType.SignUp) {
-      const response = await fetch('http://localhost:3000/signup', {
-        method: 'POST',
-        headers: {
-          'Content-type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: inputs.email,
-          username: inputs.username,
-          password: inputs.password,
-        }),
-      });
-      const data = await response.json();
-      if (response.ok) {
-        login(data.token);
-      } else {
+    try {
+      if (action === ActionType.Login) {
+        const response = await fetch('http://localhost:3000/login/', {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify({
+            username: inputs.username,
+            password: inputs.password,
+          }),
+        });
         const data = await response.json();
-        const message =
-          data.error ||
-          data.message ||
-          'Something went wrong. Please try again.';
-        setErrors((prev) => ({ ...prev, generalError: message }));
-        return;
+        if (response.ok) {
+          login(data.token);
+        } else {
+          const message =
+            data.error ||
+            data.message ||
+            'Something went wrong. Please try again.';
+          setErrors((prev) => ({ ...prev, generalError: message }));
+          return;
+        }
+      } else if (action === ActionType.SignUp) {
+        const response = await fetch('http://localhost:3000/signup', {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: inputs.email,
+            firstName: inputs.firstName,
+            lastName: inputs.lastName,
+            username: inputs.username,
+            password: inputs.password,
+          }),
+        });
+        if (response.ok) {
+          const data = await response.json();
+          login(data.token);
+        } else {
+          const data = await response.json();
+          const message =
+            data.error ||
+            data.message ||
+            'Something went wrong. Please try again.';
+          setErrors((prev) => ({ ...prev, generalError: message }));
+          return;
+        }
       }
+      resetForm();
+      navigate('/');
+    } catch {
+      setErrors((prev) => ({
+        ...prev,
+        generalError:
+          'Network error. Please check your connection and try again.',
+      }));
     }
-    resetForm();
-    navigate('/');
   };
 
   const isFormValid =
     inputs.username.trim().length > 0 &&
     inputs.password.length >= 6 &&
+    (action === ActionType.Login ||
+      (inputs.firstName.trim().length > 0 &&
+        inputs.lastName.trim().length > 0 &&
+        inputs.email.trim().length > 0)) &&
     !errors.username &&
     !errors.email &&
-    !errors.password;
+    !errors.password &&
+    !errors.firstName &&
+    !errors.lastName;
 
   return (
     <form
@@ -153,28 +204,79 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
     >
       <div className='md:hidden w-full flex items-center justify-center mb-16'></div>
       {action === ActionType.SignUp && (
-        <div className='flex flex-col space-y-1'>
-          <div className='flex space-x-2 items-center'>
-            <IconComponent
-              icon={MdOutlineEmail}
-              className='self-center'
-              aria-hidden='true'
-            />
-            <InputField
-              name='emailInput'
-              type='text'
-              value={inputs.email}
-              onChange={handleEmailChange}
-              placeholder='Email'
-              className='w-52 dark:bg-gray'
-            />
+        <>
+          {/* First Name Field */}
+          <div className='flex flex-col space-y-1'>
+            <div className='flex space-x-2 items-center'>
+              <IconComponent
+                icon={TbCircleLetterF}
+                className='self-center'
+                aria-hidden='true'
+              />
+              <InputField
+                name='firstNameInput'
+                type='text'
+                value={inputs.firstName}
+                onChange={handleFirstNameChange}
+                placeholder='First Name'
+                className='w-52 dark:bg-gray'
+              />
+            </div>
+            {errors.firstName && (
+              <span className='text-red-500 text-xs md:text-base'>
+                {errors.firstName}
+              </span>
+            )}
           </div>
-          {errors.email && (
-            <span className='text-red-500 text-xs md:text-base lg:text-lg'>
-              {errors.email}
-            </span>
-          )}
-        </div>
+
+          {/* Last Name Field */}
+          <div className='flex flex-col space-y-1'>
+            <div className='flex space-x-2 items-center'>
+              <IconComponent
+                icon={TbCircleLetterL}
+                className='self-center'
+                aria-hidden='true'
+              />
+              <InputField
+                name='lastNameInput'
+                type='text'
+                value={inputs.lastName}
+                onChange={handleLastNameChange}
+                placeholder='Last Name'
+                className='w-52 dark:bg-gray'
+              />
+            </div>
+            {errors.lastName && (
+              <span className='text-red-500 text-xs md:text-base'>
+                {errors.lastName}
+              </span>
+            )}
+          </div>
+
+          {/* Email Field */}
+          <div className='flex flex-col space-y-1'>
+            <div className='flex space-x-2 items-center'>
+              <IconComponent
+                icon={MdOutlineEmail}
+                className='self-center'
+                aria-hidden='true'
+              />
+              <InputField
+                name='emailInput'
+                type='text'
+                value={inputs.email}
+                onChange={handleEmailChange}
+                placeholder='Email'
+                className='w-52 dark:bg-gray'
+              />
+            </div>
+            {errors.email && (
+              <span className='text-red-500 text-xs md:text-base'>
+                {errors.email}
+              </span>
+            )}
+          </div>
+        </>
       )}
 
       <div className='flex flex-col space-y-1'>
@@ -194,7 +296,7 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
           />
         </div>
         {errors.username && (
-          <span className='text-red-500 text-xs md:text-base lg:text-lg'>
+          <span className='text-red-500 text-xs md:text-base'>
             {errors.username}
           </span>
         )}
@@ -217,7 +319,7 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
           />
         </div>
         {errors.password && (
-          <span className='text-red-500 text-xs md:text-base lg:text-lg'>
+          <span className='text-red-500 text-xs md:text-base'>
             {errors.password}
           </span>
         )}
@@ -247,18 +349,18 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
       )}
 
       {errors.generalError && (
-        <span className='text-red-500 text-xs md:text-base lg:text-lg w-52'>
+        <span className='text-red-500 text-xs md:text-base w-52'>
           {errors.generalError}
         </span>
       )}
 
-      <div className='text-xs md:text-base lg:text-lg'>
+      <div className='text-xs md:text-base lg:text-lg pb-1 md:pb-8'>
         {action === ActionType.Login
           ? 'Do not have an account?'
           : 'Already have a account?'}
         <Button
           type='button'
-          ClassName='bg-transparent dark:bg-transparent '
+          ClassName='bg-transparent dark:bg-transparent'
           onClick={switchAction}
         >
           {action === ActionType.Login

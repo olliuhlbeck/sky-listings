@@ -6,7 +6,7 @@ const LoginPageTitle = ({ action }: LoginComponentProps) => {
     <>
       {/* Title and background on top for smaller screens */}
       <div
-        className="md:hidden absolute top-0 left-0 right-0 h-2/10 bg-[url('./assets/loginBackground.jpg')] dark:bg-[url('./assets/loginBgDarkMode.png')] bg-cover bg-center bg-no-repeat flex items-center justify-center z-10"
+        className="md:hidden absolute top-0 left-0 right-0 h-1/5 bg-[url('./assets/loginBackground.jpg')] dark:bg-[url('./assets/loginBgDarkMode.png')] bg-cover bg-center bg-no-repeat flex items-center justify-center z-10"
         style={{
           clipPath: 'polygon(0% 0, 100% 0, 100% 100%, 0 100%)',
         }}
