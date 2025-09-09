@@ -1,5 +1,7 @@
 export interface EditProfileInfoFormData {
+  address: string;
+  email: string;
   firstName: string;
   lastName: string;
-  email: string;
+  preferredContactMethod: 'EMAIL' | 'PHONECALL' | 'TEXTMESSAGE' | 'NOTCHOSEN';
 }
