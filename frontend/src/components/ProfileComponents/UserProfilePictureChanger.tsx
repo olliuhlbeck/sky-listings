@@ -6,7 +6,7 @@ const UserProfilePictureChanger = () => {
   const token = useAuth();
   return (
     <div className='flex flex-col sm:w-1/3 items-center justify-center gap-2 sm:gap-4'>
-      <IconComponent icon={CgProfile} size={24} />
+      <IconComponent icon={CgProfile} className='text-sky-500' size={100} />
       <h2>{token.user}</h2>
     </div>
   );
