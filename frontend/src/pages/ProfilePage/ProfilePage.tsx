@@ -7,7 +7,7 @@ const ProfilePage = () => {
       <h2 className='w-4/5 md:w-9/10 font-semibold text-sm md:text-md lg:text-lg py-4 mb-6 border-b mx-auto'>
         Profile settings
       </h2>
-      <div className='flex flex-col sm:flex-row w-9/10 mx-auto gap-4 '>
+      <div className='flex flex-col items-center sm:flex-row w-9/10 mx-auto gap-4 '>
         <UserProfilePictureChanger />
         <EditProfileInfoForm />
       </div>
