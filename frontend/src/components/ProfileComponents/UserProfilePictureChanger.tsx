@@ -8,7 +8,7 @@ const UserProfilePictureChanger = () => {
       <img
         src={PFP}
         alt='profilePictureDummy'
-        className='rounded-full w-1/2 sm:w-4/5'
+        className='rounded-full w-1/2 sm:w-4/5 xl:w-3/5'
       />
       <h2>{token.user}</h2>
     </div>
