@@ -1,7 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { EditProfileInfoFormData } from '../../types/EditProfileInfoFormData';
 import InputField from '../GeneralComponents/InputField';
+import { UserInformation } from '../../types/UserInformation';
+import { useAuth } from '../../utils/useAuth';
+import IconComponent from '../GeneralComponents/IconComponent';
+import { MdErrorOutline } from 'react-icons/md';
 const EditProfileInfoForm = () => {
+  const [loading, setLoading] = useState<boolean>(true);
+  const [errorMessage, setErrorMessage] = useState<string>('');
   const [formData, setFormData] = useState<EditProfileInfoFormData>({
     address: '',
     email: '',
@@ -9,6 +15,52 @@ const EditProfileInfoForm = () => {
     lastName: '',
     preferredContactMethod: 'NOTCHOSEN',
   });
+  const [userInformation, setUserInformation] =
+    useState<UserInformation | null>(null);
+
+  const token = useAuth();
+
+  const fetchUserInformation = async (userId: number): Promise<void> => {
+    setLoading(true);
+    try {
+      const BASE_URL = import.meta.env.VITE_API_URL;
+      const response = await fetch(
+        `${BASE_URL}/contactInfo/getAllUserInfo?userId=${userId}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      const data = await response.json();
+      console.log(data);
+      if (!response.ok) {
+        throw new Error('Failed to fetch user information. Please try again.');
+      }
+      setUserInformation(data);
+      setFormData({
+        address: data.UserInfo?.address || '',
+        email: data.UserInfo?.email || '',
+        firstName: data.UserInfo?.firstName || '',
+        lastName: data.UserInfo?.lastName || '',
+        preferredContactMethod:
+          data.UserInfo?.preferredContactMethod || 'NOTCHOSEN',
+      });
+    } catch {
+      setErrorMessage('Failed to fetch profile information. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Fetch current user information to display
+  useEffect(() => {
+    if (token?.userId !== null && token?.userId !== undefined) {
+      fetchUserInformation(token.userId);
+    }
+  }, [token]);
 
   // Handle editing input controller information
   const handleInputChange =
@@ -32,71 +84,81 @@ const EditProfileInfoForm = () => {
 
   return (
     <div className='sm:w-2/3 text-xs md:text-base'>
-      <div className='flex flex-col gap-2'>
-        <div>
-          <label className='inline-block w-40 lg:w-60'>First name: </label>
-          <InputField
-            type='text'
-            placeholder='First name'
-            value={formData.firstName}
-            onChange={handleInputChange('firstName')}
-            className='w-2/3 bg-white'
-          />
+      {loading ? (
+        <p className='mx-auto'>Loading...</p>
+      ) : errorMessage ? (
+        <div className='flex justify-center gap-2 mt-5'>
+          <IconComponent icon={MdErrorOutline} className='text-red-500' />
+          <p className='text-red-500'>{errorMessage}</p>
+          <IconComponent icon={MdErrorOutline} className='text-red-500' />
         </div>
-        <div>
-          <label className='inline-block w-40 lg:w-60'>Last name: </label>
-          <InputField
-            type='text'
-            placeholder='Last name'
-            value={formData.lastName}
-            onChange={handleInputChange('lastName')}
-            className='w-2/3 bg-white'
-          />
+      ) : (
+        <div className='flex flex-col gap-2'>
+          <div>
+            <label className='inline-block w-40 lg:w-60'>First name: </label>
+            <InputField
+              type='text'
+              placeholder={userInformation?.firstName || 'First name'}
+              value={formData.firstName}
+              onChange={handleInputChange('firstName')}
+              className='w-2/3 bg-white'
+            />
+          </div>
+          <div>
+            <label className='inline-block w-40 lg:w-60'>Last name: </label>
+            <InputField
+              type='text'
+              placeholder={userInformation?.lastName || 'Last name'}
+              value={formData.lastName}
+              onChange={handleInputChange('lastName')}
+              className='w-2/3 bg-white'
+            />
+          </div>
+          <div>
+            <label className='inline-block w-40 lg:w-60'>Email: </label>
+            <InputField
+              type='text'
+              placeholder={userInformation?.email || 'Email'}
+              value={formData.email}
+              onChange={handleInputChange('email')}
+              className='w-2/3 bg-white'
+            />
+          </div>
+          <div>
+            <label className='inline-block w-40 lg:w-60'>Address: </label>
+            <InputField
+              type='text'
+              placeholder={userInformation?.address || 'Address'}
+              value={formData.address}
+              onChange={handleInputChange('address')}
+              className='w-2/3 bg-white'
+            />
+          </div>
+          <div>
+            <label className='inline-block w-40 md:w-60'>
+              Preferred contact style:{' '}
+            </label>
+            <select
+              value={formData.preferredContactMethod}
+              onChange={handleSelectChange('preferredContactMethod')}
+              className='w-2/3 bg-white px-3 py-2 border border-gray-300 rounded-md dark:text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-900'
+            >
+              <option value='NOTCHOSEN' className='text-center'>
+                Not chosen
+              </option>
+              <option value='email' className='text-center'>
+                Email
+              </option>
+              <option value='phone' className='text-center'>
+                Phone call
+              </option>
+              <option value='sms' className='text-center'>
+                Text message
+              </option>
+            </select>
+          </div>
         </div>
-        <div>
-          <label className='inline-block w-40 lg:w-60'>Email: </label>
-          <InputField
-            type='text'
-            placeholder='Email'
-            value={formData.email}
-            onChange={handleInputChange('email')}
-            className='w-2/3 bg-white'
-          />
-        </div>
-        <div>
-          <label className='inline-block w-40 lg:w-60'>Address: </label>
-          <InputField
-            type='text'
-            placeholder='Address'
-            value={formData.address}
-            onChange={handleInputChange('address')}
-            className='w-2/3 bg-white'
-          />
-        </div>
-        <div>
-          <label className='inline-block w-40 md:w-60'>
-            Preferred contact style:{' '}
-          </label>
-          <select
-            value={formData.preferredContactMethod}
-            onChange={handleSelectChange('preferredContactMethod')}
-            className='w-2/3 bg-white px-3 py-2 border border-gray-300 rounded-md dark:text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-900'
-          >
-            <option value='notChosen' className='text-center'>
-              Not chosen
-            </option>
-            <option value='email' className='text-center'>
-              Email
-            </option>
-            <option value='phone' className='text-center'>
-              Phone call
-            </option>
-            <option value='sms' className='text-center'>
-              Text message
-            </option>
-          </select>
-        </div>
-      </div>
+      )}
     </div>
   );
 };
