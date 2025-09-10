@@ -35,7 +35,6 @@ const EditProfileInfoForm = () => {
         },
       );
       const data = await response.json();
-      console.log(data);
       if (!response.ok) {
         throw new Error('Failed to fetch user information. Please try again.');
       }
