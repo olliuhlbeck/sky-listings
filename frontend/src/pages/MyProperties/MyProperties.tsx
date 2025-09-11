@@ -25,8 +25,9 @@ const MyProperties = () => {
   // Fetch and display users properties on first render
   const fetchPropertiesByUserId = async (): Promise<void> => {
     try {
+      const BASE_URL = import.meta.env.VITE_API_URL;
       const response = await fetch(
-        `http://localhost:3000/property/getPropertiesByUserId?userId=${userId}`,
+        `${BASE_URL}/property/getPropertiesByUserId?userId=${userId}`,
       );
       const data = await response.json();
       if (response.ok && data.usersProperties) {
