@@ -230,7 +230,7 @@ const AddProperty: React.FC = () => {
                 min={0}
                 value={formData.price}
                 onChange={handleChange}
-                className='w-3/8 p-2 rounded-md shadow-sm bg-gray-50 dark:text-slate-900 dark:text-slate-900'
+                className='w-3/8 p-2 rounded-md shadow-sm bg-gray-50 dark:text-slate-900'
               />
             </div>
             <div className='flex items-center'>
@@ -242,7 +242,7 @@ const AddProperty: React.FC = () => {
                 name='propertyType'
                 value={formData.propertyType}
                 onChange={handleChange}
-                className='w-3/8 p-2 rounded-md shadow-sm bg-gray-50 dark:text-slate-900 dark:text-slate-900'
+                className='w-3/8 p-2 rounded-md shadow-sm bg-gray-50 dark:text-slate-900'
               >
                 {Object.values(PropertyTypes).map((type) => (
                   <option key={type} value={type}>
@@ -260,7 +260,7 @@ const AddProperty: React.FC = () => {
                 name='propertyStatus'
                 value={formData.propertyStatus}
                 onChange={handleChange}
-                className='w-3/8 p-2 rounded-md shadow-sm bg-gray-50 dark:text-slate-900 dark:text-slate-900'
+                className='w-3/8 p-2 rounded-md shadow-sm bg-gray-50 dark:text-slate-900'
               >
                 {Object.values(PropertyStatuses).map((status) => (
                   <option key={status} value={status}>
