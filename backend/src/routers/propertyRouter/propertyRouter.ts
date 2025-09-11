@@ -16,6 +16,8 @@ import { GeneralErrorResponse } from '../../types/general-error';
 import { SearchConditions } from '../../types/search-conditions';
 import AuthenticateRequest from '../../middlewares/authentication/authenticateRequest';
 import { AuthenticatedRequest } from '../../types/AuthenticatedRequest';
+import { GetUsersPropertiesByUserIdQuery } from '../../types/dtos/GetUsersPropertiesByUserIdQuery.dto';
+import { GetUsersPropertiesByUserIdResponse } from '../../types/dtos/GetUsersPropertiesByUserIdResponse.dto';
 
 const propertyRouter = express.Router();
 const prisma = new PrismaClient();
@@ -193,7 +195,10 @@ propertyRouter.get(
  */
 propertyRouter.get(
   '/getPropertiesByUserId',
-  async (req: Request, res: Response) => {
+  async (
+    req: Request<{}, {}, GetUsersPropertiesByUserIdQuery>,
+    res: Response<GetUsersPropertiesByUserIdResponse | GeneralErrorResponse>,
+  ) => {
     const userId = parseInt(req.query.userId as string);
     try {
       const fetchUsersProperties = await prisma.property.findMany({
