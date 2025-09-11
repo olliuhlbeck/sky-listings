@@ -9,6 +9,8 @@ import { BiCamera } from 'react-icons/bi';
 import Button from '../../components/GeneralComponents/Button';
 import { BsHouseUp } from 'react-icons/bs';
 import { useAuth } from '../../utils/useAuth';
+import { CreatePropertyResponse } from '../../types/dtos/CreatePropertyResponse';
+import { GeneralErrorResponse } from '../../types/dtos/GeneralErrorResponse';
 
 const AddProperty: React.FC = () => {
   const [formData, setFormData] = useState<PropertyFormData>({
@@ -81,11 +83,16 @@ const AddProperty: React.FC = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      const data = await response.json();
+      const data: CreatePropertyResponse | GeneralErrorResponse =
+        await response.json();
 
       if (!response.ok) {
         setMessageType('error');
-        setMessage(data.error);
+        if ('error' in data) {
+          setMessage(data.error);
+        } else {
+          setMessage('An error occurred');
+        }
         setTimeout(() => {
           setMessage(null);
           setMessageType(null);

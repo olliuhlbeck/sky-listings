@@ -12,6 +12,7 @@ import { IoArrowBack, IoClose, IoSearch } from 'react-icons/io5';
 import formatPropertyType from '../../utils/formatPropertyTypes';
 import { SearchConditions } from '../../types/searchConditions';
 import { MdErrorOutline } from 'react-icons/md';
+import { GetPropertiesResponse } from '../../types/dtos/GetPropertiesResponse';
 
 const BrowseProperties = () => {
   const [page, setPage] = useState<number>(1);
@@ -36,7 +37,7 @@ const BrowseProperties = () => {
       const response = await fetch(
         `${BASE_URL}/property/getPropertiesByPage?page=${page}&pageSize=6&searchTerm=${searchTerm}&searchCondition=${searchCondition}`,
       );
-      const data = await response.json();
+      const data: GetPropertiesResponse = await response.json();
       if (response.ok && data.properties) {
         setTotalPages(Math.ceil(data.totalCount / pageSize));
         setProperties(data.properties);
