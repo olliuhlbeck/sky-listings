@@ -125,6 +125,7 @@ contactInfoRouter.get(
       }
 
       const userInfo: UserInfoReturnDto = {
+        address: user.info.address,
         firstName: user.info.firstName,
         lastName: user.info.lastName,
         phoneNumber: user.info.phone,

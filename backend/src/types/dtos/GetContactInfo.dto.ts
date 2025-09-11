@@ -5,6 +5,7 @@ export interface ContactInfoReturnDto {
 }
 
 export interface UserInfoReturnDto {
+  address: string | null;
   email: string | null;
   firstName: string;
   lastName: string;
