@@ -59,8 +59,9 @@ const MyProperties = () => {
 
   const handlePropertyDelete = async (propertyId: number) => {
     try {
+      const BASE_URL = import.meta.env.VITE_API_URL;
       const response = await fetch(
-        `http://localhost:3000/property/delete/${propertyId}`,
+        `${BASE_URL}/property/delete/${propertyId}`,
         {
           method: 'DELETE',
         },
