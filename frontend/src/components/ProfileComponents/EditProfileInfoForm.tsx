@@ -25,7 +25,7 @@ const EditProfileInfoForm = () => {
     try {
       const BASE_URL = import.meta.env.VITE_API_URL;
       const response = await fetch(
-        `${BASE_URL}/contactInfo/getAllUserInfo?userId=${userId}`,
+        `${BASE_URL}/info/getAllUserInfo?userId=${userId}`,
         {
           method: 'GET',
           headers: {
