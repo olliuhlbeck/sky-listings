@@ -73,16 +73,14 @@ const AddProperty: React.FC = () => {
     });
 
     try {
-      const response = await fetch(
-        'http://localhost:3000/property/addProperty',
-        {
-          method: 'POST',
-          body: formDataToSend,
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+      const BASE_URL = import.meta.env.VITE_API_URL;
+      const response = await fetch(`${BASE_URL}/property/addProperty`, {
+        method: 'POST',
+        body: formDataToSend,
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-      );
+      });
       const data = await response.json();
 
       if (!response.ok) {
