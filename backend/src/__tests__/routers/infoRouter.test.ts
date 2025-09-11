@@ -10,18 +10,16 @@ jest.mock('../../../generated/prisma', () => {
 import request from 'supertest';
 import express from 'express';
 
-let contactInfoRouter: express.Router;
+let infoRouter: express.Router;
 
 // Get /getContactInfoForProperty
 describe('GET /getContactInfoForProperty', () => {
   const app = express();
 
   beforeAll(async () => {
-    const module = await import(
-      '../../routers/contactInfoRouter/contactInfoRouter'
-    );
-    contactInfoRouter = module.default;
-    app.use('/contact', contactInfoRouter);
+    const module = await import('../../routers/infoRouter/infoRouter');
+    infoRouter = module.default;
+    app.use('/info', infoRouter);
   });
 
   beforeEach(() => {
@@ -29,7 +27,7 @@ describe('GET /getContactInfoForProperty', () => {
   });
 
   it('returns 400 if userId is missing or invalid', async () => {
-    const res = await request(app).get('/contact/getContactInfoForProperty');
+    const res = await request(app).get('/info/getContactInfoForProperty');
 
     expect(res.status).toBe(400);
     expect(res.body).toEqual({ error: 'Invalid userId' });
@@ -39,7 +37,7 @@ describe('GET /getContactInfoForProperty', () => {
     mockFindUnique.mockResolvedValue(null);
 
     const res = await request(app)
-      .get('/contact/getContactInfoForProperty')
+      .get('/info/getContactInfoForProperty')
       .query({ userId: '123' });
 
     expect(mockFindUnique).toHaveBeenCalledWith({
@@ -59,7 +57,7 @@ describe('GET /getContactInfoForProperty', () => {
     });
 
     const res = await request(app)
-      .get('/contact/getContactInfoForProperty')
+      .get('/info/getContactInfoForProperty')
       .query({ userId: '123' });
 
     expect(res.status).toBe(404);
@@ -77,7 +75,7 @@ describe('GET /getContactInfoForProperty', () => {
     });
 
     const res = await request(app)
-      .get('/contact/getContactInfoForProperty')
+      .get('/info/getContactInfoForProperty')
       .query({ userId: '123' });
 
     expect(res.status).toBe(404);
@@ -95,7 +93,7 @@ describe('GET /getContactInfoForProperty', () => {
     });
 
     const res = await request(app)
-      .get('/contact/getContactInfoForProperty')
+      .get('/info/getContactInfoForProperty')
       .query({ userId: '123' });
 
     expect(res.status).toBe(404);
@@ -115,7 +113,7 @@ describe('GET /getContactInfoForProperty', () => {
     });
 
     const res = await request(app)
-      .get('/contact/getContactInfoForProperty')
+      .get('/info/getContactInfoForProperty')
       .query({ userId: '123' });
 
     expect(res.status).toBe(404);
@@ -135,7 +133,7 @@ describe('GET /getContactInfoForProperty', () => {
     });
 
     const res = await request(app)
-      .get('/contact/getContactInfoForProperty')
+      .get('/info/getContactInfoForProperty')
       .query({ userId: '123' });
 
     expect(res.status).toBe(200);
@@ -150,7 +148,7 @@ describe('GET /getContactInfoForProperty', () => {
     mockFindUnique.mockRejectedValue(new Error('DB error'));
 
     const res = await request(app)
-      .get('/contact/getContactInfoForProperty')
+      .get('/info/getContactInfoForProperty')
       .query({ userId: '123' });
 
     expect(res.status).toBe(500);

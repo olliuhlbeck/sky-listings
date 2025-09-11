@@ -8,14 +8,14 @@ import {
   UserInfoReturnDto,
 } from '../../types/dtos/GetContactInfo.dto';
 
-const contactInfoRouter = express.Router();
+const infoRouter = express.Router();
 const prisma = new PrismaClient();
 
 /*
  * Get contact info route
  * -Fetches phone, email and preferred contact method and returns them combined to display
  */
-contactInfoRouter.get(
+infoRouter.get(
   '/getContactInfoForProperty',
   async (
     req: Request<{}, {}, {}, GetContactInfo>,
@@ -78,7 +78,7 @@ contactInfoRouter.get(
  * Get all user info route
  * -Fetches first name, last name, phone, email and preferred contact method and returns them combined to display in profile settings page
  */
-contactInfoRouter.get(
+infoRouter.get(
   '/getAllUserInfo',
   async (
     req: Request<{}, {}, {}, GetUserInfo>,
@@ -142,4 +142,4 @@ contactInfoRouter.get(
   },
 );
 
-export default contactInfoRouter;
+export default infoRouter;
