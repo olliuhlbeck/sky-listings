@@ -46,13 +46,21 @@ const Footer: React.FC<FooterProps> = ({ footerVisible, setFooterVisible }) => {
               <ul className='flex flex-col space-y-3 justify-center items-center'>
                 <li className='flex gap-2 hover:underline '>
                   <IconComponent icon={FaPhone} />
-                  <a href='' className='hover:underline '>
+                  <a
+                    href='tel:+358405113313'
+                    className='hover:underline'
+                    aria-label='Call +358 40 511 3313'
+                  >
                     +358 40 511 3313
                   </a>
                 </li>
                 <li className='flex gap-2 hover:underline '>
                   <IconComponent icon={MdAlternateEmail} />
-                  <a href='' className='hover:underline'>
+                  <a
+                    href='mailto:olli.uhlbeck@gmail.com'
+                    className='hover:underline'
+                    aria-label='Send email to olli.uhlbeck@gmail.com'
+                  >
                     olli.uhlbeck@gmail.com
                   </a>
                 </li>
