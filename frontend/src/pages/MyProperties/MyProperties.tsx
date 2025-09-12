@@ -10,6 +10,7 @@ import {
   GetUsersPropertiesByUserIdResponse,
   UserProperty,
 } from '../../types/dtos/GetUsersPropertiesByUserIdResponse';
+import { useNavigate } from 'react-router-dom';
 
 const MyProperties = () => {
   const [usersProperties, setUsersProperties] = useState<UserProperty[]>([]);
@@ -22,6 +23,7 @@ const MyProperties = () => {
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
 
   const { userId } = useAuth();
+  const navigate = useNavigate();
 
   // Fetch and display users properties on first render
   const fetchPropertiesByUserId = async (): Promise<void> => {
@@ -113,6 +115,7 @@ const MyProperties = () => {
             <IconComponent icon={MdErrorOutline} className='text-red-500' />
           </div>
         )}
+
         {/* List properties */}
         <div className='flex flex-col justify-center mx-auto w-5/6 lg:flex-row lg:gap-10'>
           {loading === false && errorMessage === '' && (
@@ -120,40 +123,65 @@ const MyProperties = () => {
               <div className='mb-6 flex-1'>
                 <h2 className='mb-4'>Select property to edit information:</h2>
                 {usersProperties && (
-                  <div className={`grid ${getGridCols()} gap-4`}>
-                    {usersProperties.map((property) => {
-                      return (
-                        <div
-                          className={`bg-sky-200 dark:bg-blue-900 rounded-md p-1 hover:bg-sky-300 dark:hover:bg-blue-700 hover:cursor-pointer transition duration-200 ${propertyToEdit?.id === property.id ? '!bg-blue-400' : ''}`}
-                          key={property.id}
-                          onClick={() => setPropertyToEdit({ ...property })}
-                        >
-                          {property.street}
+                  <>
+                    {/* Content if user has no properties */}
+                    {usersProperties.length === 0 ? (
+                      <div className='text-center'>
+                        <p className='text-gray-600 mb-6'>
+                          You haven't added any properties yet.
+                        </p>
+                        <Button
+                          text='Add Your First Property'
+                          onClick={() => navigate('/addProperty')}
+                          ClassName='mx-auto'
+                        />
+                      </div>
+                    ) : (
+                      <>
+                        <div className={`grid ${getGridCols()} gap-4`}>
+                          {usersProperties.map((property) => {
+                            return (
+                              <div
+                                className={`bg-sky-200 dark:bg-blue-900 rounded-md p-1 hover:bg-sky-300 dark:hover:bg-blue-700 hover:cursor-pointer transition duration-200 ${propertyToEdit?.id === property.id ? '!bg-blue-400' : ''}`}
+                                key={property.id}
+                                onClick={() =>
+                                  setPropertyToEdit({ ...property })
+                                }
+                              >
+                                {property.street}
+                              </div>
+                            );
+                          })}
                         </div>
-                      );
-                    })}
-                  </div>
-                )}
-                {/* Property deletion button */}
-                {propertyerrorMessage !== '' ? (
-                  <p className='text-red-500 mt-4'>{propertyerrorMessage}</p>
-                ) : (
-                  <Button
-                    text='Delete selected property'
-                    ClassName='!bg-red-200 hover:!bg-red-500 text-xs mt-4 mx-auto text-white hover:text-slate-900'
-                    onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
-                      event.stopPropagation();
-                      if (propertyToEdit) {
-                        setShowDeleteModal(true);
-                      } else {
-                        handlePropertyDeleteClickNoSelection();
-                      }
-                    }}
-                  />
+                        {/* Property deletion button */}
+                        {propertyerrorMessage !== '' ? (
+                          <p className='text-red-500 mt-4'>
+                            {propertyerrorMessage}
+                          </p>
+                        ) : (
+                          <Button
+                            text='Delete selected property'
+                            ClassName='!bg-red-200 hover:!bg-red-500 text-xs mt-4 mx-auto text-white hover:text-slate-900'
+                            onClick={(
+                              event: React.MouseEvent<HTMLButtonElement>,
+                            ) => {
+                              event.stopPropagation();
+                              if (propertyToEdit) {
+                                setShowDeleteModal(true);
+                              } else {
+                                handlePropertyDeleteClickNoSelection();
+                              }
+                            }}
+                          />
+                        )}
+                      </>
+                    )}
+                  </>
                 )}
               </div>
             </>
           )}
+
           {/* Render property edit form*/}
           {propertyToEdit !== null && (
             <PropertyInfoEditForm
