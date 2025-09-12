@@ -1,9 +1,9 @@
-import { PropertyResponse } from './dtos/PropertyResponse.dto';
+import { UserProperty } from './dtos/GetUsersPropertiesByUserIdResponse';
 
 export interface EditableFieldProps {
   label: string;
-  field: keyof PropertyResponse;
+  field: keyof UserProperty;
   value: string | number | null | undefined;
-  onEdit: (field: keyof PropertyResponse, value: string | number) => void;
+  onEdit: (field: keyof UserProperty, value: string | number) => void;
   options?: string[];
 }
