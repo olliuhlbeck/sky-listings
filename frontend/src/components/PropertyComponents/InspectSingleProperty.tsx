@@ -34,7 +34,7 @@ const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
     try {
       const userId = property.userId;
       const response = await fetch(
-        `http://localhost:3000/contactInfo/getContactInfoForProperty?userId=${userId}`,
+        `http://localhost:3000/info/getContactInfoForProperty?userId=${userId}`,
       );
 
       if (!response.ok) {
