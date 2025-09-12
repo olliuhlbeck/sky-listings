@@ -1,18 +1,19 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../utils/useAuth';
-import { PropertyResponse } from '../../types/dtos/PropertyResponse.dto';
 import PropertyInfoEditForm from '../../components/PropertyComponents/PropertyInfoEditForm';
 import AdComponent from '../../components/GeneralComponents/AdComponent';
 import { BiDollar } from 'react-icons/bi';
 import Button from '../../components/GeneralComponents/Button';
 import IconComponent from '../../components/GeneralComponents/IconComponent';
 import { MdErrorOutline } from 'react-icons/md';
+import {
+  GetUsersPropertiesByUserIdResponse,
+  UserProperty,
+} from '../../types/dtos/GetUsersPropertiesByUserIdResponse';
 
 const MyProperties = () => {
-  const [usersProperties, setUsersProperties] = useState<PropertyResponse[]>(
-    [],
-  );
-  const [propertyToEdit, setPropertyToEdit] = useState<PropertyResponse | null>(
+  const [usersProperties, setUsersProperties] = useState<UserProperty[]>([]);
+  const [propertyToEdit, setPropertyToEdit] = useState<UserProperty | null>(
     null,
   );
   const [loading, setLoading] = useState<boolean>(true);
@@ -29,7 +30,8 @@ const MyProperties = () => {
       const response = await fetch(
         `${BASE_URL}/property/getPropertiesByUserId?userId=${userId}`,
       );
-      const data = await response.json();
+      const data: GetUsersPropertiesByUserIdResponse = await response.json();
+      console.log(data);
       if (response.ok && data.usersProperties) {
         setUsersProperties(data.usersProperties);
         setErrorMessage('');

@@ -1,4 +1,3 @@
-import { PropertyResponse } from '../../types/dtos/PropertyResponse.dto';
 import { PropertyEditProps } from '../../types/PropertyEditProps';
 import EditableField from './EditableField';
 import { PropertyTypes, PropertyStatuses } from '../../types/PropertyFormData';
@@ -8,11 +7,10 @@ import { RiResetLeftLine } from 'react-icons/ri';
 import { useAuth } from '../../utils/useAuth';
 import IconComponent from '../GeneralComponents/IconComponent';
 import { BiSolidEdit } from 'react-icons/bi';
+import { UserProperty } from '../../types/dtos/GetUsersPropertiesByUserIdResponse';
 
 const PropertyInfoEditForm: React.FC<PropertyEditProps> = ({ property }) => {
-  const [editedFields, setEditedFields] = useState<Partial<PropertyResponse>>(
-    {},
-  );
+  const [editedFields, setEditedFields] = useState<Partial<UserProperty>>({});
   const [messageType, setMessageType] = useState<'success' | 'error' | null>(
     null,
   );
@@ -21,7 +19,7 @@ const PropertyInfoEditForm: React.FC<PropertyEditProps> = ({ property }) => {
   const { token } = useAuth();
 
   const handleFieldEdit = (
-    field: keyof PropertyResponse,
+    field: keyof UserProperty,
     value: string | number | null,
   ) => {
     setEditedFields((prev) => ({
@@ -46,7 +44,7 @@ const PropertyInfoEditForm: React.FC<PropertyEditProps> = ({ property }) => {
   const editableFields: {
     label: string;
     field: keyof Pick<
-      PropertyResponse,
+      UserProperty,
       | 'street'
       | 'city'
       | 'state'
@@ -60,7 +58,6 @@ const PropertyInfoEditForm: React.FC<PropertyEditProps> = ({ property }) => {
       | 'propertyStatus'
       | 'description'
       | 'additionalInfo'
-      | 'coverPicture'
     >;
     options?: string[];
   }[] = [
