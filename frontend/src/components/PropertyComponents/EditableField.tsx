@@ -13,10 +13,24 @@ const EditableField: React.FC<EditableFieldProps> = ({
   const [editing, setEditing] = useState(false);
   const [inputValue, setInputValue] = useState(value?.toString() || '');
 
+  // Handle pressing escape or enter during edit
+  const handleKeyDownOnEdit = (
+    event: React.KeyboardEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
+    if (event.key === 'Enter') {
+      handleBlur();
+    } else if (event.key === 'Escape') {
+      setInputValue(value?.toString() || '');
+      setEditing(false);
+    }
+  };
+
+  // Handle edit field losing focus
   const handleBlur = () => {
     setEditing(false);
-    if (inputValue !== value?.toString()) {
-      onEdit(field, inputValue);
+    const trimmedValue = inputValue.trim();
+    if (trimmedValue !== value?.toString()) {
+      onEdit(field, trimmedValue);
     }
   };
 
@@ -27,8 +41,9 @@ const EditableField: React.FC<EditableFieldProps> = ({
         options ? (
           <select
             value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
+            onChange={(event) => setInputValue(event.target.value)}
             onBlur={handleBlur}
+            onKeyDown={handleKeyDownOnEdit}
             autoFocus
             className='border px-2 py-1 rounded'
           >
@@ -42,13 +57,9 @@ const EditableField: React.FC<EditableFieldProps> = ({
           <input
             type='text'
             value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
+            onChange={(event) => setInputValue(event.target.value)}
             onBlur={handleBlur}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                handleBlur();
-              }
-            }}
+            onKeyDown={handleKeyDownOnEdit}
             className='border px-2 py-1 rounded'
             autoFocus
           />
