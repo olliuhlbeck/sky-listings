@@ -26,7 +26,7 @@ const EditableField: React.FC<EditableFieldProps> = ({
   };
 
   // Handle edit field losing focus
-  const handleBlur = () => {
+  const handleBlur = (): void => {
     setEditing(false);
     const trimmedValue = inputValue.trim();
     if (trimmedValue !== value?.toString()) {
@@ -36,7 +36,7 @@ const EditableField: React.FC<EditableFieldProps> = ({
 
   return (
     <div className='flex gap-4 items-center'>
-      <strong>{label}</strong>
+      <strong className='text-left w-40'>{label}</strong>
       {editing ? (
         options ? (
           <select

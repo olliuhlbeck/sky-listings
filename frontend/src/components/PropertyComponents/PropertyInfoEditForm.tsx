@@ -59,31 +59,37 @@ const PropertyInfoEditForm: React.FC<PropertyEditProps> = ({ property }) => {
       | 'description'
       | 'additionalInfo'
     >;
+    type: 'text' | 'number' | 'textarea' | 'select';
     options?: string[];
   }[] = [
-    { label: 'Street', field: 'street' },
-    { label: 'City', field: 'city' },
-    { label: 'State', field: 'state' },
-    { label: 'Country', field: 'country' },
-    { label: 'Postal Code', field: 'postalCode' },
-    { label: 'Price', field: 'price' },
-    { label: 'Bedrooms', field: 'bedrooms' },
-    { label: 'Bathrooms', field: 'bathrooms' },
-    { label: 'Square Meters', field: 'squareMeters' },
+    { label: 'Street', type: 'text', field: 'street' },
+    { label: 'City', type: 'text', field: 'city' },
+    { label: 'State', type: 'text', field: 'state' },
+    { label: 'Country', type: 'text', field: 'country' },
+    { label: 'Postal Code', type: 'text', field: 'postalCode' },
+    { label: 'Price', type: 'number', field: 'price' },
+    { label: 'Bedrooms', type: 'number', field: 'bedrooms' },
+    { label: 'Bathrooms', type: 'number', field: 'bathrooms' },
+    { label: 'Square Meters', type: 'number', field: 'squareMeters' },
     {
       label: 'Type',
+
+      type: 'select',
       field: 'propertyType',
       options: Object.values(PropertyTypes),
     },
     {
       label: 'Status',
+
+      type: 'select',
       field: 'propertyStatus',
       options: Object.values(PropertyStatuses),
     },
-    { label: 'Description', field: 'description' },
-    { label: 'Additional Info', field: 'additionalInfo' },
+    { label: 'Description', type: 'textarea', field: 'description' },
+    { label: 'Additional Info', type: 'textarea', field: 'additionalInfo' },
   ];
 
+  // Handle interaction with database
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -130,7 +136,7 @@ const PropertyInfoEditForm: React.FC<PropertyEditProps> = ({ property }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className='bg-white dark:bg-slate-900 flex-1 rounded-lg overflow-hidden w-full shadow-sm border border-gray-200 relative'
+      className='bg-white dark:bg-slate-900 flex-1 rounded-lg overflow-hidden w-full min-w-64 shadow-sm border border-gray-200 relative'
     >
       <div className='flex justify-between items-center p-2 sm:p-4 border-b border-gray-200 bg-linear-to-r from-cyan-500 dark:from-cyan-800 to-blue-600'>
         <h3 className='flex justify-center items-center gap-2 text-lg font-medium text-gray-50 dark:text-slate-950 mx-auto'>
