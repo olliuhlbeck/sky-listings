@@ -117,7 +117,7 @@ const PropertyInfoEditForm: React.FC<PropertyEditProps> = ({
 
         const data = await response.json();
 
-        // Take new property data and set it to base for form so it has newest data from database
+        // Take new property data and send it to parent state so it has newest data from database
         const { updatedProperty } = data;
         onPropertyUpdate(updatedProperty);
 
