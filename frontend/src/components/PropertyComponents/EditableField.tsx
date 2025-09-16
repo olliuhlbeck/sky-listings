@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import IconComponent from '../GeneralComponents/IconComponent';
-import { FaRegEdit } from 'react-icons/fa';
+import { FaCheck, FaRegEdit } from 'react-icons/fa';
 import { EditableFieldProps } from '../../types/EditableFieldProps';
 
 const EditableField: React.FC<EditableFieldProps> = ({
@@ -9,6 +9,7 @@ const EditableField: React.FC<EditableFieldProps> = ({
   field,
   onEdit,
   options,
+  isEdited = false,
 }) => {
   const [editing, setEditing] = useState(false);
   const [inputValue, setInputValue] = useState(value?.toString() || '');
@@ -69,9 +70,9 @@ const EditableField: React.FC<EditableFieldProps> = ({
           <span>{value || 'N/A'}</span>
           <button onClick={() => setEditing(true)} title={`Edit ${label}`}>
             <IconComponent
-              icon={FaRegEdit}
-              size={20}
-              className='hover:cursor-pointer rounded-md'
+              icon={isEdited ? FaCheck : FaRegEdit}
+              size={18}
+              className={`hover:cursor-pointer rounded-md ${isEdited ? 'text-green-400' : 'text-gray-600'}`}
             />
           </button>
         </>
