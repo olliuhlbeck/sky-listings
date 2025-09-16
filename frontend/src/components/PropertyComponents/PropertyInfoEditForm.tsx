@@ -136,10 +136,10 @@ const PropertyInfoEditForm: React.FC<PropertyEditProps> = ({ property }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className='bg-white dark:bg-slate-900 flex-1 rounded-lg overflow-hidden w-full min-w-64 shadow-sm border border-gray-200 relative'
+      className='bg-white dark:bg-slate-900 flex-1 rounded-lg overflow-hidden w-full min-w-64 shadow-sm border border-gray-200 dark:border-slate-600 relative'
     >
       <div className='flex justify-between items-center p-2 sm:p-4 border-b border-gray-200 bg-linear-to-r from-cyan-500 dark:from-cyan-800 to-blue-600'>
-        <h3 className='flex justify-center items-center gap-2 text-lg font-medium text-gray-50 dark:text-slate-950 mx-auto'>
+        <h3 className='flex justify-center items-center gap-2 text-lg font-medium text-gray-50 mx-auto'>
           <IconComponent icon={BiSolidEdit} />
           Edit Property
         </h3>
@@ -165,6 +165,7 @@ const PropertyInfoEditForm: React.FC<PropertyEditProps> = ({ property }) => {
               }
               onEdit={handleFieldEdit}
               options={options}
+              isEdited={field in editedFields}
             />
           </div>
         ))}
