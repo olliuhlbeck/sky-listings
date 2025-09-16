@@ -188,6 +188,15 @@ const MyProperties = () => {
               key={propertyToEdit.id}
               property={propertyToEdit}
               originalProperty={propertyToEdit}
+              onPropertyUpdate={(updated) => {
+                // Update list of properties and property when form is submitted and it send user back updated property
+                setUsersProperties((prev) =>
+                  prev.map((property) =>
+                    property.id === updated.id ? updated : property,
+                  ),
+                );
+                setPropertyToEdit(updated);
+              }}
             />
           )}
         </div>
