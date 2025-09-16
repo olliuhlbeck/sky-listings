@@ -9,7 +9,10 @@ import IconComponent from '../GeneralComponents/IconComponent';
 import { BiSolidEdit } from 'react-icons/bi';
 import { UserProperty } from '../../types/dtos/GetUsersPropertiesByUserIdResponse';
 
-const PropertyInfoEditForm: React.FC<PropertyEditProps> = ({ property }) => {
+const PropertyInfoEditForm: React.FC<PropertyEditProps> = ({
+  property,
+  onPropertyUpdate,
+}) => {
   const [editedFields, setEditedFields] = useState<Partial<UserProperty>>({});
   const [messageType, setMessageType] = useState<'success' | 'error' | null>(
     null,
@@ -111,6 +114,14 @@ const PropertyInfoEditForm: React.FC<PropertyEditProps> = ({ property }) => {
         if (!response.ok) {
           throw new Error('Failed to update property');
         }
+
+        const data = await response.json();
+
+        // Take new property data and set it to base for form so it has newest data from database
+        const { updatedProperty } = data;
+        onPropertyUpdate(updatedProperty);
+
+        setEditedFields({});
         setMessageType('success');
         setMessage('Property updated successfully!');
         setTimeout(() => setMessage(null), 3000);
