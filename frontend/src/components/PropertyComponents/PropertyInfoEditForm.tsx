@@ -8,6 +8,7 @@ import { useAuth } from '../../utils/useAuth';
 import IconComponent from '../GeneralComponents/IconComponent';
 import { BiSolidEdit } from 'react-icons/bi';
 import { UserProperty } from '../../types/dtos/GetUsersPropertiesByUserIdResponse';
+import { UpdatePropertyResponse } from '../../types/dtos/UpdatePropertyResponse.dto';
 
 const PropertyInfoEditForm: React.FC<PropertyEditProps> = ({
   property,
@@ -115,7 +116,7 @@ const PropertyInfoEditForm: React.FC<PropertyEditProps> = ({
           throw new Error('Failed to update property');
         }
 
-        const data = await response.json();
+        const data: UpdatePropertyResponse = await response.json();
 
         // Take new property data and send it to parent state so it has newest data from database
         const { updatedProperty } = data;
