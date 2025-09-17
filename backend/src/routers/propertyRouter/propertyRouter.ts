@@ -18,6 +18,10 @@ import AuthenticateRequest from '../../middlewares/authentication/authenticateRe
 import { AuthenticatedRequest } from '../../types/AuthenticatedRequest';
 import { GetUsersPropertiesByUserIdQuery } from '../../types/dtos/GetUsersPropertiesByUserIdQuery.dto';
 import { GetUsersPropertiesByUserIdResponse } from '../../types/dtos/GetUsersPropertiesByUserIdResponse.dto';
+import {
+  UpdatePropertyRequestBody,
+  UpdatePropertyResponse,
+} from '../../types/dtos/UpdateProperty.dto';
 
 const propertyRouter = express.Router();
 const prisma = new PrismaClient();
@@ -224,8 +228,8 @@ propertyRouter.put(
   '/editPropertyInformation/:propertyId',
   AuthenticateRequest,
   async (
-    req: Request<{ propertyId: string }, {}, Partial<CreatePropertyDTO>>,
-    res: Response,
+    req: Request<{ propertyId: string }, {}, UpdatePropertyRequestBody>,
+    res: Response<UpdatePropertyResponse | GeneralErrorResponse>,
   ) => {
     const { propertyId } = req.params;
     const {
@@ -257,7 +261,7 @@ propertyRouter.put(
           ...(street && { street }),
           ...(city && { city }),
           ...(state && { state }),
-          ...(postalCode && { postalCode }),
+          ...(postalCode !== undefined && { postalCode }),
           ...(country && { country }),
           ...(price && { price: Number(price) }),
           ...(propertyType && {
