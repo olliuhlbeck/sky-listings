@@ -189,6 +189,7 @@ describe('propertyRouter (excluding /addProperty)', () => {
   // PUT /editPropertyInformation with authentication
   describe('PUT /editPropertyInformation/:propertyId', () => {
     it('updates property and returns 200 when authenticated', async () => {
+      mockFindUnique.mockResolvedValue({ userId: 1 });
       mockUpdate.mockResolvedValue({
         id: 1,
         street: 'New St',
@@ -199,6 +200,11 @@ describe('propertyRouter (excluding /addProperty)', () => {
         .put('/editPropertyInformation/1')
         .set('Authorization', `Bearer ${validToken}`)
         .send({ street: 'New St', price: '123456' });
+
+      expect(mockFindUnique).toHaveBeenCalledWith({
+        where: { id: 1 },
+        select: { userId: true },
+      });
 
       expect(mockUpdate).toHaveBeenCalledWith({
         where: { id: 1 },
@@ -247,8 +253,8 @@ describe('propertyRouter (excluding /addProperty)', () => {
         .set('Authorization', `Bearer ${validToken}`)
         .send({});
 
-      expect(res.status).toBe(500);
-      expect(res.body.error).toBe('Failed to update property information');
+      expect(res.status).toBe(400);
+      expect(res.body.error).toBe('No fields provided to update');
     });
   });
 });
