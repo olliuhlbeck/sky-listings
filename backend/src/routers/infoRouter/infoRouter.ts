@@ -7,6 +7,7 @@ import {
   GetUserInfo,
   UserInfoReturnDto,
 } from '../../types/dtos/GetContactInfo.dto';
+import { AuthenticatedRequest } from '../../types/AuthenticatedRequest';
 
 const infoRouter = express.Router();
 const prisma = new PrismaClient();
@@ -81,14 +82,15 @@ infoRouter.get(
 infoRouter.get(
   '/getAllUserInfo',
   async (
-    req: Request<{}, {}, {}, GetUserInfo>,
+    req: AuthenticatedRequest<{}, {}, {}, GetUserInfo>,
     res: Response<UserInfoReturnDto | GeneralErrorResponse>,
   ): Promise<void> => {
-    const userId = parseInt(req.query.userId as string, 10);
-    if (!userId || isNaN(userId)) {
-      res.status(400).json({ error: 'Invalid userId' });
+    const userId = req.user?.userId;
+    if (!userId) {
+      res.status(401).json({ error: 'User not authenticated' });
       return;
     }
+
     try {
       const user = await prisma.user.findUnique({
         where: { id: userId },
