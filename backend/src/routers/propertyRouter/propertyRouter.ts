@@ -228,7 +228,11 @@ propertyRouter.put(
   '/editPropertyInformation/:propertyId',
   AuthenticateRequest,
   async (
-    req: Request<{ propertyId: string }, {}, UpdatePropertyRequestBody>,
+    req: AuthenticatedRequest<
+      { propertyId: string },
+      {},
+      UpdatePropertyRequestBody
+    >,
     res: Response<UpdatePropertyResponse | GeneralErrorResponse>,
   ) => {
     const { propertyId } = req.params;
@@ -254,9 +258,21 @@ propertyRouter.put(
       return;
     }
 
+    const userId = req.user?.userId;
+
     try {
+      const property = await prisma.property.findUnique({
+        where: { id: parsedPropertyId },
+        select: { userId: true },
+      });
+
+      if (property?.userId !== userId) {
+        res.status(403).json({ error: 'Unauthorized' });
+        return;
+      }
+
       const updatedProperty = await prisma.property.update({
-        where: { id: Number(parsedPropertyId) },
+        where: { id: parsedPropertyId },
         data: {
           ...(street && { street }),
           ...(city && { city }),
