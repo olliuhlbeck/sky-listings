@@ -3,6 +3,7 @@ process.env.SECRET = 'test-secret';
 import { prismaMock } from '../__mocks__/prismaMock';
 const mockDeleteProperty = prismaMock.property.delete;
 const mockDeletePictures = prismaMock.propertyPicture.deleteMany;
+const mockFindUnique = prismaMock.property.findUnique;
 
 import request from 'supertest';
 import express from 'express';
@@ -37,6 +38,7 @@ describe('DELETE /delete/:propertyId', () => {
   });
 
   it('deletes property successfully', async () => {
+    mockFindUnique.mockResolvedValue({ userId: 1 });
     mockDeletePictures.mockResolvedValue({ count: 1 });
     mockDeleteProperty.mockResolvedValue({ id: 1 });
 
@@ -66,5 +68,32 @@ describe('DELETE /delete/:propertyId', () => {
   it('returns 401 if no token is provided', async () => {
     const res = await request(app).delete('/delete/1');
     expect(res.status).toBe(401);
+    expect(res.body.error).toBe('Unauthorized request');
+  });
+
+  it('returns 403 if user does not own the property', async () => {
+    mockFindUnique.mockResolvedValue({ userId: 2 });
+
+    const res = await request(app)
+      .delete('/delete/1')
+      .set('Authorization', `Bearer ${validToken}`);
+
+    expect(res.status).toBe(403);
+    expect(res.body.error).toBe('Unauthorized to delete this property');
+    expect(mockDeletePictures).not.toHaveBeenCalled();
+    expect(mockDeleteProperty).not.toHaveBeenCalled();
+  });
+
+  it('returns 404 if property does not exist', async () => {
+    mockFindUnique.mockResolvedValue(null);
+
+    const res = await request(app)
+      .delete('/delete/1')
+      .set('Authorization', `Bearer ${validToken}`);
+
+    expect(res.status).toBe(404);
+    expect(res.body.error).toBe('Property not found');
+    expect(mockDeletePictures).not.toHaveBeenCalled();
+    expect(mockDeleteProperty).not.toHaveBeenCalled();
   });
 });
