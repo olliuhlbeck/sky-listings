@@ -259,6 +259,10 @@ propertyRouter.put(
     }
 
     const userId = req.user?.userId;
+    if (!userId) {
+      res.status(401).json({ error: 'User not authenticated' });
+      return;
+    }
 
     try {
       const property = await prisma.property.findUnique({
@@ -354,7 +358,7 @@ propertyRouter.get(
 propertyRouter.delete(
   '/delete/:propertyId',
   AuthenticateRequest,
-  async (req: Request<{ propertyId: string }>, res: Response) => {
+  async (req: AuthenticatedRequest<{ propertyId: string }>, res: Response) => {
     const { propertyId } = req.params;
     const parsedPropertyId = Number(propertyId);
 
@@ -363,7 +367,27 @@ propertyRouter.delete(
       return;
     }
 
+    const userId = req.user?.userId;
+    if (!userId) {
+      res.status(401).json({ error: 'User not authenticated' });
+      return;
+    }
+
     try {
+      // Check property exists and is owned by user
+      const property = await prisma.property.findUnique({
+        where: { id: parsedPropertyId },
+        select: { userId: true },
+      });
+      if (!property) {
+        res.status(404).json({ error: 'Property not found' });
+        return;
+      }
+      if (property.userId !== userId) {
+        res.status(403).json({ error: 'Unauthorized to delete this property' });
+        return;
+      }
+
       // Delete property pictures to maintain databases referential integrity
       await prisma.propertyPicture.deleteMany({
         where: { propertyId: parsedPropertyId },
