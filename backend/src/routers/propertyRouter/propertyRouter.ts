@@ -275,6 +275,11 @@ propertyRouter.put(
         return;
       }
 
+      if (Object.keys(req.body).length === 0) {
+        res.status(400).json({ error: 'No fields provided to update' });
+        return;
+      }
+
       const updatedProperty = await prisma.property.update({
         where: { id: parsedPropertyId },
         data: {
