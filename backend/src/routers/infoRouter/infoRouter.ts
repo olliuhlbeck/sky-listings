@@ -8,6 +8,7 @@ import {
   UserInfoReturnDto,
 } from '../../types/dtos/GetContactInfo.dto';
 import { AuthenticatedRequest } from '../../types/AuthenticatedRequest';
+import AuthenticateRequest from '../../middlewares/authentication/authenticateRequest';
 
 const infoRouter = express.Router();
 const prisma = new PrismaClient();
@@ -81,6 +82,7 @@ infoRouter.get(
  */
 infoRouter.get(
   '/getAllUserInfo',
+  AuthenticateRequest,
   async (
     req: AuthenticatedRequest<{}, {}, {}, GetUserInfo>,
     res: Response<UserInfoReturnDto | GeneralErrorResponse>,

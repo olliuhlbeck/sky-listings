@@ -20,20 +20,17 @@ const EditProfileInfoForm = () => {
 
   const token = useAuth();
 
-  const fetchUserInformation = async (userId: number): Promise<void> => {
+  const fetchUserInformation = async (): Promise<void> => {
     setLoading(true);
     try {
       const BASE_URL = import.meta.env.VITE_API_URL;
-      const response = await fetch(
-        `${BASE_URL}/info/getAllUserInfo?userId=${userId}`,
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
+      const response = await fetch(`${BASE_URL}/info/getAllUserInfo`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token.token}`,
         },
-      );
+      });
       const data = await response.json();
       if (!response.ok) {
         throw new Error('Failed to fetch user information. Please try again.');
@@ -57,7 +54,7 @@ const EditProfileInfoForm = () => {
   // Fetch current user information to display
   useEffect(() => {
     if (token?.userId !== null && token?.userId !== undefined) {
-      fetchUserInformation(token.userId);
+      fetchUserInformation();
     }
   }, [token]);
 
