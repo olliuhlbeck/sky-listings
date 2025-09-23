@@ -13,6 +13,7 @@ const EditProfileInfoForm = () => {
     email: '',
     firstName: '',
     lastName: '',
+    phoneNumber: '',
     preferredContactMethod: 'NOTCHOSEN',
   });
   const [userInformation, setUserInformation] =
@@ -31,19 +32,12 @@ const EditProfileInfoForm = () => {
           Authorization: `Bearer ${token.token}`,
         },
       });
-      const data = await response.json();
       if (!response.ok) {
         throw new Error('Failed to fetch user information. Please try again.');
       }
+      const data: EditProfileInfoFormData = await response.json();
       setUserInformation(data);
-      setFormData({
-        address: data.UserInfo?.address || '',
-        email: data.UserInfo?.email || '',
-        firstName: data.UserInfo?.firstName || '',
-        lastName: data.UserInfo?.lastName || '',
-        preferredContactMethod:
-          data.UserInfo?.preferredContactMethod || 'NOTCHOSEN',
-      });
+      setFormData(data);
     } catch {
       setErrorMessage('Failed to fetch profile information. Please try again.');
     } finally {
@@ -111,16 +105,6 @@ const EditProfileInfoForm = () => {
             />
           </div>
           <div>
-            <label className='inline-block w-40 lg:w-60'>Email: </label>
-            <InputField
-              type='text'
-              placeholder={userInformation?.email || 'Email'}
-              value={formData.email}
-              onChange={handleInputChange('email')}
-              className='w-2/3 bg-white'
-            />
-          </div>
-          <div>
             <label className='inline-block w-40 lg:w-60'>Address: </label>
             <InputField
               type='text'
@@ -129,6 +113,28 @@ const EditProfileInfoForm = () => {
               onChange={handleInputChange('address')}
               className='w-2/3 bg-white'
             />
+            <div>
+              <label className='inline-block w-40 lg:w-60'>Email: </label>
+              <InputField
+                type='text'
+                placeholder={userInformation?.email || 'Email'}
+                value={formData.email}
+                onChange={handleInputChange('email')}
+                className='w-2/3 bg-white'
+              />
+            </div>
+            <div>
+              <label className='inline-block w-40 lg:w-60'>
+                Phone number:{' '}
+              </label>
+              <InputField
+                type='text'
+                placeholder={userInformation?.phoneNumber || 'Phone number'}
+                value={formData.phoneNumber}
+                onChange={handleInputChange('email')}
+                className='w-2/3 bg-white'
+              />
+            </div>
           </div>
           <div>
             <label className='inline-block w-40 md:w-60'>
@@ -142,13 +148,13 @@ const EditProfileInfoForm = () => {
               <option value='NOTCHOSEN' className='text-center'>
                 Not chosen
               </option>
-              <option value='email' className='text-center'>
+              <option value='EMAIL' className='text-center'>
                 Email
               </option>
-              <option value='phone' className='text-center'>
+              <option value='PHONECALL' className='text-center'>
                 Phone call
               </option>
-              <option value='sms' className='text-center'>
+              <option value='TEXTMESSAGE' className='text-center'>
                 Text message
               </option>
             </select>
