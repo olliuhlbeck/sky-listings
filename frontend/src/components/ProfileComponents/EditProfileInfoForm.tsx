@@ -113,29 +113,28 @@ const EditProfileInfoForm = () => {
               onChange={handleInputChange('address')}
               className='w-2/3 bg-white'
             />
-            <div>
-              <label className='inline-block w-40 lg:w-60'>Email: </label>
-              <InputField
-                type='text'
-                placeholder={userInformation?.email || 'Email'}
-                value={formData.email}
-                onChange={handleInputChange('email')}
-                className='w-2/3 bg-white'
-              />
-            </div>
-            <div>
-              <label className='inline-block w-40 lg:w-60'>
-                Phone number:{' '}
-              </label>
-              <InputField
-                type='text'
-                placeholder={userInformation?.phoneNumber || 'Phone number'}
-                value={formData.phoneNumber}
-                onChange={handleInputChange('email')}
-                className='w-2/3 bg-white'
-              />
-            </div>
           </div>
+          <div>
+            <label className='inline-block w-40 lg:w-60'>Email: </label>
+            <InputField
+              type='text'
+              placeholder={userInformation?.email || 'Email'}
+              value={formData.email}
+              onChange={handleInputChange('email')}
+              className='w-2/3 bg-white'
+            />
+          </div>
+          <div>
+            <label className='inline-block w-40 lg:w-60'>Phone number:</label>
+            <InputField
+              type='text'
+              placeholder={userInformation?.phoneNumber || 'Phone number'}
+              value={formData.phoneNumber}
+              onChange={handleInputChange('email')}
+              className='w-2/3 bg-white'
+            />
+          </div>
+
           <div>
             <label className='inline-block w-40 md:w-60'>
               Preferred contact style:{' '}
