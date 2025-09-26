@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { EditProfileInfoFormData } from '../../types/EditProfileInfoFormData';
 import InputField from '../GeneralComponents/InputField';
-import { UserInformation } from '../../types/UserInformation';
 import { useAuth } from '../../utils/useAuth';
 import IconComponent from '../GeneralComponents/IconComponent';
 import { MdErrorOutline } from 'react-icons/md';
@@ -16,12 +15,12 @@ const EditProfileInfoForm = () => {
     phoneNumber: '',
     preferredContactMethod: 'NOTCHOSEN',
   });
-  const [userInformation, setUserInformation] =
-    useState<UserInformation | null>(null);
+  const [originalData, setOriginalData] =
+    useState<EditProfileInfoFormData | null>(null);
 
   const token = useAuth();
 
-  const fetchUserInformation = async (): Promise<void> => {
+  const fetchOriginalData = async (): Promise<void> => {
     setLoading(true);
     try {
       const BASE_URL = import.meta.env.VITE_API_URL;
@@ -36,7 +35,7 @@ const EditProfileInfoForm = () => {
         throw new Error('Failed to fetch user information. Please try again.');
       }
       const data: EditProfileInfoFormData = await response.json();
-      setUserInformation(data);
+      setOriginalData(data);
       setFormData(data);
     } catch {
       setErrorMessage('Failed to fetch profile information. Please try again.');
@@ -45,10 +44,10 @@ const EditProfileInfoForm = () => {
     }
   };
 
-  // Fetch current user information to display
+  // Fetch current user information and set as placeholder values and original data
   useEffect(() => {
     if (token?.userId !== null && token?.userId !== undefined) {
-      fetchUserInformation();
+      fetchOriginalData();
     }
   }, [token]);
 
@@ -88,7 +87,7 @@ const EditProfileInfoForm = () => {
             <label className='inline-block w-40 lg:w-60'>First name: </label>
             <InputField
               type='text'
-              placeholder={userInformation?.firstName || 'First name'}
+              placeholder={originalData?.firstName || 'First name'}
               value={formData.firstName}
               onChange={handleInputChange('firstName')}
               className='w-2/3 bg-white'
@@ -98,7 +97,7 @@ const EditProfileInfoForm = () => {
             <label className='inline-block w-40 lg:w-60'>Last name: </label>
             <InputField
               type='text'
-              placeholder={userInformation?.lastName || 'Last name'}
+              placeholder={originalData?.lastName || 'Last name'}
               value={formData.lastName}
               onChange={handleInputChange('lastName')}
               className='w-2/3 bg-white'
@@ -108,7 +107,7 @@ const EditProfileInfoForm = () => {
             <label className='inline-block w-40 lg:w-60'>Address: </label>
             <InputField
               type='text'
-              placeholder={userInformation?.address || 'Address'}
+              placeholder={originalData?.address || 'Address'}
               value={formData.address}
               onChange={handleInputChange('address')}
               className='w-2/3 bg-white'
@@ -118,7 +117,7 @@ const EditProfileInfoForm = () => {
             <label className='inline-block w-40 lg:w-60'>Email: </label>
             <InputField
               type='text'
-              placeholder={userInformation?.email || 'Email'}
+              placeholder={originalData?.email || 'Email'}
               value={formData.email}
               onChange={handleInputChange('email')}
               className='w-2/3 bg-white'
@@ -128,9 +127,9 @@ const EditProfileInfoForm = () => {
             <label className='inline-block w-40 lg:w-60'>Phone number:</label>
             <InputField
               type='text'
-              placeholder={userInformation?.phoneNumber || 'Phone number'}
+              placeholder={originalData?.phoneNumber || 'Phone number'}
               value={formData.phoneNumber}
-              onChange={handleInputChange('email')}
+              onChange={handleInputChange('phoneNumber')}
               className='w-2/3 bg-white'
             />
           </div>
