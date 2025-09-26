@@ -4,6 +4,7 @@ import InputField from '../GeneralComponents/InputField';
 import { useAuth } from '../../utils/useAuth';
 import IconComponent from '../GeneralComponents/IconComponent';
 import { MdErrorOutline } from 'react-icons/md';
+import Button from '../GeneralComponents/Button';
 const EditProfileInfoForm = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string>('');
@@ -20,6 +21,7 @@ const EditProfileInfoForm = () => {
 
   const token = useAuth();
 
+  // Function to fetch original user data
   const fetchOriginalData = async (): Promise<void> => {
     setLoading(true);
     try {
@@ -44,12 +46,17 @@ const EditProfileInfoForm = () => {
     }
   };
 
-  // Fetch current user information and set as placeholder values and original data
+  // Fetch current user information and set as placeholder values and as original data
   useEffect(() => {
     if (token?.userId !== null && token?.userId !== undefined) {
       fetchOriginalData();
     }
   }, [token]);
+
+  // Check if form data has changed from original data
+  const hasFormChanged = (): boolean => {
+    return JSON.stringify(formData) !== JSON.stringify(originalData);
+  };
 
   // Handle editing input controller information
   const handleInputChange =
@@ -156,6 +163,14 @@ const EditProfileInfoForm = () => {
                 Text message
               </option>
             </select>
+          </div>
+          {/* Reset and submit button, functionality to be implemented */}
+          <div className='flex gap-6 mt-4 mx-auto'>
+            <Button
+              ClassName='w-40 !bg-amber-300 hover:!bg-amber-400'
+              text='Reset form'
+            />
+            <Button ClassName='w-40' text='Save changes' />
           </div>
         </div>
       )}
