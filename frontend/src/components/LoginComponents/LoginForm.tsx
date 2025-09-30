@@ -290,6 +290,7 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
           <InputField
             name='usernameInput'
             type='text'
+            autoComplete='username'
             value={inputs.username}
             onChange={handleUserNameChange}
             placeholder='Username'
@@ -313,6 +314,9 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
           <InputField
             name='passwordInput'
             type='password'
+            autoComplete={
+              action === ActionType.Login ? 'current-password' : 'new-password'
+            }
             value={inputs.password}
             onChange={handlePasswordChange}
             placeholder='Password'

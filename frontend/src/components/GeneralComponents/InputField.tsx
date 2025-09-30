@@ -7,9 +7,11 @@ const InputField = ({
   value,
   onChange,
   className,
+  autoComplete,
 }: InputFieldProps) => {
   return (
     <input
+      autoComplete={autoComplete}
       name={name}
       type={type}
       placeholder={placeholder}

@@ -1,4 +1,5 @@
 export interface InputFieldProps {
+  autoComplete?: string;
   type: string;
   placeholder: string;
   value: string;
