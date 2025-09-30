@@ -11,7 +11,7 @@ const Footer: React.FC<FooterProps> = ({ footerVisible, setFooterVisible }) => {
       className={`bg-sky-200 dark:bg-slate-800 sticky bottom-0 ${footerVisible ? 'w-full min-w-55 px-2 sm:px-8 md:px-16 lg:px-28 py-4' : 'ml-auto mr-2 w-12 sm:w-20 h-10 sm:h-16 rounded-t-md'} `}
     >
       <button
-        className='absolute top-0 sm:top-2 right-0 sm:right-4 hover:text-slate-100 hover:cursor-pointer transition pr-3 py-3'
+        className='absolute top-0 sm:top-2 right-0 sm:right-4 hover:text-slate-100 hover:cursor-pointer transition p-3'
         onClick={() => setFooterVisible(!footerVisible)}
       >
         {footerVisible ? (
