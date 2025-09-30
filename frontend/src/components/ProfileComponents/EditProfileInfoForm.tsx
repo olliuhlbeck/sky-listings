@@ -5,6 +5,8 @@ import { useAuth } from '../../utils/useAuth';
 import IconComponent from '../GeneralComponents/IconComponent';
 import { MdErrorOutline } from 'react-icons/md';
 import Button from '../GeneralComponents/Button';
+import { FaRegSave } from 'react-icons/fa';
+import { RiResetLeftLine } from 'react-icons/ri';
 const EditProfileInfoForm = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string>('');
@@ -87,6 +89,13 @@ const EditProfileInfoForm = () => {
       return;
     }
     console.log('Form submitted:', formData);
+  };
+
+  // Handle reset form to original data
+  const handleReset = (): void => {
+    if (hasFormChanged()) {
+      setFormData(originalData!);
+    }
   };
 
   return (
@@ -178,12 +187,17 @@ const EditProfileInfoForm = () => {
           {/* Reset and submit button, functionality to be implemented */}
           <div className='flex gap-6 mt-4 mx-auto'>
             <Button
-              ClassName='w-40 !bg-amber-300 hover:!bg-amber-400'
+              icon={RiResetLeftLine}
+              iconSize={18}
+              ClassName='!bg-red-300 hover:!bg-red-400'
               text='Reset form'
+              onClick={handleReset}
             />
             <Button
+              icon={FaRegSave}
+              iconSize={18}
               type='submit'
-              ClassName='w-40'
+              ClassName=''
               text='Save changes'
               disabled={!hasFormChanged()}
             />
