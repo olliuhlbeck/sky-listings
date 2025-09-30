@@ -265,6 +265,7 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
               <InputField
                 name='emailInput'
                 type='text'
+                autoComplete='email'
                 value={inputs.email}
                 onChange={handleEmailChange}
                 placeholder='Email'
@@ -280,6 +281,7 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
         </>
       )}
 
+      {/* Username Field */}
       <div className='flex flex-col space-y-1'>
         <div className='flex space-x-2 items-center'>
           <IconComponent
@@ -304,6 +306,7 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
         )}
       </div>
 
+      {/* Password Field */}
       <div className='flex flex-col space-y-1'>
         <div className='flex space-x-2 items-center'>
           <IconComponent
@@ -330,6 +333,7 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
         )}
       </div>
 
+      {/* Submit Button with Tooltip if form is invalid */}
       {!isFormValid ? (
         <ToolTip
           toolTipText='Please fill out all fields before submitting.'
@@ -353,6 +357,7 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
         </Button>
       )}
 
+      {/* General error message display and submit button */}
       {errors.generalError && (
         <span className='text-red-500 text-xs md:text-base w-52'>
           {errors.generalError}
