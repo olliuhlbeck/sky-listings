@@ -78,8 +78,19 @@ const EditProfileInfoForm = () => {
       }));
     };
 
+  // Handle form submission to update user information
+  const handleSubmit = async (event: React.FormEvent): Promise<void> => {
+    event.preventDefault();
+    if (!hasFormChanged()) {
+      setErrorMessage('No changes made to the form. No information updated.');
+      setTimeout(() => setErrorMessage(''), 3000);
+      return;
+    }
+    console.log('Form submitted:', formData);
+  };
+
   return (
-    <div className='sm:w-2/3 text-xs md:text-base'>
+    <form onSubmit={handleSubmit} className='sm:w-2/3 text-xs md:text-base'>
       {loading ? (
         <p className='mx-auto'>Loading...</p>
       ) : errorMessage ? (
@@ -170,11 +181,16 @@ const EditProfileInfoForm = () => {
               ClassName='w-40 !bg-amber-300 hover:!bg-amber-400'
               text='Reset form'
             />
-            <Button ClassName='w-40' text='Save changes' />
+            <Button
+              type='submit'
+              ClassName='w-40'
+              text='Save changes'
+              disabled={!hasFormChanged()}
+            />
           </div>
         </div>
       )}
-    </div>
+    </form>
   );
 };
 
