@@ -13,6 +13,15 @@ export interface UserInfoReturnDto {
   preferredContactMethod: 'EMAIL' | 'PHONECALL' | 'TEXTMESSAGE' | 'NOTCHOSEN';
 }
 
+export interface UpdateUserInfo {
+  address: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  email: string;
+  preferredContactMethod: 'EMAIL' | 'PHONECALL' | 'TEXTMESSAGE' | 'NOTCHOSEN';
+}
+
 export interface GetContactInfo {
   userId: string;
 }

@@ -10,6 +10,7 @@ import { RiResetLeftLine } from 'react-icons/ri';
 const EditProfileInfoForm = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string>('');
+  const [successMessage, setSuccessMessage] = useState<string>('');
   const [formData, setFormData] = useState<EditProfileInfoFormData>({
     address: '',
     email: '',
@@ -83,12 +84,50 @@ const EditProfileInfoForm = () => {
   // Handle form submission to update user information
   const handleSubmit = async (event: React.FormEvent): Promise<void> => {
     event.preventDefault();
+
     if (!hasFormChanged()) {
       setErrorMessage('No changes made to the form. No information updated.');
       setTimeout(() => setErrorMessage(''), 3000);
       return;
     }
-    console.log('Form submitted:', formData);
+
+    setLoading(true);
+    setErrorMessage('');
+
+    try {
+      const BASE_URL = import.meta.env.VITE_API_URL;
+      const response = await fetch(`${BASE_URL}/info/updateUserInfo`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token.token}`,
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to update user information');
+      }
+
+      const updatedData: EditProfileInfoFormData = await response.json();
+
+      // Update both form data and original data with the response
+      setFormData(updatedData);
+      setOriginalData(updatedData);
+
+      // Show success message
+      setSuccessMessage('Profile updated successfully!');
+      setTimeout(() => setSuccessMessage(''), 3000);
+    } catch (error) {
+      setErrorMessage(
+        error instanceof Error
+          ? error.message
+          : 'Failed to update profile information. Please try again.',
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   // Handle reset form to original data
@@ -184,7 +223,7 @@ const EditProfileInfoForm = () => {
               </option>
             </select>
           </div>
-          {/* Reset and submit button, functionality to be implemented */}
+          {/* Reset and submit buttons */}
           <div className='flex gap-6 mt-4 mx-auto'>
             <Button
               icon={RiResetLeftLine}
@@ -197,10 +236,15 @@ const EditProfileInfoForm = () => {
               icon={FaRegSave}
               iconSize={18}
               type='submit'
-              ClassName=''
+              ClassName='relative'
               text='Save changes'
               disabled={!hasFormChanged()}
             />
+            {successMessage && (
+              <div className='absolute left-1/2 transform -translate-x-1/4 sm:translate-x-7 xl:translate-x-1/2 flex text-center justify-center items-center border border-green-900 bg-green-50 text-green-600 h-9 md:h-10 lg:h-11 font-semibold rounded-md px-2 lg:px-4'>
+                {successMessage}
+              </div>
+            )}
           </div>
         </div>
       )}
