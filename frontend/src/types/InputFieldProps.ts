@@ -6,4 +6,5 @@ export interface InputFieldProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   className?: string;
   name?: string;
+  id?: string;
 }

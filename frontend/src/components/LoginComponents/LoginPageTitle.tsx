@@ -11,21 +11,22 @@ const LoginPageTitle = ({ action }: LoginComponentProps) => {
           clipPath: 'polygon(0% 0, 100% 0, 100% 100%, 0 100%)',
         }}
       >
-        <h2 className='text-3xl font-bold'>
+        <h1 className='text-3xl font-bold'>
           {action === ActionType.Login ? 'Login' : 'Sign up'}
-        </h2>
+        </h1>
       </div>
 
       {/* Title and background on right side for larger screens */}
       <div
         className="hidden md:flex bg-[url('./assets/loginBackground.jpg')] dark:bg-[url('./assets/loginBgDarkMode.png')] h-full w-1/3 bg-cover bg-center bg-no-repeat items-center justify-center rounded-r-md dark:text-white"
+        aria-hidden='true'
         style={{
           clipPath: 'polygon(15% 0, 100% 0, 100% 100%, 0 100%)',
         }}
       >
-        <h2 className='md:text-3xl lg:text-4xl xl:text-5xl font-bold'>
+        <h1 className='md:text-3xl lg:text-4xl xl:text-5xl font-bold'>
           {action === ActionType.Login ? 'Login' : 'Sign up'}
-        </h2>
+        </h1>
       </div>
     </>
   );
