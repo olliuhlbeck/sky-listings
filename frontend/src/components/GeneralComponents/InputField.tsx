@@ -2,6 +2,7 @@ import { InputFieldProps } from '../../types/InputFieldProps';
 
 const InputField = ({
   name,
+  id,
   type,
   placeholder,
   value,
@@ -13,6 +14,7 @@ const InputField = ({
     <input
       autoComplete={autoComplete}
       name={name}
+      id={id}
       type={type}
       placeholder={placeholder}
       value={value}
