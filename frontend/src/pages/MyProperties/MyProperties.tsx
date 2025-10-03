@@ -33,7 +33,6 @@ const MyProperties = () => {
         `${BASE_URL}/property/getPropertiesByUserId?userId=${userId}`,
       );
       const data: GetUsersPropertiesByUserIdResponse = await response.json();
-      console.log(data);
       if (response.ok && data.usersProperties) {
         setUsersProperties(data.usersProperties);
         setErrorMessage('');
