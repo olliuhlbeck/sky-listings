@@ -150,8 +150,14 @@ const EditProfileInfoForm = () => {
       ) : (
         <div className='flex flex-col gap-2'>
           <div>
-            <label className='inline-block w-40 lg:w-60'>First name: </label>
+            <label
+              htmlFor='firstNameInput'
+              className='inline-block w-40 lg:w-60'
+            >
+              First name:{' '}
+            </label>
             <InputField
+              id='firstNameInput'
               type='text'
               placeholder={originalData?.firstName || 'First name'}
               value={formData.firstName}
@@ -160,8 +166,14 @@ const EditProfileInfoForm = () => {
             />
           </div>
           <div>
-            <label className='inline-block w-40 lg:w-60'>Last name: </label>
+            <label
+              htmlFor='lastNameInput'
+              className='inline-block w-40 lg:w-60'
+            >
+              Last name:{' '}
+            </label>
             <InputField
+              id='lastNameInput'
               type='text'
               placeholder={originalData?.lastName || 'Last name'}
               value={formData.lastName}
@@ -170,8 +182,11 @@ const EditProfileInfoForm = () => {
             />
           </div>
           <div>
-            <label className='inline-block w-40 lg:w-60'>Address: </label>
+            <label htmlFor='addressInput' className='inline-block w-40 lg:w-60'>
+              Address:{' '}
+            </label>
             <InputField
+              id='addressInput'
               type='text'
               placeholder={originalData?.address || 'Address'}
               value={formData.address}
@@ -180,8 +195,11 @@ const EditProfileInfoForm = () => {
             />
           </div>
           <div>
-            <label className='inline-block w-40 lg:w-60'>Email: </label>
+            <label htmlFor='emailInput' className='inline-block w-40 lg:w-60'>
+              Email:{' '}
+            </label>
             <InputField
+              id='emailInput'
               type='text'
               placeholder={originalData?.email || 'Email'}
               value={formData.email}
@@ -190,8 +208,14 @@ const EditProfileInfoForm = () => {
             />
           </div>
           <div>
-            <label className='inline-block w-40 lg:w-60'>Phone number:</label>
+            <label
+              htmlFor='phoneNumberInput'
+              className='inline-block w-40 lg:w-60'
+            >
+              Phone number:
+            </label>
             <InputField
+              id='phoneNumberInput'
               type='text'
               placeholder={originalData?.phoneNumber || 'Phone number'}
               value={formData.phoneNumber}
@@ -201,10 +225,14 @@ const EditProfileInfoForm = () => {
           </div>
 
           <div>
-            <label className='inline-block w-40 md:w-60'>
+            <label
+              htmlFor='preferredContactMethodSelection'
+              className='inline-block w-40 md:w-60'
+            >
               Preferred contact style:{' '}
             </label>
             <select
+              id='preferredContactMethodSelection'
               value={formData.preferredContactMethod}
               onChange={handleSelectChange('preferredContactMethod')}
               className='w-2/3 bg-white px-3 py-2 border border-gray-300 rounded-md dark:text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-900'
