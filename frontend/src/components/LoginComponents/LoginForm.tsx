@@ -200,6 +200,7 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
   return (
     <form
       name='loginForm'
+      aria-label={action === ActionType.Login ? 'Login Form' : 'Sign Up Form'}
       onSubmit={handleSubmit}
       className='flex flex-col grow items-center space-y-4'
     >
@@ -209,6 +210,9 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
           {/* First Name Field */}
           <div className='flex flex-col space-y-1'>
             <div className='flex space-x-2 items-center'>
+              <label htmlFor='firstNameInput' className='sr-only'>
+                First Name
+              </label>
               <IconComponent
                 icon={TbCircleLetterF}
                 className='self-center'
@@ -216,15 +220,24 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
               />
               <InputField
                 name='firstNameInput'
+                id='firstNameInput'
                 type='text'
                 value={inputs.firstName}
                 onChange={handleFirstNameChange}
                 placeholder='First Name'
                 className='w-52 dark:bg-gray'
+                aria-describedby={
+                  errors.firstName ? 'firstNameError' : undefined
+                }
+                aria-invalid={!!errors.firstName}
               />
             </div>
             {errors.firstName && (
-              <span className='text-red-500 text-xs md:text-base'>
+              <span
+                id='firstNameError'
+                role='alert'
+                className='text-red-500 text-xs md:text-base'
+              >
                 {errors.firstName}
               </span>
             )}
@@ -233,6 +246,9 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
           {/* Last Name Field */}
           <div className='flex flex-col space-y-1'>
             <div className='flex space-x-2 items-center'>
+              <label htmlFor='lastNameInput' className='sr-only'>
+                Last Name
+              </label>
               <IconComponent
                 icon={TbCircleLetterL}
                 className='self-center'
@@ -240,15 +256,22 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
               />
               <InputField
                 name='lastNameInput'
+                id='lastNameInput'
                 type='text'
                 value={inputs.lastName}
                 onChange={handleLastNameChange}
                 placeholder='Last Name'
                 className='w-52 dark:bg-gray'
+                aria-describedby={errors.lastName ? 'lastNameError' : undefined}
+                aria-invalid={!!errors.lastName}
               />
             </div>
             {errors.lastName && (
-              <span className='text-red-500 text-xs md:text-base'>
+              <span
+                id='lastNameError'
+                role='alert'
+                className='text-red-500 text-xs md:text-base'
+              >
                 {errors.lastName}
               </span>
             )}
@@ -257,6 +280,9 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
           {/* Email Field */}
           <div className='flex flex-col space-y-1'>
             <div className='flex space-x-2 items-center'>
+              <label htmlFor='emailInput' className='sr-only'>
+                Email
+              </label>
               <IconComponent
                 icon={MdOutlineEmail}
                 className='self-center'
@@ -264,16 +290,23 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
               />
               <InputField
                 name='emailInput'
+                id='emailInput'
                 type='text'
                 autoComplete='email'
                 value={inputs.email}
                 onChange={handleEmailChange}
                 placeholder='Email'
                 className='w-52 dark:bg-gray'
+                aria-describedby={errors.email ? 'emailError' : undefined}
+                aria-invalid={!!errors.email}
               />
             </div>
             {errors.email && (
-              <span className='text-red-500 text-xs md:text-base'>
+              <span
+                id='emailError'
+                role='alert'
+                className='text-red-500 text-xs md:text-base'
+              >
                 {errors.email}
               </span>
             )}
@@ -284,6 +317,9 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
       {/* Username Field */}
       <div className='flex flex-col space-y-1'>
         <div className='flex space-x-2 items-center'>
+          <label htmlFor='usernameInput' className='sr-only'>
+            Username
+          </label>
           <IconComponent
             icon={FaRegUser}
             className='self-center'
@@ -291,16 +327,23 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
           />
           <InputField
             name='usernameInput'
+            id='usernameInput'
             type='text'
             autoComplete='username'
             value={inputs.username}
             onChange={handleUserNameChange}
             placeholder='Username'
             className='w-52 dark:bg-gray'
+            aria-describedby={errors.username ? 'usernameError' : undefined}
+            aria-invalid={!!errors.username}
           />
         </div>
         {errors.username && (
-          <span className='text-red-500 text-xs md:text-base'>
+          <span
+            id='usernameError'
+            role='alert'
+            className='text-red-500 text-xs md:text-base'
+          >
             {errors.username}
           </span>
         )}
@@ -309,6 +352,9 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
       {/* Password Field */}
       <div className='flex flex-col space-y-1'>
         <div className='flex space-x-2 items-center'>
+          <label htmlFor='passwordInput' className='sr-only'>
+            Password
+          </label>
           <IconComponent
             icon={RiLockPasswordLine}
             className='self-center'
@@ -316,6 +362,7 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
           />
           <InputField
             name='passwordInput'
+            id='passwordInput'
             type='password'
             autoComplete={
               action === ActionType.Login ? 'current-password' : 'new-password'
@@ -324,10 +371,16 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
             onChange={handlePasswordChange}
             placeholder='Password'
             className='w-52 dark:bg-gray'
+            aria-describedby={errors.password ? 'passwordError' : undefined}
+            aria-invalid={!!errors.password}
           />
         </div>
         {errors.password && (
-          <span className='text-red-500 text-xs md:text-base'>
+          <span
+            id='passwordError'
+            role='alert'
+            className='text-red-500 text-xs md:text-base'
+          >
             {errors.password}
           </span>
         )}
@@ -359,14 +412,18 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
 
       {/* General error message display and submit button */}
       {errors.generalError && (
-        <span className='text-red-500 text-xs md:text-base w-52'>
+        <span
+          role='alert'
+          aria-live='polite'
+          className='text-red-500 text-xs md:text-base w-52'
+        >
           {errors.generalError}
         </span>
       )}
 
       <div className='text-xs md:text-base lg:text-lg pb-1 md:pb-8'>
         {action === ActionType.Login
-          ? 'Do not have an account?'
+          ? `Don't have an account?`
           : 'Already have a account?'}
         <Button
           type='button'
