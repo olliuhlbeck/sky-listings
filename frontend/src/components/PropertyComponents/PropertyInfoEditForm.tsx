@@ -22,6 +22,7 @@ const PropertyInfoEditForm: React.FC<PropertyEditProps> = ({
 
   const { token } = useAuth();
 
+  // Handle field edits
   const handleFieldEdit = (
     field: keyof UserProperty,
     value: string | number | null,
@@ -184,7 +185,12 @@ const PropertyInfoEditForm: React.FC<PropertyEditProps> = ({
       </div>
 
       {/* Submit button */}
-      <Button text='Save changes' ClassName='mx-auto mb-4' type='submit' />
+      <Button
+        text='Save changes'
+        ClassName='mx-auto mb-4'
+        type='submit'
+        disabled={Object.keys(editedFields).length === 0}
+      />
 
       {/* Message display */}
       {message && (
