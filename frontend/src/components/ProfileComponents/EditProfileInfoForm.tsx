@@ -61,6 +61,12 @@ const EditProfileInfoForm = () => {
     return JSON.stringify(formData) !== JSON.stringify(originalData);
   };
 
+  // Check field that has changed
+  const hasFieldChanged = (field: keyof EditProfileInfoFormData): boolean => {
+    if (!originalData) return false;
+    return formData[field] !== originalData[field];
+  };
+
   // Handle editing input controller information
   const handleInputChange =
     (field: keyof EditProfileInfoFormData) =>
@@ -162,7 +168,7 @@ const EditProfileInfoForm = () => {
               placeholder={originalData?.firstName || 'First name'}
               value={formData.firstName}
               onChange={handleInputChange('firstName')}
-              className='w-2/3 bg-white'
+              className={`w-2/3 bg-white ${hasFieldChanged('firstName') ? '!bg-amber-100' : ''}`}
             />
           </div>
           <div>
@@ -259,6 +265,7 @@ const EditProfileInfoForm = () => {
               ClassName='!bg-red-300 hover:!bg-red-400'
               text='Reset form'
               onClick={handleReset}
+              disabled={!hasFormChanged()}
             />
             <Button
               icon={FaRegSave}
