@@ -181,7 +181,12 @@ infoRouter.put(
     // Validate phone number format (basic check for digits and length (also Regex from copilot))
     const phoneRegex = /^\+?[1-9]\d{1,14}$/;
     if (!phoneRegex.test(phoneNumber)) {
-      res.status(400).json({ error: 'Invalid phone number format' });
+      res
+        .status(400)
+        .json({
+          error:
+            'Invalid phone number format. Use phone number format with area code in start (for example in Finland use +35840 511 3313)',
+        });
       return;
     }
 
