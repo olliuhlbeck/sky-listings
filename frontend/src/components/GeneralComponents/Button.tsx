@@ -11,9 +11,14 @@ const Button = ({
   icon,
   iconSize,
   onClick,
+  disabled,
 }: ButtonProps) => {
   const hasText = Boolean(children ?? text);
-  const basicClassName = `flex items-center ${hasText ? ' gap-2 px-4 py-2 ' : 'p-2'} rounded-md text-xs md:text-base lg:text-lg bg-sky-200 dark:bg-blue-800 hover:cursor-pointer hover:bg-sky-300 dark:hover:bg-blue-700 transition duration-200 ${ClassName} `;
+  const basicClassName = `flex items-center ${hasText ? ' gap-2 px-4 py-2 ' : 'p-2'} rounded-md text-xs md:text-base lg:text-lg bg-sky-200 dark:bg-blue-800 hover:cursor-pointer hover:bg-sky-300 dark:hover:bg-blue-700 transition duration-200 ${ClassName} ${
+    disabled
+      ? 'disabled:cursor-not-allowed disabled:bg-gray-300 dark:disabled:bg-gray-600'
+      : ''
+  }`;
 
   if (link) {
     return (
@@ -26,7 +31,12 @@ const Button = ({
   } else {
     return (
       // If no link render native button with on click behavior
-      <button type={type} className={basicClassName} onClick={onClick}>
+      <button
+        type={type}
+        className={basicClassName}
+        onClick={onClick}
+        disabled={disabled}
+      >
         {icon && <IconComponent icon={icon} size={iconSize} />}
         <span>{children ?? text}</span>
       </button>
