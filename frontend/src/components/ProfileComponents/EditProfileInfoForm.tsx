@@ -131,6 +131,9 @@ const EditProfileInfoForm = () => {
           ? error.message
           : 'Failed to update profile information. Please try again.',
       );
+      setTimeout(() => {
+        setErrorMessage('');
+      }, 6000);
     } finally {
       setLoading(false);
     }
