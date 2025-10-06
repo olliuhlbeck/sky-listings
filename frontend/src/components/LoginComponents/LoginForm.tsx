@@ -393,7 +393,7 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
           addToClassName='border'
         >
           <Button
-            ClassName='border bg-transparent'
+            ClassName='border bg-transparent !disabled:cursor-not-allowed !disabled:bg-gray-50'
             type='submit'
             disabled={!isFormValid}
           >
@@ -410,7 +410,7 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
         </Button>
       )}
 
-      {/* General error message display and submit button */}
+      {/* General error message display switch form mode button */}
       {errors.generalError && (
         <span
           role='alert'
