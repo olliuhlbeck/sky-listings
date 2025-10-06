@@ -184,7 +184,7 @@ const EditProfileInfoForm = () => {
               placeholder={originalData?.lastName || 'Last name'}
               value={formData.lastName}
               onChange={handleInputChange('lastName')}
-              className='w-2/3 bg-white'
+              className={`w-2/3 bg-white ${hasFieldChanged('lastName') ? '!bg-amber-100' : ''}`}
             />
           </div>
           <div>
@@ -197,7 +197,7 @@ const EditProfileInfoForm = () => {
               placeholder={originalData?.address || 'Address'}
               value={formData.address}
               onChange={handleInputChange('address')}
-              className='w-2/3 bg-white'
+              className={`w-2/3 bg-white ${hasFieldChanged('address') ? '!bg-amber-100' : ''}`}
             />
           </div>
           <div>
@@ -210,7 +210,7 @@ const EditProfileInfoForm = () => {
               placeholder={originalData?.email || 'Email'}
               value={formData.email}
               onChange={handleInputChange('email')}
-              className='w-2/3 bg-white'
+              className={`w-2/3 bg-white ${hasFieldChanged('email') ? '!bg-amber-100' : ''}`}
             />
           </div>
           <div>
@@ -226,7 +226,7 @@ const EditProfileInfoForm = () => {
               placeholder={originalData?.phoneNumber || 'Phone number'}
               value={formData.phoneNumber}
               onChange={handleInputChange('phoneNumber')}
-              className='w-2/3 bg-white'
+              className={`w-2/3 bg-white ${hasFieldChanged('phoneNumber') ? '!bg-amber-100' : ''}`}
             />
           </div>
 
@@ -241,7 +241,7 @@ const EditProfileInfoForm = () => {
               id='preferredContactMethodSelection'
               value={formData.preferredContactMethod}
               onChange={handleSelectChange('preferredContactMethod')}
-              className='w-2/3 bg-white px-3 py-2 border border-gray-300 rounded-md dark:text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-900'
+              className={`w-2/3 bg-white px-3 py-2 border border-gray-300 rounded-md dark:text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-900 ${hasFieldChanged('preferredContactMethod') ? '!bg-amber-100' : ''}`}
             >
               <option value='NOTCHOSEN' className='text-center'>
                 Not chosen
