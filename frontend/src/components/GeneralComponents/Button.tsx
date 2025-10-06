@@ -15,9 +15,7 @@ const Button = ({
 }: ButtonProps) => {
   const hasText = Boolean(children ?? text);
   const basicClassName = `flex items-center ${hasText ? ' gap-2 px-4 py-2 ' : 'p-2'} rounded-md text-xs md:text-base lg:text-lg bg-sky-200 dark:bg-blue-800 hover:cursor-pointer hover:bg-sky-300 dark:hover:bg-blue-700 transition duration-200 ${ClassName} ${
-    disabled
-      ? 'disabled:cursor-not-allowed disabled:bg-gray-300 dark:disabled:bg-gray-600'
-      : ''
+    disabled ? 'disabled:cursor-not-allowed' : ''
   }`;
 
   if (link) {
