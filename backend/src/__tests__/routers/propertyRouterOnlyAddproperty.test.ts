@@ -18,6 +18,7 @@ import path from 'path';
 const app = express();
 let propertyRouter: express.Router;
 
+// PropertyRouter tests (only /addProperty)
 describe('propertyRouter (only /addProperty)', () => {
   app.use(express.json());
 
@@ -27,6 +28,7 @@ describe('propertyRouter (only /addProperty)', () => {
     app.use('/', propertyRouter);
   });
 
+  // POST /addProperty
   describe('POST /addProperty', () => {
     it('returns 201 and success message on property creation', async () => {
       prismaMock.property.create.mockResolvedValue({
