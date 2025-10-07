@@ -173,6 +173,7 @@ describe('infoRouter', () => {
     });
   });
 
+  // Get /getAllUserInfo
   describe('GET /getAllUserInfo', () => {
     it('returns 404 if user is not found', async () => {
       mockFindUnique.mockResolvedValue(null);
