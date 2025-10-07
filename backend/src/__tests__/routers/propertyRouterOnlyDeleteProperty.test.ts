@@ -18,6 +18,7 @@ jest.mock('../../../generated/prisma', () => {
 
 let propertyRouter: express.Router;
 
+// PropertyRouter tests (only /delete/:propertyId)
 describe('DELETE /delete/:propertyId', () => {
   const app = express();
   app.use(express.json());
