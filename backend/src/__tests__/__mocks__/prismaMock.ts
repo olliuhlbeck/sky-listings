@@ -5,6 +5,10 @@ export const userMock = {
   findUnique: jest.fn(),
   update: jest.fn(),
 };
+export const userInfoMock = {
+  findUnique: jest.fn(),
+  update: jest.fn(),
+};
 export const propertyMock = {
   count: jest.fn(),
   create: jest.fn(),
@@ -21,6 +25,7 @@ export const propertyPictureMock = {
 // Export combined mockPack
 export const prismaMock = {
   user: userMock,
+  userInfo: userInfoMock,
   property: propertyMock,
   propertyPicture: propertyPictureMock,
 };

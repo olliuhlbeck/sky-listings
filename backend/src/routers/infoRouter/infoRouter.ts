@@ -172,6 +172,23 @@ infoRouter.put(
       preferredContactMethod,
     } = req.body;
 
+    // Validate required fields are present
+    if (
+      !firstName ||
+      !lastName ||
+      !phoneNumber ||
+      !email ||
+      !preferredContactMethod
+    ) {
+      res
+        .status(400)
+        .json({
+          error:
+            'Invalid request body. Please provide all required fields with correct types.',
+        });
+      return;
+    }
+
     // Validate email format (Regex from copilot)
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
@@ -181,12 +198,10 @@ infoRouter.put(
     // Validate phone number format (basic check for digits and length (also Regex from copilot))
     const phoneRegex = /^\+?[1-9]\d{1,14}$/;
     if (!phoneRegex.test(phoneNumber)) {
-      res
-        .status(400)
-        .json({
-          error:
-            'Invalid phone number format. Use phone number format with area code in start (for example in Finland use +35840 511 3313)',
-        });
+      res.status(400).json({
+        error:
+          'Invalid phone number format. Use phone number format with area code in start (for example in Finland use +35840 511 3313)',
+      });
       return;
     }
 
