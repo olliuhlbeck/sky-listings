@@ -31,6 +31,7 @@ enum ContactMethod {
   TEXTMESSAGE
   NOTCHOSEN
 }
+
 model UserInfo {
   id                        Int             @id @default(autoincrement())
   firstName                 String
@@ -40,6 +41,7 @@ model UserInfo {
   phone                     String?         @db.VarChar(20)
   address                   String?         @db.VarChar(100)
   preferredContactDetails   ContactMethod   @default(NOTCHOSEN)
+  profilePicture            Bytes?
 }
 
 enum PropertyTypes {
