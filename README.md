@@ -1,6 +1,7 @@
 # Sky Listings - Full stack project
 
-A real estate React application that allows users to browse, search, and list properties. The application features secure user authentication and a responsive design. Aiming for a clean, intuitive UI built with React, TypeScript, and TailwindCSS.
+Sky Listings is a full-stack real estate application that allows users to browse, search, and list properties.
+It includes secure authentication, a responsive design, and an intuitive user experience built with React, TypeScript, and TailwindCSS on the frontend, and Node.js + Express + PostgreSQL on the backend.
 
 ### Screenshots
 
@@ -18,13 +19,38 @@ A real estate React application that allows users to browse, search, and list pr
   > **Note on apps image handling:**
   > The current approach to handling images in this project is not ideal. Images are embedded as base64-strings, which isn't aligned with best practices for performance and scalability. This was a conscious trade-off made to simplify development and keep the project lightweight
 
+## Features
+
+### 🔑 Authentication
+
+- Register and log in securely
+- Passwords hashed using bcrypt
+- JWT-based session management
+
+### 🏠 Property browsing
+
+- Browse and search all properties
+- Filter by location, price, or property type
+- View detailed property information pages with sellers contact information
+
+### 🧑‍💼 User dashboard
+
+- Create, edit, and delete your own property listings
+- Upload property images
+- Update user profile details
+
+### 📱 Responsive Design
+
+- Responsive layout optimized for desktop and mobile
+- TailwindCSS-based UI design for consistent styling
+
 ## Getting Started
 
 ### Prerequisites:
 
 - Node.js installed
 - PostgreSQL installed and running
-- PostgreSQL database created and accesible
+- PostgreSQL database created and accessible
 - `.env` file which has correct `DATABASE_URL` that connects to said database
 - `.env` file must also have `SECRET` defined
 
