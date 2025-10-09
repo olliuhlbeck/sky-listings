@@ -265,7 +265,7 @@ const EditProfileInfoForm = () => {
             <Button
               icon={RiResetLeftLine}
               iconSize={18}
-              ClassName='!bg-red-300 hover:!bg-red-400'
+              ClassName='!bg-red-300 hover:!bg-red-400  dark:!bg-red-700 dark:hover:!bg-red-600'
               text='Reset form'
               onClick={handleReset}
               disabled={!hasFormChanged()}
