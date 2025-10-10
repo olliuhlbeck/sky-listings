@@ -1,5 +1,5 @@
 import { useAuth } from '../../utils/useAuth';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import IconComponent from '../GeneralComponents/IconComponent';
 import { CgProfile } from 'react-icons/cg';
 import Button from '../GeneralComponents/Button';
@@ -18,10 +18,41 @@ const UserProfilePictureChanger = () => {
   const [success, setSuccess] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  // Fetch current profile picture function
+  const fetchCurrentProfilePicture = async () => {
+    try {
+      const BASE_URL = import.meta.env.VITE_API_URL;
+      const response = await fetch(`${BASE_URL}/info/getProfilePicture`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token.token}`,
+        },
+      });
+      if (response.ok) {
+        const data = await response.json();
+        if (data.profilePicture) {
+          setCurrentImage(data.profilePicture);
+          setPreview(data.profilePicture);
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching profile picture:', error);
+      setError('Failed to load profile picture');
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  // Fetch current profile picture on component mount
+  useEffect(() => {
+    fetchCurrentProfilePicture();
+  }, []);
+
+  // Handle user selecting a file
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      // Validate file size
+      // Limit file size to 5MB same as backend
       if (file.size > 5 * 1024 * 1024) {
         setError('File size must be less than 5MB');
         return;
@@ -45,16 +76,18 @@ const UserProfilePictureChanger = () => {
     }
   };
 
+  // Click handlers to trigger file input
   const handleImageClick = () => {
     fileInputRef.current?.click();
   };
-
   const handleButtonClick = () => {
     fileInputRef.current?.click();
   };
 
+  // Determine if there are unsaved changes
   const hasChanges = selectedFile !== null;
 
+  // Reset logic
   const handleReset = () => {
     setPreview(currentImage);
     setSelectedFile(null);
@@ -67,8 +100,42 @@ const UserProfilePictureChanger = () => {
     }
   };
 
-  const handleSave = () => {
-    console.log('Saving profile picture...');
+  // Save logic
+  const handleSave = async () => {
+    if (!selectedFile) {
+      return;
+    }
+    setSuccess(null);
+    setError(null);
+    setIsUploading(true);
+
+    try {
+      const formData = new FormData();
+      formData.append('profilePicture', selectedFile);
+
+      const BASE_URL = import.meta.env.VITE_API_URL;
+      const response = await fetch(`${BASE_URL}/info/updateProfilePicture`, {
+        method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${token.token}`,
+        },
+        body: formData,
+      });
+      const data = await response.json();
+      setIsUploading(false);
+      if (!response.ok) {
+        setError(data.error || 'Failed to upload image');
+        return;
+      } else {
+        setSuccess('Profile picture updated successfully');
+        setCurrentImage(preview as string);
+        setSelectedFile(null);
+        return;
+      }
+    } catch {
+      setIsUploading(false);
+      setError('An unexpected error occurred. Please try again.');
+    }
   };
 
   return (
