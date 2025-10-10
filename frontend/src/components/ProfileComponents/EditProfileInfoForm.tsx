@@ -7,6 +7,7 @@ import { MdErrorOutline } from 'react-icons/md';
 import Button from '../GeneralComponents/Button';
 import { FaRegSave } from 'react-icons/fa';
 import { RiResetLeftLine } from 'react-icons/ri';
+
 const EditProfileInfoForm = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string>('');
