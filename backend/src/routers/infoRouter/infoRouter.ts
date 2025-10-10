@@ -10,9 +10,15 @@ import {
 } from '../../types/dtos/GetContactInfo.dto';
 import { AuthenticatedRequest } from '../../types/AuthenticatedRequest';
 import AuthenticateRequest from '../../middlewares/authentication/authenticateRequest';
+import multer from 'multer';
 
 const infoRouter = express.Router();
 const prisma = new PrismaClient();
+
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 5 * 1024 * 1024 }, // Limit file size to 5MB same as frontend
+});
 
 /*
  * Get contact info route
@@ -149,7 +155,7 @@ infoRouter.get(
 
 /*
  * Update user info route
- * --Updates first name, last name, address, phone, email and preferred contact method
+ * -Updates first name, last name, address, phone, email and preferred contact method
  */
 infoRouter.put(
   '/updateUserInfo',
@@ -180,12 +186,10 @@ infoRouter.put(
       !email ||
       !preferredContactMethod
     ) {
-      res
-        .status(400)
-        .json({
-          error:
-            'Invalid request body. Please provide all required fields with correct types.',
-        });
+      res.status(400).json({
+        error:
+          'Invalid request body. Please provide all required fields with correct types.',
+      });
       return;
     }
 
@@ -272,6 +276,107 @@ infoRouter.put(
       res.status(200).json(updatedInfo);
     } catch {
       res.status(500).json({ error: 'Error finding user in backend' });
+      return;
+    }
+  },
+);
+
+/*
+ * Update profile picture route
+ * -Updates profile picture in database
+ */
+infoRouter.put(
+  '/updateProfilePicture',
+  AuthenticateRequest,
+  upload.single('profilePicture'),
+  async (
+    req: AuthenticatedRequest<{}, {}, {}>,
+    res: Response<{} | GeneralErrorResponse>,
+  ): Promise<void> => {
+    const userId = req.user?.userId;
+
+    if (!userId) {
+      res.status(401).json({ error: 'User not authenticated' });
+      return;
+    }
+    if (!req.file) {
+      res.status(400).json({ error: 'No file uploaded' });
+      return;
+    }
+
+    try {
+      // Validate file type as image
+      if (!req.file.mimetype.startsWith('image/')) {
+        res
+          .status(400)
+          .json({ error: 'Invalid file type. Please upload an image.' });
+        return;
+      }
+
+      // Update profile picture in userInfo database
+      await prisma.userInfo.update({
+        where: { userId },
+        data: { profilePicture: req.file.buffer },
+      });
+
+      // Convert image buffer to Data URI (base64) to send back to frontend
+      // so that user can see the updated profile picture immediately
+      const base64Image = req.file.buffer.toString('base64');
+      const DataUri = `data:${req.file.mimetype};base64,${base64Image}`;
+
+      res.status(200).json({
+        message: 'Profile picture updated successfully',
+        profilePicture: DataUri,
+      });
+      return;
+    } catch {
+      res
+        .status(500)
+        .json({ error: 'Error updating profile picture in backend' });
+      return;
+    }
+  },
+);
+
+// Fetch profile picture route
+infoRouter.get(
+  '/getProfilePicture',
+  AuthenticateRequest,
+  async (
+    req: AuthenticatedRequest<{}, {}, {}, { userId?: string }>,
+    res: Response<{ profilePicture: string | null } | GeneralErrorResponse>,
+  ): Promise<void> => {
+    const userId = req.query.userId
+      ? parseInt(req.query.userId, 10)
+      : req.user?.userId;
+
+    if (!userId) {
+      res.status(401).json({ error: 'User not authenticated' });
+      return;
+    }
+
+    try {
+      const userInfo = await prisma.userInfo.findUnique({
+        where: { userId: userId },
+        select: { profilePicture: true },
+      });
+
+      if (!userInfo) {
+        res.status(404).json({ error: 'User info not found' });
+        return;
+      }
+
+      // Convert bytes to base64 data URI for frontend
+      if (userInfo.profilePicture) {
+        const base64 = Buffer.from(userInfo.profilePicture).toString('base64');
+        const dataUri = `data:image/jpeg;base64,${base64}`;
+        res.status(200).json({ profilePicture: dataUri });
+      } else {
+        res.status(200).json({ profilePicture: null });
+      }
+    } catch (error) {
+      console.error('Error fetching profile picture:', error);
+      res.status(500).json({ error: 'Error fetching profile picture' });
       return;
     }
   },
