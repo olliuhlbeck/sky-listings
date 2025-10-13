@@ -9,8 +9,8 @@ import { BiCamera } from 'react-icons/bi';
 import Button from '../../components/GeneralComponents/Button';
 import { BsHouseUp } from 'react-icons/bs';
 import { useAuth } from '../../utils/useAuth';
-import { CreatePropertyResponse } from '../../types/dtos/CreatePropertyResponse';
-import { GeneralErrorResponse } from '../../types/dtos/GeneralErrorResponse';
+import { CreatePropertyResponse } from '../../types/dtos/CreatePropertyResponse.dto';
+import { GeneralErrorResponse } from '../../types/dtos/GeneralErrorResponse.dto';
 
 const AddProperty: React.FC = () => {
   const [formData, setFormData] = useState<PropertyFormData>({

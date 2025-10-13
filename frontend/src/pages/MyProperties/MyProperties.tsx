@@ -9,7 +9,7 @@ import { MdErrorOutline } from 'react-icons/md';
 import {
   GetUsersPropertiesByUserIdResponse,
   UserProperty,
-} from '../../types/dtos/GetUsersPropertiesByUserIdResponse';
+} from '../../types/dtos/GetUsersPropertiesByUserIdResponse.dto';
 import { useNavigate } from 'react-router-dom';
 
 const MyProperties = () => {

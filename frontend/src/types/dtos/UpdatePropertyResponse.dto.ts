@@ -1,4 +1,4 @@
-import { UserProperty } from './GetUsersPropertiesByUserIdResponse';
+import { UserProperty } from './GetUsersPropertiesByUserIdResponse.dto';
 
 export interface UpdatePropertyResponse {
   updatedProperty: UserProperty;
