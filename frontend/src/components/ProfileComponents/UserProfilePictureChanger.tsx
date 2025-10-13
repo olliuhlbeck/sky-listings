@@ -6,12 +6,16 @@ import Button from '../GeneralComponents/Button';
 import { BiCamera } from 'react-icons/bi';
 import { RiResetLeftLine } from 'react-icons/ri';
 import { FaRegSave } from 'react-icons/fa';
+import {
+  GetProfilePictureResponseDto,
+  UpdateProfilePictureResponseDto,
+} from '../../types/dtos/UpdateProfilePicture.dto';
 
 const UserProfilePictureChanger = () => {
   const token = useAuth();
 
   const [currentImage, setCurrentImage] = useState<string | null>(null);
-  const [preview, setPreview] = useState<string | ArrayBuffer | null>(null);
+  const [preview, setPreview] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -19,7 +23,7 @@ const UserProfilePictureChanger = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Fetch current profile picture function
-  const fetchCurrentProfilePicture = async () => {
+  const fetchCurrentProfilePicture = async (): Promise<void> => {
     try {
       const BASE_URL = import.meta.env.VITE_API_URL;
       const response = await fetch(`${BASE_URL}/info/getProfilePicture`, {
@@ -29,7 +33,7 @@ const UserProfilePictureChanger = () => {
         },
       });
       if (response.ok) {
-        const data = await response.json();
+        const data: GetProfilePictureResponseDto = await response.json();
         if (data.profilePicture) {
           setCurrentImage(data.profilePicture);
           setPreview(data.profilePicture);
@@ -77,10 +81,10 @@ const UserProfilePictureChanger = () => {
   };
 
   // Click handlers to trigger file input
-  const handleImageClick = () => {
+  const handleImageClick = (): void => {
     fileInputRef.current?.click();
   };
-  const handleButtonClick = () => {
+  const handleButtonClick = (): void => {
     fileInputRef.current?.click();
   };
 
@@ -101,7 +105,7 @@ const UserProfilePictureChanger = () => {
   };
 
   // Save logic
-  const handleSave = async () => {
+  const handleSave = async (): Promise<void> => {
     if (!selectedFile) {
       return;
     }
@@ -121,7 +125,7 @@ const UserProfilePictureChanger = () => {
         },
         body: formData,
       });
-      const data = await response.json();
+      const data: UpdateProfilePictureResponseDto = await response.json();
       setIsUploading(false);
       if (!response.ok) {
         setError(data.error || 'Failed to upload image');
