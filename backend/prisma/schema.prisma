@@ -42,6 +42,7 @@ model UserInfo {
   address                   String?         @db.VarChar(100)
   preferredContactDetails   ContactMethod   @default(NOTCHOSEN)
   profilePicture            Bytes?
+  profilePictureMimeType    String?         @db.VarChar(50)
 }
 
 enum PropertyTypes {
