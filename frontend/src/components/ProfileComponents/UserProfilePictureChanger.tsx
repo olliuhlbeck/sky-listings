@@ -46,7 +46,7 @@ const UserProfilePictureChanger = () => {
   // Fetch current profile picture on component mount
   useEffect(() => {
     fetchCurrentProfilePicture();
-  }, []);
+  }, [token.token]);
 
   // Handle user selecting a file
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -130,6 +130,11 @@ const UserProfilePictureChanger = () => {
         setSuccess('Profile picture updated successfully');
         setCurrentImage(preview as string);
         setSelectedFile(null);
+        setTimeout(() => setSuccess(null), 3000);
+
+        if (fileInputRef.current) {
+          fileInputRef.current.value = '';
+        }
         return;
       }
     } catch {
@@ -144,7 +149,7 @@ const UserProfilePictureChanger = () => {
         <img
           src={preview as string}
           alt='profilePicture'
-          className='rounded-full w-1/2 sm:w-4/5 xl:w-3/5 cursor-pointer object-cover hover:scale-[1.03] transition duration-300'
+          className='rounded-full w-1/2 sm:w-4/5 xl:w-3/5 cursor-pointer aspect-square object-cover hover:scale-[1.03] transition duration-300'
           onClick={handleImageClick}
         />
       ) : (
