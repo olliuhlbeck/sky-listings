@@ -7,7 +7,7 @@ import { RiResetLeftLine } from 'react-icons/ri';
 import { useAuth } from '../../utils/useAuth';
 import IconComponent from '../GeneralComponents/IconComponent';
 import { BiSolidEdit } from 'react-icons/bi';
-import { UserProperty } from '../../types/dtos/GetUsersPropertiesByUserIdResponse';
+import { UserProperty } from '../../types/dtos/GetUsersPropertiesByUserIdResponse.dto';
 import { UpdatePropertyResponse } from '../../types/dtos/UpdatePropertyResponse.dto';
 
 const PropertyInfoEditForm: React.FC<PropertyEditProps> = ({

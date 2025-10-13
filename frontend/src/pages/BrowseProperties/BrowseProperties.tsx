@@ -12,7 +12,7 @@ import { IoArrowBack, IoClose, IoSearch } from 'react-icons/io5';
 import formatPropertyType from '../../utils/formatPropertyTypes';
 import { SearchConditions } from '../../types/searchConditions';
 import { MdErrorOutline } from 'react-icons/md';
-import { GetPropertiesResponse } from '../../types/dtos/GetPropertiesResponse';
+import { GetPropertiesResponse } from '../../types/dtos/GetPropertiesResponse.dto';
 
 const BrowseProperties = () => {
   const [page, setPage] = useState<number>(1);

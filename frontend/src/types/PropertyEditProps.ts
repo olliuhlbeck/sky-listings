@@ -1,4 +1,4 @@
-import { UserProperty } from './dtos/GetUsersPropertiesByUserIdResponse';
+import { UserProperty } from './dtos/GetUsersPropertiesByUserIdResponse.dto';
 
 export interface PropertyEditProps {
   property: UserProperty;
