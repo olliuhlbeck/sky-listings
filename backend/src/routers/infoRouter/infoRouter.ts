@@ -305,28 +305,32 @@ infoRouter.put(
     }
 
     try {
-      // Validate file type as image
-      if (!req.file.mimetype.startsWith('image/')) {
-        res
-          .status(400)
-          .json({ error: 'Invalid file type. Please upload an image.' });
+      // Validate file type
+      const allowedTypes = [
+        'image/jpeg',
+        'image/png',
+        'image/webp',
+        'image/gif',
+      ];
+      if (!allowedTypes.includes(req.file.mimetype)) {
+        res.status(400).json({
+          error:
+            'Invalid file type. Only JPEG, PNG, WebP, and GIF are allowed.',
+        });
         return;
       }
 
-      // Update profile picture in userInfo database
+      // Update profile picture (and MIME type) in userInfo database
       await prisma.userInfo.update({
         where: { userId },
-        data: { profilePicture: req.file.buffer },
+        data: {
+          profilePicture: req.file.buffer,
+          profilePictureMimeType: req.file.mimetype,
+        },
       });
-
-      // Convert image buffer to Data URI (base64) to send back to frontend
-      // so that user can see the updated profile picture immediately
-      const base64Image = req.file.buffer.toString('base64');
-      const DataUri = `data:${req.file.mimetype};base64,${base64Image}`;
 
       res.status(200).json({
         message: 'Profile picture updated successfully',
-        profilePicture: DataUri,
       });
       return;
     } catch {
@@ -358,7 +362,10 @@ infoRouter.get(
     try {
       const userInfo = await prisma.userInfo.findUnique({
         where: { userId: userId },
-        select: { profilePicture: true },
+        select: {
+          profilePicture: true,
+          profilePictureMimeType: true,
+        },
       });
 
       if (!userInfo) {
@@ -369,13 +376,14 @@ infoRouter.get(
       // Convert bytes to base64 data URI for frontend
       if (userInfo.profilePicture) {
         const base64 = Buffer.from(userInfo.profilePicture).toString('base64');
-        const dataUri = `data:image/jpeg;base64,${base64}`;
+        // Use stored MIME type or default to 'image/jpeg'
+        const mimeType = userInfo.profilePictureMimeType || 'image/jpeg';
+        const dataUri = `data:${mimeType};base64,${base64}`;
         res.status(200).json({ profilePicture: dataUri });
       } else {
         res.status(200).json({ profilePicture: null });
       }
     } catch (error) {
-      console.error('Error fetching profile picture:', error);
       res.status(500).json({ error: 'Error fetching profile picture' });
       return;
     }
