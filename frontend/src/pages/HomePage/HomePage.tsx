@@ -15,12 +15,12 @@ const HomePage = () => {
   return (
     <div className='flex flex-col justify-center items-center'>
       {/* Descriptive slogan to lure users attraction */}
-      <div className='w-1/2 md:w-1/3 lg:w-1/4 flex items-center justify-center mt-4 mb-12 lg:mt-6 lg:mb-6'>
+      <div className='w-1/2 md:w-1/3 lg:w-1/4 flex items-center justify-center mt-4 mb-12 lg:mt-6 lg:mb-8'>
         <img src={heroSection} alt='Hero section' />
       </div>
       {/* Render different main content if there is logged in user or not */}
       {user ? (
-        <div className='flex flex-col lg:flex-row w-4/6 min-w-48 gap-6'>
+        <div className='flex flex-col lg:flex-row w-4/6 lg:w-5/6 xl:w-4/6 min-w-48 gap-6'>
           <ContentButtonCard
             link='browseProperties'
             buttonText='Browse properties'
@@ -35,7 +35,7 @@ const HomePage = () => {
           />
         </div>
       ) : (
-        <div className='flex flex-col lg:flex-row w-4/6 min-w-48 gap-6'>
+        <div className='flex flex-col lg:flex-row w-4/6 lg:w-5/6 xl:w-4/6 min-w-48 gap-6'>
           <ContentButtonCard
             link='browseProperties'
             buttonText='Browse properties'
@@ -59,7 +59,7 @@ const HomePage = () => {
         message='Short on liquid assets? Mortgage Masters can solve your problems!'
         buttonText='Apply for loan'
         icon={BiDollar}
-        addToClassName='mt-6'
+        addToClassName='mt-6 lg:w-5/6 xl:w-4/6'
       />
     </div>
   );
