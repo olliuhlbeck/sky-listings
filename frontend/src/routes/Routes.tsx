@@ -2,10 +2,10 @@ import { createBrowserRouter, Navigate } from 'react-router-dom';
 import App from '../App';
 import HomePage from '../pages/HomePage/HomePage';
 import LoginPage from '../pages/LoginPage/LoginPage';
-import BrowseProperties from '../pages/BrowseProperties/BrowseProperties';
-import MyProperties from '../pages/MyProperties/MyProperties';
+import BrowseProperties from '../pages/BrowsePropertiesPage/BrowsePropertiesPage';
+import MyProperties from '../pages/MyPropertiesPage/MyPropertiesPage';
 import ErrorPage from '../pages/ErrorPage/ErrorPage';
-import AddProperty from '../pages/AddProperty/AddProperty';
+import AddProperty from '../pages/AddPropertyPage/AddPropertyPage';
 import ProtectedRoute from '../components/AuthComponents/ProtectedRoute';
 import ProfilePage from '../pages/ProfilePage/ProfilePage';
 
