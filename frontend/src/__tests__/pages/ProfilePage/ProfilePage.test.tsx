@@ -1,13 +1,14 @@
 import { render, screen } from '@testing-library/react';
 import ProfilePage from '../../../pages/ProfilePage/ProfilePage';
 
-// Mock child components
+// Mock child components to isolate ProfilePage tests
 jest.mock('../../../components/ProfileComponents/EditProfileInfoForm', () => ({
   __esModule: true,
   default: () => (
     <div data-testid='edit-profile-form'>Edit Profile Form Mock</div>
   ),
 }));
+
 jest.mock(
   '../../../components/ProfileComponents/UserProfilePictureChanger',
   () => ({
@@ -20,58 +21,44 @@ jest.mock(
   }),
 );
 
-// Profile page
 describe('ProfilePage', () => {
   beforeAll(() => {
     jest.clearAllMocks();
   });
 
-  // Renders main container
-  it('renders ProfilePage components main container div', () => {
+  // Ensures main container div is rendered correctly
+  it('renders main container', () => {
     render(<ProfilePage />);
 
     const mainDiv = screen.getByTestId('profile-page-main-container');
     expect(mainDiv).toBeInTheDocument();
   });
 
-  // Should center content
-  it('renders main container with correct classes for centering content', () => {
+  // Verifies layout classes center content
+  it('applies correct centering classes', () => {
     render(<ProfilePage />);
 
     const mainDiv = screen.getByTestId('profile-page-main-container');
     expect(mainDiv).toHaveClass('mx-auto');
   });
 
-  // Has correct heading
-  it('renders correct heading text', () => {
+  // Checks that the page heading renders correctly with proper styling
+  it('renders heading with correct text and border style', () => {
     render(<ProfilePage />);
 
     const heading = screen.getByText(/profile information/i);
     expect(heading).toBeInTheDocument();
     expect(heading).toHaveTextContent('Profile information');
-  });
-
-  // Heading has bottom border
-  it('renders heading with bottom border', () => {
-    render(<ProfilePage />);
-
-    const heading = screen.getByText(/profile information/i);
     expect(heading).toHaveClass('border-b');
   });
 
-  // Renders UserProfilePictureChanger component
-  it('renders UserProfilePictureChanger component', () => {
+  // Confirms both mocked child components are rendered
+  it('renders UserProfilePictureChanger and EditProfileInfoForm', () => {
     render(<ProfilePage />);
 
     const pictureChanger = screen.getByTestId('profile-picture-changer');
-    expect(pictureChanger).toBeInTheDocument();
-  });
-
-  // Renders EditProfileInfoForm component
-  it('renders EditProfileInfoForm component', () => {
-    render(<ProfilePage />);
-
     const formComponent = screen.getByTestId('edit-profile-form');
+    expect(pictureChanger).toBeInTheDocument();
     expect(formComponent).toBeInTheDocument();
   });
 });
