@@ -39,8 +39,7 @@ const UserProfilePictureChanger = () => {
           setPreview(data.profilePicture);
         }
       }
-    } catch (error) {
-      console.error('Error fetching profile picture:', error);
+    } catch {
       setError('Failed to load profile picture');
     } finally {
       setIsUploading(false);
