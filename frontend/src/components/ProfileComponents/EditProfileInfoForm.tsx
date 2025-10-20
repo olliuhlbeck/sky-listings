@@ -148,7 +148,11 @@ const EditProfileInfoForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className='sm:w-2/3 text-xs md:text-base'>
+    <form
+      data-testid='edit-profile-info-form'
+      onSubmit={handleSubmit}
+      className='sm:w-2/3 text-xs md:text-base'
+    >
       {loading ? (
         <p className='mx-auto'>Loading...</p>
       ) : errorMessage ? (
