@@ -9,3 +9,4 @@ if (typeof global.TextDecoder === 'undefined') {
 }
 
 import '@testing-library/jest-dom';
+import 'jest-localstorage-mock';
