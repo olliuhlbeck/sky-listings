@@ -1,4 +1,5 @@
 import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import EditProfileInfoForm from '../../../components/ProfileComponents/EditProfileInfoForm';
 import AuthProvider from '../../../components/AuthComponents/AuthProvider';
 
@@ -45,6 +46,7 @@ describe('EditProfileInfoForm', () => {
     );
   };
 
+  // Basic check to ensure the form renders at all
   it('renders the form correctly', async () => {
     renderWithAuth();
 
@@ -53,5 +55,123 @@ describe('EditProfileInfoForm', () => {
       const formElement = screen.getByTestId('edit-profile-info-form');
       expect(formElement).toBeInTheDocument();
     });
+  });
+
+  it('loads and displays user data correctly', async () => {
+    renderWithAuth();
+
+    // Wait for first name input (to confirm data loaded)
+    await screen.findByDisplayValue(mockUserData.firstName);
+
+    // Check that all fields are populated with mock data
+    expect(screen.getByDisplayValue(mockUserData.lastName)).toBeInTheDocument();
+    expect(screen.getByDisplayValue(mockUserData.address)).toBeInTheDocument();
+    expect(screen.getByDisplayValue(mockUserData.email)).toBeInTheDocument();
+    expect(
+      screen.getByDisplayValue(mockUserData.phoneNumber),
+    ).toBeInTheDocument();
+
+    // Separate select element check since it's not an input
+    const select = screen.getByLabelText(/Preferred contact style/i);
+    expect((select as HTMLSelectElement).value).toBe('EMAIL');
+  });
+
+  it('displays an error message when user data fails to load', async () => {
+    // Setup fetch mock to fail
+    (global.fetch as jest.Mock).mockResolvedValueOnce({
+      ok: false,
+      status: 500,
+    });
+    renderWithAuth();
+    // Wait for error message to appear
+    const errorMessage = await screen.findByText(
+      /Failed to fetch profile information. Please try again./i,
+    );
+    expect(errorMessage).toBeInTheDocument();
+  });
+
+  it('Updates changed profile information successfully', async () => {
+    // Setup fetch mock for initial data load
+    (global.fetch as jest.Mock).mockResolvedValueOnce({
+      ok: true,
+      json: async () => mockUserData,
+    });
+
+    // Mock update fetch
+    (global.fetch as jest.Mock).mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({ ...mockUserData, firstName: 'Jane' }),
+    });
+
+    renderWithAuth();
+
+    await waitFor(() => screen.getByDisplayValue(mockUserData.firstName));
+
+    // Change first name input
+    const firstNameInput = screen.getByLabelText(/First Name/i);
+    await userEvent.type(firstNameInput, 'Jane');
+
+    // Save the updated data
+    const saveButton = screen.getByRole('button', { name: /Save changes/i });
+    await userEvent.click(saveButton);
+
+    await waitFor(() => {
+      const successMessage = screen.getByText(/Profile updated successfully!/i);
+      expect(successMessage).toBeInTheDocument();
+    });
+  });
+
+  it('displays an error message when profile information update fails', async () => {
+    // Setup fetch mock for initial data load
+    (global.fetch as jest.Mock).mockResolvedValueOnce({
+      ok: true,
+      json: async () => mockUserData,
+    });
+    // Mock update fetch to fail
+    (global.fetch as jest.Mock).mockResolvedValueOnce({
+      ok: false,
+      status: 400,
+      json: async () => ({ message: 'Bad request' }),
+    });
+
+    renderWithAuth();
+
+    await waitFor(() => screen.getByDisplayValue(mockUserData.firstName));
+
+    // Change first name input
+    const firstNameInput = screen.getByLabelText(/First Name/i);
+    await userEvent.type(firstNameInput, 'Jane');
+
+    // Save the updated data
+    const saveButton = screen.getByRole('button', { name: /Save changes/i });
+    await userEvent.click(saveButton);
+
+    const errorMessage = screen.getByText(/Failed to update user information/i);
+    expect(errorMessage).toBeInTheDocument();
+  });
+
+  it('disables the Save button when no form changes are made', async () => {
+    renderWithAuth();
+
+    // Wait for data to load
+    await screen.findByDisplayValue(mockUserData.firstName);
+
+    const saveButton = screen.getByRole('button', { name: /save changes/i });
+    expect(saveButton).toBeDisabled();
+  });
+
+  it('resets form to original values when reset button clicked', async () => {
+    renderWithAuth();
+
+    await waitFor(() => screen.getByDisplayValue(mockUserData.firstName));
+
+    const firstNameInput = screen.getByLabelText(/First name/i);
+    await userEvent.clear(firstNameInput);
+    await userEvent.type(firstNameInput, 'Changed');
+    const resetButton = screen.getByText(/Reset form/i);
+    await userEvent.click(resetButton);
+    expect(
+      screen.getByDisplayValue(mockUserData.firstName),
+    ).toBeInTheDocument();
   });
 });
