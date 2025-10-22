@@ -147,7 +147,10 @@ const UserProfilePictureChanger = () => {
   };
 
   return (
-    <div className='flex flex-col sm:w-1/3 items-center justify-center gap-2 sm:gap-4'>
+    <div
+      data-testid='user-profile-picture-changer'
+      className='flex flex-col sm:w-1/3 items-center justify-center gap-2 sm:gap-4'
+    >
       {preview ? (
         <img
           src={preview as string}
