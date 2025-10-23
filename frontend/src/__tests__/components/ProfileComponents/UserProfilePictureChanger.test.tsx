@@ -21,6 +21,10 @@ describe('UserProfilePictureChanger', () => {
     localStorage.setItem('authToken', 'mock-jwt-token');
   });
 
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
   const renderWithAuth = () => {
     return render(
       <AuthProvider>
@@ -37,5 +41,68 @@ describe('UserProfilePictureChanger', () => {
       const mainDiv = screen.getByTestId('user-profile-picture-changer');
       expect(mainDiv).toBeInTheDocument();
     });
+  });
+
+  // Check if profile picture is displayed when it exists
+  it('displays the current profile picture', async () => {
+    // Mock fetch response for getting profile picture
+    (global.fetch as jest.Mock).mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({
+        profilePicture: 'http://example.com/profile.png',
+      }),
+    });
+
+    renderWithAuth();
+
+    await waitFor(() => {
+      const profilePic = screen.getByAltText('profilePicture');
+      expect(profilePic).toBeInTheDocument();
+    });
+  });
+
+  // Check if default icon is displayed when no profile picture exists
+  it('displays icon dummy in default case', async () => {
+    // Mock fetch response for getting profile picture
+    (global.fetch as jest.Mock).mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({
+        profilePicture: null,
+      }),
+    });
+
+    renderWithAuth();
+
+    await waitFor(() => {
+      const placeholder = screen.getByTestId('profilePicturePlaceholder');
+      expect(placeholder).toBeInTheDocument();
+    });
+  });
+
+  // Click on profile picture or dummy fires file input
+  it('opens file dialog when clicking on profile picture / dummy or Change profile picture button', async () => {
+    renderWithAuth();
+
+    await waitFor(() => {
+      const changeArea = screen.getByTestId('profilePicturePlaceholder');
+      expect(changeArea).toBeInTheDocument();
+    });
+
+    // Check that clicking on the profile picture area triggers file input
+    const changeArea = screen.getByTestId(
+      'profilePicturePlaceholder',
+    ) as HTMLSpanElement;
+    const fileInput = screen.getByTestId(
+      'profile-picture-file-input',
+    ) as HTMLInputElement;
+    const fileInputClickSpy = jest.spyOn(fileInput, 'click');
+    changeArea.click();
+    expect(fileInputClickSpy).toHaveBeenCalled();
+
+    // Check clicking on the button triggers file input
+    const changeButton = screen.getByText(/Change Profile Picture/i);
+    const fileInputClickSpy2 = jest.spyOn(fileInput, 'click');
+    changeButton.click();
+    expect(fileInputClickSpy2).toHaveBeenCalled();
   });
 });

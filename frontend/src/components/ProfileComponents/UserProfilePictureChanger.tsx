@@ -159,7 +159,11 @@ const UserProfilePictureChanger = () => {
           onClick={handleImageClick}
         />
       ) : (
-        <span onClick={handleImageClick} className='cursor-pointer'>
+        <span
+          data-testid='profilePicturePlaceholder'
+          onClick={handleImageClick}
+          className='cursor-pointer'
+        >
           <IconComponent
             icon={CgProfile}
             size={96}
@@ -171,6 +175,7 @@ const UserProfilePictureChanger = () => {
 
       {/* Hidden file input*/}
       <input
+        data-testid='profile-picture-file-input'
         ref={fileInputRef}
         type='file'
         accept='image/*'
