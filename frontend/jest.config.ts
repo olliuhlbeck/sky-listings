@@ -6,6 +6,7 @@ export default {
     '^.+\\.(ts|tsx|js|jsx)$': 'babel-jest',
   },
   moduleNameMapper: {
+    '\\.(jpg|jpeg|png|gif|svg|webp)$': '<rootDir>/__mocks__/fileMock.js',
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
