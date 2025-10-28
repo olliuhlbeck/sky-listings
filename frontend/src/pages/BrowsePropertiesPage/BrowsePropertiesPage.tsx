@@ -140,7 +140,10 @@ const BrowseProperties = () => {
 
   return (
     <>
-      <div className='mx-10 mb-10'>
+      <div
+        data-testid='browse-properties-page-main-container'
+        className='mx-10 mb-10'
+      >
         {/* Search bar */}
         {browseState === 'browseMany' && (
           <div className='flex flex-col sm:flex-row bg-sky-200 dark:bg-slate-950 items-center justify-center w-11/12 sm:w-md min-w-56 max-w-lg gap-1 md:w-lg md:gap-7 sm:py-2 rounded-full mt-2 mb-3 shadow-sm mx-auto'>
