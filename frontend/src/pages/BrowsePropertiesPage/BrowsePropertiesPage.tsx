@@ -146,7 +146,10 @@ const BrowseProperties = () => {
       >
         {/* Search bar */}
         {browseState === 'browseMany' && (
-          <div className='flex flex-col sm:flex-row bg-sky-200 dark:bg-slate-950 items-center justify-center w-11/12 sm:w-md min-w-56 max-w-lg gap-1 md:w-lg md:gap-7 sm:py-2 rounded-full mt-2 mb-3 shadow-sm mx-auto'>
+          <div
+            data-testid='browse-properties-page-search-bar'
+            className='flex flex-col sm:flex-row bg-sky-200 dark:bg-slate-950 items-center justify-center w-11/12 sm:w-md min-w-56 max-w-lg gap-1 md:w-lg md:gap-7 sm:py-2 rounded-full mt-2 mb-3 shadow-sm mx-auto'
+          >
             <div className='rounded-lg hover:bg-sky-300 dark:hover:bg-slate-800 lg:text-lg p-1'>
               <label htmlFor='searchCondition' className='sr-only'>
                 Search condition

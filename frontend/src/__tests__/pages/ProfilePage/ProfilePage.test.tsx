@@ -22,7 +22,7 @@ jest.mock(
 );
 
 describe('ProfilePage', () => {
-  beforeAll(() => {
+  beforeEach(() => {
     jest.clearAllMocks();
   });
 
