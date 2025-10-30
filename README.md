@@ -46,7 +46,7 @@ It includes secure authentication, a responsive design, and an intuitive user ex
 
 ## Getting Started
 
-### Prerequisites:
+### Prerequisites for running locally:
 
 - Node.js installed
 - PostgreSQL installed and running
