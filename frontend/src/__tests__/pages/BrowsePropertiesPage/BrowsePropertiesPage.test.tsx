@@ -37,6 +37,16 @@ describe('BrowsePropertiesPage', () => {
     });
   });
 
+  // Ensure ad component is rendered
+  it('renders ad component', async () => {
+    mockSuccessfulFetch();
+    render(<BrowsePropertiesPage />);
+    const adComponent = screen.getByTestId('ad-component');
+    await waitFor(() => {
+      expect(adComponent).toBeInTheDocument();
+    });
+  });
+
   // Property cards fetch and render
   it('fetches and displays property cards', async () => {
     // Mock successful fetch response sample data
@@ -85,5 +95,20 @@ describe('BrowsePropertiesPage', () => {
 
     // Loading should be gone when loading completes
     expect(screen.queryByText(/Loading properties/i)).not.toBeInTheDocument();
+  });
+
+  // Handles fetch error gracefully
+  it('handles fetch error gracefully', async () => {
+    // Mock fetch to return an error
+    (global.fetch as jest.Mock).mockResolvedValue({
+      ok: false,
+    });
+    render(<BrowsePropertiesPage />);
+    // Wait for error message to appear
+    await waitFor(() => {
+      expect(
+        screen.getByText(/Failed to fetch properties. Please try again./i),
+      ).toBeInTheDocument();
+    });
   });
 });
