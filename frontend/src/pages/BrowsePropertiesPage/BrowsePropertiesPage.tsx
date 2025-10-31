@@ -69,6 +69,7 @@ const BrowseProperties = () => {
     <div>
       {/* Mapping property results into property cards */}
       <div
+        data-testid='property-cards-container'
         className={`grid grid-cols-1 ${properties.length === 1 ? '' : properties.length === 2 ? 'grid-cols-2' : 'md:grid-cols-2 xl:grid-cols-3'} gap-4`}
       >
         {properties.map((property: PropertyResponse) => {

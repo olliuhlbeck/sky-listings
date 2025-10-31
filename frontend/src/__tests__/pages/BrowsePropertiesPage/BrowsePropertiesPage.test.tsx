@@ -4,13 +4,40 @@ import BrowsePropertiesPage from '../../../pages/BrowsePropertiesPage/BrowseProp
 // Mock fetch
 global.fetch = jest.fn();
 
-// Mock successful response helper
-const mockSuccessfulFetch = (properties = [], totalCount = 0) => {
+// Define the property type
+type MockProperty = {
+  id: number;
+  street: string;
+  city: string;
+  price: number;
+  propertyType: string;
+  coverPicture: string;
+  bedrooms: number;
+  bathrooms: number;
+};
+
+// Mock successful empty response helper
+const mockSuccessfulFetch = (
+  properties: MockProperty[] = [],
+  totalCount = 0,
+) => {
   (global.fetch as jest.Mock).mockResolvedValueOnce({
     ok: true,
     json: async () => ({ properties, totalCount }),
   });
 };
+
+// Helper to create mock property
+const createMockProperty = (id: number) => ({
+  id,
+  street: `${id * 100} Test St`,
+  city: 'TestCity',
+  price: 100000 * id,
+  propertyType: 'house',
+  coverPicture: '',
+  bedrooms: 2,
+  bathrooms: 1,
+});
 
 describe('BrowsePropertiesPage', () => {
   beforeEach(() => {
@@ -110,5 +137,58 @@ describe('BrowsePropertiesPage', () => {
         screen.getByText(/Failed to fetch properties. Please try again./i),
       ).toBeInTheDocument();
     });
+  });
+
+  it('applies single column layout for 1 property', async () => {
+    const mockProperties = [createMockProperty(1)];
+    mockSuccessfulFetch(mockProperties, 1);
+
+    render(<BrowsePropertiesPage />);
+
+    // Wait for the property to be rendered first
+    await waitFor(() => {
+      expect(screen.getByText('100 Test St')).toBeInTheDocument();
+    });
+
+    const container = screen.getByTestId('property-cards-container');
+    expect(container).toHaveClass('grid-cols-1');
+  });
+
+  it('applies two column layout for 2 properties', async () => {
+    const mockProperties = [createMockProperty(1), createMockProperty(2)];
+    mockSuccessfulFetch(mockProperties, 2);
+
+    render(<BrowsePropertiesPage />);
+
+    // Wait for the properties to be rendered first
+    await waitFor(() => {
+      expect(screen.getByText('100 Test St')).toBeInTheDocument();
+      expect(screen.getByText('200 Test St')).toBeInTheDocument();
+    });
+
+    const container = screen.getByTestId('property-cards-container');
+    expect(container).toHaveClass('grid-cols-2');
+  });
+
+  it('applies three column layout for 3 or more properties', async () => {
+    const mockProperties = [
+      createMockProperty(1),
+      createMockProperty(2),
+      createMockProperty(3),
+    ];
+    mockSuccessfulFetch(mockProperties, 3);
+
+    render(<BrowsePropertiesPage />);
+
+    // Wait for the properties to be rendered first
+    await waitFor(() => {
+      expect(screen.getByText('100 Test St')).toBeInTheDocument();
+      expect(screen.getByText('200 Test St')).toBeInTheDocument();
+      expect(screen.getByText('300 Test St')).toBeInTheDocument();
+    });
+
+    const container = screen.getByTestId('property-cards-container');
+    expect(container).toHaveClass('md:grid-cols-2');
+    expect(container).toHaveClass('xl:grid-cols-3');
   });
 });
