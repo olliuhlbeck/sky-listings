@@ -193,12 +193,16 @@ const BrowseProperties = () => {
                 }}
               />
               {searchTerm !== '' && (
-                <IconComponent
-                  icon={IoClose}
-                  size={22}
-                  className='absolute -right-2 top-0 transform -translate-y-1/2 cursor-pointer rounded-full  transition duration-150 text-slate-900 dark:text-slate-500 hover:text-red-400'
+                <div
+                  data-testid='clear-search-term-icon'
                   onClick={() => setSearchTerm('')}
-                />
+                >
+                  <IconComponent
+                    icon={IoClose}
+                    size={22}
+                    className='absolute -right-2 top-0 transform -translate-y-1/2 cursor-pointer rounded-full  transition duration-150 text-slate-900 dark:text-slate-500 hover:text-red-400'
+                  />
+                </div>
               )}
             </div>
             <Button
