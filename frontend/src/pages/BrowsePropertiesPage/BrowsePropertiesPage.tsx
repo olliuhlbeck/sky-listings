@@ -177,7 +177,7 @@ const BrowseProperties = () => {
             </div>
             <div className='relative'>
               <label htmlFor='searchTerm' className='sr-only'>
-                Search condition
+                Search term
               </label>
               <input
                 id='searchTerm'
