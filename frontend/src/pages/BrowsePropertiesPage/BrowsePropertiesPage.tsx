@@ -114,7 +114,7 @@ const BrowseProperties = () => {
           </button>
         )}
 
-        {totalPages > 1 && page !== totalPages && (
+        {totalPages > 1 && (
           <>
             <span aria-live='polite'>
               Showing page {page} of {totalPages}

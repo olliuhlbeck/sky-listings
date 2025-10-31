@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import BrowsePropertiesPage from '../../../pages/BrowsePropertiesPage/BrowsePropertiesPage';
 
 // Mock fetch
@@ -190,5 +190,119 @@ describe('BrowsePropertiesPage', () => {
     const container = screen.getByTestId('property-cards-container');
     expect(container).toHaveClass('md:grid-cols-2');
     expect(container).toHaveClass('xl:grid-cols-3');
+  });
+
+  it('displays next button when on first page with multiple pages', async () => {
+    const propertyCount = 7;
+    const mockProperties: MockProperty[] = [];
+    for (let i = 1; i <= propertyCount; i++) {
+      mockProperties.push(createMockProperty(i));
+    }
+
+    mockSuccessfulFetch(mockProperties, propertyCount);
+
+    render(<BrowsePropertiesPage />);
+
+    await waitFor(() => {
+      expect(screen.getByText('Showing page 1 of 2')).toBeInTheDocument();
+    });
+
+    const nextButton = screen.getByLabelText('Go to page 2');
+    expect(nextButton).toBeInTheDocument();
+  });
+
+  it('next button actually navigates to next page', async () => {
+    const propertyCount = 7;
+    const mockProperties: MockProperty[] = [];
+    for (let i = 1; i <= propertyCount; i++) {
+      mockProperties.push(createMockProperty(i));
+    }
+
+    mockSuccessfulFetch(mockProperties, propertyCount);
+
+    render(<BrowsePropertiesPage />);
+
+    await waitFor(() => {
+      expect(screen.getByText('100 Test St')).toBeInTheDocument();
+    });
+
+    const nextButton = screen.getByLabelText('Go to page 2');
+    fireEvent.click(nextButton);
+
+    await waitFor(() => {
+      expect(screen.getByText('Showing page 2 of 2')).toBeInTheDocument();
+    });
+  });
+
+  it('displays previous button when on later pages', async () => {
+    const propertyCount = 7;
+    const mockProperties: MockProperty[] = [];
+    for (let i = 1; i <= propertyCount; i++) {
+      mockProperties.push(createMockProperty(i));
+    }
+
+    mockSuccessfulFetch(mockProperties, propertyCount);
+
+    render(<BrowsePropertiesPage />);
+
+    await waitFor(() => {
+      expect(screen.getByText('100 Test St')).toBeInTheDocument();
+    });
+
+    const nextButton = screen.getByLabelText('Go to page 2');
+    fireEvent.click(nextButton);
+
+    await waitFor(() => {
+      expect(screen.getByText('Showing page 2 of 2')).toBeInTheDocument();
+    });
+  });
+
+  it('previous button navigates to previous page when clicked', async () => {
+    const propertyCount = 7;
+    const mockProperties: MockProperty[] = [];
+    for (let i = 1; i <= propertyCount; i++) {
+      mockProperties.push(createMockProperty(i));
+    }
+
+    mockSuccessfulFetch(mockProperties, propertyCount);
+
+    render(<BrowsePropertiesPage />);
+
+    await waitFor(() => {
+      expect(screen.getByText('100 Test St')).toBeInTheDocument();
+    });
+
+    const nextButton = screen.getByLabelText('Go to page 2');
+    fireEvent.click(nextButton);
+
+    await waitFor(() => {
+      expect(screen.getByText('Showing page 2 of 2')).toBeInTheDocument();
+    });
+
+    const prevButton = screen.getByLabelText('Go to page 1');
+    fireEvent.click(prevButton);
+
+    await waitFor(() => {
+      expect(screen.getByText('Showing page 1 of 2')).toBeInTheDocument();
+    });
+  });
+
+  it('does not display pagination controls when only one page of results', async () => {
+    const propertyCount = 3;
+    const mockProperties: MockProperty[] = [];
+    for (let i = 1; i <= propertyCount; i++) {
+      mockProperties.push(createMockProperty(i));
+    }
+
+    mockSuccessfulFetch(mockProperties, propertyCount);
+
+    render(<BrowsePropertiesPage />);
+
+    await waitFor(() => {
+      expect(screen.getByText('100 Test St')).toBeInTheDocument();
+    });
+
+    const paginationInfo = screen.queryByText(/Showing page/i);
+    expect(paginationInfo).not.toBeInTheDocument();
   });
 });
