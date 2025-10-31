@@ -1,5 +1,6 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import BrowsePropertiesPage from '../../../pages/BrowsePropertiesPage/BrowsePropertiesPage';
+import userEvent from '@testing-library/user-event';
 
 // Mock fetch
 global.fetch = jest.fn();
@@ -304,5 +305,85 @@ describe('BrowsePropertiesPage', () => {
 
     const paginationInfo = screen.queryByText(/Showing page/i);
     expect(paginationInfo).not.toBeInTheDocument();
+  });
+
+  it('updates search term when user types in search input', async () => {
+    mockSuccessfulFetch();
+    render(<BrowsePropertiesPage />);
+
+    const searchInput = screen.getByPlaceholderText('Search properties...');
+    await userEvent.type(searchInput, 'Paris');
+
+    expect(searchInput).toHaveValue('Paris');
+  });
+
+  it('triggers new fetch when search is clicked', async () => {
+    const mockProperties = [createMockProperty(1)];
+    mockSuccessfulFetch(mockProperties, 1);
+
+    render(<BrowsePropertiesPage />);
+
+    await waitFor(() => {
+      expect(screen.getByText('100 Test St')).toBeInTheDocument();
+    });
+
+    const searchInput = screen.getByPlaceholderText('Search properties...');
+    await userEvent.type(searchInput, 'Test');
+    const searchButton = screen.getByRole('button', { name: /Search/i });
+    await userEvent.click(searchButton);
+
+    await waitFor(() => {
+      expect(global.fetch).toHaveBeenCalledTimes(2);
+    });
+  });
+
+  it('triggers search when Enter key is pressed in search input', async () => {
+    const mockProperties = [createMockProperty(1)];
+    mockSuccessfulFetch(mockProperties, 1);
+
+    render(<BrowsePropertiesPage />);
+
+    await waitFor(() => {
+      expect(screen.getByText('100 Test St')).toBeInTheDocument();
+    });
+
+    const searchInput = screen.getByPlaceholderText('Search properties...');
+    await userEvent.type(searchInput, 'Test{enter}');
+
+    await waitFor(() => {
+      expect(global.fetch).toHaveBeenCalledTimes(2);
+    });
+  });
+
+  it('changes search condition when dropdown selection changes', async () => {
+    mockSuccessfulFetch();
+    render(<BrowsePropertiesPage />);
+
+    const dropdown = screen.getByLabelText('Search condition');
+    await userEvent.selectOptions(dropdown, 'city');
+
+    expect(dropdown).toHaveValue('city');
+  });
+
+  it('clears search term when X button is clicked', async () => {
+    mockSuccessfulFetch();
+    render(<BrowsePropertiesPage />);
+
+    // Button shouldn't exist initially
+    await waitFor(() => {
+      expect(
+        screen.queryByTestId('clear-search-term-icon'),
+      ).not.toBeInTheDocument();
+    });
+
+    const searchInput = screen.getByPlaceholderText('Search properties...');
+
+    await userEvent.type(searchInput, 'TestSearch');
+    expect(searchInput).toHaveValue('TestSearch');
+
+    const closeButton = screen.getByTestId('clear-search-term-icon');
+    await userEvent.click(closeButton);
+
+    expect(searchInput).toHaveValue('');
   });
 });
