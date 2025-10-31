@@ -109,7 +109,7 @@ propertyRouter.post(
 propertyRouter.get(
   '/getPropertiesByPage',
   async (
-    req: Request<{}, {}, GetPropertiesQuery>,
+    req: Request<{}, {}, {}, GetPropertiesQuery>,
     res: Response<GetPropertiesResponse | GeneralErrorResponse>,
   ) => {
     try {
@@ -200,7 +200,7 @@ propertyRouter.get(
 propertyRouter.get(
   '/getPropertiesByUserId',
   async (
-    req: Request<{}, {}, GetUsersPropertiesByUserIdQuery>,
+    req: Request<{}, {}, {}, GetUsersPropertiesByUserIdQuery>,
     res: Response<GetUsersPropertiesByUserIdResponse | GeneralErrorResponse>,
   ) => {
     const userId = parseInt(req.query.userId as string);
