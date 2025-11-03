@@ -1,6 +1,8 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import BrowsePropertiesPage from '../../../pages/BrowsePropertiesPage/BrowsePropertiesPage';
 import userEvent from '@testing-library/user-event';
+import { InspectSinglePropertyProps } from '../../../types/InspectSinglePropertyProps';
+import { FC } from 'react';
 
 // Mock fetch
 global.fetch = jest.fn();
@@ -40,6 +42,21 @@ const createMockProperty = (id: number) => ({
   bathrooms: 1,
 });
 
+jest.mock(
+  '../../../components/PropertyComponents/InspectSingleProperty',
+  () => {
+    const MockInspectSingleProperty: FC<InspectSinglePropertyProps> = ({
+      onClick,
+    }) => (
+      <div>
+        <button onClick={onClick}>Back</button>
+        <div data-testid='inspect-single-property-view' />
+      </div>
+    );
+    return { __esModule: true, default: MockInspectSingleProperty };
+  },
+);
+
 describe('BrowsePropertiesPage', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -72,6 +89,31 @@ describe('BrowsePropertiesPage', () => {
     const adComponent = screen.getByTestId('ad-component');
     await waitFor(() => {
       expect(adComponent).toBeInTheDocument();
+    });
+  });
+
+  it('shows loading spinner when navigating between pages', async () => {
+    const propertyCount = 7;
+    const mockProperties: MockProperty[] = [];
+    for (let i = 1; i <= propertyCount; i++) {
+      mockProperties.push(createMockProperty(i));
+    }
+
+    mockSuccessfulFetch(mockProperties, propertyCount);
+
+    render(<BrowsePropertiesPage />);
+
+    await waitFor(() => {
+      expect(screen.getByText('100 Test St')).toBeInTheDocument();
+    });
+
+    mockSuccessfulFetch(mockProperties, propertyCount);
+
+    const nextButton = screen.getByLabelText('Go to page 2');
+    fireEvent.click(nextButton);
+
+    await waitFor(() => {
+      expect(screen.getByText(/Loading properties/i)).toBeInTheDocument();
     });
   });
 
@@ -385,5 +427,108 @@ describe('BrowsePropertiesPage', () => {
     await userEvent.click(closeButton);
 
     expect(searchInput).toHaveValue('');
+  });
+
+  it('resets to page 1 when search is performed', async () => {
+    const propertyCount = 7;
+    const mockProperties: MockProperty[] = [];
+    for (let i = 1; i <= propertyCount; i++) {
+      mockProperties.push(createMockProperty(i));
+    }
+
+    mockSuccessfulFetch(mockProperties, propertyCount);
+
+    render(<BrowsePropertiesPage />);
+
+    await waitFor(() => {
+      expect(screen.getByText('Showing page 1 of 2')).toBeInTheDocument();
+    });
+
+    // Navigate to page 2
+    const nextButton = screen.getByLabelText('Go to page 2');
+    fireEvent.click(nextButton);
+
+    await waitFor(() => {
+      expect(screen.getByText('Showing page 2 of 2')).toBeInTheDocument();
+    });
+
+    // Perform search
+    const searchInput = screen.getByPlaceholderText('Search properties...');
+    await userEvent.type(searchInput, 'New Search');
+    const searchButton = screen.getByRole('button', { name: /Search/i });
+    await userEvent.click(searchButton);
+
+    // Should be back on page 1
+    await waitFor(() => {
+      expect(screen.getByText('Showing page 1 of 2')).toBeInTheDocument();
+    });
+  });
+
+  it('includes search parameters in fetch URL', async () => {
+    mockSuccessfulFetch();
+    render(<BrowsePropertiesPage />);
+
+    const dropdown = screen.getByLabelText('Search condition');
+    await userEvent.selectOptions(dropdown, 'city');
+
+    const searchInput = screen.getByPlaceholderText('Search properties...');
+    await userEvent.type(searchInput, 'Paris');
+
+    const searchButton = screen.getByRole('button', { name: /Search/i });
+    await userEvent.click(searchButton);
+
+    await waitFor(() => {
+      expect(global.fetch).toHaveBeenCalledWith(
+        expect.stringContaining('searchTerm=Paris&searchCondition=city'),
+      );
+    });
+  });
+
+  it('switches to single property view when property card is clicked', async () => {
+    const mockProperties = [createMockProperty(1)];
+    mockSuccessfulFetch(mockProperties, 1);
+
+    render(<BrowsePropertiesPage />);
+
+    await waitFor(() => {
+      expect(screen.getByText('100 Test St')).toBeInTheDocument();
+    });
+
+    const propertyButton = screen.getByLabelText(
+      'View details for 100 Test St, TestCity',
+    );
+    await userEvent.click(propertyButton);
+
+    // Search bar should disappear in single property view
+    expect(
+      screen.queryByTestId('browse-properties-page-search-bar'),
+    ).not.toBeInTheDocument();
+  });
+
+  it('returns to browse view when back button is clicked from single property view', async () => {
+    const mockProperties = [createMockProperty(1)];
+    mockSuccessfulFetch(mockProperties, 1);
+
+    render(<BrowsePropertiesPage />);
+
+    await waitFor(() => {
+      expect(screen.getByText('100 Test St')).toBeInTheDocument();
+    });
+
+    const propertyButton = screen.getByLabelText(
+      'View details for 100 Test St, TestCity',
+    );
+    await userEvent.click(propertyButton);
+
+    // Assuming InspectSingleProperty has a back button - adjust selector as needed
+    const backButton = screen.getByRole('button', {
+      name: /back/i,
+    });
+    await userEvent.click(backButton);
+
+    // Search bar should reappear
+    expect(
+      screen.getByTestId('browse-properties-page-search-bar'),
+    ).toBeInTheDocument();
   });
 });
