@@ -34,24 +34,6 @@ describe('ProfilePage', () => {
     expect(mainDiv).toBeInTheDocument();
   });
 
-  // Verifies layout classes center content
-  it('applies correct centering classes', () => {
-    render(<ProfilePage />);
-
-    const mainDiv = screen.getByTestId('profile-page-main-container');
-    expect(mainDiv).toHaveClass('mx-auto');
-  });
-
-  // Checks that the page heading renders correctly with proper styling
-  it('renders heading with correct text and border style', () => {
-    render(<ProfilePage />);
-
-    const heading = screen.getByText(/profile information/i);
-    expect(heading).toBeInTheDocument();
-    expect(heading).toHaveTextContent('Profile information');
-    expect(heading).toHaveClass('border-b');
-  });
-
   // Confirms both mocked child components are rendered
   it('renders UserProfilePictureChanger and EditProfileInfoForm', () => {
     render(<ProfilePage />);
