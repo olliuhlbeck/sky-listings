@@ -199,6 +199,7 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
 
   return (
     <form
+      data-testid='login-form-main-container'
       name='loginForm'
       aria-label={action === ActionType.Login ? 'Login Form' : 'Sign Up Form'}
       onSubmit={handleSubmit}
