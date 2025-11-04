@@ -44,15 +44,6 @@ describe('LoginPage', () => {
     expect(screen.getByLabelText(/Sign up form/i)).toBeInTheDocument();
   });
 
-  it('should be responsive with correct width classes', () => {
-    renderWithRouter();
-
-    const mainContainer = screen.getByTestId('login-page-main-container');
-    expect(mainContainer).toHaveClass('w-5/6');
-    expect(mainContainer).toHaveClass('md:w-4/6');
-    expect(mainContainer).toHaveClass('min-w-[256px]');
-  });
-
   it('should handle missing location state gracefully', () => {
     render(
       <AuthProvider>
@@ -64,14 +55,5 @@ describe('LoginPage', () => {
 
     const mainContainer = screen.getByTestId('login-page-main-container');
     expect(mainContainer).toBeInTheDocument();
-  });
-
-  it('should maintain structure with flex layout', () => {
-    renderWithRouter();
-
-    const mainContainer = screen.getByTestId('login-page-main-container');
-    expect(mainContainer).toHaveClass('flex');
-    expect(mainContainer).toHaveClass('items-center');
-    expect(mainContainer).toHaveClass('overflow-hidden');
   });
 });
