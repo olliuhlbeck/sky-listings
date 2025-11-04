@@ -531,4 +531,93 @@ describe('BrowsePropertiesPage', () => {
       screen.getByTestId('browse-properties-page-search-bar'),
     ).toBeInTheDocument();
   });
+
+  it('applies dark mode classes to search bar container', async () => {
+    mockSuccessfulFetch();
+    render(<BrowsePropertiesPage />);
+
+    const searchBar = screen.getByTestId('browse-properties-page-search-bar');
+
+    await waitFor(() => {
+      expect(searchBar).toHaveClass('dark:bg-slate-950');
+    });
+  });
+
+  it('applies dark mode classes to search condition dropdown hover state', async () => {
+    mockSuccessfulFetch();
+    render(<BrowsePropertiesPage />);
+
+    const dropdown = screen.getByLabelText('Search condition');
+    const dropdownParent = dropdown.parentElement;
+
+    await waitFor(() => {
+      expect(dropdownParent).toHaveClass('dark:hover:bg-slate-800');
+    });
+  });
+
+  it('applies dark mode text color to dropdown options', async () => {
+    mockSuccessfulFetch();
+    render(<BrowsePropertiesPage />);
+
+    const dropdown = screen.getByLabelText('Search condition');
+    const options = dropdown.querySelectorAll('option');
+
+    await waitFor(() => {
+      options.forEach((option) => {
+        expect(option).toHaveClass('dark:text-slate-900');
+      });
+    });
+  });
+
+  it('maintains dark mode classes after search', async () => {
+    const mockProperties = [createMockProperty(1)];
+    mockSuccessfulFetch(mockProperties, 1);
+
+    render(<BrowsePropertiesPage />);
+
+    await waitFor(() => {
+      expect(screen.getByText('100 Test St')).toBeInTheDocument();
+    });
+
+    mockSuccessfulFetch(mockProperties, 1);
+
+    const searchInput = screen.getByPlaceholderText('Search properties...');
+    await userEvent.type(searchInput, 'Test');
+
+    const searchButton = screen.getByRole('button', { name: /Search/i });
+    await userEvent.click(searchButton);
+
+    await waitFor(() => {
+      const searchBar = screen.getByTestId('browse-properties-page-search-bar');
+      expect(searchBar).toHaveClass('dark:bg-slate-950');
+    });
+  });
+
+  it('maintains dark mode classes after page navigation', async () => {
+    const propertyCount = 7;
+    const mockProperties: MockProperty[] = [];
+    for (let i = 1; i <= propertyCount; i++) {
+      mockProperties.push(createMockProperty(i));
+    }
+
+    mockSuccessfulFetch(mockProperties, propertyCount);
+    render(<BrowsePropertiesPage />);
+
+    await waitFor(() => {
+      expect(screen.getByText('100 Test St')).toBeInTheDocument();
+    });
+
+    // Mock for second page
+    mockSuccessfulFetch(mockProperties, propertyCount);
+
+    const nextButton = screen.getByLabelText('Go to page 2');
+    fireEvent.click(nextButton);
+
+    await waitFor(() => {
+      expect(screen.getByText('Showing page 2 of 2')).toBeInTheDocument();
+    });
+
+    const searchBar = screen.getByTestId('browse-properties-page-search-bar');
+    expect(searchBar).toHaveClass('dark:bg-slate-950');
+  });
 });
