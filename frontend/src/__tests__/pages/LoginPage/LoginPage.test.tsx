@@ -1,8 +1,9 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import LoginPage from '../../../pages/LoginPage/LoginPage';
 import { MemoryRouter } from 'react-router-dom';
 import AuthProvider from '../../../components/AuthComponents/AuthProvider';
 import { ActionType } from '../../../types/ActionType';
+import userEvent from '@testing-library/user-event';
 
 const renderWithRouter = (initialEntries: string[] = ['/login']) => {
   return render(
@@ -55,5 +56,36 @@ describe('LoginPage', () => {
 
     const mainContainer = screen.getByTestId('login-page-main-container');
     expect(mainContainer).toBeInTheDocument();
+  });
+
+  it('should render login form and title components', () => {
+    renderWithRouter();
+
+    expect(screen.getByLabelText(/Login form/i)).toBeInTheDocument();
+    expect(
+      screen.getByTestId('title-container-small-screen'),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByTestId('title-container-large-screen'),
+    ).toBeInTheDocument();
+  });
+
+  it('should pass action state to child components', () => {
+    renderWithLocationState({ action: ActionType.SignUp });
+
+    // Verify the state is passed correctly to children
+    expect(screen.getByLabelText(/Sign up form/i)).toBeInTheDocument();
+  });
+
+  it('should handle action state changes from LoginForm', async () => {
+    const user = userEvent.setup();
+    renderWithLocationState({ action: ActionType.Login });
+
+    const switchButton = screen.getByTestId('switch-action-button-container');
+    await user.click(switchButton);
+
+    await waitFor(() => {
+      expect(screen.getByLabelText(/Last name/i)).toBeInTheDocument();
+    });
   });
 });
