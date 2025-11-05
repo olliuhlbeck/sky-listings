@@ -422,15 +422,15 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
         </span>
       )}
 
-      <div className='text-xs md:text-base lg:text-lg pb-1 md:pb-8'>
+      <div
+        onClick={switchAction}
+        data-testid='switch-action-button-container'
+        className='text-xs md:text-base lg:text-lg pb-1 md:pb-8'
+      >
         {action === ActionType.Login
           ? `Don't have an account?`
           : 'Already have a account?'}
-        <Button
-          type='button'
-          ClassName='bg-transparent dark:bg-transparent'
-          onClick={switchAction}
-        >
+        <Button type='button' ClassName='bg-transparent dark:bg-transparent'>
           {action === ActionType.Login
             ? 'Create one by clicking here'
             : 'Switch to login by clicking here'}
