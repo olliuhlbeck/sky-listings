@@ -88,4 +88,36 @@ describe('LoginPage', () => {
       expect(screen.getByLabelText(/Last name/i)).toBeInTheDocument();
     });
   });
+
+  it('should handle action state change from SignUp back to Login', async () => {
+    const user = userEvent.setup();
+    renderWithLocationState({ action: ActionType.SignUp });
+
+    expect(screen.getByLabelText(/Sign up form/i)).toBeInTheDocument();
+
+    const switchButton = screen.getByTestId('switch-action-button-container');
+    await user.click(switchButton);
+
+    await waitFor(() => {
+      expect(screen.queryByLabelText(/Last name/i)).not.toBeInTheDocument();
+    });
+  });
+
+  it('should handle invalid action type in location state', () => {
+    render(
+      <AuthProvider>
+        <MemoryRouter
+          initialEntries={[
+            { pathname: '/login', state: { action: 'InvalidAction' } },
+          ]}
+        >
+          <LoginPage />
+        </MemoryRouter>
+      </AuthProvider>,
+    );
+
+    // Should default to login action
+    const mainContainer = screen.getByTestId('login-page-main-container');
+    expect(mainContainer).toBeInTheDocument();
+  });
 });
