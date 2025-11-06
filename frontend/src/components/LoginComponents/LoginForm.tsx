@@ -186,7 +186,7 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
 
   const isFormValid =
     inputs.username.trim().length > 0 &&
-    inputs.password.length >= 6 &&
+    inputs.password.length > 0 &&
     (action === ActionType.Login ||
       (inputs.firstName.trim().length > 0 &&
         inputs.lastName.trim().length > 0 &&
@@ -390,11 +390,11 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
       {/* Submit Button with Tooltip if form is invalid */}
       {!isFormValid ? (
         <ToolTip
-          toolTipText='Please fill out all fields before submitting.'
+          toolTipText='Please fill out all fields and fix given errors before submitting.'
           addToClassName='border'
         >
           <Button
-            ClassName='border bg-transparent !disabled:cursor-not-allowed !disabled:bg-gray-50'
+            ClassName='border bg-transparent'
             type='submit'
             disabled={!isFormValid}
           >
