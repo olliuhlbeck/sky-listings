@@ -116,8 +116,40 @@ describe('LoginPage', () => {
       </AuthProvider>,
     );
 
-    // Should default to login action
     const mainContainer = screen.getByTestId('login-page-main-container');
     expect(mainContainer).toBeInTheDocument();
+  });
+
+  it('should update both LoginForm and LoginPageTitle when action changes', async () => {
+    const user = userEvent.setup();
+    renderWithLocationState({ action: ActionType.Login });
+
+    expect(
+      screen.getByTestId('title-container-large-screen'),
+    ).toHaveTextContent(/Login/i);
+
+    const switchButton = screen.getByTestId('switch-action-button-container');
+    await user.click(switchButton);
+
+    await waitFor(() => {
+      expect(
+        screen.getByTestId('title-container-large-screen'),
+      ).toHaveTextContent(/Sign up/i);
+    });
+  });
+
+  it('should persist the selected action after rerender', () => {
+    const { rerender } = renderWithLocationState({ action: ActionType.SignUp });
+    expect(screen.getByLabelText(/Sign up form/i)).toBeInTheDocument();
+
+    rerender(
+      <AuthProvider>
+        <MemoryRouter initialEntries={[{ pathname: '/login' }]}>
+          <LoginPage />
+        </MemoryRouter>
+      </AuthProvider>,
+    );
+
+    expect(screen.getByLabelText(/Sign up form/i)).toBeInTheDocument();
   });
 });
