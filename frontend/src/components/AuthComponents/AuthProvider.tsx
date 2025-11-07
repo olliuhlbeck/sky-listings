@@ -15,6 +15,8 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<string | null>(null);
   const [userId, setUserId] = useState<number | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [authError, setAuthError] = useState<string | undefined>(undefined);
 
   const resetTokenState = () => {
     setIsAuthenticated(false);
@@ -25,28 +27,40 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   useEffect(() => {
-    if (token) {
-      const decodedToken = jwtDecode<DecodedToken>(token);
-      if (decodedToken && decodedToken.exp) {
-        const delay = checkTokenExpTime(token);
+    const initializeAuth = () => {
+      try {
+        if (token) {
+          const decodedToken = jwtDecode<DecodedToken>(token);
+          if (decodedToken && decodedToken.exp) {
+            const delay = checkTokenExpTime(token);
 
-        if (delay !== null) {
-          setUser(decodedToken.username);
-          setUserId(decodedToken.userId);
-          setIsAuthenticated(true);
+            if (delay !== null) {
+              setUser(decodedToken.username);
+              setUserId(decodedToken.userId);
+              setIsAuthenticated(true);
+              setAuthError(undefined);
 
-          const timeoutId = setTimeout(() => {
-            resetTokenState();
-          }, delay);
+              // Auto logout when token expires
+              const timeoutId = setTimeout(() => {
+                resetTokenState();
+              }, delay);
 
-          return () => clearTimeout(timeoutId);
+              return () => clearTimeout(timeoutId);
+            } else {
+              resetTokenState();
+            }
+          }
         } else {
           resetTokenState();
         }
+      } catch {
+        setAuthError('Failed to initialize authentication.');
+        resetTokenState();
+      } finally {
+        setLoading(false);
       }
-    } else {
-      resetTokenState();
-    }
+    };
+    initializeAuth();
   }, [token]);
 
   const login = (newToken: string) => {
@@ -60,7 +74,16 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, userId, login, logout, isAuthenticated, token }}
+      value={{
+        user,
+        userId,
+        login,
+        logout,
+        isAuthenticated,
+        token,
+        loading,
+        authError,
+      }}
     >
       {children}
     </AuthContext.Provider>
