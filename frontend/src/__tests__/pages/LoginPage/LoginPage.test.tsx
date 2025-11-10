@@ -192,6 +192,6 @@ describe('LoginPage', () => {
     expect(
       screen.getByText(/Checking authentication state/i),
     ).toBeInTheDocument();
-    expect(screen.getByRole('status')).toBeInTheDocument(); // spinner
+    expect(screen.getByRole('status')).toBeInTheDocument();
   });
 });
