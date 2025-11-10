@@ -1,11 +1,17 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import LoginPage from '../../../pages/LoginPage/LoginPage';
-import { MemoryRouter } from 'react-router-dom';
+import { MemoryRouter, useNavigate } from 'react-router-dom';
 import AuthProvider from '../../../components/AuthComponents/AuthProvider';
 import { ActionType } from '../../../types/ActionType';
 import userEvent from '@testing-library/user-event';
 import { useAuth } from '../../../utils/useAuth';
 import { AuthContextType } from '../../../types/auth/auth';
+
+// Mock react-router-dom navigation
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: jest.fn(),
+}));
 
 // Mock useAuth hook
 jest.mock('../../../utils/useAuth', () => ({
@@ -193,5 +199,36 @@ describe('LoginPage', () => {
       screen.getByText(/Checking authentication state/i),
     ).toBeInTheDocument();
     expect(screen.getByRole('status')).toBeInTheDocument();
+  });
+
+  it('should redirect to home if user is already authenticated', () => {
+    const mockNavigate = jest.fn();
+    (useNavigate as jest.Mock).mockReturnValue(mockNavigate);
+
+    // Mock useAuth to return authenticated user
+    (useAuth as jest.Mock).mockReturnValue({
+      user: 'authenticatedUser',
+      userId: 123,
+      login: jest.fn(),
+      logout: jest.fn(),
+      isAuthenticated: true,
+      token: 'mock-token',
+      loading: false,
+      authError: undefined,
+    } as AuthContextType);
+
+    render(
+      <MemoryRouter initialEntries={['/login']}>
+        <LoginPage />
+      </MemoryRouter>,
+    );
+
+    // Verify navigate was called with correct arguments
+    expect(mockNavigate).toHaveBeenCalledWith('/', { replace: true });
+
+    // Verify the login page content is not rendered
+    expect(
+      screen.queryByTestId('login-page-main-container'),
+    ).not.toBeInTheDocument();
   });
 });
