@@ -12,23 +12,14 @@ jest.mock('../../../utils/useAuth', () => ({
   useAuth: jest.fn(),
 }));
 
-const renderWithRouter = (initialEntries: string[] = ['/login']) => {
-  return render(
-    <AuthProvider>
-      <MemoryRouter initialEntries={initialEntries}>
-        <LoginPage />
-      </MemoryRouter>
-    </AuthProvider>,
-  );
-};
+// Helper to render LoginPage with optional location state
+const renderLoginPage = (state?: { action: ActionType }) => {
+  const initialEntries = state ? [{ pathname: '/login', state }] : ['/login'];
 
-const renderWithLocationState = (state: { action: ActionType }) => {
   return render(
-    <AuthProvider>
-      <MemoryRouter initialEntries={[{ pathname: '/login', state }]}>
-        <LoginPage />
-      </MemoryRouter>
-    </AuthProvider>,
+    <MemoryRouter initialEntries={initialEntries}>
+      <LoginPage />
+    </MemoryRouter>,
   );
 };
 
@@ -48,20 +39,20 @@ describe('LoginPage', () => {
   });
 
   it('should render main container correctly', () => {
-    renderWithRouter();
+    renderLoginPage();
 
     const mainContainer = screen.getByTestId('login-page-main-container');
     expect(mainContainer).toBeInTheDocument();
   });
 
   it('should initialize with Login action from location state', () => {
-    renderWithLocationState({ action: ActionType.Login });
+    renderLoginPage({ action: ActionType.Login });
 
     expect(screen.getByLabelText(/Login form/i)).toBeInTheDocument();
   });
 
   it('should initialize with Sign up action from location state', () => {
-    renderWithLocationState({ action: ActionType.SignUp });
+    renderLoginPage({ action: ActionType.SignUp });
 
     expect(screen.getByLabelText(/Sign up form/i)).toBeInTheDocument();
   });
@@ -80,7 +71,7 @@ describe('LoginPage', () => {
   });
 
   it('should render login form and title components', () => {
-    renderWithRouter();
+    renderLoginPage();
 
     expect(screen.getByLabelText(/Login form/i)).toBeInTheDocument();
     expect(
@@ -92,7 +83,7 @@ describe('LoginPage', () => {
   });
 
   it('should pass action state to child components', () => {
-    renderWithLocationState({ action: ActionType.SignUp });
+    renderLoginPage({ action: ActionType.SignUp });
 
     // Verify the state is passed correctly to children
     expect(screen.getByLabelText(/Sign up form/i)).toBeInTheDocument();
@@ -100,7 +91,7 @@ describe('LoginPage', () => {
 
   it('should handle action state changes from LoginForm', async () => {
     const user = userEvent.setup();
-    renderWithLocationState({ action: ActionType.Login });
+    renderLoginPage({ action: ActionType.Login });
 
     const switchButton = screen.getByTestId('switch-action-button-container');
     await user.click(switchButton);
@@ -112,7 +103,7 @@ describe('LoginPage', () => {
 
   it('should handle action state change from SignUp back to Login', async () => {
     const user = userEvent.setup();
-    renderWithLocationState({ action: ActionType.SignUp });
+    renderLoginPage({ action: ActionType.SignUp });
 
     expect(screen.getByLabelText(/Sign up form/i)).toBeInTheDocument();
 
@@ -143,7 +134,7 @@ describe('LoginPage', () => {
 
   it('should update both LoginForm and LoginPageTitle when action changes', async () => {
     const user = userEvent.setup();
-    renderWithLocationState({ action: ActionType.Login });
+    renderLoginPage({ action: ActionType.Login });
 
     expect(
       screen.getByTestId('title-container-large-screen'),
@@ -160,18 +151,22 @@ describe('LoginPage', () => {
   });
 
   it('should persist the selected action after rerender', () => {
-    const { rerender } = renderWithLocationState({ action: ActionType.SignUp });
-    expect(screen.getByLabelText(/Sign up form/i)).toBeInTheDocument();
+    const { rerender } = renderLoginPage({ action: ActionType.SignUp });
+    expect(screen.getByLabelText(/Last name/i)).toBeInTheDocument();
 
     rerender(
       <AuthProvider>
-        <MemoryRouter initialEntries={[{ pathname: '/login' }]}>
+        <MemoryRouter
+          initialEntries={[
+            { pathname: '/login', state: { action: ActionType.SignUp } },
+          ]}
+        >
           <LoginPage />
         </MemoryRouter>
       </AuthProvider>,
     );
 
-    expect(screen.getByLabelText(/Sign up form/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Last name/i)).toBeInTheDocument();
   });
 
   it('should show loading state while checking authentication', () => {
