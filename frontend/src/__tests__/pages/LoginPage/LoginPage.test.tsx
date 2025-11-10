@@ -4,6 +4,13 @@ import { MemoryRouter } from 'react-router-dom';
 import AuthProvider from '../../../components/AuthComponents/AuthProvider';
 import { ActionType } from '../../../types/ActionType';
 import userEvent from '@testing-library/user-event';
+import { useAuth } from '../../../utils/useAuth';
+import { AuthContextType } from '../../../types/auth/auth';
+
+// Mock useAuth hook
+jest.mock('../../../utils/useAuth', () => ({
+  useAuth: jest.fn(),
+}));
 
 const renderWithRouter = (initialEntries: string[] = ['/login']) => {
   return render(
@@ -26,6 +33,20 @@ const renderWithLocationState = (state: { action: ActionType }) => {
 };
 
 describe('LoginPage', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    (useAuth as jest.Mock).mockReturnValue({
+      user: null,
+      userId: null,
+      login: jest.fn(),
+      logout: jest.fn(),
+      isAuthenticated: false,
+      token: null,
+      loading: false,
+      authError: undefined,
+    } as AuthContextType);
+  });
+
   it('should render main container correctly', () => {
     renderWithRouter();
 
@@ -151,5 +172,31 @@ describe('LoginPage', () => {
     );
 
     expect(screen.getByLabelText(/Sign up form/i)).toBeInTheDocument();
+  });
+
+  it('should show loading state while checking authentication', () => {
+    // Mock useAuth to return loading state
+    (useAuth as jest.Mock).mockReturnValue({
+      user: null,
+      userId: null,
+      login: jest.fn(),
+      logout: jest.fn(),
+      isAuthenticated: false,
+      token: null,
+      loading: true,
+      authError: undefined,
+    } as AuthContextType);
+    render(
+      <AuthProvider>
+        <MemoryRouter initialEntries={['/login']}>
+          <LoginPage />
+        </MemoryRouter>
+      </AuthProvider>,
+    );
+
+    expect(
+      screen.getByText(/Checking authentication state/i),
+    ).toBeInTheDocument();
+    expect(screen.getByRole('status')).toBeInTheDocument(); // spinner
   });
 });
