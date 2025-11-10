@@ -4,43 +4,55 @@ import { MemoryRouter } from 'react-router-dom';
 import AuthProvider from '../../../components/AuthComponents/AuthProvider';
 import { ActionType } from '../../../types/ActionType';
 import userEvent from '@testing-library/user-event';
+import { useAuth } from '../../../utils/useAuth';
+import { AuthContextType } from '../../../types/auth/auth';
 
-const renderWithRouter = (initialEntries: string[] = ['/login']) => {
-  return render(
-    <AuthProvider>
-      <MemoryRouter initialEntries={initialEntries}>
-        <LoginPage />
-      </MemoryRouter>
-    </AuthProvider>,
-  );
-};
+// Mock useAuth hook
+jest.mock('../../../utils/useAuth', () => ({
+  useAuth: jest.fn(),
+}));
 
-const renderWithLocationState = (state: { action: ActionType }) => {
+// Helper to render LoginPage with optional location state
+const renderLoginPage = (state?: { action: ActionType }) => {
+  const initialEntries = state ? [{ pathname: '/login', state }] : ['/login'];
+
   return render(
-    <AuthProvider>
-      <MemoryRouter initialEntries={[{ pathname: '/login', state }]}>
-        <LoginPage />
-      </MemoryRouter>
-    </AuthProvider>,
+    <MemoryRouter initialEntries={initialEntries}>
+      <LoginPage />
+    </MemoryRouter>,
   );
 };
 
 describe('LoginPage', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    (useAuth as jest.Mock).mockReturnValue({
+      user: null,
+      userId: null,
+      login: jest.fn(),
+      logout: jest.fn(),
+      isAuthenticated: false,
+      token: null,
+      loading: false,
+      authError: undefined,
+    } as AuthContextType);
+  });
+
   it('should render main container correctly', () => {
-    renderWithRouter();
+    renderLoginPage();
 
     const mainContainer = screen.getByTestId('login-page-main-container');
     expect(mainContainer).toBeInTheDocument();
   });
 
   it('should initialize with Login action from location state', () => {
-    renderWithLocationState({ action: ActionType.Login });
+    renderLoginPage({ action: ActionType.Login });
 
     expect(screen.getByLabelText(/Login form/i)).toBeInTheDocument();
   });
 
   it('should initialize with Sign up action from location state', () => {
-    renderWithLocationState({ action: ActionType.SignUp });
+    renderLoginPage({ action: ActionType.SignUp });
 
     expect(screen.getByLabelText(/Sign up form/i)).toBeInTheDocument();
   });
@@ -59,7 +71,7 @@ describe('LoginPage', () => {
   });
 
   it('should render login form and title components', () => {
-    renderWithRouter();
+    renderLoginPage();
 
     expect(screen.getByLabelText(/Login form/i)).toBeInTheDocument();
     expect(
@@ -71,7 +83,7 @@ describe('LoginPage', () => {
   });
 
   it('should pass action state to child components', () => {
-    renderWithLocationState({ action: ActionType.SignUp });
+    renderLoginPage({ action: ActionType.SignUp });
 
     // Verify the state is passed correctly to children
     expect(screen.getByLabelText(/Sign up form/i)).toBeInTheDocument();
@@ -79,7 +91,7 @@ describe('LoginPage', () => {
 
   it('should handle action state changes from LoginForm', async () => {
     const user = userEvent.setup();
-    renderWithLocationState({ action: ActionType.Login });
+    renderLoginPage({ action: ActionType.Login });
 
     const switchButton = screen.getByTestId('switch-action-button-container');
     await user.click(switchButton);
@@ -91,7 +103,7 @@ describe('LoginPage', () => {
 
   it('should handle action state change from SignUp back to Login', async () => {
     const user = userEvent.setup();
-    renderWithLocationState({ action: ActionType.SignUp });
+    renderLoginPage({ action: ActionType.SignUp });
 
     expect(screen.getByLabelText(/Sign up form/i)).toBeInTheDocument();
 
@@ -122,7 +134,7 @@ describe('LoginPage', () => {
 
   it('should update both LoginForm and LoginPageTitle when action changes', async () => {
     const user = userEvent.setup();
-    renderWithLocationState({ action: ActionType.Login });
+    renderLoginPage({ action: ActionType.Login });
 
     expect(
       screen.getByTestId('title-container-large-screen'),
@@ -139,17 +151,47 @@ describe('LoginPage', () => {
   });
 
   it('should persist the selected action after rerender', () => {
-    const { rerender } = renderWithLocationState({ action: ActionType.SignUp });
-    expect(screen.getByLabelText(/Sign up form/i)).toBeInTheDocument();
+    const { rerender } = renderLoginPage({ action: ActionType.SignUp });
+    expect(screen.getByLabelText(/Last name/i)).toBeInTheDocument();
 
     rerender(
       <AuthProvider>
-        <MemoryRouter initialEntries={[{ pathname: '/login' }]}>
+        <MemoryRouter
+          initialEntries={[
+            { pathname: '/login', state: { action: ActionType.SignUp } },
+          ]}
+        >
           <LoginPage />
         </MemoryRouter>
       </AuthProvider>,
     );
 
-    expect(screen.getByLabelText(/Sign up form/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Last name/i)).toBeInTheDocument();
+  });
+
+  it('should show loading state while checking authentication', () => {
+    // Mock useAuth to return loading state
+    (useAuth as jest.Mock).mockReturnValue({
+      user: null,
+      userId: null,
+      login: jest.fn(),
+      logout: jest.fn(),
+      isAuthenticated: false,
+      token: null,
+      loading: true,
+      authError: undefined,
+    } as AuthContextType);
+    render(
+      <AuthProvider>
+        <MemoryRouter initialEntries={['/login']}>
+          <LoginPage />
+        </MemoryRouter>
+      </AuthProvider>,
+    );
+
+    expect(
+      screen.getByText(/Checking authentication state/i),
+    ).toBeInTheDocument();
+    expect(screen.getByRole('status')).toBeInTheDocument(); // spinner
   });
 });

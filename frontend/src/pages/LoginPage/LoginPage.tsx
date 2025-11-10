@@ -22,7 +22,9 @@ const LoginPage = () => {
     return (
       <div className='flex justify-center items-center py-8'>
         <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500'></div>
-        <p className='ml-3 text-gray-600'>Checking authentication state...</p>
+        <p role='status' aria-label='loading' className='ml-3 text-gray-600'>
+          Checking authentication state...
+        </p>
       </div>
     );
   }
