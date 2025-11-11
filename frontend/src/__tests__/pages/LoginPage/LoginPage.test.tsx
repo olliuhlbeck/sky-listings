@@ -91,7 +91,6 @@ describe('LoginPage', () => {
   it('should pass action state to child components', () => {
     renderLoginPage({ action: ActionType.SignUp });
 
-    // Verify the state is passed correctly to children
     expect(screen.getByLabelText(/Sign up form/i)).toBeInTheDocument();
   });
 
@@ -176,7 +175,6 @@ describe('LoginPage', () => {
   });
 
   it('should show loading state while checking authentication', () => {
-    // Mock useAuth to return loading state
     (useAuth as jest.Mock).mockReturnValue({
       user: null,
       userId: null,
@@ -205,7 +203,6 @@ describe('LoginPage', () => {
     const mockNavigate = jest.fn();
     (useNavigate as jest.Mock).mockReturnValue(mockNavigate);
 
-    // Mock useAuth to return authenticated user
     (useAuth as jest.Mock).mockReturnValue({
       user: 'authenticatedUser',
       userId: 123,
@@ -223,10 +220,8 @@ describe('LoginPage', () => {
       </MemoryRouter>,
     );
 
-    // Verify navigate was called with correct arguments
     expect(mockNavigate).toHaveBeenCalledWith('/', { replace: true });
 
-    // Verify the login page content is not rendered
     expect(
       screen.queryByTestId('login-page-main-container'),
     ).not.toBeInTheDocument();
