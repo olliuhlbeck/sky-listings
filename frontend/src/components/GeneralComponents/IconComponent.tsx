@@ -10,10 +10,17 @@ interface IconComponentProps {
 const IconComponent = ({
   icon: Icon,
   size = 24,
-  className,
+  className = '',
   onClick,
 }: IconComponentProps) => {
-  return <Icon size={size} className={`${className}`} onClick={onClick} />;
+  return (
+    <Icon
+      size={size}
+      className={`${className}`}
+      onClick={onClick}
+      data-testid='icon-component'
+    />
+  );
 };
 
 export default IconComponent;
