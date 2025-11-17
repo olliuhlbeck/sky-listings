@@ -57,7 +57,6 @@ describe('MyProperties Page', () => {
       isAuthenticated: true,
       token: 'faketoken',
       loading: false,
-      authError: undefined,
     } as AuthContextType);
 
     (global.fetch as jest.Mock).mockResolvedValue({
