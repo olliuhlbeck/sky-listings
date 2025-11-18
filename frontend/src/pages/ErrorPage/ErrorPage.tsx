@@ -5,9 +5,7 @@ import HeaderButton from '../../components/HeaderComponents/HeaderButton';
 
 const ErrorPage = ({ errorCode }: ErrorPageProps) => {
   return (
-    <div
-      className={`flex flex-col h-screen w-full items-center bg-cover bg-center bg-[url('./assets/background.png')]`}
-    >
+    <div className='flex flex-col h-screen w-full items-center'>
       <div className='bg-white flex items-center justify-center gap-10 w-5/6 md:w-3/6 h-[20rem] border-2 rounded-2xl my-10 px-3'>
         <IconComponent
           icon={RiErrorWarningLine}
