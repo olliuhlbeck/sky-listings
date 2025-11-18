@@ -2,7 +2,6 @@ import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import ErrorPage from '../../../pages/ErrorPage/ErrorPage';
 
-// Wrapper for components that use routing
 const renderWithRouter = (component: React.ReactElement) => {
   return render(<BrowserRouter>{component}</BrowserRouter>);
 };
