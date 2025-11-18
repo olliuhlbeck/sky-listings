@@ -34,6 +34,12 @@ describe('ErrorPage', () => {
     expect(screen.getByText(/go back to home page/i)).toBeInTheDocument();
   });
 
+  it('home button links to home page', () => {
+    renderWithRouter(<ErrorPage errorCode={404} />);
+    const link = screen.getByRole('link', { name: /go back to home page/i });
+    expect(link).toHaveAttribute('href', '/');
+  });
+
   it('renders error icons', () => {
     renderWithRouter(<ErrorPage errorCode={404} />);
     const icons = screen.getAllByTestId('icon-component');
