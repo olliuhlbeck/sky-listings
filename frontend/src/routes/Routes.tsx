@@ -5,7 +5,7 @@ import LoginPage from '../pages/LoginPage/LoginPage';
 import BrowseProperties from '../pages/BrowsePropertiesPage/BrowsePropertiesPage';
 import MyProperties from '../pages/MyPropertiesPage/MyPropertiesPage';
 import ErrorPage from '../pages/ErrorPage/ErrorPage';
-import AddProperty from '../pages/AddPropertyPage/AddPropertyPage';
+import AddPropertyPage from '../pages/AddPropertyPage/AddPropertyPage';
 import ProtectedRoute from '../components/AuthComponents/ProtectedRoute';
 import ProfilePage from '../pages/ProfilePage/ProfilePage';
 
@@ -30,7 +30,7 @@ export const router = createBrowserRouter([
         path: 'addProperty',
         element: (
           <ProtectedRoute>
-            <AddProperty />
+            <AddPropertyPage />
           </ProtectedRoute>
         ),
       },
