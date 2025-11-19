@@ -12,7 +12,7 @@ import { useAuth } from '../../utils/useAuth';
 import { CreatePropertyResponse } from '../../types/dtos/CreatePropertyResponse.dto';
 import { GeneralErrorResponse } from '../../types/dtos/GeneralErrorResponse.dto';
 
-const AddProperty: React.FC = () => {
+const AddPropertyPage: React.FC = () => {
   const [formData, setFormData] = useState<PropertyFormData>({
     street: '',
     city: '',
@@ -136,6 +136,7 @@ const AddProperty: React.FC = () => {
 
   return (
     <form
+      data-testid='add-property-page-main-container'
       id='addPropertyForm'
       onSubmit={handleSubmit}
       className='bg-linear-to-r from-sky-500 to-blue-200 dark:from-sky-950 dark:to-blue-800 w-11/12 min-w-3xs justify-center mt-10 p-4 mx-auto rounded-2xl shadow-md shadow-gray-500 dark:shadow-slate-700'
@@ -436,4 +437,4 @@ const AddProperty: React.FC = () => {
   );
 };
 
-export default AddProperty;
+export default AddPropertyPage;
