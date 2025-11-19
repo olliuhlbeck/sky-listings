@@ -22,14 +22,13 @@ describe('AddPropertyPage', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     (useAuth as jest.Mock).mockReturnValue({
-      user: null,
-      userId: null,
+      user: 'user1',
+      userId: 2,
       login: jest.fn(),
       logout: jest.fn(),
-      isAuthenticated: false,
-      token: null,
+      isAuthenticated: true,
+      token: 'fake-token',
       loading: false,
-      authError: undefined,
     } as AuthContextType);
   });
 
@@ -40,5 +39,12 @@ describe('AddPropertyPage', () => {
       'add-property-page-main-container',
     );
     expect(mainContainer).toBeInTheDocument();
+  });
+
+  it('should render submit button', () => {
+    renderAddPropertyPage();
+
+    const submitButton = screen.getByTestId('submit-add-property-button');
+    expect(submitButton).toBeInTheDocument();
   });
 });
