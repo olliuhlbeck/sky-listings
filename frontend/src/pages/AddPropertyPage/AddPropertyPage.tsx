@@ -427,7 +427,6 @@ const AddPropertyPage: React.FC = () => {
         )}
 
         <Button
-          testId='submit-add-property-button'
           text='Add property'
           type='submit'
           ClassName='mx-auto dark:hover:bg-blue-700'
