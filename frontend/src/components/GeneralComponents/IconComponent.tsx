@@ -13,14 +13,7 @@ const IconComponent = ({
   className = '',
   onClick,
 }: IconComponentProps) => {
-  return (
-    <Icon
-      size={size}
-      className={`${className}`}
-      onClick={onClick}
-      data-testid='icon-component'
-    />
-  );
+  return <Icon size={size} className={`${className}`} onClick={onClick} />;
 };
 
 export default IconComponent;
