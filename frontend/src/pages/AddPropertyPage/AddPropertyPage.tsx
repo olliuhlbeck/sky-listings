@@ -136,12 +136,15 @@ const AddPropertyPage: React.FC = () => {
 
   return (
     <form
-      data-testid='add-property-page-main-container'
+      aria-labelledby='form-heading'
       id='addPropertyForm'
       onSubmit={handleSubmit}
       className='bg-linear-to-r from-sky-500 to-blue-200 dark:from-sky-950 dark:to-blue-800 w-11/12 min-w-3xs justify-center mt-10 p-4 mx-auto rounded-2xl shadow-md shadow-gray-500 dark:shadow-slate-700'
     >
-      <h1 className='text-2xl font-semibold text-center mb-3 md:mb-6'>
+      <h1
+        id='form-heading'
+        className='text-2xl font-semibold text-center mb-3 md:mb-6'
+      >
         Property information
       </h1>
       <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 [&>*]:flex-1 [&>*]:shadow-md [&>*]:rounded-md [&>*]:bg-sky-100 [&_h2]:text-xl  [&_h2]:my-2 [&>*]:h-[17rem] mb-4'>
@@ -427,7 +430,6 @@ const AddPropertyPage: React.FC = () => {
         )}
 
         <Button
-          testId='submit-add-property-button'
           text='Add property'
           type='submit'
           ClassName='mx-auto dark:hover:bg-blue-700'

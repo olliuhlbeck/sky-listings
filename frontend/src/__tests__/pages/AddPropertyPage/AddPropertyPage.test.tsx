@@ -36,16 +36,14 @@ describe('AddPropertyPage', () => {
   it('should render AddPropertyPage main container correctly', () => {
     renderAddPropertyPage();
 
-    const mainContainer = screen.getByTestId(
-      'add-property-page-main-container',
-    );
-    expect(mainContainer).toBeInTheDocument();
+    const form = screen.getByRole('form', { name: /property information/i });
+    expect(form).toBeInTheDocument();
   });
 
   it('should render submit button', () => {
     renderAddPropertyPage();
 
-    const submitButton = screen.getByTestId('submit-add-property-button');
+    const submitButton = screen.getByRole('button', { name: /add property/i });
     expect(submitButton).toBeInTheDocument();
   });
 
