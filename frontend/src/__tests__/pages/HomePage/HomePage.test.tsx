@@ -21,6 +21,7 @@ describe('HomePage', () => {
       logout: jest.fn(),
       isAuthenticated: false,
       token: null,
+      loading: false,
     });
   });
 
@@ -82,6 +83,7 @@ describe('HomePage', () => {
       logout: jest.fn(),
       isAuthenticated: true,
       token: 'fake-token',
+      loading: false,
     });
 
     render(
