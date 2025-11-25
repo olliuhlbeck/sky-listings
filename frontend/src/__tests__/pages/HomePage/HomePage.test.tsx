@@ -45,13 +45,13 @@ describe('HomePage', () => {
     expect(heroImage).toBeInTheDocument();
   });
 
-  it('renders AdComponent with correct props', () => {
+  it('renders AdComponent with  "Apply loan" button', () => {
     render(
       <BrowserRouter>
         <HomePage />
       </BrowserRouter>,
     );
-    const adComponent = screen.getByTestId('ad-component');
+    const adComponent = screen.getByText('Apply for loan');
     expect(adComponent).toBeInTheDocument();
   });
 
