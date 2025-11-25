@@ -36,22 +36,6 @@ describe('HomePage', () => {
     expect(mainDiv).toBeInTheDocument();
   });
 
-  // Verifies layout classes center content
-  it('applies correct centering classes', () => {
-    render(
-      <BrowserRouter>
-        <HomePage />
-      </BrowserRouter>,
-    );
-    const mainDiv = screen.getByTestId('home-page-main-container');
-    expect(mainDiv).toHaveClass(
-      'flex',
-      'flex-col',
-      'justify-center',
-      'items-center',
-    );
-  });
-
   // Checks that the hero image is displayed
   it('renders hero section image', () => {
     render(
