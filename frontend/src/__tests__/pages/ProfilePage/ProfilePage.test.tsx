@@ -8,7 +8,6 @@ jest.mock('../../../components/ProfileComponents/EditProfileInfoForm', () => ({
     <div data-testid='edit-profile-form'>Edit Profile Form Mock</div>
   ),
 }));
-
 jest.mock(
   '../../../components/ProfileComponents/UserProfilePictureChanger',
   () => ({
@@ -26,15 +25,24 @@ describe('ProfilePage', () => {
     jest.clearAllMocks();
   });
 
-  // Ensures main container div is rendered correctly
   it('renders main container', () => {
     render(<ProfilePage />);
 
-    const mainDiv = screen.getByTestId('profile-page-main-container');
+    const mainDiv = screen.getByRole('main');
     expect(mainDiv).toBeInTheDocument();
   });
 
-  // Confirms both mocked child components are rendered
+  it('renders the page heading', () => {
+    render(<ProfilePage />);
+
+    expect(
+      screen.getByRole('heading', {
+        name: /profile information/i,
+        level: 2,
+      }),
+    ).toBeInTheDocument();
+  });
+
   it('renders UserProfilePictureChanger and EditProfileInfoForm', () => {
     render(<ProfilePage />);
 
