@@ -103,12 +103,7 @@ const MyProperties = () => {
         {loading && (
           <div className='flex justify-center items-center py-8'>
             <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500'></div>
-            <p
-              data-testid='loading-properties-text'
-              className='ml-3 text-gray-600'
-            >
-              Loading your properties...
-            </p>
+            <p className='ml-3 text-gray-600'>Loading your properties...</p>
           </div>
         )}
         {/* Error display */}
@@ -142,14 +137,10 @@ const MyProperties = () => {
                       </div>
                     ) : (
                       <>
-                        <div
-                          data-testid='property-selection-buttons-container'
-                          className={`grid ${getGridCols()} gap-4`}
-                        >
+                        <div className={`grid ${getGridCols()} gap-4`}>
                           {usersProperties.map((property) => {
                             return (
                               <div
-                                data-testid='property-button'
                                 className={`bg-sky-200 dark:bg-blue-900 rounded-md p-1 hover:bg-sky-300 dark:hover:bg-blue-700 hover:cursor-pointer transition duration-200 ${propertyToEdit?.id === property.id ? '!bg-blue-400' : ''}`}
                                 key={property.id}
                                 onClick={() =>
