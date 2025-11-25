@@ -22,7 +22,7 @@ jest.mock('../../../utils/useAuth', () => ({
 // Mock AdComponent
 jest.mock('../../../components/GeneralComponents/AdComponent', () => {
   return function MockAdComponent() {
-    return <div data-testid='ad-component'>Ad Component</div>;
+    return <div>Ad Component</div>;
   };
 });
 
@@ -35,9 +35,7 @@ jest.mock('../../../components/PropertyComponents/PropertyInfoEditForm', () => {
     originalProperty: { id: number; street: string };
     onPropertyUpdate: (updated: { id: number; street: string }) => void;
   }) {
-    return (
-      <div data-testid='property-edit-form'>Editing: {property.street}</div>
-    );
+    return <div>Editing: {property.street}</div>;
   };
 });
 
@@ -85,7 +83,7 @@ describe('MyProperties Page', () => {
     renderMyProperties();
 
     await waitFor(() => {
-      expect(screen.getByTestId('ad-component')).toBeInTheDocument();
+      expect(screen.getByText('Ad Component')).toBeInTheDocument();
     });
   });
 
@@ -94,12 +92,13 @@ describe('MyProperties Page', () => {
 
     await waitFor(() => {
       expect(
-        screen.getByTestId('property-selection-buttons-container'),
+        screen.getByText('Select property to edit information:'),
       ).toBeInTheDocument();
     });
 
-    const buttons = screen.getAllByTestId('property-button');
-    expect(buttons.length).toBe(3);
+    expect(screen.getByText('123 Main St')).toBeInTheDocument();
+    expect(screen.getByText('456 Oak Ave')).toBeInTheDocument();
+    expect(screen.getByText('789 Pine Rd')).toBeInTheDocument();
   });
 
   it('should display loading state while fetching properties', () => {
@@ -108,7 +107,7 @@ describe('MyProperties Page', () => {
 
     renderMyProperties();
 
-    expect(screen.getByTestId('loading-properties-text')).toBeInTheDocument();
+    expect(screen.getByText('Loading your properties...')).toBeInTheDocument();
   });
 
   it('should hide loading state after properties are fetched', async () => {
@@ -191,7 +190,7 @@ describe('MyProperties Page', () => {
     renderMyProperties();
 
     await waitFor(() => {
-      expect(screen.getAllByTestId('property-button').length).toBe(3);
+      expect(screen.getByText('123 Main St')).toBeInTheDocument();
     });
 
     fireEvent.click(screen.getByText('123 Main St'));
@@ -217,7 +216,7 @@ describe('MyProperties Page', () => {
     renderMyProperties();
 
     await waitFor(() => {
-      expect(screen.getAllByTestId('property-button').length).toBe(3);
+      expect(screen.getByText('123 Main St')).toBeInTheDocument();
     });
 
     fireEvent.click(screen.getByText('123 Main St'));
@@ -238,13 +237,13 @@ describe('MyProperties Page', () => {
     renderMyProperties();
 
     await waitFor(() => {
-      expect(screen.getAllByTestId('property-button').length).toBe(3);
+      expect(screen.getByText('123 Main St')).toBeInTheDocument();
     });
 
     fireEvent.click(screen.getByText('123 Main St'));
 
     await waitFor(() => {
-      expect(screen.getByTestId('property-edit-form')).toBeInTheDocument();
+      expect(screen.getByText('Editing: 123 Main St')).toBeInTheDocument();
     });
 
     fireEvent.click(screen.getByText('Delete selected property'));
