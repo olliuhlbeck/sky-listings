@@ -4,19 +4,13 @@ import ProfilePage from '../../../pages/ProfilePage/ProfilePage';
 // Mock child components to isolate ProfilePage tests
 jest.mock('../../../components/ProfileComponents/EditProfileInfoForm', () => ({
   __esModule: true,
-  default: () => (
-    <div data-testid='edit-profile-form'>Edit Profile Form Mock</div>
-  ),
+  default: () => <div>Edit Profile Form Mock</div>,
 }));
 jest.mock(
   '../../../components/ProfileComponents/UserProfilePictureChanger',
   () => ({
     __esModule: true,
-    default: () => (
-      <div data-testid='profile-picture-changer'>
-        Profile Picture Changer Mock
-      </div>
-    ),
+    default: () => <div>Profile Picture Changer Mock</div>,
   }),
 );
 
@@ -46,8 +40,8 @@ describe('ProfilePage', () => {
   it('renders UserProfilePictureChanger and EditProfileInfoForm', () => {
     render(<ProfilePage />);
 
-    const pictureChanger = screen.getByTestId('profile-picture-changer');
-    const formComponent = screen.getByTestId('edit-profile-form');
+    const pictureChanger = screen.getByText('Profile Picture Changer Mock');
+    const formComponent = screen.getByText('Edit Profile Form Mock');
     expect(pictureChanger).toBeInTheDocument();
     expect(formComponent).toBeInTheDocument();
   });
