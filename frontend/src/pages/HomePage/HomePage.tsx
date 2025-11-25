@@ -55,7 +55,6 @@ const HomePage = () => {
       )}
       {/* Render ad */}
       <AdComponent
-        data-testid='ad-component'
         title='Mortgage Masters'
         message='Short on liquid assets? Mortgage Masters can solve your problems!'
         buttonText='Apply for loan'
