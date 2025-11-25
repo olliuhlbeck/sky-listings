@@ -3,10 +3,7 @@ import UserProfilePictureChanger from '../../components/ProfileComponents/UserPr
 
 const ProfilePage: React.FC = () => {
   return (
-    <div
-      data-testid='profile-page-main-container'
-      className='bg-white dark:bg-slate-700 flex flex-col mt-10 pb-5 min-w-60 w-4/5 rounded-xl mx-auto shadow-md dark:shadow-gray-500'
-    >
+    <main className='bg-white dark:bg-slate-700 flex flex-col mt-10 pb-5 min-w-60 w-4/5 rounded-xl mx-auto shadow-md dark:shadow-gray-500'>
       <h2 className='w-4/5 md:w-9/10 font-semibold text-sm md:text-md lg:text-lg py-4 mb-6 border-b mx-auto'>
         Profile information
       </h2>
@@ -14,7 +11,7 @@ const ProfilePage: React.FC = () => {
         <UserProfilePictureChanger />
         <EditProfileInfoForm />
       </div>
-    </div>
+    </main>
   );
 };
 

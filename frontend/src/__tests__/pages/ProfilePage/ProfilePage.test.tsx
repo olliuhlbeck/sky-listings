@@ -4,20 +4,13 @@ import ProfilePage from '../../../pages/ProfilePage/ProfilePage';
 // Mock child components to isolate ProfilePage tests
 jest.mock('../../../components/ProfileComponents/EditProfileInfoForm', () => ({
   __esModule: true,
-  default: () => (
-    <div data-testid='edit-profile-form'>Edit Profile Form Mock</div>
-  ),
+  default: () => <div>Edit Profile Form Mock</div>,
 }));
-
 jest.mock(
   '../../../components/ProfileComponents/UserProfilePictureChanger',
   () => ({
     __esModule: true,
-    default: () => (
-      <div data-testid='profile-picture-changer'>
-        Profile Picture Changer Mock
-      </div>
-    ),
+    default: () => <div>Profile Picture Changer Mock</div>,
   }),
 );
 
@@ -26,20 +19,29 @@ describe('ProfilePage', () => {
     jest.clearAllMocks();
   });
 
-  // Ensures main container div is rendered correctly
   it('renders main container', () => {
     render(<ProfilePage />);
 
-    const mainDiv = screen.getByTestId('profile-page-main-container');
+    const mainDiv = screen.getByRole('main');
     expect(mainDiv).toBeInTheDocument();
   });
 
-  // Confirms both mocked child components are rendered
+  it('renders the page heading', () => {
+    render(<ProfilePage />);
+
+    expect(
+      screen.getByRole('heading', {
+        name: /profile information/i,
+        level: 2,
+      }),
+    ).toBeInTheDocument();
+  });
+
   it('renders UserProfilePictureChanger and EditProfileInfoForm', () => {
     render(<ProfilePage />);
 
-    const pictureChanger = screen.getByTestId('profile-picture-changer');
-    const formComponent = screen.getByTestId('edit-profile-form');
+    const pictureChanger = screen.getByText('Profile Picture Changer Mock');
+    const formComponent = screen.getByText('Edit Profile Form Mock');
     expect(pictureChanger).toBeInTheDocument();
     expect(formComponent).toBeInTheDocument();
   });
