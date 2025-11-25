@@ -13,10 +13,7 @@ const HomePage = () => {
   const { user } = useAuth();
 
   return (
-    <div
-      data-testid='home-page-main-container'
-      className='flex flex-col justify-center items-center'
-    >
+    <main className='flex flex-col justify-center items-center'>
       {/* Descriptive slogan to lure users attraction */}
       <div className='w-1/2 md:w-1/3 lg:w-1/4 flex items-center justify-center mt-4 mb-12 lg:mt-6 lg:mb-8'>
         <img src={heroSection} alt='Hero section' />
@@ -65,7 +62,7 @@ const HomePage = () => {
         icon={BiDollar}
         addToClassName='mt-6 lg:w-5/6 xl:w-4/6'
       />
-    </div>
+    </main>
   );
 };
 
