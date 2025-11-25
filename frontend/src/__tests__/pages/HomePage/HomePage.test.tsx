@@ -25,7 +25,6 @@ describe('HomePage', () => {
     });
   });
 
-  // Ensures main container div is rendered correctly
   it('renders main container', () => {
     render(
       <BrowserRouter>
@@ -36,7 +35,6 @@ describe('HomePage', () => {
     expect(mainDiv).toBeInTheDocument();
   });
 
-  // Checks that the hero image is displayed
   it('renders hero section image', () => {
     render(
       <BrowserRouter>
@@ -47,7 +45,6 @@ describe('HomePage', () => {
     expect(heroImage).toBeInTheDocument();
   });
 
-  // Confirms ad component is rendered
   it('renders AdComponent with correct props', () => {
     render(
       <BrowserRouter>
@@ -58,7 +55,6 @@ describe('HomePage', () => {
     expect(adComponent).toBeInTheDocument();
   });
 
-  // Confirm conditional rendering based on authentication state
   it('renders the sell property button when user is logged in', () => {
     mockUseAuth.mockReturnValue({
       user: 'Alice',
@@ -80,8 +76,7 @@ describe('HomePage', () => {
     expect(sellPropertyCard).toBeInTheDocument();
   });
 
-  // Register button actually redirects to login page
-  it('renders Register link pointing to /login', () => {
+  it('renders Register link which actually redirects to /login', () => {
     render(
       <BrowserRouter>
         <HomePage />
