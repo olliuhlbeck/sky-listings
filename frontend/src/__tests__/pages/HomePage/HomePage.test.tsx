@@ -32,7 +32,7 @@ describe('HomePage', () => {
         <HomePage />
       </BrowserRouter>,
     );
-    const mainDiv = screen.getByTestId('home-page-main-container');
+    const mainDiv = screen.getByRole('main');
     expect(mainDiv).toBeInTheDocument();
   });
 
