@@ -47,7 +47,7 @@ describe('LoginPage', () => {
   it('should render main container correctly', () => {
     renderLoginPage();
 
-    const mainContainer = screen.getByTestId('login-page-main-container');
+    const mainContainer = screen.getByRole('main');
     expect(mainContainer).toBeInTheDocument();
   });
 
@@ -72,19 +72,25 @@ describe('LoginPage', () => {
       </AuthProvider>,
     );
 
-    const mainContainer = screen.getByTestId('login-page-main-container');
+    const mainContainer = screen.getByRole('main');
     expect(mainContainer).toBeInTheDocument();
   });
 
-  it('should render login form and title components', () => {
-    renderLoginPage();
+  it('should render login form with Login heading', () => {
+    renderLoginPage({ action: ActionType.Login });
 
     expect(screen.getByLabelText(/Login form/i)).toBeInTheDocument();
     expect(
-      screen.getByTestId('title-container-small-screen'),
+      screen.getByRole('heading', { level: 1, name: /Login/i }),
     ).toBeInTheDocument();
+  });
+
+  it('should render sign up form with Sign Up heading', () => {
+    renderLoginPage({ action: ActionType.SignUp });
+
+    expect(screen.getByLabelText(/Sign up form/i)).toBeInTheDocument();
     expect(
-      screen.getByTestId('title-container-large-screen'),
+      screen.getByRole('heading', { level: 1, name: /Sign Up/i }),
     ).toBeInTheDocument();
   });
 
@@ -98,7 +104,9 @@ describe('LoginPage', () => {
     const user = userEvent.setup();
     renderLoginPage({ action: ActionType.Login });
 
-    const switchButton = screen.getByTestId('switch-action-button-container');
+    const switchButton = screen.getByRole('button', {
+      name: /Create one by clicking here/i,
+    });
     await user.click(switchButton);
 
     await waitFor(() => {
@@ -112,7 +120,9 @@ describe('LoginPage', () => {
 
     expect(screen.getByLabelText(/Sign up form/i)).toBeInTheDocument();
 
-    const switchButton = screen.getByTestId('switch-action-button-container');
+    const switchButton = screen.getByRole('button', {
+      name: /Switch to login by clicking here/i,
+    });
     await user.click(switchButton);
 
     await waitFor(() => {
@@ -133,7 +143,7 @@ describe('LoginPage', () => {
       </AuthProvider>,
     );
 
-    const mainContainer = screen.getByTestId('login-page-main-container');
+    const mainContainer = screen.getByRole('main');
     expect(mainContainer).toBeInTheDocument();
   });
 
@@ -141,17 +151,15 @@ describe('LoginPage', () => {
     const user = userEvent.setup();
     renderLoginPage({ action: ActionType.Login });
 
-    expect(
-      screen.getByTestId('title-container-large-screen'),
-    ).toHaveTextContent(/Login/i);
+    expect(screen.getByLabelText(/Login form/i)).toBeInTheDocument();
 
-    const switchButton = screen.getByTestId('switch-action-button-container');
+    const switchButton = screen.getByRole('button', {
+      name: /Create one by clicking here/i,
+    });
     await user.click(switchButton);
 
     await waitFor(() => {
-      expect(
-        screen.getByTestId('title-container-large-screen'),
-      ).toHaveTextContent(/Sign up/i);
+      expect(screen.getByLabelText('Sign Up Form')).toBeInTheDocument();
     });
   });
 
@@ -221,9 +229,5 @@ describe('LoginPage', () => {
     );
 
     expect(mockNavigate).toHaveBeenCalledWith('/', { replace: true });
-
-    expect(
-      screen.queryByTestId('login-page-main-container'),
-    ).not.toBeInTheDocument();
   });
 });
