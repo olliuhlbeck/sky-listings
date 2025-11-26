@@ -6,7 +6,6 @@ const LoginPageTitle = ({ action }: LoginComponentProps) => {
     <>
       {/* Title and background on top for smaller screens */}
       <div
-        data-testid='title-container-small-screen'
         className="md:hidden absolute top-0 left-0 right-0 h-1/5 bg-[url('./assets/loginBackground.jpg')] dark:bg-[url('./assets/loginBgDarkMode.png')] bg-cover bg-center bg-no-repeat flex items-center justify-center z-10"
         style={{
           clipPath: 'polygon(0% 0, 100% 0, 100% 100%, 0 100%)',
@@ -19,7 +18,6 @@ const LoginPageTitle = ({ action }: LoginComponentProps) => {
 
       {/* Title and background on right side for larger screens */}
       <div
-        data-testid='title-container-large-screen'
         className="hidden md:flex bg-[url('./assets/loginBackground.jpg')] dark:bg-[url('./assets/loginBgDarkMode.png')] h-full w-1/3 bg-cover bg-center bg-no-repeat items-center justify-center rounded-r-md dark:text-white"
         aria-hidden='true'
         style={{
