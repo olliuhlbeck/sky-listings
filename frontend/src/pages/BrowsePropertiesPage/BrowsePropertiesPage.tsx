@@ -141,10 +141,7 @@ const BrowseProperties = () => {
 
   return (
     <>
-      <div
-        data-testid='browse-properties-page-main-container'
-        className='mx-10 mb-10'
-      >
+      <main className='mx-10 mb-10'>
         {/* Search bar */}
         {browseState === 'browseMany' && (
           <div
@@ -193,8 +190,9 @@ const BrowseProperties = () => {
                 }}
               />
               {searchTerm !== '' && (
-                <div
-                  data-testid='clear-search-term-icon'
+                <button
+                  type='button'
+                  aria-label='clear term'
                   onClick={() => setSearchTerm('')}
                 >
                   <IconComponent
@@ -202,7 +200,7 @@ const BrowseProperties = () => {
                     size={22}
                     className='absolute -right-2 top-0 transform -translate-y-1/2 cursor-pointer rounded-full  transition duration-150 text-slate-900 dark:text-slate-500 hover:text-red-400'
                   />
-                </div>
+                </button>
               )}
             </div>
             <Button
@@ -248,7 +246,7 @@ const BrowseProperties = () => {
             <p>No property selected. Please try again.</p>
           </div>
         )}
-      </div>
+      </main>
       <AdComponent
         title='Mortgage Masters'
         message='Short on liquid assets? Mortgage Masters can solve your problems!'
