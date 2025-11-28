@@ -458,4 +458,60 @@ describe('BrowsePropertiesPage', () => {
 
     expect(screen.getByRole('button', { name: /Search/i })).toBeInTheDocument();
   });
+
+  it('preserves search term and condition when navigating between pages', async () => {
+    const propertyCount = 7;
+    const mockProperties: MockProperty[] = [];
+    for (let i = 1; i <= propertyCount; i++) {
+      mockProperties.push(createMockProperty(i));
+    }
+
+    mockSuccessfulFetch(mockProperties, propertyCount);
+
+    render(<BrowsePropertiesPage />);
+
+    const dropdown = screen.getByLabelText('Search condition');
+    await userEvent.selectOptions(dropdown, 'city');
+
+    const searchInput = screen.getByPlaceholderText('Search properties...');
+    await userEvent.type(searchInput, 'TestCity');
+
+    mockSuccessfulFetch(mockProperties, propertyCount);
+
+    const searchButton = screen.getByRole('button', { name: /Search/i });
+    await userEvent.click(searchButton);
+
+    await waitFor(() => {
+      expect(screen.getByText('100 Test St')).toBeInTheDocument();
+    });
+
+    mockSuccessfulFetch(mockProperties, propertyCount);
+
+    const nextButton = screen.getByLabelText('Go to page 2');
+    fireEvent.click(nextButton);
+
+    await waitFor(() => {
+      expect(global.fetch).toHaveBeenLastCalledWith(
+        expect.stringContaining('searchTerm=TestCity&searchCondition=city'),
+      );
+    });
+  });
+
+  it('displays "No properties found" message when search returns empty results', async () => {
+    mockSuccessfulFetch([], 0);
+
+    render(<BrowsePropertiesPage />);
+
+    const searchInput = screen.getByPlaceholderText('Search properties...');
+    await userEvent.type(searchInput, 'NonexistentCity');
+
+    mockSuccessfulFetch([], 0);
+
+    const searchButton = screen.getByRole('button', { name: /Search/i });
+    await userEvent.click(searchButton);
+
+    await waitFor(() => {
+      expect(screen.getByText(/No properties found/i)).toBeInTheDocument();
+    });
+  });
 });
