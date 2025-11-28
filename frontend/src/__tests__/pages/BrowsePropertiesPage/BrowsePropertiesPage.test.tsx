@@ -82,7 +82,7 @@ describe('BrowsePropertiesPage', () => {
   it('renders ad component', async () => {
     mockSuccessfulFetch();
     render(<BrowsePropertiesPage />);
-    const adComponent = screen.getByTestId('ad-component');
+    const adComponent = screen.getByText('Apply for loan');
     await waitFor(() => {
       expect(adComponent).toBeInTheDocument();
     });
