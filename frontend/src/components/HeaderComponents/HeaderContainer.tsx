@@ -71,6 +71,7 @@ const HeaderContainer = ({
           </h2>
         </Link>
         <div
+          aria-label='Control hamburger navigation menu'
           ref={hamburgerRef}
           className='xl:hidden'
           onClick={() => setIsHamburgerMenuOpen(!isHamburgerMenuOpen)}
