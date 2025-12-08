@@ -35,7 +35,7 @@ describe('LoginPageTitle Component', () => {
     expect(heading).toHaveLength(1);
   });
 
-  it('renders "Sign up" title when action is SignUp', () => {
+  it('renders Sign up title when action is SignUp', () => {
     renderLoginPageTitle(ActionType.SignUp);
 
     const title = screen.getAllByRole('heading', { name: 'Sign up' });
