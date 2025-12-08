@@ -4,6 +4,7 @@ import { UserProperty } from '../../../types/dtos/GetUsersPropertiesByUserIdResp
 import { PropertyEditProps } from '../../../types/PropertyEditProps';
 import * as useAuthModule from '../../../utils/useAuth';
 import { render, screen, waitFor } from '@testing-library/react';
+import { act } from 'react';
 
 // Mock useAuth hook
 jest.mock('../../../utils/useAuth');
@@ -185,5 +186,83 @@ describe('PropertyInfoEditForm Component', () => {
     await waitFor(() => {
       expect(screen.getByText('Error updating property.')).toBeInTheDocument();
     });
+  });
+
+  it('clears previous messages when property changes', () => {
+    const { rerender } = renderPropertyInfoEditForm();
+
+    const newProperty = { ...mockProperty, id: 2, street: '789 Other St' };
+    rerender(
+      <PropertyInfoEditForm
+        property={newProperty}
+        originalProperty={newProperty}
+        onPropertyUpdate={jest.fn()}
+      />,
+    );
+
+    expect(
+      screen.queryByText('Property updated successfully!'),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText('Error updating property.'),
+    ).not.toBeInTheDocument();
+  });
+
+  it('does not call onPropertyUpdate on failed update', async () => {
+    const user = userEvent.setup();
+    const onPropertyUpdate = jest.fn();
+
+    (global.fetch as jest.Mock).mockResolvedValueOnce({ ok: false });
+
+    renderPropertyInfoEditForm({ onPropertyUpdate });
+
+    const editBtn = screen.getAllByRole('button', { name: /edit/i })[0];
+    await user.click(editBtn);
+
+    const input = screen.getByRole('textbox');
+    await user.type(input, 'New Street{Enter}');
+
+    await user.click(screen.getByRole('button', { name: 'Save changes' }));
+
+    await waitFor(() => {
+      expect(screen.getByText('Error updating property.')).toBeInTheDocument();
+    });
+
+    expect(onPropertyUpdate).not.toHaveBeenCalled();
+  });
+
+  it('removes success message after timeout', async () => {
+    jest.useFakeTimers();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+    (global.fetch as jest.Mock).mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({ updatedProperty: mockProperty }),
+    });
+
+    renderPropertyInfoEditForm();
+
+    const editBtn = screen.getAllByRole('button', { name: /edit/i })[0];
+    await user.click(editBtn);
+
+    const input = screen.getByRole('textbox');
+    await user.clear(input);
+    await user.type(input, 'New Street{Enter}');
+
+    await user.click(screen.getByRole('button', { name: 'Save changes' }));
+
+    await waitFor(() => {
+      expect(
+        screen.getByText('Property updated successfully!'),
+      ).toBeInTheDocument();
+    });
+
+    act(() => {
+      jest.runAllTimers();
+    });
+
+    expect(
+      screen.queryByText('Property updated successfully!'),
+    ).not.toBeInTheDocument();
   });
 });
