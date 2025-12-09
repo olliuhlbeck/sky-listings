@@ -147,7 +147,7 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
           return;
         }
       } else if (action === ActionType.SignUp) {
-        const response = await fetch('http://localhost:3000/signup', {
+        const response = await fetch(`${BASE_URL}/signup/`, {
           method: 'POST',
           headers: {
             'Content-type': 'application/json',
