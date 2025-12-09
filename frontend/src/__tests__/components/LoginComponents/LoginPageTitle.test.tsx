@@ -55,7 +55,7 @@ describe('LoginPageTitle Component', () => {
   it('mobile container is hidden from screen readers', () => {
     const { container } = renderLoginPageTitle(ActionType.Login);
 
-    const desktopContainer = container.querySelector('[aria-hidden="true"]');
-    expect(desktopContainer).toBeInTheDocument();
+    const mobileContainer = container.querySelector('[aria-hidden="true"]');
+    expect(mobileContainer).toBeInTheDocument();
   });
 });
