@@ -52,7 +52,7 @@ describe('LoginPageTitle Component', () => {
     expect(heading).toHaveLength(1);
   });
 
-  it('desktop container is hidden from screen readers', () => {
+  it('mobile container is hidden from screen readers', () => {
     const { container } = renderLoginPageTitle(ActionType.Login);
 
     const desktopContainer = container.querySelector('[aria-hidden="true"]');
