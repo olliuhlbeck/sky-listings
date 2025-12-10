@@ -69,7 +69,7 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
 
   const validateEmail = (email: string) => {
     // Basic email validation regex copied from internet
-    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return emailRegex.test(email) ? '' : 'Please enter a valid email.';
   };
   const validateUsername = (username: string) => {
