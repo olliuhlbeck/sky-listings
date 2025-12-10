@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import LoginForm from '../../../components/LoginComponents/LoginForm';
 import { ActionType } from '../../../types/ActionType';
@@ -77,6 +77,7 @@ describe('LoginForm', () => {
   });
 
   it('shows email validation error for invalid email in signup', async () => {
+    const user = userEvent.setup();
     renderWithRouter(
       <LoginForm action={ActionType.SignUp} setAction={mockSetAction} />,
     );
@@ -87,14 +88,14 @@ describe('LoginForm', () => {
     const usernameInput = screen.getByPlaceholderText('Username');
     const passwordInput = screen.getByPlaceholderText('Password');
 
-    fireEvent.change(firstNameInput, { target: { value: 'John' } });
-    fireEvent.change(lastNameInput, { target: { value: 'Doe' } });
-    fireEvent.change(emailInput, { target: { value: 'invalid-email' } });
-    fireEvent.change(usernameInput, { target: { value: 'testuser' } });
-    fireEvent.change(passwordInput, { target: { value: 'password123' } });
+    await user.type(firstNameInput, 'John');
+    await user.type(lastNameInput, 'Doe');
+    await user.type(emailInput, 'invalid-email');
+    await user.type(usernameInput, 'testuser');
+    await user.type(passwordInput, 'password123');
 
     const submitButton = screen.getByRole('button', { name: 'Sign Up' });
-    fireEvent.click(submitButton);
+    await user.click(submitButton);
 
     await waitFor(() => {
       expect(
@@ -103,13 +104,14 @@ describe('LoginForm', () => {
     });
   });
 
-  it('switches between login and signup modes', () => {
+  it('switches between login and signup modes', async () => {
+    const user = userEvent.setup();
     renderWithRouter(
       <LoginForm action={ActionType.Login} setAction={mockSetAction} />,
     );
 
     const switchButton = screen.getByText('Create one by clicking here');
-    fireEvent.click(switchButton);
+    await user.click(switchButton);
 
     expect(mockSetAction).toHaveBeenCalledWith(ActionType.SignUp);
   });
