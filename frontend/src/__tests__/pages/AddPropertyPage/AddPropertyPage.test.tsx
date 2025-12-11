@@ -2,7 +2,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { AuthContextType } from '../../../types/auth/auth';
 import { useAuth } from '../../../utils/useAuth';
 import AddPropertyPage from '../../../pages/AddPropertyPage/AddPropertyPage';
-import { render, screen, waitFor } from '@testing-library/react';
+import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 // Mock useAuth hook
@@ -199,7 +199,9 @@ describe('AddPropertyPage', () => {
       ).toBeInTheDocument();
     });
 
-    jest.advanceTimersByTime(3000);
+    act(() => {
+      jest.advanceTimersByTime(3000);
+    });
 
     await waitFor(() => {
       expect(
@@ -227,7 +229,9 @@ describe('AddPropertyPage', () => {
       expect(screen.getByText('Failed to create property')).toBeInTheDocument();
     });
 
-    jest.advanceTimersByTime(3000);
+    act(() => {
+      jest.advanceTimersByTime(3000);
+    });
 
     await waitFor(() => {
       expect(
