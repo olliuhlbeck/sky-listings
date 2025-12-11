@@ -160,23 +160,10 @@ propertyRouter.get(
           : null;
 
         return {
-          id: property.id,
-          userId: property.userId,
-          street: property.street,
-          city: property.city,
-          state: property.state,
-          country: property.country,
-          postalCode: property.postalCode,
-          price: property.price,
-          bedrooms: property.bedrooms,
-          bathrooms: property.bathrooms,
-          squareMeters: property.squareMeters,
-          propertyType: property.propertyType,
-          propertyStatus: property.propertyStatus,
-          description: property.description,
-          additionalInfo: property.additionalInfo,
-          createdAt: property.createdAt,
-          coverPicture: base64Image,
+          ...property,
+          coverPicture: coverPicture
+            ? Buffer.from(coverPicture.picture).toString('base64')
+            : null,
         };
       });
 
