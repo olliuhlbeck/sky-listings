@@ -6,6 +6,7 @@ import { ContactInfoReturnDto } from '../../../../backend/src/types/dtos/GetCont
 import formatPreferredContactMethod from '../../utils/formatPreferredContactMethod';
 import formatPropertyType from '../../utils/formatPropertyTypes';
 import formatPropertyStatus from '../../utils/formatPropertyStatus';
+import { GetAllImagesForPropertyResponse } from '../../types/dtos/GetAllImagesForPropertyResponse.dto';
 
 const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
   property,
@@ -68,11 +69,10 @@ const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
         throw new Error(`Response status: ${response.status}`);
       }
 
-      const data = await response.json();
+      const data: GetAllImagesForPropertyResponse = await response.json();
 
       setPictures(data.pictures);
-    } catch (error) {
-      console.error(error);
+    } catch {
       setErrorPictures('Failed to load more pictures. Please try again.');
     } finally {
       setLoadingPictures(false);

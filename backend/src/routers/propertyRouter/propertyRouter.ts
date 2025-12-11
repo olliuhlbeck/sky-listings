@@ -22,6 +22,7 @@ import {
   UpdatePropertyRequestBody,
   UpdatePropertyResponse,
 } from '../../types/dtos/UpdateProperty.dto';
+import { GetAllImagesForPropertyResponse } from '../../types/dtos/GetAllImagesForPropertyResponse.dto';
 
 const propertyRouter = express.Router();
 const prisma = new PrismaClient();
@@ -160,23 +161,10 @@ propertyRouter.get(
           : null;
 
         return {
-          id: property.id,
-          userId: property.userId,
-          street: property.street,
-          city: property.city,
-          state: property.state,
-          country: property.country,
-          postalCode: property.postalCode,
-          price: property.price,
-          bedrooms: property.bedrooms,
-          bathrooms: property.bathrooms,
-          squareMeters: property.squareMeters,
-          propertyType: property.propertyType,
-          propertyStatus: property.propertyStatus,
-          description: property.description,
-          additionalInfo: property.additionalInfo,
-          createdAt: property.createdAt,
-          coverPicture: base64Image,
+          ...property,
+          coverPicture: coverPicture
+            ? Buffer.from(coverPicture.picture).toString('base64')
+            : null,
         };
       });
 
@@ -321,7 +309,7 @@ propertyRouter.get(
   '/getAllImagesForProperty',
   async (
     req: Request<{}, {}, {}, { propertyId: string }>,
-    res: Response<{ pictures: string[] } | GeneralErrorResponse>,
+    res: Response<GetAllImagesForPropertyResponse | GeneralErrorResponse>,
   ) => {
     try {
       const propertyId = parseInt(req.query.propertyId);
