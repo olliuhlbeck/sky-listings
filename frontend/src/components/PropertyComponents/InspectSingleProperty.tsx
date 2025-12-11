@@ -72,8 +72,7 @@ const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
       const data: GetAllImagesForPropertyResponse = await response.json();
 
       setPictures(data.pictures);
-    } catch (error) {
-      console.error(error);
+    } catch {
       setErrorPictures('Failed to load more pictures. Please try again.');
     } finally {
       setLoadingPictures(false);
