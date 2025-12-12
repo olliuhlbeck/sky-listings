@@ -1,22 +1,22 @@
 import loginValidate from '../../middlewares/signupAndLogin/loginValidate';
 import { Request, Response, NextFunction } from 'express';
 
-// Login router validation middleware
 describe('loginValidate middleware', () => {
-  let req: Partial<Request>;
-  let res: Partial<Response>;
-  let next: jest.Mock;
-
-  beforeEach(() => {
-    req = { body: {} };
-    res = {
+  const createMocks = () => ({
+    req: { body: {} } as Partial<Request>,
+    res: {
       status: jest.fn().mockReturnThis(),
       json: jest.fn(),
-    };
-    next = jest.fn();
+    } as Partial<Response>,
+    next: jest.fn() as NextFunction,
+  });
+
+  beforeEach(() => {
+    jest.clearAllMocks();
   });
 
   it('should return 400 if username or password is missing', () => {
+    const { req, res, next } = createMocks();
     loginValidate(req as Request, res as Response, next as NextFunction);
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
@@ -25,6 +25,7 @@ describe('loginValidate middleware', () => {
   });
 
   it('should return 400 if username is too long', () => {
+    const { req, res, next } = createMocks();
     req.body = {
       username: 'a'.repeat(51),
       password: 'validPassword',
@@ -39,6 +40,7 @@ describe('loginValidate middleware', () => {
   });
 
   it('should return 400 if password is too long', () => {
+    const { req, res, next } = createMocks();
     req.body = {
       username: 'validUser',
       password: 'a'.repeat(51),
@@ -53,6 +55,7 @@ describe('loginValidate middleware', () => {
   });
 
   it('should return 400 if username is not a string', () => {
+    const { req, res, next } = createMocks();
     req.body = {
       username: 12345,
       password: 'validPassword',
@@ -67,6 +70,7 @@ describe('loginValidate middleware', () => {
   });
 
   it('should return 400 if password is not a string', () => {
+    const { req, res, next } = createMocks();
     req.body = {
       username: 'validUser',
       password: 12345,
@@ -81,6 +85,7 @@ describe('loginValidate middleware', () => {
   });
 
   it('should call next if input is valid', () => {
+    const { req, res, next } = createMocks();
     req.body = {
       username: 'validUser',
       password: 'validPassword',
