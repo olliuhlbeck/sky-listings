@@ -1,4 +1,4 @@
-import { prismaMock } from '../__mocks__/prismaMock';
+import { prismaMock } from '../../__mocks__/prismaMock';
 const mockFindUnique = prismaMock.user.findUnique;
 const mockUpdate = prismaMock.user.update;
 const mockUserInfoUpdate = prismaMock.userInfo.update;
@@ -32,7 +32,7 @@ describe('infoRouter', () => {
   app.use(express.json());
 
   beforeAll(async () => {
-    const module = await import('../../routers/infoRouter/infoRouter');
+    const module = await import('../../../routers/infoRouter/infoRouter');
     infoRouter = module.default;
     app.use('/info', infoRouter);
   });

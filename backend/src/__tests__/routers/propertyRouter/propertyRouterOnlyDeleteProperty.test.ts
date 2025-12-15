@@ -1,14 +1,14 @@
 process.env.SECRET = 'test-secret';
 
-import { prismaMock } from '../__mocks__/prismaMock';
+import { prismaMock } from '../../__mocks__/prismaMock';
 const mockDeleteProperty = prismaMock.property.delete;
 const mockDeletePictures = prismaMock.propertyPicture.deleteMany;
 const mockFindUnique = prismaMock.property.findUnique;
 
 import request from 'supertest';
 import express from 'express';
-import { generateToken } from '../../utils/generateToken';
-import { TokenPayload } from '../../types/token-payload';
+import { generateToken } from '../../../utils/generateToken';
+import { TokenPayload } from '../../../types/token-payload';
 
 jest.mock('../../../generated/prisma', () => {
   return {
@@ -29,7 +29,9 @@ describe('DELETE /delete/:propertyId', () => {
   beforeAll(async () => {
     validToken = generateToken(tokenPayload);
 
-    const module = await import('../../routers/propertyRouter/propertyRouter');
+    const module = await import(
+      '../../../routers/propertyRouter/propertyRouter'
+    );
     propertyRouter = module.default;
     app.use('/', propertyRouter);
   });

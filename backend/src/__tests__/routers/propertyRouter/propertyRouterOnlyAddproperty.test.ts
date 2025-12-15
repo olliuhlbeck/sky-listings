@@ -1,7 +1,7 @@
 process.env.SECRET = 'my-secret';
 import request from 'supertest';
 import express from 'express';
-import { prismaMock } from '../__mocks__/prismaMock';
+import { prismaMock } from '../../__mocks__/prismaMock';
 
 jest.mock('../../../generated/prisma', () => {
   const actual = jest.requireActual('../../../generated/prisma');
@@ -11,8 +11,8 @@ jest.mock('../../../generated/prisma', () => {
   };
 });
 
-import { generateToken } from '../../utils/generateToken';
-import { PropertyStatus, PropertyTypes } from '../../../generated/prisma';
+import { generateToken } from '../../../utils/generateToken';
+import { PropertyStatus, PropertyTypes } from '../../../../generated/prisma';
 import path from 'path';
 
 const app = express();
@@ -23,7 +23,9 @@ describe('propertyRouter (only /addProperty)', () => {
   app.use(express.json());
 
   beforeAll(async () => {
-    const module = await import('../../routers/propertyRouter/propertyRouter');
+    const module = await import(
+      '../../../routers/propertyRouter/propertyRouter'
+    );
     propertyRouter = module.default;
     app.use('/', propertyRouter);
   });

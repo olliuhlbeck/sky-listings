@@ -1,4 +1,4 @@
-import { prismaMock } from '../__mocks__/prismaMock';
+import { prismaMock } from '../../__mocks__/prismaMock';
 const mockFindUnique = prismaMock.user.findUnique;
 
 jest.mock('../../../generated/prisma', () => {
@@ -10,7 +10,7 @@ jest.mock('../../../generated/prisma', () => {
 import request from 'supertest';
 import express from 'express';
 import argon2 from 'argon2';
-import * as tokenUtils from '../../utils/generateToken';
+import * as tokenUtils from '../../../utils/generateToken';
 
 let loginRouter: express.Router;
 
@@ -30,7 +30,7 @@ describe('POST /login', () => {
   app.use(express.json());
 
   beforeAll(async () => {
-    const module = await import('../../routers/loginRouter/loginRouter');
+    const module = await import('../../../routers/loginRouter/loginRouter');
     loginRouter = module.default;
     app.use('/login', loginRouter);
   });
