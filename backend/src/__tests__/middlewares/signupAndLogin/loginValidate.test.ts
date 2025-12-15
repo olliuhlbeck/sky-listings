@@ -1,4 +1,4 @@
-import loginValidate from '../../middlewares/signupAndLogin/loginValidate';
+import loginValidate from '../../../middlewares/signupAndLogin/loginValidate';
 import { Request, Response, NextFunction } from 'express';
 
 describe('loginValidate middleware', () => {
