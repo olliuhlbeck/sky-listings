@@ -6,7 +6,7 @@ const mockCount = prismaMock.property.count;
 const mockFindMany = prismaMock.property.findMany;
 const mockUpdate = prismaMock.property.update;
 
-jest.mock('../../../generated/prisma', () => {
+jest.mock('../../../../generated/prisma', () => {
   return {
     PrismaClient: jest.fn().mockImplementation(() => prismaMock),
   };

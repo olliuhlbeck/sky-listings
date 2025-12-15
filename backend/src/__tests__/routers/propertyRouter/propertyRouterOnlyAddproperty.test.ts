@@ -3,8 +3,8 @@ import request from 'supertest';
 import express from 'express';
 import { prismaMock } from '../../__mocks__/prismaMock';
 
-jest.mock('../../../generated/prisma', () => {
-  const actual = jest.requireActual('../../../generated/prisma');
+jest.mock('../../../../generated/prisma', () => {
+  const actual = jest.requireActual('../../../../generated/prisma');
   return {
     ...actual,
     PrismaClient: jest.fn().mockImplementation(() => prismaMock),
@@ -56,7 +56,10 @@ describe('propertyRouter (only /addProperty)', () => {
 
       const token = generateToken({ userId: 1, username: 'user' });
 
-      const imagePath = path.resolve(__dirname, '../__mocks__/test-image.jpg');
+      const imagePath = path.resolve(
+        __dirname,
+        '../../__mocks__/test-image.jpg',
+      );
 
       const res = await request(app)
         .post('/addProperty')
