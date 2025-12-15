@@ -2,9 +2,9 @@ process.env.SECRET = 'my_secret';
 import express from 'express';
 import request from 'supertest';
 import multer from 'multer';
-import propertyCreationValidate from '../../middlewares/property/propertyCreationValidate';
+import propertyCreationValidate from '../../../middlewares/property/propertyCreationValidate';
 import jwt from 'jsonwebtoken';
-import { AuthenticatedRequest } from '../../types/AuthenticatedRequest';
+import { AuthenticatedRequest } from '../../../types/AuthenticatedRequest';
 
 const upload = multer();
 const app = express();

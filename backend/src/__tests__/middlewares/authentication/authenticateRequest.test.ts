@@ -1,8 +1,8 @@
 import { Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import Authentication from '../../middlewares/authentication/authenticateRequest';
-import { AuthenticatedRequest } from '../../types/AuthenticatedRequest';
-import { LoginPayload } from '../../types/login-payload';
+import Authentication from '../../../middlewares/authentication/authenticateRequest';
+import { AuthenticatedRequest } from '../../../types/AuthenticatedRequest';
+import { LoginPayload } from '../../../types/login-payload';
 
 jest.mock('jsonwebtoken');
 
