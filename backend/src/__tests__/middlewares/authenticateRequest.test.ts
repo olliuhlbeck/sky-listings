@@ -7,17 +7,17 @@ import { LoginPayload } from '../../types/login-payload';
 jest.mock('jsonwebtoken');
 
 describe('AuthenticateRequest middleware', () => {
-  let req: Partial<AuthenticatedRequest>;
-  let res: Partial<Response>;
-  let next: NextFunction;
-
-  beforeEach(() => {
-    req = { headers: {} };
-    res = {
+  const createMocks = () => ({
+    req: { headers: {} } as Partial<AuthenticatedRequest>,
+    res: {
       status: jest.fn().mockReturnThis(),
       json: jest.fn(),
-    };
-    next = jest.fn();
+    } as Partial<Response>,
+    next: jest.fn() as NextFunction,
+  });
+
+  beforeEach(() => {
+    jest.clearAllMocks();
     process.env.SECRET = 'testsecret';
   });
 
@@ -26,12 +26,14 @@ describe('AuthenticateRequest middleware', () => {
   });
 
   it('should return 401 if authorization header is missing', () => {
+    const { req, res, next } = createMocks();
     Authentication(req as AuthenticatedRequest, res as Response, next);
     expect(res.status).toHaveBeenCalledWith(401);
     expect(res.json).toHaveBeenCalledWith({ error: 'Unauthorized request' });
   });
 
   it('should return 401 if token is invalid', () => {
+    const { req, res, next } = createMocks();
     req.headers = { authorization: 'Bearer invalidtoken' };
     (jwt.verify as jest.Mock).mockImplementation(() => {
       throw new Error('Invalid token');
@@ -46,6 +48,7 @@ describe('AuthenticateRequest middleware', () => {
   });
 
   it('should attach user to req and call next for valid token', () => {
+    const { req, res, next } = createMocks();
     const payload: LoginPayload = { userId: 1, username: 'testuser' };
     req.headers = { authorization: 'Bearer validtoken' };
     (jwt.verify as jest.Mock).mockReturnValue(payload);
@@ -57,6 +60,7 @@ describe('AuthenticateRequest middleware', () => {
   });
 
   it('should return 500 if JWT secret is missing', () => {
+    const { req, res, next } = createMocks();
     process.env.SECRET = '';
     req.headers = { authorization: 'Bearer validtoken' };
 
