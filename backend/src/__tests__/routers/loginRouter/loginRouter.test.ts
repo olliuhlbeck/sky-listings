@@ -1,7 +1,7 @@
 import { prismaMock } from '../../__mocks__/prismaMock';
 const mockFindUnique = prismaMock.user.findUnique;
 
-jest.mock('../../../generated/prisma', () => {
+jest.mock('../../../../generated/prisma', () => {
   return {
     PrismaClient: jest.fn().mockImplementation(() => prismaMock),
   };

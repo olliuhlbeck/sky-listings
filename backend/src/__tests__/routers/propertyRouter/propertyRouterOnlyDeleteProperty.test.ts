@@ -10,7 +10,7 @@ import express from 'express';
 import { generateToken } from '../../../utils/generateToken';
 import { TokenPayload } from '../../../types/token-payload';
 
-jest.mock('../../../generated/prisma', () => {
+jest.mock('../../../../generated/prisma', () => {
   return {
     PrismaClient: jest.fn().mockImplementation(() => prismaMock),
   };

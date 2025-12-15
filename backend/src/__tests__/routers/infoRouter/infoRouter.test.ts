@@ -3,7 +3,7 @@ const mockFindUnique = prismaMock.user.findUnique;
 const mockUpdate = prismaMock.user.update;
 const mockUserInfoUpdate = prismaMock.userInfo.update;
 
-jest.mock('../../../generated/prisma', () => {
+jest.mock('../../../../generated/prisma', () => {
   return {
     PrismaClient: jest.fn().mockImplementation(() => prismaMock),
   };
@@ -15,7 +15,7 @@ import express from 'express';
 let infoRouter: express.Router;
 
 // Mock the authentication middleware
-jest.mock('../../middlewares/authentication/authenticateRequest', () => {
+jest.mock('../../../middlewares/authentication/authenticateRequest', () => {
   return jest.fn((req, res, next) => {
     if (req.headers.authorization === 'valid-token') {
       req.user = { userId: 123 };
