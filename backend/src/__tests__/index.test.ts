@@ -16,27 +16,25 @@ describe('Index file aka server configuration', () => {
   });
 
   it('should mount signup router', async () => {
-    await request(server)
-      .post('/signup')
-      .expect((res) => expect([200, 400, 401, 404]).toContain(res.status));
+    const response = await request(server).post('/signup');
+    expect(response.status).not.toBe(404);
   });
 
   it('should mount login router', async () => {
-    await request(server)
-      .post('/login')
-      .expect((res) => expect([200, 400, 401, 404]).toContain(res.status));
+    const response = await request(server).post('/login');
+    expect(response.status).not.toBe(404);
   });
 
   it('should mount property router', async () => {
-    await request(server)
-      .get('/property/someEndpoint')
-      .expect((res) => expect([200, 400, 401, 404, 500]).toContain(res.status));
+    const response = await request(server).get('/property/getPropertiesByPage');
+    expect(response.status).not.toBe(404);
   });
 
   it('should mount info router', async () => {
-    await request(server)
-      .get('/info/someEndpoint')
-      .expect((res) => expect([200, 400, 401, 404, 500]).toContain(res.status));
+    const response = await request(server).get(
+      '/info/getContactInfoForProperty',
+    );
+    expect(response.status).not.toBe(404);
   });
 
   it('should include CORS headers', async () => {
