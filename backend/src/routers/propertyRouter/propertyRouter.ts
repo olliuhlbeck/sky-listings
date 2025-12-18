@@ -394,8 +394,10 @@ propertyRouter.delete(
       res.status(200).json({ message: 'Property deleted successfully' });
     } catch (error) {
       if (
-        error instanceof Prisma.PrismaClientKnownRequestError &&
-        error.code === 'P2025' // Prisma error code if property to delete does not exist
+        error &&
+        typeof error === 'object' &&
+        'code' in error &&
+        error.code === 'P2025'
       ) {
         res.status(404).json({ error: 'Property not found' });
         return;
