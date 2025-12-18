@@ -1,6 +1,7 @@
 process.env.SECRET = 'test-secret';
 
 import { prismaMock } from '../../__mocks__/prismaMock';
+
 const mockDeleteProperty = prismaMock.property.delete;
 const mockDeletePictures = prismaMock.propertyPicture.deleteMany;
 const mockFindUnique = prismaMock.property.findUnique;
@@ -98,5 +99,54 @@ describe('DELETE /delete/:propertyId', () => {
     expect(res.body.error).toBe('Property not found');
     expect(mockDeletePictures).not.toHaveBeenCalled();
     expect(mockDeleteProperty).not.toHaveBeenCalled();
+  });
+
+  it('returns 404 on Prisma P2025 error during deletion', async () => {
+    mockFindUnique.mockResolvedValue({ userId: 1 });
+    mockDeletePictures.mockResolvedValue({ count: 1 });
+
+    const prismaError = Object.assign(new Error('Record not found'), {
+      code: 'P2025',
+      clientVersion: '5.0.0',
+      meta: { cause: 'Record to delete does not exist.' },
+    });
+
+    mockDeleteProperty.mockRejectedValue(prismaError);
+
+    const res = await request(app)
+      .delete('/delete/1')
+      .set('Authorization', `Bearer ${validToken}`);
+
+    expect(res.status).toBe(404);
+    expect(res.body.error).toBe('Property not found');
+  });
+
+  it('returns 500 on other database errors', async () => {
+    mockFindUnique.mockResolvedValue({ userId: 1 });
+    mockDeletePictures.mockRejectedValue(
+      new Error('Database connection error'),
+    );
+
+    const res = await request(app)
+      .delete('/delete/1')
+      .set('Authorization', `Bearer ${validToken}`);
+
+    expect(res.status).toBe(500);
+    expect(res.body.error).toBe('Failed to delete property');
+  });
+
+  it('returns 500 on generic error during property deletion', async () => {
+    mockFindUnique.mockResolvedValue({ userId: 1 });
+    mockDeletePictures.mockResolvedValue({ count: 1 });
+    mockDeleteProperty.mockRejectedValue(
+      new Error('Unexpected database error'),
+    );
+
+    const res = await request(app)
+      .delete('/delete/1')
+      .set('Authorization', `Bearer ${validToken}`);
+
+    expect(res.status).toBe(500);
+    expect(res.body.error).toBe('Failed to delete property');
   });
 });
