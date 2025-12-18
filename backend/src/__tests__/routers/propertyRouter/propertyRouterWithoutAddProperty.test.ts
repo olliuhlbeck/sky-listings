@@ -105,6 +105,37 @@ describe('propertyRouter (excluding /addProperty)', () => {
         error: 'Failed to load properties. Please try again.',
       });
     });
+
+    it('returns 400 for invalid search condition', async () => {
+      const res = await request(app).get(
+        '/getPropertiesByPage?searchCondition=invalidField&searchTerm=test',
+      );
+
+      expect(res.status).toBe(400);
+      expect(res.body.error).toBe('Invalid search condition');
+    });
+
+    it('filters by valid search condition', async () => {
+      mockCount.mockResolvedValue(1);
+      mockFindMany.mockResolvedValue([
+        {
+          id: 1,
+          city: 'TestCity',
+          pictures: [{ picture: Buffer.from('test'), useAsCoverPicture: true }],
+        },
+      ]);
+
+      const res = await request(app).get(
+        '/getPropertiesByPage?searchCondition=city&searchTerm=TestCity',
+      );
+
+      expect(res.status).toBe(200);
+      expect(mockFindMany).toHaveBeenCalledWith(
+        expect.objectContaining({
+          where: { city: { contains: 'TestCity', mode: 'insensitive' } },
+        }),
+      );
+    });
   });
 
   // GET /getPropertiesByUserId
