@@ -3,9 +3,8 @@ import userEvent from '@testing-library/user-event';
 import AdComponent from '../../../components/GeneralComponents/AdComponent';
 import { FiStar } from 'react-icons/fi';
 
-// Ad component
 describe('AdComponent', () => {
-  test('renders title and message', () => {
+  it('renders title and message', () => {
     render(
       <AdComponent
         icon={FiStar}
@@ -19,7 +18,7 @@ describe('AdComponent', () => {
     expect(screen.getByText(/get 50% off today!/i)).toBeInTheDocument();
   });
 
-  test('renders icon component on both sides for md+ screens', () => {
+  it('renders icon component on both sides for md+ screens', () => {
     render(
       <AdComponent
         icon={FiStar}
@@ -33,7 +32,7 @@ describe('AdComponent', () => {
     expect(icons).toHaveLength(2);
   });
 
-  test('renders the call-to-action link with correct text', () => {
+  it('renders the call-to-action link with correct text', () => {
     render(
       <AdComponent
         icon={FiStar}
@@ -48,7 +47,7 @@ describe('AdComponent', () => {
     expect(link).toHaveAttribute('href', '#');
   });
 
-  test('calls onClick handler when CTA link is clicked', async () => {
+  it('calls onClick handler when CTA link is clicked', async () => {
     const user = userEvent.setup();
     const handleClick = jest.fn();
 
@@ -67,7 +66,7 @@ describe('AdComponent', () => {
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
 
-  test('applies custom className from addToClassName prop', () => {
+  it('applies custom className from addToClassName prop', () => {
     render(
       <AdComponent
         icon={FiStar}
@@ -80,5 +79,25 @@ describe('AdComponent', () => {
 
     const wrapper = screen.getByTestId('ad-component').closest('div');
     expect(wrapper).toHaveClass('extra-class');
+  });
+
+  it('uses default handler when onClick prop is not provided', async () => {
+    const consoleLogSpy = jest.spyOn(console, 'log').mockImplementation();
+    const user = userEvent.setup();
+
+    render(
+      <AdComponent
+        icon={FiStar}
+        title='Default Handler'
+        message='Testing default click'
+        buttonText='Click Me'
+      />,
+    );
+
+    const link = screen.getByRole('link', { name: /click me/i });
+    await user.click(link);
+
+    expect(consoleLogSpy).toHaveBeenCalledWith('Dummy advertisement.');
+    consoleLogSpy.mockRestore();
   });
 });
