@@ -39,7 +39,7 @@ describe('propertyRouter (excluding /addProperty)', () => {
   });
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    jest.resetAllMocks();
   });
 
   // GET /getPropertiesByPage
@@ -133,6 +133,50 @@ describe('propertyRouter (excluding /addProperty)', () => {
       expect(mockFindMany).toHaveBeenCalledWith(
         expect.objectContaining({
           where: { city: { contains: 'TestCity', mode: 'insensitive' } },
+        }),
+      );
+    });
+
+    it('filters by city search condition', async () => {
+      mockCount.mockResolvedValue(1);
+      mockFindMany.mockResolvedValue([
+        {
+          id: 1,
+          city: 'TestCity',
+          pictures: [{ picture: Buffer.from('test'), useAsCoverPicture: true }],
+        },
+      ]);
+
+      const res = await request(app).get(
+        '/getPropertiesByPage?searchCondition=city&searchTerm=TestCity',
+      );
+
+      expect(res.status).toBe(200);
+      expect(mockFindMany).toHaveBeenCalledWith(
+        expect.objectContaining({
+          where: { city: { contains: 'TestCity', mode: 'insensitive' } },
+        }),
+      );
+    });
+
+    it('filters by street search condition', async () => {
+      mockCount.mockResolvedValue(1);
+      mockFindMany.mockResolvedValue([
+        {
+          id: 1,
+          street: 'Main St',
+          pictures: [{ picture: Buffer.from('test'), useAsCoverPicture: true }],
+        },
+      ]);
+
+      const res = await request(app).get(
+        '/getPropertiesByPage?searchCondition=street&searchTerm=Main',
+      );
+
+      expect(res.status).toBe(200);
+      expect(mockFindMany).toHaveBeenCalledWith(
+        expect.objectContaining({
+          where: { street: { contains: 'Main', mode: 'insensitive' } },
         }),
       );
     });
@@ -269,6 +313,7 @@ describe('propertyRouter (excluding /addProperty)', () => {
     });
 
     it('returns 500 on error during update', async () => {
+      mockFindUnique.mockResolvedValue({ userId: 1 });
       mockUpdate.mockRejectedValue(new Error('DB error'));
 
       const res = await request(app)
@@ -281,6 +326,7 @@ describe('propertyRouter (excluding /addProperty)', () => {
     });
 
     it('handles empty body gracefully', async () => {
+      mockFindUnique.mockResolvedValue({ userId: 1 });
       const res = await request(app)
         .put('/editPropertyInformation/1')
         .set('Authorization', `Bearer ${validToken}`)
