@@ -335,5 +335,18 @@ describe('propertyRouter (excluding /addProperty)', () => {
       expect(res.status).toBe(400);
       expect(res.body.error).toBe('No fields provided to update');
     });
+
+    it('returns 403 when property does not exist (property is null)', async () => {
+      mockFindUnique.mockResolvedValue(null);
+
+      const res = await request(app)
+        .put('/editPropertyInformation/1')
+        .set('Authorization', `Bearer ${validToken}`)
+        .send({ price: '100000' });
+
+      expect(res.status).toBe(403);
+      expect(res.body.error).toBe('Unauthorized');
+      expect(mockUpdate).not.toHaveBeenCalled();
+    });
   });
 });
