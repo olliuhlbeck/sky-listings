@@ -36,13 +36,9 @@ describe('ToolTip component', () => {
     const tooltip = screen.getByRole('tooltip');
     const trigger = screen.getByRole('button', { name: /hover me/i });
 
-    // Tooltip hidden initially
     expect(tooltip).toHaveClass('scale-0');
-    // Hover over the child element
     await user.hover(trigger);
-    // Tooltip should become visible
     expect(tooltip).toHaveClass('group-hover:scale-100');
-    // Unhover the child element
     await user.unhover(trigger);
     expect(tooltip).toHaveClass('scale-0');
   });
