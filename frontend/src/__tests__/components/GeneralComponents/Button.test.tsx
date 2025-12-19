@@ -4,15 +4,14 @@ import { MemoryRouter } from 'react-router-dom';
 import Button from '../../../components/GeneralComponents/Button';
 import { FiFacebook } from 'react-icons/fi';
 
-// Button
 describe('Button component', () => {
-  test('renders a <button> with text when no link is provided', () => {
+  it('renders a <button> with text when no link is provided', () => {
     render(<Button text='Click Me' />);
     const button = screen.getByRole('button', { name: /click me/i });
     expect(button).toBeInTheDocument();
   });
 
-  test('renders a <Link> when link prop is provided', () => {
+  it('renders a <Link> when link prop is provided', () => {
     render(
       <MemoryRouter>
         <Button text='Go to Page' link='/some-page' />
@@ -22,7 +21,7 @@ describe('Button component', () => {
     expect(link).toHaveAttribute('href', '/some-page');
   });
 
-  test('calls onClick when <button> is clicked', async () => {
+  it('calls onClick when <button> is clicked', async () => {
     const user = userEvent.setup();
     const handleClick = jest.fn();
 
@@ -33,7 +32,7 @@ describe('Button component', () => {
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
 
-  test('calls onClick when <Link> is clicked', async () => {
+  it('calls onClick when <Link> is clicked', async () => {
     const user = userEvent.setup();
     const handleClick = jest.fn();
 
@@ -48,7 +47,7 @@ describe('Button component', () => {
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
 
-  test('renders icon if icon prop is passed', () => {
+  it('renders icon if icon prop is passed', () => {
     render(<Button text='With Icon' icon={FiFacebook} />);
     const text = screen.getByText(/with icon/i);
     expect(text).toBeInTheDocument();
