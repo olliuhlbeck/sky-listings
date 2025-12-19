@@ -3,7 +3,6 @@ import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import ProtectedRoute from '../../../components/AuthComponents/ProtectedRoute';
 import * as useAuthModule from '../../../utils/useAuth'; // mock useAuth
 
-// Protected route
 describe('ProtectedRoute', () => {
   // Mock children to render inside ProtectedRoute
   const Child = () => <div>Protected Content</div>;
@@ -20,6 +19,7 @@ describe('ProtectedRoute', () => {
       login: jest.fn(),
       logout: jest.fn(),
       token: 'sometoken',
+      loading: false,
     });
 
     const { getByText } = render(
@@ -48,6 +48,7 @@ describe('ProtectedRoute', () => {
       login: jest.fn(),
       logout: jest.fn(),
       token: null,
+      loading: false,
     });
 
     const { container } = render(
@@ -66,7 +67,6 @@ describe('ProtectedRoute', () => {
       </MemoryRouter>,
     );
 
-    // Working protected route should redirect to login page
     expect(container.textContent).toBe('Login Page');
   });
 });
