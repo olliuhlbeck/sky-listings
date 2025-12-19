@@ -4,9 +4,8 @@ import ContentButtonCard from '../../../components/GeneralComponents/ContentButt
 
 const backgroundImage = 'test-image.jpg';
 
-// Content button card
 describe('ContentButtonCard', () => {
-  test('renders button text', () => {
+  it('renders button text', () => {
     render(
       <MemoryRouter>
         <ContentButtonCard
@@ -20,7 +19,7 @@ describe('ContentButtonCard', () => {
     expect(screen.getByText(/click me/i)).toBeInTheDocument();
   });
 
-  test('applies background image style', () => {
+  it('applies background image style', () => {
     render(
       <MemoryRouter>
         <ContentButtonCard
@@ -35,7 +34,7 @@ describe('ContentButtonCard', () => {
     expect(div).toHaveStyle(`background-image: url(${backgroundImage})`);
   });
 
-  test('renders card wrapped in <Link> when link prop is provided', () => {
+  it('renders card wrapped in <Link> when link prop is provided', () => {
     render(
       <MemoryRouter>
         <ContentButtonCard
@@ -50,7 +49,7 @@ describe('ContentButtonCard', () => {
     expect(link).toHaveAttribute('href', '/some-path');
   });
 
-  test('applies additional className to Button component', () => {
+  it('applies additional className to Button component', () => {
     const extraClass = 'extra-class';
 
     render(

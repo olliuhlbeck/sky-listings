@@ -2,9 +2,8 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import ToolTip from '../../../components/GeneralComponents/ToolTip';
 
-// Tooltip component
 describe('ToolTip component', () => {
-  test('renders children correctly', () => {
+  it('renders children correctly', () => {
     render(
       <ToolTip toolTipText='Tooltip text'>
         <button>Hover me</button>
@@ -16,7 +15,7 @@ describe('ToolTip component', () => {
     ).toBeInTheDocument();
   });
 
-  test('tooltip text is in the document but hidden by default', () => {
+  it('tooltip text is in the document but hidden by default', () => {
     render(
       <ToolTip toolTipText='Tooltip text'>
         <button>Hover me</button>
@@ -27,7 +26,7 @@ describe('ToolTip component', () => {
     expect(tooltip).toHaveClass('scale-0');
   });
 
-  test('shows tooltip text on hover and hide on unhover', async () => {
+  it('shows tooltip text on hover and hide on unhover', async () => {
     const user = userEvent.setup();
     render(
       <ToolTip toolTipText='Tooltip text'>
@@ -48,7 +47,7 @@ describe('ToolTip component', () => {
     expect(tooltip).toHaveClass('scale-0');
   });
 
-  test('applies additional class names from addToClassName prop', () => {
+  it('applies additional class names from addToClassName prop', () => {
     render(
       <ToolTip toolTipText='Tooltip text' addToClassName='extra-class'>
         <button>Hover me</button>

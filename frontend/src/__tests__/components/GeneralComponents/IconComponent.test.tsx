@@ -2,7 +2,6 @@ import { fireEvent, render } from '@testing-library/react';
 import { FaBeer } from 'react-icons/fa';
 import IconComponent from '../../../components/GeneralComponents/IconComponent';
 
-// Icon component
 describe('IconComponent', () => {
   it('renders the passed icon as svg', () => {
     const { container } = render(<IconComponent icon={FaBeer} />);
