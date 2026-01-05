@@ -17,6 +17,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [authError, setAuthError] = useState<string | undefined>(undefined);
+  const [profilePicture, setProfilePicture] = useState<string | null>(null);
 
   const resetTokenState = () => {
     setIsAuthenticated(false);
@@ -24,6 +25,27 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setUserId(null);
     localStorage.removeItem('authToken');
     setToken(null);
+  };
+
+  const fetchProfilePicture = async (userIdToFetch: number) => {
+    try {
+      const BASE_URL = import.meta.env.VITE_API_URL;
+      const response = await fetch(
+        `${BASE_URL}/info/getProfilePicture?userId=${userIdToFetch}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        setProfilePicture(data.profilePicture);
+      }
+    } catch (error) {
+      console.error('Failed to fetch profile picture:', error);
+    }
   };
 
   useEffect(() => {
@@ -39,6 +61,10 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
               setUserId(decodedToken.userId);
               setIsAuthenticated(true);
               setAuthError(undefined);
+
+              if (typeof decodedToken.userId === 'number') {
+                fetchProfilePicture(decodedToken.userId);
+              }
 
               // Auto logout when token expires
               const timeoutId = setTimeout(() => {
@@ -83,6 +109,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         token,
         loading,
         authError,
+        profilePicture,
       }}
     >
       {children}
