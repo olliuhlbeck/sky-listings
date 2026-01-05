@@ -24,7 +24,7 @@ const HeaderContainer = ({
     { text: 'Add property', link: 'AddProperty', authOnly: 'yes' },
   ];
 
-  const { isAuthenticated, logout, user } = useAuth();
+  const { isAuthenticated, logout, user, profilePicture } = useAuth();
   const location = useLocation();
   const isUserInLoginPage = location.pathname === '/login';
 
@@ -135,7 +135,15 @@ const HeaderContainer = ({
                 className='flex gap-2 mr-2 rounded-md p-1 sm:p-2 hover:bg-sky-300 dark:hover:bg-blue-800'
               >
                 <strong>{user}</strong>
-                <IconComponent icon={CgProfile} />
+                {profilePicture ? (
+                  <img
+                    src={profilePicture}
+                    alt='Profile'
+                    className='w-6 h-6 rounded-full object-cover border'
+                  />
+                ) : (
+                  <IconComponent icon={CgProfile} />
+                )}
               </Link>
               <HeaderButton
                 additionsToClassName='bg-sky-200 dark:bg-blue-950'
