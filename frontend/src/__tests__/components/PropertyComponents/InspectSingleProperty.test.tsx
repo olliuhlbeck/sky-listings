@@ -45,6 +45,11 @@ describe('InspectSingleProperty', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
+    jest.clearAllTimers();
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
   });
 
   it('renders property basic information correctly', async () => {
