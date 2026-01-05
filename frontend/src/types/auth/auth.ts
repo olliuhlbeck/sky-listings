@@ -7,6 +7,7 @@ export interface AuthContextType {
   token: string | null;
   loading: boolean;
   authError?: string;
+  profilePicture: string | null;
 }
 
 export interface LoginCredentials {
