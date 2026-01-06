@@ -14,6 +14,8 @@ jest.mock('../../../utils/checkTokenExpTime', () => ({
   default: jest.fn(),
 }));
 
+global.fetch = jest.fn() as jest.MockedFunction<typeof fetch>;
+
 import { jwtDecode as realJwtDecode } from 'jwt-decode';
 import checkTokenExpTimeReal from '../../../utils/checkTokenExpTime';
 
@@ -45,6 +47,7 @@ const renderWithAuthContext = (ui?: React.ReactNode) => {
 // AuthProvider
 describe('AuthProvider', () => {
   beforeEach(() => {
+    (global.fetch as jest.Mock).mockClear();
     jest.useFakeTimers();
     localStorage.clear();
     jest.clearAllMocks();

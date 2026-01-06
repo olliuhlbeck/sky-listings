@@ -44,7 +44,9 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setProfilePicture(data.profilePicture);
       }
     } catch (error) {
-      console.error('Failed to fetch profile picture:', error);
+      if (process.env.NODE_ENV !== 'test') {
+        console.error('Failed to fetch profile picture:', error);
+      }
     }
   };
 
