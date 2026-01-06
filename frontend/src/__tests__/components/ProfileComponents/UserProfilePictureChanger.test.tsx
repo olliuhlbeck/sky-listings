@@ -19,6 +19,23 @@ describe('UserProfilePictureChanger', () => {
     jest.clearAllMocks();
     localStorage.clear();
     localStorage.setItem('authToken', 'mock-jwt-token');
+
+    // Setup default fetch mock to handle ALL fetch calls
+    (global.fetch as jest.Mock).mockImplementation((url) => {
+      // Handle profile picture requests
+      if (url.includes('profilePicture') || url.includes('profile-picture')) {
+        return Promise.resolve({
+          ok: true,
+          json: async () => ({ profilePictureUrl: 'mock-url.jpg' }),
+        });
+      }
+
+      // Handle other requests with a default success response
+      return Promise.resolve({
+        ok: true,
+        json: async () => ({}),
+      });
+    });
   });
 
   afterEach(() => {
