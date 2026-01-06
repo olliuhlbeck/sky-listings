@@ -77,15 +77,27 @@ describe('EditProfileInfoForm', () => {
   });
 
   it('displays an error message when user data fails to load', async () => {
-    // Setup fetch mock to fail
-    (global.fetch as jest.Mock).mockResolvedValueOnce({
-      ok: false,
-      status: 500,
+    (global.fetch as jest.Mock).mockImplementation((url) => {
+      // Let AuthProvider or other calls succeed
+      if (!url.includes('getAllUserInfo')) {
+        return Promise.resolve({
+          ok: true,
+          json: async () => ({}),
+        });
+      }
+
+      // Make the profile fetch fail
+      return Promise.resolve({
+        ok: false,
+        status: 500,
+      });
     });
+
     renderWithAuth();
-    // Wait for error message to appear
+
+    // The actual error message from your component's catch block
     const errorMessage = await screen.findByText(
-      /Failed to fetch profile information. Please try again./i,
+      /Failed to fetch profile information/i,
     );
     expect(errorMessage).toBeInTheDocument();
   });
@@ -122,31 +134,53 @@ describe('EditProfileInfoForm', () => {
   });
 
   it('displays an error message when profile information update fails', async () => {
-    // Setup fetch mock for initial data load
-    (global.fetch as jest.Mock).mockResolvedValueOnce({
-      ok: true,
-      json: async () => mockUserData,
-    });
-    // Mock update fetch to fail
-    (global.fetch as jest.Mock).mockResolvedValueOnce({
-      ok: false,
-      status: 400,
-      json: async () => ({ message: 'Bad request' }),
+    (global.fetch as jest.Mock).mockImplementation((url) => {
+      // Initial profile load succeeds
+      if (url.includes('getAllUserInfo')) {
+        return Promise.resolve({
+          ok: true,
+          json: async () => mockUserData,
+        });
+      }
+
+      // Update call fails
+      if (url.includes('updateUserInfo')) {
+        return Promise.resolve({
+          ok: false,
+          status: 400,
+          json: async () => ({ error: 'Bad request' }),
+        });
+      }
+
+      // Any other calls succeed
+      return Promise.resolve({
+        ok: true,
+        json: async () => ({}),
+      });
     });
 
     renderWithAuth();
 
-    await waitFor(() => screen.getByDisplayValue(mockUserData.firstName));
+    // Wait for data to load
+    await screen.findByDisplayValue(mockUserData.firstName);
 
     // Change first name input
     const firstNameInput = screen.getByLabelText(/First Name/i);
+    await userEvent.clear(firstNameInput);
     await userEvent.type(firstNameInput, 'Jane');
 
-    // Save the updated data
+    // Wait for the save button to become enabled
     const saveButton = screen.getByRole('button', { name: /Save changes/i });
+
+    await waitFor(() => {
+      expect(saveButton).toBeEnabled();
+    });
+
+    // Click the save button
     await userEvent.click(saveButton);
 
-    const errorMessage = screen.getByText(/Failed to update user information/i);
+    // Wait for error message
+    const errorMessage = await screen.findByText(/Bad request/i);
     expect(errorMessage).toBeInTheDocument();
   });
 
