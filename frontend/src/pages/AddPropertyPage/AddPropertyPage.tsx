@@ -139,7 +139,7 @@ const AddPropertyPage: React.FC = () => {
       aria-labelledby='form-heading'
       id='addPropertyForm'
       onSubmit={handleSubmit}
-      className='bg-linear-to-r from-sky-500 to-blue-200 dark:from-sky-950 dark:to-blue-800 w-11/12 min-w-3xs justify-center mt-10 p-4 mx-auto rounded-2xl shadow-md shadow-gray-500 dark:shadow-slate-700'
+      className='bg-linear-to-r from-sky-500 to-blue-200 dark:from-sky-950 dark:to-blue-800 w-11/12 min-w-3xs justify-center mt-10 p-4 mx-auto rounded-xl shadow-md shadow-gray-500 dark:shadow-slate-700'
     >
       <h1
         id='form-heading'
@@ -147,7 +147,7 @@ const AddPropertyPage: React.FC = () => {
       >
         Property information
       </h1>
-      <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 [&>*]:flex-1 [&>*]:shadow-md [&>*]:rounded-md [&>*]:bg-sky-100 [&_h2]:text-xl  [&_h2]:my-2 [&>*]:h-[17rem] mb-4'>
+      <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 [&>*]:flex-1 [&>*]:shadow-md [&>*]:rounded-sm [&>*]:bg-sky-100 [&_h2]:text-xl  [&_h2]:my-2 [&>*]:h-[17rem] mb-4'>
         <div className='dark:!bg-slate-800 pl-6 sm:pl-10'>
           <h2 className='py-0 sm:py-2'>Address</h2>
           <div className='flex flex-col space-y-2'>
@@ -161,7 +161,7 @@ const AddPropertyPage: React.FC = () => {
                 type='text'
                 value={formData.street}
                 onChange={handleChange}
-                className='w-28 sm:w-1/2 p-1 rounded-md shadow-sm bg-gray-50 dark:text-slate-900'
+                className='w-28 sm:w-1/2 p-1 rounded-sm shadow-sm bg-gray-50 dark:text-slate-900'
               />
             </div>
             <div className='flex items-center'>
@@ -174,7 +174,7 @@ const AddPropertyPage: React.FC = () => {
                 type='text'
                 value={formData.city}
                 onChange={handleChange}
-                className='w-28 sm:w-1/2 p-1 rounded-md shadow-sm bg-gray-50 dark:text-slate-900'
+                className='w-28 sm:w-1/2 p-1 rounded-sm shadow-sm bg-gray-50 dark:text-slate-900'
               />
             </div>
             <div className='flex items-center'>
@@ -187,7 +187,7 @@ const AddPropertyPage: React.FC = () => {
                 type='text'
                 value={formData.state}
                 onChange={handleChange}
-                className='w-28 sm:w-1/2 p-1 rounded-md shadow-sm bg-gray-50 dark:text-slate-900'
+                className='w-28 sm:w-1/2 p-1 rounded-sm shadow-sm bg-gray-50 dark:text-slate-900'
               />
             </div>
             <div className='flex items-center'>
@@ -200,7 +200,7 @@ const AddPropertyPage: React.FC = () => {
                 type='text'
                 value={formData.postalCode}
                 onChange={handleChange}
-                className='w-28 sm:w-1/2 p-1 rounded-md shadow-sm bg-gray-50 dark:text-slate-900'
+                className='w-28 sm:w-1/2 p-1 rounded-sm shadow-sm bg-gray-50 dark:text-slate-900'
               />
             </div>
             <div className='flex items-center'>
@@ -213,7 +213,7 @@ const AddPropertyPage: React.FC = () => {
                 type='text'
                 value={formData.country}
                 onChange={handleChange}
-                className='w-28 sm:w-1/2 p-1 rounded-md shadow-sm bg-gray-50 dark:text-slate-900'
+                className='w-28 sm:w-1/2 p-1 rounded-sm shadow-sm bg-gray-50 dark:text-slate-900'
                 autoComplete='country'
               />
             </div>
@@ -234,7 +234,7 @@ const AddPropertyPage: React.FC = () => {
                 min={0}
                 value={formData.price}
                 onChange={handleChange}
-                className='w-3/8 p-2 rounded-md shadow-sm bg-gray-50 dark:text-slate-900'
+                className='w-2/5 p-2 rounded-md shadow-sm bg-gray-50 dark:text-slate-900'
               />
             </div>
             <div className='flex items-center'>
@@ -246,7 +246,7 @@ const AddPropertyPage: React.FC = () => {
                 name='propertyType'
                 value={formData.propertyType}
                 onChange={handleChange}
-                className='w-3/8 p-2 rounded-md shadow-sm bg-gray-50 dark:text-slate-900'
+                className='w-2/5 p-2 rounded-md shadow-sm bg-gray-50 dark:text-slate-900'
               >
                 {Object.values(PropertyTypes).map((type) => (
                   <option key={type} value={type}>
@@ -264,7 +264,7 @@ const AddPropertyPage: React.FC = () => {
                 name='propertyStatus'
                 value={formData.propertyStatus}
                 onChange={handleChange}
-                className='w-3/8 p-2 rounded-md shadow-sm bg-gray-50 dark:text-slate-900'
+                className='w-2/5 p-2 rounded-md shadow-sm bg-gray-50 dark:text-slate-900'
               >
                 {Object.values(PropertyStatuses).map((status) => (
                   <option key={status} value={status}>
