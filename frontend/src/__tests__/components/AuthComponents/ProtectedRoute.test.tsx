@@ -20,6 +20,7 @@ describe('ProtectedRoute', () => {
       logout: jest.fn(),
       token: 'sometoken',
       loading: false,
+      profilePicture: null,
     });
 
     const { getByText } = render(
@@ -49,6 +50,7 @@ describe('ProtectedRoute', () => {
       logout: jest.fn(),
       token: null,
       loading: false,
+      profilePicture: null,
     });
 
     const { container } = render(

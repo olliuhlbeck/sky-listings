@@ -20,6 +20,8 @@ describe('useAuth hook', () => {
       token: 'mock-token',
       login: jest.fn(),
       logout: jest.fn(),
+      loading: false,
+      profilePicture: null,
     };
 
     const wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
