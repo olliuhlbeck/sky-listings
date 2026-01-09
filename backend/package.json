@@ -5,10 +5,12 @@
   "scripts": {
     "build": "tsc",
     "db:init": "npm run prisma:generate && npm run prisma:migrate && npm run prisma:seed",
+    "db:deploy": "npx prisma migrate deploy && npx prisma db seed",
     "dev": "ts-node src/index.ts",
     "format": "prettier --write",
     "prisma:generate": "npx prisma generate",
     "prisma:migrate": "npx prisma migrate dev --name init",
+    "prisma:migrate:deploy": "npx prisma migrate deploy",
     "prisma:seed": "ts-node prisma/seed.ts",
     "start": "node dist/index.js",
     "test": "jest",
