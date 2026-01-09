@@ -71,6 +71,7 @@ describe('MyProperties Page', () => {
       isAuthenticated: true,
       token: 'faketoken',
       loading: false,
+      profilePicture: null,
     } as AuthContextType);
 
     (global.fetch as jest.Mock).mockResolvedValue({
@@ -159,6 +160,7 @@ describe('MyProperties Page', () => {
       isAuthenticated: false,
       token: null,
       loading: false,
+      profilePicture: null,
     } as AuthContextType);
 
     renderMyProperties();

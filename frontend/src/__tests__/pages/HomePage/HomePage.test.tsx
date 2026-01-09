@@ -22,6 +22,7 @@ describe('HomePage', () => {
       isAuthenticated: false,
       token: null,
       loading: false,
+      profilePicture: null,
     });
   });
 
@@ -64,6 +65,7 @@ describe('HomePage', () => {
       isAuthenticated: true,
       token: 'fake-token',
       loading: false,
+      profilePicture: null,
     });
 
     render(

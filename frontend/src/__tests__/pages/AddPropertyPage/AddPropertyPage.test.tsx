@@ -31,6 +31,7 @@ describe('AddPropertyPage', () => {
       isAuthenticated: true,
       token: 'fake-token',
       loading: false,
+      profilePicture: null,
     } as AuthContextType);
   });
 

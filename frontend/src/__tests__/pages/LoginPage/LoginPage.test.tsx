@@ -41,6 +41,7 @@ describe('LoginPage', () => {
       token: null,
       loading: false,
       authError: undefined,
+      profilePicture: null,
     } as AuthContextType);
   });
 
@@ -192,6 +193,7 @@ describe('LoginPage', () => {
       token: null,
       loading: true,
       authError: undefined,
+      profilePicture: null,
     } as AuthContextType);
     render(
       <AuthProvider>
@@ -220,6 +222,7 @@ describe('LoginPage', () => {
       token: 'mock-token',
       loading: false,
       authError: undefined,
+      profilePicture: null,
     } as AuthContextType);
 
     render(
