@@ -782,19 +782,18 @@ describe('infoRouter', () => {
       expect(res.body).toEqual({ error: 'User info not found' });
     });
 
-    it('returns null if user has no profile picture', async () => {
+    it('returns error: `Profile picture not found` if user has no profile picture', async () => {
       mockUserInfoFindUnique.mockResolvedValue({
         id: 1,
-        profilePicture: null,
-        profilePictureMimeType: null,
+        error: 'Profile picture not found',
       });
 
       const res = await request(app)
         .get('/info/getProfilePicture')
         .set('Authorization', 'valid-token');
 
-      expect(res.status).toBe(200);
-      expect(res.body).toEqual({ profilePicture: null });
+      expect(res.status).toBe(404);
+      expect(res.body).toEqual({ error: 'Profile picture not found' });
     });
 
     it('returns profile picture as base64 data URI with JPEG mime type', async () => {
