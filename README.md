@@ -1,7 +1,6 @@
 # Sky Listings - Full stack project
 
-Sky Listings is a full-stack real estate application that allows users to browse, search, and list properties.
-It includes secure authentication, a responsive design, and an intuitive user experience built with React, TypeScript, and TailwindCSS on the frontend, and Node.js, Express and PostgreSQL on the backend.
+Sky Listings is a full-stack real estate application that allows users to browse, search, and list properties. It includes secure authentication, a responsive design, and an intuitive user experience built with React, TypeScript, and TailwindCSS on the frontend, and Node.js, Express and PostgreSQL on the backend. This project was built as a full-stack portfolio application to demonstrate modern web development practices, authentication flows, and CRUD operations with a relational database.
 
 ### Screenshots
 
@@ -51,6 +50,7 @@ It includes secure authentication, a responsive design, and an intuitive user ex
 - Node.js installed
 - PostgreSQL installed and running
 - PostgreSQL database created and accessible
+- Create a `.env` file inside the `backend` directory (do not commit this file).
 - `.env` file which has correct `DATABASE_URL` that connects to said database
 - `.env` file must also have `SECRET` defined
 
@@ -75,7 +75,7 @@ npm install
 npm run dev
 ```
 
-Three users (user1, user2, user3) will be seeded to database. They all have properties to control and all have the same password(password).
+For testing you can use login credentials user: user and password: password
 
 # Project Structure
 
