@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import LoginForm from '../../components/LoginComponents/LoginForm';
 import LoginPageTitle from '../../components/LoginComponents/LoginPageTitle';
 import { ActionType } from '../../types/ActionType';
@@ -17,6 +17,13 @@ const LoginPage = () => {
   // Control page content with ActionType
   const [action, setAction] = useState<ActionType>(initialAction);
 
+  // Redirect user to home page if already authenticated
+  useEffect(() => {
+    if (!loading && user) {
+      navigate('/', { replace: true });
+    }
+  }, [user, loading, navigate]);
+
   // While authentication state is being checked, show a loader
   if (loading) {
     return (
@@ -27,12 +34,6 @@ const LoginPage = () => {
         </p>
       </div>
     );
-  }
-
-  // Redirect user to home page if already authenticated
-  if (user) {
-    navigate('/', { replace: true });
-    return null;
   }
 
   return (
