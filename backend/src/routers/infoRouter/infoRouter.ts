@@ -11,6 +11,12 @@ import {
 import { AuthenticatedRequest } from '../../types/AuthenticatedRequest';
 import AuthenticateRequest from '../../middlewares/authentication/authenticateRequest';
 import multer from 'multer';
+import {
+  GetProfilePictureQuery,
+  GetProfilePictureSuccessResponse,
+  ProfilePictureFile,
+  UpdateProfilePictureSuccessResponse,
+} from '../../types/dtos/ProfilePicture.dto';
 
 const infoRouter = express.Router();
 const prisma = new PrismaClient();
@@ -290,8 +296,10 @@ infoRouter.put(
   AuthenticateRequest,
   upload.single('profilePicture'),
   async (
-    req: AuthenticatedRequest<{}, {}, {}>,
-    res: Response<{} | GeneralErrorResponse>,
+    req: AuthenticatedRequest<{}, {}, {}, {}> & {
+      file?: ProfilePictureFile;
+    },
+    res: Response<UpdateProfilePictureSuccessResponse | GeneralErrorResponse>,
   ): Promise<void> => {
     const userId = req.user?.userId;
 
@@ -311,8 +319,12 @@ infoRouter.put(
         'image/png',
         'image/webp',
         'image/gif',
-      ];
-      if (!allowedTypes.includes(req.file.mimetype)) {
+      ] as const;
+      if (
+        !allowedTypes.includes(
+          req.file.mimetype as (typeof allowedTypes)[number],
+        )
+      ) {
         res.status(400).json({
           error:
             'Invalid file type. Only JPEG, PNG, WebP, and GIF are allowed.',
@@ -347,8 +359,8 @@ infoRouter.get(
   '/getProfilePicture',
   AuthenticateRequest,
   async (
-    req: AuthenticatedRequest<{}, {}, {}, { userId?: string }>,
-    res: Response<{ profilePicture: string | null } | GeneralErrorResponse>,
+    req: AuthenticatedRequest<{}, {}, {}, GetProfilePictureQuery>,
+    res: Response<GetProfilePictureSuccessResponse | GeneralErrorResponse>,
   ): Promise<void> => {
     const userId = req.query.userId
       ? parseInt(req.query.userId, 10)
@@ -381,7 +393,7 @@ infoRouter.get(
         const dataUri = `data:${mimeType};base64,${base64}`;
         res.status(200).json({ profilePicture: dataUri });
       } else {
-        res.status(200).json({ profilePicture: null });
+        res.status(404).json({ error: 'Profile picture not found' });
       }
     } catch (error) {
       res.status(500).json({ error: 'Error fetching profile picture' });
