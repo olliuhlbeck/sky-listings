@@ -72,6 +72,7 @@ describe('MyProperties Page', () => {
       token: 'faketoken',
       loading: false,
       profilePicture: null,
+      updateProfilePicture: jest.fn(),
     } as AuthContextType);
 
     (global.fetch as jest.Mock).mockResolvedValue({
@@ -161,6 +162,7 @@ describe('MyProperties Page', () => {
       token: null,
       loading: false,
       profilePicture: null,
+      updateProfilePicture: jest.fn(),
     } as AuthContextType);
 
     renderMyProperties();

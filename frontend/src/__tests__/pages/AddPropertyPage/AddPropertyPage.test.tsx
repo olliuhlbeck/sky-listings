@@ -32,6 +32,7 @@ describe('AddPropertyPage', () => {
       token: 'fake-token',
       loading: false,
       profilePicture: null,
+      updateProfilePicture: jest.fn(),
     } as AuthContextType);
   });
 

@@ -23,6 +23,7 @@ describe('HomePage', () => {
       token: null,
       loading: false,
       profilePicture: null,
+      updateProfilePicture: jest.fn(),
     });
   });
 
@@ -66,6 +67,7 @@ describe('HomePage', () => {
       token: 'fake-token',
       loading: false,
       profilePicture: null,
+      updateProfilePicture: jest.fn(),
     });
 
     render(
