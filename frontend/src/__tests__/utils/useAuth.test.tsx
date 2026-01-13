@@ -22,6 +22,7 @@ describe('useAuth hook', () => {
       logout: jest.fn(),
       loading: false,
       profilePicture: null,
+      updateProfilePicture: jest.fn(),
     };
 
     const wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (

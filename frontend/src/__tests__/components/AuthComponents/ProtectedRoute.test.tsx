@@ -21,6 +21,7 @@ describe('ProtectedRoute', () => {
       token: 'sometoken',
       loading: false,
       profilePicture: null,
+      updateProfilePicture: jest.fn(),
     });
 
     const { getByText } = render(
@@ -51,6 +52,7 @@ describe('ProtectedRoute', () => {
       token: null,
       loading: false,
       profilePicture: null,
+      updateProfilePicture: jest.fn(),
     });
 
     const { container } = render(

@@ -23,6 +23,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setIsAuthenticated(false);
     setUser(null);
     setUserId(null);
+    setProfilePicture(null);
     localStorage.removeItem('authToken');
     setToken(null);
   };
@@ -100,6 +101,10 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     resetTokenState();
   };
 
+  const updateProfilePicture = (newPicture: string) => {
+    setProfilePicture(newPicture);
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -112,6 +117,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         loading,
         authError,
         profilePicture,
+        updateProfilePicture,
       }}
     >
       {children}

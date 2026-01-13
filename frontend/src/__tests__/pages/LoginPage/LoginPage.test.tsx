@@ -42,6 +42,7 @@ describe('LoginPage', () => {
       loading: false,
       authError: undefined,
       profilePicture: null,
+      updateProfilePicture: jest.fn(),
     } as AuthContextType);
   });
 
@@ -194,6 +195,7 @@ describe('LoginPage', () => {
       loading: true,
       authError: undefined,
       profilePicture: null,
+      updateProfilePicture: jest.fn(),
     } as AuthContextType);
     render(
       <AuthProvider>
@@ -223,6 +225,7 @@ describe('LoginPage', () => {
       loading: false,
       authError: undefined,
       profilePicture: null,
+      updateProfilePicture: jest.fn(),
     } as AuthContextType);
 
     render(

@@ -8,6 +8,7 @@ export interface AuthContextType {
   loading: boolean;
   authError?: string;
   profilePicture: string | null;
+  updateProfilePicture: (newPicture: string) => void;
 }
 
 export interface LoginCredentials {
