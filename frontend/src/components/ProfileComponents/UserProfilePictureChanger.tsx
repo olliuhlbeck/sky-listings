@@ -12,10 +12,9 @@ import {
 } from '../../types/dtos/UpdateProfilePicture.dto';
 
 const UserProfilePictureChanger = () => {
-  const token = useAuth();
+  const { token, user, profilePicture, updateProfilePicture } = useAuth();
 
-  const [currentImage, setCurrentImage] = useState<string | null>(null);
-  const [preview, setPreview] = useState<string | null>(null);
+  const [preview, setPreview] = useState<string>('');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -29,13 +28,12 @@ const UserProfilePictureChanger = () => {
       const response = await fetch(`${BASE_URL}/info/getProfilePicture`, {
         method: 'GET',
         headers: {
-          Authorization: `Bearer ${token.token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
       if (response.ok) {
         const data: GetProfilePictureResponseDto = await response.json();
         if (data.profilePicture) {
-          setCurrentImage(data.profilePicture);
           setPreview(data.profilePicture);
         }
       }
@@ -46,10 +44,14 @@ const UserProfilePictureChanger = () => {
     }
   };
 
-  // Fetch current profile picture on component mount
+  // Set current profile picture on component mount
   useEffect(() => {
-    fetchCurrentProfilePicture();
-  }, [token.token]);
+    if (profilePicture) {
+      setPreview(profilePicture);
+    } else {
+      fetchCurrentProfilePicture();
+    }
+  }, [profilePicture]);
 
   // Handle user selecting a file
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -92,7 +94,7 @@ const UserProfilePictureChanger = () => {
 
   // Reset logic
   const handleReset = () => {
-    setPreview(currentImage);
+    setPreview(profilePicture || '');
     setSelectedFile(null);
     setError(null);
     setSuccess(null);
@@ -120,7 +122,7 @@ const UserProfilePictureChanger = () => {
       const response = await fetch(`${BASE_URL}/info/updateProfilePicture`, {
         method: 'PUT',
         headers: {
-          Authorization: `Bearer ${token.token}`,
+          Authorization: `Bearer ${token}`,
         },
         body: formData,
       });
@@ -131,7 +133,7 @@ const UserProfilePictureChanger = () => {
         return;
       } else {
         setSuccess('Profile picture updated successfully');
-        setCurrentImage(preview as string);
+        updateProfilePicture(preview as string);
         setSelectedFile(null);
         setTimeout(() => setSuccess(null), 3000);
 
@@ -171,7 +173,7 @@ const UserProfilePictureChanger = () => {
           />
         </span>
       )}
-      <h2>{token.user}</h2>
+      <h2>{user}</h2>
 
       {/* Hidden file input*/}
       <input
