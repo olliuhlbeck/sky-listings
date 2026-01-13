@@ -16,8 +16,8 @@ const main = async () => {
   const users = await Promise.all([
     prisma.user.create({
       data: {
-        email: 'user1@example.com',
-        username: 'user1',
+        email: 'user@example.com',
+        username: 'user',
         password: hashedPassword,
         info: {
           create: {
@@ -26,6 +26,7 @@ const main = async () => {
             phone: '+358401234567',
             address: 'Hämeenkatu 10, Tampere',
             preferredContactDetails: 'TEXTMESSAGE',
+            profilePicture: readImageForSeed('profile-picture-seed-photo.jpg'),
           },
         },
         properties: {
