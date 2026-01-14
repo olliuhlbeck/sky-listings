@@ -13,6 +13,7 @@ import formatPropertyType from '../../utils/formatPropertyTypes';
 import { SearchConditions } from '../../types/searchConditions';
 import { MdErrorOutline } from 'react-icons/md';
 import { GetPropertiesResponse } from '../../types/dtos/GetPropertiesResponse.dto';
+import { RiResetRightLine } from 'react-icons/ri';
 
 const BrowseProperties = () => {
   const [page, setPage] = useState<number>(1);
@@ -206,7 +207,10 @@ const BrowseProperties = () => {
               iconSize={20}
               text='Search'
               ClassName='!p-1 focus:underline focus:outline-none dark:bg-transparent dark:hover:bg-slate-800'
-              onClick={handleClickSearch}
+              onClick={() => {
+                handleClickSearch();
+                setErrorMessage('');
+              }}
             />
           </div>
         )}
@@ -218,13 +222,30 @@ const BrowseProperties = () => {
             <p className='ml-3 text-gray-600'>Loading properties...</p>
           </div>
         )}
+
         {errorMessage !== '' && (
-          <div className='flex justify-center gap-2 mt-5'>
-            <IconComponent icon={MdErrorOutline} className='text-red-500' />
-            <p className='text-red-500'>{errorMessage}</p>
-            <IconComponent icon={MdErrorOutline} className='text-red-500' />
+          <div className='flex flex-col items-center gap-2 mt-5'>
+            {/* Error text and icons */}
+            <div className='flex gap-2 items-center'>
+              <IconComponent icon={MdErrorOutline} className='text-red-500' />
+              <p className='text-red-500'>{errorMessage}</p>
+              <IconComponent icon={MdErrorOutline} className='text-red-500' />
+            </div>
+            {/* Retry button below error */}
+            <Button
+              text='Retry'
+              onClick={() => {
+                fetchProperties();
+                setErrorMessage('');
+              }}
+              icon={RiResetRightLine}
+              iconSize={16}
+              ClassName='!bg-transparent !p-2 hover:!bg-sky-200 dark:hover:!bg-slate-800'
+              aria-label='Retry fetching properties'
+            />
           </div>
         )}
+
         {/* Render single inspect component or paginated list according to browseState */}
         {browseState === 'browseMany' ? (
           propertyListWithPagination
