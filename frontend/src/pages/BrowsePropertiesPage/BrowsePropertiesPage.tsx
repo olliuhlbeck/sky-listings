@@ -14,6 +14,7 @@ import { SearchConditions } from '../../types/searchConditions';
 import { MdErrorOutline } from 'react-icons/md';
 import { GetPropertiesResponse } from '../../types/dtos/GetPropertiesResponse.dto';
 import { RiResetRightLine } from 'react-icons/ri';
+import ServerColdStartNotice from '../../components/GeneralComponents/serverColdStartNotice';
 
 const BrowseProperties = () => {
   const [page, setPage] = useState<number>(1);
@@ -143,6 +144,8 @@ const BrowseProperties = () => {
 
   return (
     <>
+      <ServerColdStartNotice />
+
       <main className='mx-10 mb-10'>
         {/* Search bar */}
         {browseState === 'browseMany' && (
