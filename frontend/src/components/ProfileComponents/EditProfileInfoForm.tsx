@@ -6,7 +6,8 @@ import IconComponent from '../GeneralComponents/IconComponent';
 import { MdErrorOutline } from 'react-icons/md';
 import Button from '../GeneralComponents/Button';
 import { FaRegSave } from 'react-icons/fa';
-import { RiResetLeftLine } from 'react-icons/ri';
+import { RiResetLeftLine, RiResetRightLine } from 'react-icons/ri';
+import ServerColdStartNotice from '../GeneralComponents/ServerColdStartNotice';
 
 const EditProfileInfoForm = () => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -153,14 +154,31 @@ const EditProfileInfoForm = () => {
       onSubmit={handleSubmit}
       className='sm:w-2/3 text-xs md:text-base'
     >
+      <ServerColdStartNotice />
       {loading ? (
-        <p className='mx-auto'>Loading...</p>
-      ) : errorMessage ? (
-        <div className='flex justify-center gap-2 mt-5'>
-          <IconComponent icon={MdErrorOutline} className='text-red-500' />
-          <p className='text-red-500'>{errorMessage}</p>
-          <IconComponent icon={MdErrorOutline} className='text-red-500' />
+        <div className='flex justify-center items-center py-8'>
+          <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500'></div>
+          <p className='ml-3 text-gray-600'>Loading properties...</p>
         </div>
+      ) : errorMessage ? (
+        <>
+          <div className='flex justify-center gap-2 mt-5'>
+            <IconComponent icon={MdErrorOutline} className='text-red-500' />
+            <p className='text-red-500'>{errorMessage}</p>
+            <IconComponent icon={MdErrorOutline} className='text-red-500' />
+          </div>
+          <Button
+            text='Retry'
+            onClick={() => {
+              fetchOriginalData();
+              setErrorMessage('');
+            }}
+            icon={RiResetRightLine}
+            iconSize={16}
+            ClassName='!bg-transparent !p-2 hover:!bg-sky-200 dark:hover:!bg-slate-800 mx-auto'
+            aria-label='Retry fetching properties'
+          />
+        </>
       ) : (
         <div className='flex flex-col gap-2'>
           <div>

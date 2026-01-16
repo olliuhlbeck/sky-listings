@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../GeneralComponents/Button';
 import ToolTip from '../GeneralComponents/ToolTip';
 import { TbCircleLetterF, TbCircleLetterL } from 'react-icons/tb';
+import ServerColdStartNotice from '../GeneralComponents/ServerColdStartNotice';
 
 const LoginForm = ({ action, setAction }: LoginComponentProps) => {
   const [inputs, setInputs] = useState<LoginInputs>({
@@ -198,200 +199,215 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
     !errors.lastName;
 
   return (
-    <form
-      name='loginForm'
-      aria-label={action === ActionType.Login ? 'Login Form' : 'Sign Up Form'}
-      onSubmit={handleSubmit}
-      className='flex flex-col grow items-center space-y-4'
-    >
-      <div className='md:hidden w-full flex items-center justify-center mb-16'></div>
-      {action === ActionType.SignUp && (
-        <>
-          {/* First Name Field */}
-          <div className='flex flex-col space-y-1'>
-            <div className='flex space-x-2 items-center'>
-              <label htmlFor='firstNameInput' className='sr-only'>
-                First Name
-              </label>
-              <IconComponent
-                icon={TbCircleLetterF}
-                className='self-center'
-                aria-hidden='true'
-              />
-              <InputField
-                name='firstNameInput'
-                id='firstNameInput'
-                type='text'
-                value={inputs.firstName}
-                onChange={handleFirstNameChange}
-                placeholder='First Name'
-                className='w-52 dark:bg-gray'
-                aria-describedby={
-                  errors.firstName ? 'firstNameError' : undefined
-                }
-                aria-invalid={!!errors.firstName}
-              />
+    <>
+      <ServerColdStartNotice />
+      <form
+        name='loginForm'
+        aria-label={action === ActionType.Login ? 'Login Form' : 'Sign Up Form'}
+        onSubmit={handleSubmit}
+        className='flex flex-col grow items-center space-y-4'
+      >
+        <div className='md:hidden w-full flex items-center justify-center mb-16'></div>
+        {action === ActionType.SignUp && (
+          <>
+            {/* First Name Field */}
+            <div className='flex flex-col space-y-1'>
+              <div className='flex space-x-2 items-center'>
+                <label htmlFor='firstNameInput' className='sr-only'>
+                  First Name
+                </label>
+                <IconComponent
+                  icon={TbCircleLetterF}
+                  className='self-center'
+                  aria-hidden='true'
+                />
+                <InputField
+                  name='firstNameInput'
+                  id='firstNameInput'
+                  type='text'
+                  value={inputs.firstName}
+                  onChange={handleFirstNameChange}
+                  placeholder='First Name'
+                  className='w-52 dark:bg-gray'
+                  aria-describedby={
+                    errors.firstName ? 'firstNameError' : undefined
+                  }
+                  aria-invalid={!!errors.firstName}
+                />
+              </div>
+              {errors.firstName && (
+                <span
+                  id='firstNameError'
+                  role='alert'
+                  className='text-red-500 text-xs md:text-base'
+                >
+                  {errors.firstName}
+                </span>
+              )}
             </div>
-            {errors.firstName && (
-              <span
-                id='firstNameError'
-                role='alert'
-                className='text-red-500 text-xs md:text-base'
-              >
-                {errors.firstName}
-              </span>
-            )}
-          </div>
 
-          {/* Last Name Field */}
-          <div className='flex flex-col space-y-1'>
-            <div className='flex space-x-2 items-center'>
-              <label htmlFor='lastNameInput' className='sr-only'>
-                Last Name
-              </label>
-              <IconComponent
-                icon={TbCircleLetterL}
-                className='self-center'
-                aria-hidden='true'
-              />
-              <InputField
-                name='lastNameInput'
-                id='lastNameInput'
-                type='text'
-                value={inputs.lastName}
-                onChange={handleLastNameChange}
-                placeholder='Last Name'
-                className='w-52 dark:bg-gray'
-                aria-describedby={errors.lastName ? 'lastNameError' : undefined}
-                aria-invalid={!!errors.lastName}
-              />
+            {/* Last Name Field */}
+            <div className='flex flex-col space-y-1'>
+              <div className='flex space-x-2 items-center'>
+                <label htmlFor='lastNameInput' className='sr-only'>
+                  Last Name
+                </label>
+                <IconComponent
+                  icon={TbCircleLetterL}
+                  className='self-center'
+                  aria-hidden='true'
+                />
+                <InputField
+                  name='lastNameInput'
+                  id='lastNameInput'
+                  type='text'
+                  value={inputs.lastName}
+                  onChange={handleLastNameChange}
+                  placeholder='Last Name'
+                  className='w-52 dark:bg-gray'
+                  aria-describedby={
+                    errors.lastName ? 'lastNameError' : undefined
+                  }
+                  aria-invalid={!!errors.lastName}
+                />
+              </div>
+              {errors.lastName && (
+                <span
+                  id='lastNameError'
+                  role='alert'
+                  className='text-red-500 text-xs md:text-base'
+                >
+                  {errors.lastName}
+                </span>
+              )}
             </div>
-            {errors.lastName && (
-              <span
-                id='lastNameError'
-                role='alert'
-                className='text-red-500 text-xs md:text-base'
-              >
-                {errors.lastName}
-              </span>
-            )}
-          </div>
 
-          {/* Email Field */}
-          <div className='flex flex-col space-y-1'>
-            <div className='flex space-x-2 items-center'>
-              <label htmlFor='emailInput' className='sr-only'>
-                Email
-              </label>
-              <IconComponent
-                icon={MdOutlineEmail}
-                className='self-center'
-                aria-hidden='true'
-              />
-              <InputField
-                name='emailInput'
-                id='emailInput'
-                type='text'
-                autoComplete='email'
-                value={inputs.email}
-                onChange={handleEmailChange}
-                placeholder='Email'
-                className='w-52 dark:bg-gray'
-                aria-describedby={errors.email ? 'emailError' : undefined}
-                aria-invalid={!!errors.email}
-              />
+            {/* Email Field */}
+            <div className='flex flex-col space-y-1'>
+              <div className='flex space-x-2 items-center'>
+                <label htmlFor='emailInput' className='sr-only'>
+                  Email
+                </label>
+                <IconComponent
+                  icon={MdOutlineEmail}
+                  className='self-center'
+                  aria-hidden='true'
+                />
+                <InputField
+                  name='emailInput'
+                  id='emailInput'
+                  type='text'
+                  autoComplete='email'
+                  value={inputs.email}
+                  onChange={handleEmailChange}
+                  placeholder='Email'
+                  className='w-52 dark:bg-gray'
+                  aria-describedby={errors.email ? 'emailError' : undefined}
+                  aria-invalid={!!errors.email}
+                />
+              </div>
+              {errors.email && (
+                <span
+                  id='emailError'
+                  role='alert'
+                  className='text-red-500 text-xs md:text-base'
+                >
+                  {errors.email}
+                </span>
+              )}
             </div>
-            {errors.email && (
-              <span
-                id='emailError'
-                role='alert'
-                className='text-red-500 text-xs md:text-base'
-              >
-                {errors.email}
-              </span>
-            )}
-          </div>
-        </>
-      )}
-
-      {/* Username Field */}
-      <div className='flex flex-col space-y-1'>
-        <div className='flex space-x-2 items-center'>
-          <label htmlFor='usernameInput' className='sr-only'>
-            Username
-          </label>
-          <IconComponent
-            icon={FaRegUser}
-            className='self-center'
-            aria-hidden='true'
-          />
-          <InputField
-            name='usernameInput'
-            id='usernameInput'
-            type='text'
-            autoComplete='username'
-            value={inputs.username}
-            onChange={handleUserNameChange}
-            placeholder='Username'
-            className='w-52 dark:bg-gray'
-            aria-describedby={errors.username ? 'usernameError' : undefined}
-            aria-invalid={!!errors.username}
-          />
-        </div>
-        {errors.username && (
-          <span
-            id='usernameError'
-            role='alert'
-            className='text-red-500 text-xs md:text-base'
-          >
-            {errors.username}
-          </span>
+          </>
         )}
-      </div>
 
-      {/* Password Field */}
-      <div className='flex flex-col space-y-1'>
-        <div className='flex space-x-2 items-center'>
-          <label htmlFor='passwordInput' className='sr-only'>
-            Password
-          </label>
-          <IconComponent
-            icon={RiLockPasswordLine}
-            className='self-center'
-            aria-hidden='true'
-          />
-          <InputField
-            name='passwordInput'
-            id='passwordInput'
-            type='password'
-            autoComplete={
-              action === ActionType.Login ? 'current-password' : 'new-password'
-            }
-            value={inputs.password}
-            onChange={handlePasswordChange}
-            placeholder='Password'
-            className='w-52 dark:bg-gray'
-            aria-describedby={errors.password ? 'passwordError' : undefined}
-            aria-invalid={!!errors.password}
-          />
+        {/* Username Field */}
+        <div className='flex flex-col space-y-1'>
+          <div className='flex space-x-2 items-center'>
+            <label htmlFor='usernameInput' className='sr-only'>
+              Username
+            </label>
+            <IconComponent
+              icon={FaRegUser}
+              className='self-center'
+              aria-hidden='true'
+            />
+            <InputField
+              name='usernameInput'
+              id='usernameInput'
+              type='text'
+              autoComplete='username'
+              value={inputs.username}
+              onChange={handleUserNameChange}
+              placeholder='Username'
+              className='w-52 dark:bg-gray'
+              aria-describedby={errors.username ? 'usernameError' : undefined}
+              aria-invalid={!!errors.username}
+            />
+          </div>
+          {errors.username && (
+            <span
+              id='usernameError'
+              role='alert'
+              className='text-red-500 text-xs md:text-base'
+            >
+              {errors.username}
+            </span>
+          )}
         </div>
-        {errors.password && (
-          <span
-            id='passwordError'
-            role='alert'
-            className='text-red-500 text-xs md:text-base'
-          >
-            {errors.password}
-          </span>
-        )}
-      </div>
 
-      {/* Submit Button with Tooltip if form is invalid */}
-      {!isFormValid ? (
-        <ToolTip
-          toolTipText='Please fill out all fields and fix given errors before submitting.'
-          addToClassName='border'
-        >
+        {/* Password Field */}
+        <div className='flex flex-col space-y-1'>
+          <div className='flex space-x-2 items-center'>
+            <label htmlFor='passwordInput' className='sr-only'>
+              Password
+            </label>
+            <IconComponent
+              icon={RiLockPasswordLine}
+              className='self-center'
+              aria-hidden='true'
+            />
+            <InputField
+              name='passwordInput'
+              id='passwordInput'
+              type='password'
+              autoComplete={
+                action === ActionType.Login
+                  ? 'current-password'
+                  : 'new-password'
+              }
+              value={inputs.password}
+              onChange={handlePasswordChange}
+              placeholder='Password'
+              className='w-52 dark:bg-gray'
+              aria-describedby={errors.password ? 'passwordError' : undefined}
+              aria-invalid={!!errors.password}
+            />
+          </div>
+          {errors.password && (
+            <span
+              id='passwordError'
+              role='alert'
+              className='text-red-500 text-xs md:text-base'
+            >
+              {errors.password}
+            </span>
+          )}
+        </div>
+
+        {/* Submit Button with Tooltip if form is invalid */}
+        {!isFormValid ? (
+          <ToolTip
+            toolTipText='Please fill out all fields and fix given errors before submitting.'
+            addToClassName='border'
+          >
+            <Button
+              ClassName='border bg-transparent'
+              type='submit'
+              disabled={!isFormValid}
+            >
+              {action === ActionType.Login ? 'Login' : 'Sign Up'}
+            </Button>
+          </ToolTip>
+        ) : (
           <Button
             ClassName='border bg-transparent'
             type='submit'
@@ -399,42 +415,34 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
           >
             {action === ActionType.Login ? 'Login' : 'Sign Up'}
           </Button>
-        </ToolTip>
-      ) : (
-        <Button
-          ClassName='border bg-transparent'
-          type='submit'
-          disabled={!isFormValid}
-        >
-          {action === ActionType.Login ? 'Login' : 'Sign Up'}
-        </Button>
-      )}
+        )}
 
-      {/* General error message display switch form mode button */}
-      {errors.generalError && (
-        <span
-          role='alert'
-          aria-live='polite'
-          className='text-red-500 text-xs md:text-base w-52'
-        >
-          {errors.generalError}
-        </span>
-      )}
+        {/* General error message display switch form mode button */}
+        {errors.generalError && (
+          <span
+            role='alert'
+            aria-live='polite'
+            className='text-red-500 text-xs md:text-base w-52'
+          >
+            {errors.generalError}
+          </span>
+        )}
 
-      <div
-        onClick={switchAction}
-        className='text-xs md:text-base lg:text-lg pb-1 md:pb-8'
-      >
-        {action === ActionType.Login
-          ? `Don't have an account?`
-          : 'Already have a account?'}
-        <Button type='button' ClassName='bg-transparent dark:bg-transparent'>
+        <div
+          onClick={switchAction}
+          className='text-xs md:text-base lg:text-lg pb-1 md:pb-8'
+        >
           {action === ActionType.Login
-            ? 'Create one by clicking here'
-            : 'Switch to login by clicking here'}
-        </Button>
-      </div>
-    </form>
+            ? `Don't have an account?`
+            : 'Already have a account?'}
+          <Button type='button' ClassName='bg-transparent dark:bg-transparent'>
+            {action === ActionType.Login
+              ? 'Create one by clicking here'
+              : 'Switch to login by clicking here'}
+          </Button>
+        </div>
+      </form>
+    </>
   );
 };
 

@@ -11,7 +11,7 @@ import {
   UserProperty,
 } from '../../types/dtos/GetUsersPropertiesByUserIdResponse.dto';
 import { useNavigate } from 'react-router-dom';
-import ServerColdStartNotice from '../../components/GeneralComponents/serverColdStartNotice';
+import ServerColdStartNotice from '../../components/GeneralComponents/ServerColdStartNotice';
 
 const MyProperties = () => {
   const [usersProperties, setUsersProperties] = useState<UserProperty[]>([]);
