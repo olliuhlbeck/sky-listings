@@ -4,7 +4,7 @@ import IconComponent from '../GeneralComponents/IconComponent';
 import { CgProfile } from 'react-icons/cg';
 import Button from '../GeneralComponents/Button';
 import { BiCamera } from 'react-icons/bi';
-import { RiResetLeftLine } from 'react-icons/ri';
+import { RiResetLeftLine, RiResetRightLine } from 'react-icons/ri';
 import { FaRegSave } from 'react-icons/fa';
 import {
   GetProfilePictureResponseDto,
@@ -17,12 +17,14 @@ const UserProfilePictureChanger = () => {
   const [preview, setPreview] = useState<string>('');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isUploading, setIsUploading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Fetch current profile picture function
   const fetchCurrentProfilePicture = async (): Promise<void> => {
+    setLoading(true);
     try {
       const BASE_URL = import.meta.env.VITE_API_URL;
       const response = await fetch(`${BASE_URL}/info/getProfilePicture`, {
@@ -40,6 +42,7 @@ const UserProfilePictureChanger = () => {
     } catch {
       setError('Failed to load profile picture');
     } finally {
+      setLoading(false);
       setIsUploading(false);
     }
   };
@@ -48,6 +51,7 @@ const UserProfilePictureChanger = () => {
   useEffect(() => {
     if (profilePicture) {
       setPreview(profilePicture);
+      setLoading(false);
     } else {
       fetchCurrentProfilePicture();
     }
@@ -153,89 +157,142 @@ const UserProfilePictureChanger = () => {
       data-testid='user-profile-picture-changer'
       className='flex flex-col sm:w-1/3 items-center justify-center gap-2 sm:gap-4'
     >
-      {preview ? (
-        <img
-          src={preview as string}
-          alt='profilePicture'
-          className='rounded-full w-1/2 sm:w-4/5 xl:w-3/5 cursor-pointer aspect-square object-cover hover:scale-[1.03] transition duration-300'
-          onClick={handleImageClick}
-        />
-      ) : (
-        <span
-          data-testid='profilePicturePlaceholder'
-          onClick={handleImageClick}
-          className='cursor-pointer'
-        >
-          <IconComponent
-            icon={CgProfile}
-            size={96}
-            className=' hover:scale-[1.05] transition duration-300'
-          />
-        </span>
-      )}
-      <h2>{user}</h2>
-
-      {/* Hidden file input*/}
-      <input
-        data-testid='profile-picture-file-input'
-        ref={fileInputRef}
-        type='file'
-        accept='image/*'
-        onChange={handleFileChange}
-        className='hidden'
-      />
-
-      {/* Action buttons */}
-      <div className='flex flex-col gap-2'>
-        {!hasChanges ? (
-          // Show change button when no changes
-          <Button
-            text='Change profile picture'
-            icon={BiCamera}
-            onClick={handleButtonClick}
-            ClassName=''
-          />
-        ) : (
-          // Show save/reset buttons when there are changes
-          <div className='flex gap-2 w-full'>
-            <Button
-              text='Save'
-              icon={FaRegSave}
-              iconSize={18}
-              onClick={handleSave}
-              disabled={isUploading}
-              ClassName='flex-1 bg-green-600 hover:bg-green-700 disabled:opacity-50'
+      {loading ? (
+        <div className='flex justify-center items-center py-8'>
+          <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500'></div>
+          <p className='ml-3 text-gray-600'>Loading profile picture...</p>
+        </div>
+      ) : error ? (
+        <>
+          {preview ? (
+            <img
+              src={preview as string}
+              alt='profilePicture'
+              className='rounded-full w-1/2 sm:w-4/5 xl:w-3/5 cursor-pointer aspect-square object-cover hover:scale-[1.03] transition duration-300'
+              onClick={handleImageClick}
             />
-            <Button
-              text='Reset'
-              icon={RiResetLeftLine}
-              iconSize={18}
-              onClick={handleReset}
-              disabled={isUploading}
-              ClassName='flex-1 !bg-red-300 hover:!bg-red-400 dark:!bg-red-700 dark:hover:!bg-red-600 disabled:opacity-50'
-            />
+          ) : (
+            <span
+              data-testid='profilePicturePlaceholder'
+              onClick={handleImageClick}
+              className='cursor-pointer'
+            >
+              <IconComponent
+                icon={CgProfile}
+                size={96}
+                className=' hover:scale-[1.05] transition duration-300'
+              />
+            </span>
+          )}
+          <h2>{user}</h2>
+
+          {/* Hidden file input*/}
+          <input
+            data-testid='profile-picture-file-input'
+            ref={fileInputRef}
+            type='file'
+            accept='image/*'
+            onChange={handleFileChange}
+            className='hidden'
+          />
+
+          {/* Error message and retry button */}
+          <div className='text-red-500 text-sm bg-red-50 px-3 py-2 rounded-md w-full text-center'>
+            {error}
           </div>
-        )}
-      </div>
+          <Button
+            text='Retry'
+            onClick={() => {
+              fetchCurrentProfilePicture();
+              setError(null);
+            }}
+            icon={RiResetRightLine}
+            iconSize={16}
+            ClassName='!bg-transparent !p-2 hover:!bg-sky-200 dark:hover:!bg-slate-800'
+            aria-label='Retry fetching profile picture'
+          />
+        </>
+      ) : (
+        <>
+          {preview ? (
+            <img
+              src={preview as string}
+              alt='profilePicture'
+              className='rounded-full w-1/2 sm:w-4/5 xl:w-3/5 cursor-pointer aspect-square object-cover hover:scale-[1.03] transition duration-300'
+              onClick={handleImageClick}
+            />
+          ) : (
+            <span
+              data-testid='profilePicturePlaceholder'
+              onClick={handleImageClick}
+              className='cursor-pointer'
+            >
+              <IconComponent
+                icon={CgProfile}
+                size={96}
+                className=' hover:scale-[1.05] transition duration-300'
+              />
+            </span>
+          )}
+          <h2>{user}</h2>
 
-      {/* Status Messages */}
-      {error && (
-        <div className='text-red-500 text-sm bg-red-50 px-3 py-2 rounded-md w-full text-center'>
-          {error}
-        </div>
-      )}
+          {/* Hidden file input*/}
+          <input
+            data-testid='profile-picture-file-input'
+            ref={fileInputRef}
+            type='file'
+            accept='image/*'
+            onChange={handleFileChange}
+            className='hidden'
+          />
 
-      {success && (
-        <div className='text-green-600 text-sm bg-green-50 px-3 py-2 rounded-md w-full text-center'>
-          {success}
-        </div>
-      )}
+          {/* Action buttons */}
+          <div className='flex flex-col gap-2'>
+            {!hasChanges ? (
+              // Show change button when no changes
+              <Button
+                text='Change profile picture'
+                icon={BiCamera}
+                onClick={handleButtonClick}
+                ClassName=''
+              />
+            ) : (
+              // Show save/reset buttons when there are changes
+              <div className='flex gap-2 w-full'>
+                <Button
+                  text='Save'
+                  icon={FaRegSave}
+                  iconSize={18}
+                  onClick={handleSave}
+                  disabled={isUploading}
+                  ClassName='flex-1 bg-green-600 hover:bg-green-700 disabled:opacity-50'
+                />
+                <Button
+                  text='Reset'
+                  icon={RiResetLeftLine}
+                  iconSize={18}
+                  onClick={handleReset}
+                  disabled={isUploading}
+                  ClassName='flex-1 !bg-red-300 hover:!bg-red-400 dark:!bg-red-700 dark:hover:!bg-red-600 disabled:opacity-50'
+                />
+              </div>
+            )}
+          </div>
 
-      {isUploading && (
-        <div className='text-blue-500 text-sm flex items-center gap-2'>
-          <div className='animate-spin rounded-full h-4 w-4 border-2 border-blue-500 border-t-transparent'></div>
-          Uploading...
-        </div>
+          {/* Status Messages */}
+          {success && (
+            <div className='text-green-600 text-sm bg-green-50 px-3 py-2 rounded-md w-full text-center'>
+              {success}
+            </div>
+          )}
+
+          {isUploading && (
+            <div className='text-blue-500 text-sm flex items-center gap-2'>
+              <div className='animate-spin rounded-full h-4 w-4 border-2 border-blue-500 border-t-transparent'></div>
+              Uploading...
+            </div>
+          )}
+        </>
       )}
     </div>
   );
