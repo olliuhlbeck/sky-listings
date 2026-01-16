@@ -11,6 +11,7 @@ import {
   UserProperty,
 } from '../../types/dtos/GetUsersPropertiesByUserIdResponse.dto';
 import { useNavigate } from 'react-router-dom';
+import ServerColdStartNotice from '../../components/GeneralComponents/serverColdStartNotice';
 
 const MyProperties = () => {
   const [usersProperties, setUsersProperties] = useState<UserProperty[]>([]);
@@ -100,6 +101,7 @@ const MyProperties = () => {
   return (
     <>
       <div className='mt-10'>
+        <ServerColdStartNotice />
         {loading && (
           <div className='flex justify-center items-center py-8'>
             <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500'></div>
