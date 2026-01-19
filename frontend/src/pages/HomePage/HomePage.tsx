@@ -55,7 +55,7 @@ const HomePage = () => {
           <Link
             to={'login'}
             state={{ action: ActionType.SignUp }}
-            className={`relative transition duration-300 hover:scale-[1.02] min-h-[12rem] lg:min-h-[24rem] shadow-md shadow-slate-500 flex flex-1 justify-center items-center rounded-lg bg-[url('./assets/registerFront.png')] bg-cover bg-center `}
+            className={`relative transition duration-300 hover:scale-[1.02] min-h-[12rem] lg:min-h-[24rem] shadow-md shadow-slate-500 dark:shadow-slate-700 flex flex-1 justify-center items-center rounded-lg bg-[url('./assets/registerFront.png')] bg-cover bg-center `}
           >
             <Button ClassName='absolute -top-8 sm:-top-8 md:-top-10 lg:-top-11 right-10 !rounded-b-none !bg-blue-950 dark:!bg-blue-900 text-gray-50'>
               Register
