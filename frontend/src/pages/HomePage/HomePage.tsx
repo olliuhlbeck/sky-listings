@@ -8,6 +8,7 @@ import browseHouses from '../../assets/browseHouses.jpg';
 import sellHouse from '../../assets/sellHouse.jpg';
 import Button from '../../components/GeneralComponents/Button';
 import heroSection from '../../assets/heroSection.png';
+import darkHeroSection from '../../assets/darkHeroSection.png';
 
 const HomePage = () => {
   const { user } = useAuth();
@@ -16,7 +17,16 @@ const HomePage = () => {
     <main className='flex flex-col justify-center items-center'>
       {/* Descriptive slogan to lure users attraction */}
       <div className='w-1/2 md:w-1/3 lg:w-1/4 flex items-center justify-center mt-4 mb-12 lg:mt-6 lg:mb-8'>
-        <img src={heroSection} alt='Hero section' />
+        <img
+          src={heroSection}
+          alt='Hero section'
+          className='block dark:hidden'
+        />
+        <img
+          src={darkHeroSection}
+          alt='Hero section for dark mode'
+          className='hidden dark:block'
+        />
       </div>
       {/* Render different main content if there is logged in user or not */}
       {user ? (
