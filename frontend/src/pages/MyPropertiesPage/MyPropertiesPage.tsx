@@ -12,6 +12,7 @@ import {
 } from '../../types/dtos/GetUsersPropertiesByUserIdResponse.dto';
 import { useNavigate } from 'react-router-dom';
 import ServerColdStartNotice from '../../components/GeneralComponents/ServerColdStartNotice';
+import { RiResetRightLine } from 'react-icons/ri';
 
 const MyProperties = () => {
   const [usersProperties, setUsersProperties] = useState<UserProperty[]>([]);
@@ -110,10 +111,25 @@ const MyProperties = () => {
         )}
         {/* Error display */}
         {errorMessage !== '' && (
-          <div className='flex min-w-48 w-8/10 mx-auto justify-center gap-2 mt-5'>
-            <IconComponent icon={MdErrorOutline} className='text-red-500' />
-            <p className='text-red-500 mb-4'>{errorMessage}</p>
-            <IconComponent icon={MdErrorOutline} className='text-red-500' />
+          <div className='flex flex-col min-w-48 w-8/10 mx-auto justify-center items-center gap-2 mt-5'>
+            <div className='flex min-w-48 w-8/10 mx-auto justify-center gap-2 mt-5'>
+              <IconComponent icon={MdErrorOutline} className='text-red-500' />
+              <p className='text-red-500 mb-4'>{errorMessage}</p>
+              <IconComponent icon={MdErrorOutline} className='text-red-500' />
+            </div>
+            {/* Retry button below error */}
+            <Button
+              text='Retry'
+              onClick={() => {
+                fetchPropertiesByUserId();
+                setErrorMessage('');
+                setLoading(true);
+              }}
+              icon={RiResetRightLine}
+              iconSize={16}
+              ClassName='!bg-transparent !p-2 hover:!bg-sky-200 dark:hover:!bg-slate-800'
+              aria-label='Retry fetching properties'
+            />
           </div>
         )}
 
