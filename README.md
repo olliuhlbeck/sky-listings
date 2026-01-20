@@ -75,7 +75,7 @@ npm install
 npm run dev
 ```
 
-For testing you can use login credentials user: user and password: password
+For testing you can use login credentials username: **user** and password: **password**
 
 # Project Structure
 
