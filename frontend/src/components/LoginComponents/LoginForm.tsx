@@ -396,7 +396,11 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
         {/* Submit Button with Tooltip if form is invalid */}
         {!isFormValid ? (
           <ToolTip
-            toolTipText='Please fill out all fields and fix given errors before submitting.'
+            toolTipText={
+              Object.values(errors).some((error) => error)
+                ? 'Please fill out all fields and fix given errors before submitting again.'
+                : 'Please fill out all fields.'
+            }
             addToClassName='border'
           >
             <Button
