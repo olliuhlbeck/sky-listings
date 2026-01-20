@@ -178,7 +178,7 @@ const MyProperties = () => {
                         ) : (
                           <Button
                             text='Delete selected property'
-                            ClassName='!bg-red-200 dark:!bg-red-950 hover:!bg-red-500 dark:hover:!bg-red-800 text-xs mt-4 mx-auto text-white hover:text-slate-900'
+                            ClassName='!bg-red-200 dark:!bg-red-950 hover:!bg-red-500 dark:hover:!bg-red-800 text-xs mt-4 mx-auto text-white hover:text-slate-900 dark:opacity-60'
                             onClick={(
                               event: React.MouseEvent<HTMLButtonElement>,
                             ) => {
