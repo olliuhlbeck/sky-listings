@@ -11,7 +11,7 @@ const App = () => {
     useState<boolean>(false);
   return (
     <div
-      className={`bg-linear-to-r from-sky-50 to-gray-50 dark:from-slate-900 dark:to-blue-950 text-slate-900 dark:text-gray-50 flex flex-col w-full min-h-screen text-center font-mono `}
+      className={`bg-linear-to-r from-sky-50 to-gray-50 dark:from-slate-800 dark:to-slate-900 text-slate-900 dark:text-gray-50 flex flex-col w-full min-h-screen text-center font-mono `}
     >
       {/* Header */}
       <HeaderContainer
