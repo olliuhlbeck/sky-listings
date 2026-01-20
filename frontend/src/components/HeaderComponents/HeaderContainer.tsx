@@ -53,7 +53,7 @@ const HeaderContainer = ({
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full shadow-sm z-30 bg-linear-to-r from-sky-200 via-sky-100 to-sky-100 dark:from-slate-950 dark:via-blue-950 dark:to-blue-900`}
+      className={`fixed top-0 left-0 w-full shadow-sm z-30 bg-linear-to-r from-sky-200 via-sky-100 to-sky-100 dark:from-slate-800 dark:via-slate-800 dark:to-slate-800`}
     >
       <div className='container mx-auto flex items-center justify-between p-3'>
         <Link
@@ -146,7 +146,7 @@ const HeaderContainer = ({
                 )}
               </Link>
               <HeaderButton
-                additionsToClassName='bg-sky-200 dark:bg-blue-950'
+                additionsToClassName='bg-sky-200 dark:bg-transparent'
                 icon={CiLogout}
                 text='Logout'
                 link='home'

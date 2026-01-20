@@ -110,7 +110,7 @@ const BrowseProperties = () => {
             onClick={handlePreviousPage}
             disabled={page === 1}
             aria-label={`Go to page ${page - 1}`}
-            className='flex items-center gap-1 px-3 py-1 bg-sky-200 rounded-md hover:cursor-pointer hover:bg-sky-300 transition duration-200'
+            className='flex items-center gap-1 px-3 py-1 bg-sky-200 dark:bg-blue-900 rounded-md hover:cursor-pointer hover:bg-sky-300 dark:hover:bg-blue-700 transition duration-200'
           >
             <IconComponent icon={FaAngleLeft} size={16} />
             <p>Previous</p>
