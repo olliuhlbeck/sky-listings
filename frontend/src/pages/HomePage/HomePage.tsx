@@ -9,9 +9,17 @@ import sellHouse from '../../assets/sellHouse.jpg';
 import Button from '../../components/GeneralComponents/Button';
 import heroSection from '../../assets/heroSection.png';
 import darkHeroSection from '../../assets/darkHeroSection.png';
+import { useEffect } from 'react';
 
 const HomePage = () => {
   const { user } = useAuth();
+
+  useEffect(() => {
+    if (!sessionStorage.getItem('serverWarmed')) {
+      fetch(`${import.meta.env.VITE_API_BASE_URL}/ping`).catch(() => {});
+      sessionStorage.setItem('serverWarmed', 'true');
+    }
+  }, []);
 
   return (
     <main className='flex flex-col justify-center items-center'>
