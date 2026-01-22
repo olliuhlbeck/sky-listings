@@ -80,13 +80,13 @@ const HeaderContainer = ({
             <IconComponent
               icon={IoClose}
               size={30}
-              className='hover:bg-sky-300 transition duration-200 p-1 rounded-md hover:cursor-pointer'
+              className='hover:bg-sky-300 dark:hover:bg-blue-800 transition duration-200 p-1 rounded-md hover:cursor-pointer'
             />
           ) : (
             <IconComponent
               icon={RxHamburgerMenu}
               size={30}
-              className='hover:bg-sky-300 transition duration-200 p-1 rounded-md hover:cursor-pointer'
+              className='hover:bg-sky-300 dark:hover:bg-blue-800 transition duration-200 p-1 rounded-md hover:cursor-pointer'
             />
           )}
         </div>
@@ -122,7 +122,7 @@ const HeaderContainer = ({
         <div className='flex items-center gap-2 h-10'>
           {!isAuthenticated && !isUserInLoginPage ? (
             <HeaderButton
-              additionsToClassName='bg-sky-200 dark:bg-blue-950'
+              additionsToClassName='bg-sky-200 dark:bg-transparent'
               icon={CiLogin}
               text='Login'
               link='login'
