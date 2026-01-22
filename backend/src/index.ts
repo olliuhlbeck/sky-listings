@@ -6,7 +6,6 @@ import loginRouter from './routers/loginRouter/loginRouter';
 import propertyRouter from './routers/propertyRouter/propertyRouter';
 import infoRouter from './routers/infoRouter/infoRouter';
 import serverWakeUpRouter from './routers/serverWakeUpRouter/serverWakeUpRouter';
-import { env } from './config/env';
 
 const server: Express = express();
 
@@ -34,7 +33,7 @@ server.get('/api', (req: Request, res: Response): void => {
 
 server.use(unknownEndpoint);
 
-if (env.NODE_ENV !== 'test') {
+if (process.env.NODE_ENV !== 'test') {
   server.listen(port, () => {
     console.log(`Server is running on port ${port}`);
   });
