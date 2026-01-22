@@ -438,7 +438,7 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
         >
           {action === ActionType.Login
             ? `Don't have an account?`
-            : 'Already have a account?'}
+            : 'Already have an account?'}
           <Button type='button' ClassName='bg-transparent dark:bg-transparent'>
             {action === ActionType.Login
               ? 'Create one by clicking here'
