@@ -27,8 +27,12 @@ server.use('/ping', serverWakeUpRouter);
 server.use('/property', propertyRouter);
 server.use('/signup', signupRouter);
 
-server.get('/api', (req: Request, res: Response): void => {
+server.get('/api', (_req: Request, res: Response): void => {
   res.json({ message: 'Welcome to backend!' });
+});
+
+server.get('/', (_req: Request, res: Response): void => {
+  res.status(200).send('OK');
 });
 
 server.use(unknownEndpoint);
