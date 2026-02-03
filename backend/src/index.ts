@@ -25,8 +25,6 @@ const corsOptions = {
 server.use(cors(corsOptions));
 server.use(express.json());
 
-server.options('*', cors(corsOptions));
-
 server.use('/info', infoRouter);
 server.use('/login', loginRouter);
 server.use('/ping', serverWakeUpRouter);
