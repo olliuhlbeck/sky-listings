@@ -23,7 +23,7 @@ export interface CreatePropertyDTO {
   bathrooms: number;
   squareMeters: number;
   description: string;
-  additionalInfo: string;
+  additionalInfo?: string;
   price: number;
   propertyType: PropertyTypes;
   propertyStatus: PropertyStatus;
