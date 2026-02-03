@@ -34,8 +34,9 @@ const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
 
     try {
       const userId = property.userId;
+      const BASE_URL = import.meta.env.VITE_API_URL;
       const response = await fetch(
-        `http://localhost:3000/info/getContactInfoForProperty?userId=${userId}`,
+        `${BASE_URL}/info/getContactInfoForProperty?userId=${userId}`,
       );
 
       if (!response.ok) {

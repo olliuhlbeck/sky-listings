@@ -100,8 +100,9 @@ const PropertyInfoEditForm: React.FC<PropertyEditProps> = ({
 
     if (Object.keys(editedFields).length > 0) {
       try {
+        const BASE_URL = import.meta.env.VITE_API_URL;
         const response = await fetch(
-          `http://localhost:3000/property/editPropertyInformation/${property.id}`,
+          `${BASE_URL}/property/editPropertyInformation/${property.id}`,
           {
             method: 'PUT',
 
