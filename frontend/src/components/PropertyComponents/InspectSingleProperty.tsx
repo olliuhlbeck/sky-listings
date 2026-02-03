@@ -62,8 +62,9 @@ const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
 
     try {
       const propertyId = property.id;
+      const BASE_URL = import.meta.env.VITE_API_URL;
       const response = await fetch(
-        `http://localhost:3000/property/getAllImagesForProperty?propertyId=${propertyId}`,
+        `${BASE_URL}/property/getAllImagesForProperty?propertyId=${propertyId}`,
       );
 
       if (!response.ok) {
