@@ -14,6 +14,14 @@ const propertyCreationValidate = (
     return;
   }
 
+  // Normalize optional fields from multipart/form-data
+  if (req.body.additionalInfo === '') {
+    req.body.additionalInfo = undefined;
+  }
+  if (req.body.postalCode === '') {
+    req.body.postalCode = undefined;
+  }
+
   // Access values from body
   const {
     street,
