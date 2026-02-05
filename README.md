@@ -2,6 +2,23 @@
 
 Sky Listings is a full-stack real estate application that allows users to browse, search, and list properties. It includes secure authentication, a responsive design, and an intuitive user experience built with React, TypeScript, and TailwindCSS on the frontend, and Node.js, Express and PostgreSQL on the backend. This project was built as a full-stack portfolio application to demonstrate modern web development practices, authentication flows, and CRUD operations with a relational database.
 
+## 🎥 [Demo](https://sky-listings.vercel.app/) 🔴
+
+**[Try the live demo](https://sky-listings.vercel.app/)**
+
+Want to check it out immediately? Use these demo credentials:
+
+**Demo Account:**
+
+- **Username:** user
+- **Password:** password
+
+This account has property listings you can view, edit, and manage.
+
+Sky Listings live demo: frontend is deployed using Vercel, database is hosted on Supabase and and backend is hosted on Render.
+
+> 💡 **Note:** First load may take 30-60 seconds as the free-tier backend wakes up from sleep mode.
+
 ### Screenshots
 
 | Home Page (XL)                                                          | Home Page (Mobile)                                                         |
