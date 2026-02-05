@@ -23,7 +23,7 @@ Sky Listings is a full-stack real estate application that allows users to browse
 ### 🔑 Authentication
 
 - Register and log in securely
-- Passwords hashed using bcrypt
+- Passwords hashed using argon2
 - JWT-based session management
 
 ### 🏠 Property browsing
