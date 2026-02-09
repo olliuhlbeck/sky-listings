@@ -29,6 +29,7 @@ const BrowseProperties = () => {
     SearchConditions.Street,
   );
   const [searchTerm, setSearchTerm] = useState<string>('');
+  const [isMobile, setIsMobile] = useState<boolean>(false);
 
   const pageSize = 6;
 
@@ -59,6 +60,17 @@ const BrowseProperties = () => {
   useEffect(() => {
     fetchProperties();
   }, [page]);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const handleNextPage = () => {
     setPage((prevPage) => Math.min(totalPages, prevPage + 1));
@@ -149,7 +161,7 @@ const BrowseProperties = () => {
       <main className='mx-10 mb-10'>
         {/* Search bar */}
         {browseState === 'browseMany' && (
-          <div className='flex flex-row bg-sky-200 dark:bg-slate-950 items-center justify-center w-11/12 sm:w-md min-w-56 max-w-lg gap-1 md:w-lg md:gap-7 py-2 rounded-full mt-2 mb-3 shadow-sm mx-auto'>
+          <div className='flex flex-row bg-sky-200 dark:bg-slate-950 items-center justify-center sm:w-md min-w-56 gap-1 md:w-lg md:gap-7 py-2 rounded-full mt-2 mb-3 shadow-sm mx-auto'>
             <div className='rounded-lg hover:bg-sky-300 dark:hover:bg-slate-800 lg:text-lg p-1'>
               <label htmlFor='searchCondition' className='sr-only'>
                 Search condition
@@ -181,8 +193,8 @@ const BrowseProperties = () => {
               <input
                 id='searchTerm'
                 type='text'
-                placeholder='Search properties...'
-                className='bg-gray-50 text-center text-gray-700 rounded-lg focus:outline-none md:p-1'
+                placeholder={isMobile ? 'Search' : 'Enter search term...'}
+                className={`bg-gray-50 text-center text-gray-700 rounded-lg focus:outline-none md:p-1 ${isMobile ? 'w-24' : ''}`}
                 value={searchTerm ?? ''}
                 onChange={(event) => setSearchTerm(event.target.value)}
                 onKeyDown={(event) => {
@@ -208,7 +220,7 @@ const BrowseProperties = () => {
             <Button
               icon={IoSearch}
               iconSize={20}
-              text='Search'
+              text={isMobile ? '' : 'Search'}
               ClassName='!p-1 focus:underline focus:outline-none dark:bg-transparent dark:hover:bg-slate-800'
               onClick={() => {
                 handleClickSearch();
