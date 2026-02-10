@@ -238,30 +238,24 @@ const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
             {property.additionalInfo ? (
               <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
                 <div>
-                  <h3 className='text-lg font-semibold text-gray-900 mb-3 border-b border-slate-400 pb-2'>
+                  <h3 className='text-lg font-semibold mb-3 border-b border-slate-400 pb-2'>
                     Description
                   </h3>
-                  <p className='text-gray-700 leading-relaxed'>
-                    {property.description}
-                  </p>
+                  <p className='leading-relaxed'>{property.description}</p>
                 </div>
                 <div>
-                  <h3 className='text-lg font-semibold text-gray-900 mb-3 border-b border-slate-400 pb-2'>
+                  <h3 className='text-lg font-semibold mb-3 border-b border-slate-400 pb-2'>
                     Additional Information
                   </h3>
-                  <p className='text-gray-700 leading-relaxed'>
-                    {property.additionalInfo}
-                  </p>
+                  <p className='leading-relaxed'>{property.additionalInfo}</p>
                 </div>
               </div>
             ) : (
               <div>
-                <h3 className='text-lg font-semibold text-gray-900 dark:text-gray-50 mb-3 border-b border-slate-400 pb-2'>
+                <h3 className='text-lg font-semibold dark:text-gray-50 mb-3 border-b border-slate-400 pb-2'>
                   Description
                 </h3>
-                <p className='text-gray-700 dark:text-gray-400 leading-relaxed'>
-                  {property.description}
-                </p>
+                <p className=' leading-relaxed'>{property.description}</p>
               </div>
             )}
           </div>
