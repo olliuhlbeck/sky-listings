@@ -87,7 +87,7 @@ const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
   }, [property.userId, property.id]);
 
   return (
-    <div className='flex items-center flex-col'>
+    <div className='flex items-center flex-col px-4 sm:px-6'>
       <Button
         onClick={onClick}
         text='Back to browsing'
@@ -95,15 +95,15 @@ const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
         iconSize={18}
         ClassName='mt-2 mb-8'
       />
-      <div className='flex flex-1 flex-col justify-center items-center mb-5 md:h-100 lg:h-200 xl:flex-row xl:gap-16 xl:max-w-7xl xl:mx-auto xl:px-4'>
+      <div className='flex flex-col lg:flex-row gap-8 mb-10 xl:max-w-7xl xl:mx-auto xl:px-4'>
         {/* Display images */}
-        <div className='my-10 w-11/12 max-w-3xl flex-1 md:h-92 lg:w-full  lg:h-[30rem] xl:max-w-none xl:flex-shrink-0 xl:w-1/2'>
-          <div className='mb-5 h-54 md:h-84 lg:h-100 aspect-video mx-auto xl:max-w-full rounded-md'>
+        <div className='w-full xl:w-1/2'>
+          <div className='mb-5 aspect-video w-full rounded-md overflow-hidden'>
             {displayImage ? (
               <img
                 src={`data:image/jpeg;base64,${displayImage}`}
                 alt='Selected Property'
-                className='mx-auto rounded-lg flex-1 max-w-full max-h-full h-full object-cover shadow-sm shadow-slate-950'
+                className='w-full h-full object-cover rounded-lg shadow-sm shadow-slate-950'
               />
             ) : (
               <div className='w-80 h-60 flex items-center justify-center bg-gray-200 rounded-xl'>
@@ -124,7 +124,7 @@ const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
             ) : errorPictures ? (
               <p className='text-red-600'>{errorPictures}</p>
             ) : pictures && pictures.length > 0 ? (
-              <div className='flex flex-wrap gap-2 justify-center'>
+              <div className='flex gap-2 overflow-x-auto pb-2 sm:flex-wrap sm:justify-center sm:overflow-visible'>
                 {pictures.map((pic, index) => (
                   <img
                     key={`selectedPictureForDisplay${index}`}

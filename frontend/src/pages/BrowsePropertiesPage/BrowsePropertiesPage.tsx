@@ -158,7 +158,7 @@ const BrowseProperties = () => {
     <>
       <ServerColdStartNotice />
 
-      <main className='mx-10 mb-10'>
+      <main className='px-4 sm:px-6 md:px-10 mb-10'>
         {/* Search bar */}
         {browseState === 'browseMany' && (
           <div className='flex flex-row bg-sky-200 dark:bg-slate-950 items-center justify-center sm:w-md min-w-56 gap-1 md:w-lg md:gap-7 py-2 rounded-full mt-2 mb-3 shadow-sm mx-auto'>
