@@ -8,7 +8,7 @@ import { MdAlternateEmail } from 'react-icons/md';
 const Footer: React.FC<FooterProps> = ({ footerVisible, setFooterVisible }) => {
   return (
     <footer
-      className={`bg-sky-200 dark:bg-slate-800 sticky bottom-0 [&_h3]:underline ${footerVisible ? 'w-full min-w-55 px-2 sm:px-8 md:px-16 lg:px-28 py-4' : 'ml-auto mr-2 w-12 sm:w-20 h-10 sm:h-16 rounded-t-md'} `}
+      className={`bg-sky-200 dark:bg-slate-800 sticky bottom-0 [&_h3]:underline [&_h3]:text-base [&_h3]:md:text-lg [&_p]:text-sm [&_p]:md:text-base ${footerVisible ? 'w-full min-w-55 px-2 sm:px-8 md:px-16 lg:px-28 py-4' : 'ml-auto mr-2 w-12 sm:w-20 h-10 sm:h-16 rounded-t-md'} `}
     >
       <button
         aria-label='Toggle footer visibility'
@@ -23,14 +23,14 @@ const Footer: React.FC<FooterProps> = ({ footerVisible, setFooterVisible }) => {
       </button>
       {footerVisible && (
         <>
-          <div className='grid grid-cols-1 mb-2 md:mb-0 md:grid-cols-5'>
-            <div className='md:col-start-2  text-center'>
+          <div className='grid grid-cols-1 mb-2 md:mb-0 md:grid-cols-3 lg:grid-cols-5'>
+            <div className='lg:col-start-2  text-center'>
               <h3 className='text-lg font-bold mb-2 sm:mb-4'>TS & Tailwind</h3>
-              <p className=' mb-4'>Responsive React footer component</p>
+              <p className='mb-4'>Responsive React footer component</p>
             </div>
             <div className='text-center'>
               <h3 className='text-lg font-bold mb-2 sm:mb-4'>Quick links</h3>
-              <ul>
+              <ul className='text-sm md:text-base'>
                 <li className='hover:cursor-pointer hover:underline '>
                   References
                 </li>
@@ -49,7 +49,7 @@ const Footer: React.FC<FooterProps> = ({ footerVisible, setFooterVisible }) => {
                   <IconComponent icon={FaPhone} />
                   <a
                     href='tel:+358405113313'
-                    className='hover:underline'
+                    className='hover:underline text-sm md:text-base'
                     aria-label='Call +358 40 511 3313'
                   >
                     +358 40 511 3313
@@ -59,7 +59,7 @@ const Footer: React.FC<FooterProps> = ({ footerVisible, setFooterVisible }) => {
                   <IconComponent icon={MdAlternateEmail} />
                   <a
                     href='mailto:olli.uhlbeck@gmail.com'
-                    className='hover:underline'
+                    className='hover:underline text-sm md:text-base'
                     aria-label='Send email to olli.uhlbeck@gmail.com'
                   >
                     olli.uhlbeck@gmail.com
