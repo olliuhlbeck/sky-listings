@@ -98,12 +98,12 @@ const InspectSingleProperty: React.FC<InspectSinglePropertyProps> = ({
       <div className='flex flex-col lg:flex-row gap-8 mb-10 xl:max-w-7xl xl:mx-auto xl:px-4'>
         {/* Display images */}
         <div className='w-full xl:w-1/2'>
-          <div className='mb-5 aspect-video w-full rounded-md overflow-hidden'>
+          <div className='mb-5 aspect-video w-full rounded-md overflow-hidden shadow-sm shadow-slate-900'>
             {displayImage ? (
               <img
                 src={`data:image/jpeg;base64,${displayImage}`}
                 alt='Selected Property'
-                className='w-full h-full object-cover rounded-lg shadow-sm shadow-slate-950'
+                className='w-full h-full object-cover rounded-lg'
               />
             ) : (
               <div className='w-80 h-60 flex items-center justify-center bg-gray-200 rounded-xl'>
