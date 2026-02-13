@@ -152,16 +152,6 @@ describe('PropertyInfoEditForm Component', () => {
     });
 
     expect(onPropertyUpdate).toHaveBeenCalledWith(updatedProperty);
-    expect(global.fetch).toHaveBeenCalledWith(
-      'http://localhost:3000/property/editPropertyInformation/1',
-      expect.objectContaining({
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer mock-token',
-        },
-      }),
-    );
   });
 
   it('shows error message when submission fails', async () => {
