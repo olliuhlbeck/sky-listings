@@ -15,9 +15,11 @@ const HomePage = () => {
   const { user } = useAuth();
 
   useEffect(() => {
-    if (!sessionStorage.getItem('serverWarmed')) {
-      fetch(`${import.meta.env.VITE_API_BASE_URL}/ping`).catch(() => {});
-      sessionStorage.setItem('serverWarmed', 'true');
+    if (typeof fetch !== 'undefined') {
+      if (!sessionStorage.getItem('serverWarmed')) {
+        fetch(`${import.meta.env.VITE_API_BASE_URL}/ping`).catch(() => {});
+        sessionStorage.setItem('serverWarmed', 'true');
+      }
     }
   }, []);
 

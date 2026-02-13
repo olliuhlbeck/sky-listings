@@ -291,7 +291,7 @@ describe('BrowsePropertiesPage', () => {
     mockSuccessfulFetch();
     render(<BrowsePropertiesPage />);
 
-    const searchInput = screen.getByPlaceholderText('Search properties...');
+    const searchInput = screen.getByPlaceholderText('Enter search term...');
     await userEvent.type(searchInput, 'Paris');
 
     expect(searchInput).toHaveValue('Paris');
@@ -307,7 +307,7 @@ describe('BrowsePropertiesPage', () => {
       expect(screen.getByText('100 Test St')).toBeInTheDocument();
     });
 
-    const searchInput = screen.getByPlaceholderText('Search properties...');
+    const searchInput = screen.getByPlaceholderText('Enter search term...');
     await userEvent.type(searchInput, 'Test');
     const searchButton = screen.getByRole('button', { name: /Search/i });
     await userEvent.click(searchButton);
@@ -327,7 +327,7 @@ describe('BrowsePropertiesPage', () => {
       expect(screen.getByText('100 Test St')).toBeInTheDocument();
     });
 
-    const searchInput = screen.getByPlaceholderText('Search properties...');
+    const searchInput = screen.getByPlaceholderText('Enter search term...');
     await userEvent.type(searchInput, 'Test{enter}');
 
     await waitFor(() => {
@@ -351,7 +351,7 @@ describe('BrowsePropertiesPage', () => {
 
     expect(screen.queryByLabelText('Clear term')).not.toBeInTheDocument();
 
-    const searchInput = screen.getByPlaceholderText('Search properties...');
+    const searchInput = screen.getByPlaceholderText('Enter search term...');
 
     await userEvent.type(searchInput, 'TestSearch');
     expect(searchInput).toHaveValue('TestSearch');
@@ -388,7 +388,7 @@ describe('BrowsePropertiesPage', () => {
       expect(screen.getByText('Showing page 2 of 2')).toBeInTheDocument();
     });
 
-    const searchInput = screen.getByPlaceholderText('Search properties...');
+    const searchInput = screen.getByPlaceholderText('Enter search term...');
     await userEvent.type(searchInput, 'New Search');
     const searchButton = screen.getByRole('button', { name: /Search/i });
     await userEvent.click(searchButton);
@@ -405,7 +405,7 @@ describe('BrowsePropertiesPage', () => {
     const dropdown = screen.getByLabelText('Search condition');
     await userEvent.selectOptions(dropdown, 'city');
 
-    const searchInput = screen.getByPlaceholderText('Search properties...');
+    const searchInput = screen.getByPlaceholderText('Enter search term...');
     await userEvent.type(searchInput, 'Paris');
 
     const searchButton = screen.getByRole('button', { name: /Search/i });
@@ -473,7 +473,7 @@ describe('BrowsePropertiesPage', () => {
     const dropdown = screen.getByLabelText('Search condition');
     await userEvent.selectOptions(dropdown, 'city');
 
-    const searchInput = screen.getByPlaceholderText('Search properties...');
+    const searchInput = screen.getByPlaceholderText('Enter search term...');
     await userEvent.type(searchInput, 'TestCity');
 
     mockSuccessfulFetch(mockProperties, propertyCount);
@@ -502,7 +502,7 @@ describe('BrowsePropertiesPage', () => {
 
     render(<BrowsePropertiesPage />);
 
-    const searchInput = screen.getByPlaceholderText('Search properties...');
+    const searchInput = screen.getByPlaceholderText('Enter search term...');
     await userEvent.type(searchInput, 'NonexistentCity');
 
     mockSuccessfulFetch([], 0);

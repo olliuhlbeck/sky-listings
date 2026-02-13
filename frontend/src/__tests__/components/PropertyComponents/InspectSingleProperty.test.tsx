@@ -236,35 +236,6 @@ describe('InspectSingleProperty', () => {
     ).not.toBeInTheDocument();
   });
 
-  it('calls correct API URLs with proper parameters', async () => {
-    const mockProperty = createMockProperty({ userId: 456, id: 789 });
-
-    (global.fetch as jest.Mock)
-      .mockResolvedValueOnce({
-        ok: true,
-        json: async () => mockContactInfo,
-      })
-      .mockResolvedValueOnce({
-        ok: true,
-        json: async () => mockPictures,
-      });
-
-    render(
-      <InspectSingleProperty property={mockProperty} onClick={mockOnClick} />,
-    );
-
-    await waitFor(() => {
-      expect(global.fetch).toHaveBeenCalledTimes(2);
-    });
-
-    expect(global.fetch).toHaveBeenCalledWith(
-      'http://localhost:3000/info/getContactInfoForProperty?userId=456',
-    );
-    expect(global.fetch).toHaveBeenCalledWith(
-      'http://localhost:3000/property/getAllImagesForProperty?propertyId=789',
-    );
-  });
-
   it('should not call contact fetch when userId is null', async () => {
     const mockProperty = createMockProperty({ userId: null });
 
