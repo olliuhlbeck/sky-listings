@@ -40,7 +40,7 @@ const HomePage = () => {
       </div>
       {/* Render different main content if there is logged in user or not */}
       {user ? (
-        <div className='flex flex-col lg:flex-row w-4/6 lg:w-5/6 xl:w-4/6 min-w-48 gap-6'>
+        <div className='flex flex-col lg:flex-row w-5/6 md:w-4/6 lg:w-5/6 xl:w-4/6 min-w-48 gap-6'>
           <ContentButtonCard
             link='browseProperties'
             buttonText='Browse properties'
@@ -55,7 +55,7 @@ const HomePage = () => {
           />
         </div>
       ) : (
-        <div className='flex flex-col lg:flex-row w-4/6 lg:w-5/6 xl:w-4/6 min-w-48 gap-6'>
+        <div className='flex flex-col lg:flex-row w-5/6 md:w-4/6 lg:w-5/6 xl:w-4/6 min-w-48 gap-6'>
           <ContentButtonCard
             link='browseProperties'
             buttonText='Browse properties'
@@ -79,7 +79,7 @@ const HomePage = () => {
         message='Short on liquid assets? Mortgage Masters can solve your problems!'
         buttonText='Apply for loan'
         icon={BiDollar}
-        addToClassName='mt-6 lg:w-5/6 xl:w-4/6'
+        addToClassName='mt-6 w-5/6 md:w-4/6 lg:w-5/6 xl:w-4/6'
       />
     </main>
   );
