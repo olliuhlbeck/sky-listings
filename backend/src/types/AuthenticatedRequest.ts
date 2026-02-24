@@ -11,3 +11,15 @@ export interface AuthenticatedRequest<
     username: string;
   };
 }
+
+export interface StrictAuthenticatedRequest<
+  Params = {},
+  ResBody = any,
+  ReqBody = any,
+  ReqQuery = {},
+> extends Request<Params, ResBody, ReqBody, ReqQuery> {
+  user: {
+    userId: number;
+    username: string;
+  };
+}
