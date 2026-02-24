@@ -15,7 +15,10 @@ import { GetPropertiesResponse } from '../../types/dtos/GetPropertiesResponse.dt
 import { GeneralErrorResponse } from '../../types/general-error';
 import { SearchConditions } from '../../types/search-conditions';
 import AuthenticateRequest from '../../middlewares/authentication/authenticateRequest';
-import { AuthenticatedRequest } from '../../types/AuthenticatedRequest';
+import {
+  AuthenticatedRequest,
+  StrictAuthenticatedRequest,
+} from '../../types/AuthenticatedRequest';
 import { GetUsersPropertiesByUserIdQuery } from '../../types/dtos/GetUsersPropertiesByUserIdQuery.dto';
 import { GetUsersPropertiesByUserIdResponse } from '../../types/dtos/GetUsersPropertiesByUserIdResponse.dto';
 import {
@@ -187,11 +190,12 @@ propertyRouter.get(
  */
 propertyRouter.get(
   '/getPropertiesByUserId',
+  AuthenticateRequest,
   async (
-    req: Request<{}, {}, {}, GetUsersPropertiesByUserIdQuery>,
+    req: AuthenticatedRequest,
     res: Response<GetUsersPropertiesByUserIdResponse | GeneralErrorResponse>,
   ) => {
-    const userId = parseInt(req.query.userId as string);
+    const userId = (req as StrictAuthenticatedRequest).user.userId;
     try {
       const fetchUsersProperties = await prisma.property.findMany({
         where: {

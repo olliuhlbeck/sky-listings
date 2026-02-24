@@ -24,7 +24,7 @@ const MyProperties = () => {
   const [propertyerrorMessage, setPropertyErrorMessage] = useState<string>('');
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
 
-  const { userId } = useAuth();
+  const { userId, token } = useAuth();
   const navigate = useNavigate();
 
   // Fetch and display users properties on first render
@@ -32,7 +32,13 @@ const MyProperties = () => {
     try {
       const BASE_URL = import.meta.env.VITE_API_URL;
       const response = await fetch(
-        `${BASE_URL}/property/getPropertiesByUserId?userId=${userId}`,
+        `${BASE_URL}/property/getPropertiesByUserId`,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
       );
       const data: GetUsersPropertiesByUserIdResponse = await response.json();
       if (response.ok && data.usersProperties) {
