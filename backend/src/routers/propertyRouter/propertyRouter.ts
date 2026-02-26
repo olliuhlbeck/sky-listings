@@ -19,7 +19,6 @@ import {
   AuthenticatedRequest,
   StrictAuthenticatedRequest,
 } from '../../types/AuthenticatedRequest';
-import { GetUsersPropertiesByUserIdQuery } from '../../types/dtos/GetUsersPropertiesByUserIdQuery.dto';
 import { GetUsersPropertiesByUserIdResponse } from '../../types/dtos/GetUsersPropertiesByUserIdResponse.dto';
 import {
   UpdatePropertyRequestBody,
