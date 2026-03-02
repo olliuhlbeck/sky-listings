@@ -49,7 +49,7 @@ Sky Listings live demo: frontend is deployed using Vercel, database is hosted on
 - Filter by location, price, or property type
 - View detailed property information pages with sellers contact information
 
-### 🧑‍💼 User dashboard
+### 🧑 User dashboard
 
 - Create, edit, and delete your own property listings
 - Upload property images
