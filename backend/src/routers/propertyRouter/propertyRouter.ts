@@ -262,7 +262,7 @@ propertyRouter.put(
       });
 
       if (property?.userId !== userId) {
-        res.status(403).json({ error: 'Unauthorized' });
+        res.status(401).json({ error: 'Unauthorized request' });
         return;
       }
 

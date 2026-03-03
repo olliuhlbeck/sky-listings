@@ -19,6 +19,18 @@ import { generateToken } from '../../../utils/generateToken';
 
 let propertyRouter: express.Router;
 
+// Auth mock
+jest.mock('../../../middlewares/authentication/authenticateRequest', () => ({
+  __esModule: true,
+  default: (req: any, res: any, next: any) => {
+    req.user = {
+      userId: 1,
+      username: 'testuser',
+    };
+    next();
+  },
+}));
+
 // Propertyrouter excluding /addProperty endpoint
 describe('propertyRouter (excluding /addProperty)', () => {
   const app = express();
@@ -31,9 +43,8 @@ describe('propertyRouter (excluding /addProperty)', () => {
   beforeAll(async () => {
     validToken = generateToken(tokenPayload);
 
-    const module = await import(
-      '../../../routers/propertyRouter/propertyRouter'
-    );
+    const module =
+      await import('../../../routers/propertyRouter/propertyRouter');
     propertyRouter = module.default;
     app.use('/', propertyRouter);
   });
@@ -184,22 +195,27 @@ describe('propertyRouter (excluding /addProperty)', () => {
 
   // GET /getPropertiesByUserId
   describe('GET /getPropertiesByUserId', () => {
-    it('returns user properties for valid userId', async () => {
-      mockFindMany.mockResolvedValue([{ id: 1, userId: 5 }]);
+    it('returns user properties for valid user', async () => {
+      const mockProperties = [{ id: 1, userId: 1 }];
 
-      const res = await request(app).get('/getPropertiesByUserId?userId=5');
+      mockFindMany.mockResolvedValue(mockProperties);
+
+      const res = await request(app).get('/getPropertiesByUserId');
 
       expect(mockFindMany).toHaveBeenCalledWith({
-        where: { userId: 5 },
+        where: { userId: 1 },
       });
+
       expect(res.status).toBe(200);
-      expect(res.body.usersProperties).toHaveLength(1);
+      expect(res.body).toEqual({
+        usersProperties: mockProperties,
+      });
     });
 
     it('returns 500 on internal error', async () => {
       mockFindMany.mockRejectedValue(new Error('DB error'));
 
-      const res = await request(app).get('/getPropertiesByUserId?userId=5');
+      const res = await request(app).get('/getPropertiesByUserId');
 
       expect(res.status).toBe(500);
       expect(res.body.error).toBe(
@@ -344,8 +360,8 @@ describe('propertyRouter (excluding /addProperty)', () => {
         .set('Authorization', `Bearer ${validToken}`)
         .send({ price: '100000' });
 
-      expect(res.status).toBe(403);
-      expect(res.body.error).toBe('Unauthorized');
+      expect(res.status).toBe(401);
+      expect(res.body.error).toBe('Unauthorized request');
       expect(mockUpdate).not.toHaveBeenCalled();
     });
   });
