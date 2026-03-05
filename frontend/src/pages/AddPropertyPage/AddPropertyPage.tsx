@@ -333,7 +333,7 @@ const AddPropertyPage: React.FC = () => {
             name='description'
             value={formData.description}
             onChange={handleChange}
-            className='bg-gray-50 text-gray-300 dark:text-slate-900 h-4/6 w-10/12 rounded-lg p-2 resize-none shadow-sm'
+            className='bg-gray-50 text-gray-600 dark:text-slate-900 h-4/6 w-10/12 rounded-lg p-2 resize-none shadow-sm'
             placeholder='Enter description...'
           ></textarea>
         </div>
@@ -345,7 +345,7 @@ const AddPropertyPage: React.FC = () => {
             name='additionalInfo'
             value={formData.additionalInfo}
             onChange={handleChange}
-            className='bg-gray-50 text-gray-300 dark:text-slate-900 h-4/6 w-10/12 rounded-lg p-2 resize-none shadow-sm'
+            className='bg-gray-50 text-gray-600 dark:text-slate-900 h-4/6 w-10/12 rounded-lg p-2 resize-none shadow-sm'
             placeholder='Enter additional information...'
           ></textarea>
         </div>
