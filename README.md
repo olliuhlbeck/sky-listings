@@ -1,6 +1,6 @@
 # Sky Listings - Full stack project
 
-Sky Listings is a full-stack real estate application that allows users to browse, search, and list properties. It includes secure authentication, a responsive design, and an intuitive user experience built with React, TypeScript, and TailwindCSS on the frontend, and Node.js, Express and PostgreSQL on the backend. This project was built as a full-stack portfolio application to demonstrate modern web development practices, authentication flows, and CRUD operations with a relational database.
+Sky Listings is a full-stack real estate application that allows users to browse, search, and list properties. It includes secure authentication, a responsive design, and an intuitive user experience built with React, TypeScript, and TailwindCSS on the frontend, and Node.js, Express.js, TypeScript and PostgreSQL on the backend. This project was built as a full-stack portfolio application to demonstrate modern web development practices, authentication flows, and CRUD operations with a relational database.
 
 ## 🎥 [Demo](https://sky-listings.vercel.app/) 🔴
 
@@ -108,6 +108,7 @@ root/
 - TypeScript
 - TailwindCSS
 - Node.js
+- Express.js
 - PostgreSQL database using Prisma as the ORM
 - Jest for testing
 - Code formatting with Prettier
