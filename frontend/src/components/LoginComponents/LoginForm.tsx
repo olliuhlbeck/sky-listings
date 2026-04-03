@@ -30,6 +30,7 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
     lastName?: string;
     generalError?: string;
   }>({});
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -123,6 +124,8 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
       return;
     }
 
+    setIsSubmitting(true);
+
     try {
       const BASE_URL = import.meta.env.VITE_API_URL;
       if (action === ActionType.Login) {
@@ -182,6 +185,8 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
         generalError:
           'Network error. Please check your connection and try again.',
       }));
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -394,7 +399,11 @@ const LoginForm = ({ action, setAction }: LoginComponentProps) => {
         </div>
 
         {/* Submit Button with Tooltip if form is invalid */}
-        {!isFormValid ? (
+        {isSubmitting ? (
+          <div className='flex items-center gap-2'>
+            <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500'></div>
+          </div>
+        ) : !isFormValid ? (
           <ToolTip
             toolTipText={
               Object.values(errors).some((error) => error)
