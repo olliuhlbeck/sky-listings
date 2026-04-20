@@ -7,7 +7,7 @@ import { MdAlternateEmail } from 'react-icons/md';
 const Footer = ({ footerVisible, setFooterVisible }: FooterProps) => {
   return (
     <footer
-      className={`bg-sky-200 dark:bg-slate-800 sticky bottom-0 [&_h3]:underline [&_h3]:text-base [&_h3]:md:text-lg [&_p]:text-sm [&_p]:md:text-base ${footerVisible ? 'w-full min-w-55 px-2 sm:px-8 md:px-16 lg:px-28 py-4' : 'ml-auto mr-2 w-12 sm:w-20 h-10 sm:h-16 rounded-t-md'} `}
+      className={`bg-sky-200 dark:bg-slate-700 sticky bottom-0 [&_h3]:underline [&_h3]:text-base [&_h3]:md:text-lg [&_p]:text-sm [&_p]:md:text-base ${footerVisible ? 'w-full min-w-55 px-2 sm:px-8 md:px-16 lg:px-28 py-4' : 'ml-auto mr-2 w-12 sm:w-20 h-10 sm:h-16 rounded-t-md'} `}
     >
       <button
         aria-label='Toggle footer visibility'
