@@ -228,7 +228,7 @@ const MyProperties = () => {
       {/* Delete Confirmation Modal */}
       {showDeleteModal && propertyToEdit && (
         <div
-          className='fixed inset-0 flex items-center justify-center z-50'
+          className='fixed inset-0 flex items-center justify-center z-50 dark:text-slate-900'
           style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
           onClick={() => setShowDeleteModal(false)}
         >
@@ -247,7 +247,7 @@ const MyProperties = () => {
                 onClick={async () => {
                   await handlePropertyDelete(propertyToEdit.id);
                 }}
-                ClassName='!px-4 !py-2 !rounded !bg-red-400 !text-white hover:!bg-red-600'
+                ClassName='!px-4 !py-2 !rounded !bg-red-400 hover:!bg-red-600'
               >
                 Delete
               </Button>
